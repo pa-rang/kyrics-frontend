@@ -43,6 +43,9 @@
   "settings": {
     "import/resolver": {
       "typescript": {}
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     }
   },
   "parser": "@typescript-eslint/parser",
