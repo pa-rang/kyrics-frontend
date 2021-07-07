@@ -52,6 +52,7 @@ const HeaderWrap = styled.div`
 
       &--logout {
         margin-right: 40px;
+        cursor: pointer;
         line-height: 27px;
         white-space: nowrap;
         color: #9d9d9d;
@@ -71,6 +72,7 @@ const HeaderWrap = styled.div`
 
       &--name {
         margin-left: 9px;
+        cursor: pointer;
         line-height: 27px;
         white-space: nowrap;
         color: #6465f4;
@@ -85,6 +87,7 @@ const HeaderWrap = styled.div`
       margin-right: 140px;
 
       &--login {
+        cursor: pointer;
         line-height: 27px;
         white-space: nowrap;
         color: #9d9d9d;
@@ -95,6 +98,7 @@ const HeaderWrap = styled.div`
 
       &--signUp {
         margin-left: 40px;
+        cursor: pointer;
         line-height: 27px;
         white-space: nowrap;
         color: #6465f4;
