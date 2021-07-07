@@ -1,12 +1,15 @@
 import PlayerBtns from '@components/study/PlayerBtns';
-import React from 'react';
+import styled from '@emotion/styled';
+import React, { ReactElement, useState } from 'react';
 
-const Player = () => {
+function Player(): ReactElement {
   return (
-    <div>
+    <PlayerWrapper>
       <PlayerBtns />
-    </div>
+    </PlayerWrapper>
   );
-};
+}
 
 export default Player;
+
+const PlayerWrapper = styled.div``;
