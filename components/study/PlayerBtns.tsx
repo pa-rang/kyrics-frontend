@@ -1,10 +1,11 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
 import { CopyIcon, FavoriteIcon, YoutubeIcon } from '@assets/index';
 import styled from '@emotion/styled';
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const PlayerBtns = () => {
+  const copyRef = useRef<HTMLDivElement | null>(null);
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
     const hoverIcon = `hover${target.className}`;
@@ -19,6 +20,13 @@ const PlayerBtns = () => {
     target.src = `assets/icons/${Icon}.svg`;
   };
 
+  const handleCopy = () => {
+    copyRef.current && (copyRef.current.style.display = 'flex');
+    setTimeout(() => {
+      copyRef.current && (copyRef.current.style.display = 'none');
+    }, 2000);
+  };
+
   return (
     <PlayerBtnsWrapper>
       <img
@@ -28,7 +36,7 @@ const PlayerBtns = () => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       />
-      <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={() => console.log('copied')}>
+      <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={handleCopy}>
         <img
           className="CopyIcon"
           src={CopyIcon.src}
@@ -44,7 +52,9 @@ const PlayerBtns = () => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       />
-      <div className="copy--msg">Copied !</div>
+      <div className="copy--msg" ref={copyRef}>
+        Copied !
+      </div>
     </PlayerBtnsWrapper>
   );
 };
@@ -64,7 +74,7 @@ const PlayerBtnsWrapper = styled.div`
     margin: 0 2.5rem;
   }
   .copy--msg {
-    display: flex;
+    display: none;
     position: absolute;
     top: 5.7rem;
     align-items: center;
