@@ -1,9 +1,10 @@
 import React from 'react';
+import Title from 'components/home/Title';
 
 function Home() {
   return (
     <>
-      <h1>Home</h1>
+      <Title />
       <div>안녕하세요.</div>
     </>
   );
