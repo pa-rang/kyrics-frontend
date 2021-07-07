@@ -1,5 +1,5 @@
-import React from 'react';
 import Title from 'components/home/Title';
+import React from 'react';
 
 function Home() {
   return (
