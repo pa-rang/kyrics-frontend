@@ -40,6 +40,7 @@ const HeaderWrap = styled.div`
     margin-left: 140px;
     border: none;
     background: url(/assets/icons/headerLogo.svg) no-repeat;
+    cursor: pointer;
     width: 176px;
     height: 31px;
   }
