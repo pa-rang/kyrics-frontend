@@ -1,3 +1,6 @@
+![키릭 로고-01](https://user-images.githubusercontent.com/81923229/124728683-c0ca7600-df4a-11eb-98aa-d80d92e90df1.jpg)
+
+
 ## 💫 `kyrics`는 이런 서비스입니다!
 
 🎶 Learn Korean through your favorite K-Pop artists and songs!
@@ -73,3 +76,10 @@
 └── types
     └── index.ts
 ```
+
+## 🖥 Contributer
+- [김의진](https://github.com/euijinkk)
+- [박나희](https://github.com/Nahee-Park)
+- [이다은](https://github.com/Daeun-Danna-Lee)
+- [이정연](https://github.com/pa-rang)
+
