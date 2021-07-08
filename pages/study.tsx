@@ -1,6 +1,7 @@
 import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
-import React, { ReactElement } from 'react';
+import styled from '@emotion/styled';
+import React, { ReactElement, useState } from 'react';
 import ReactPlayer from 'react-player';
 
 function Study(): ReactElement {
@@ -10,6 +11,18 @@ function Study(): ReactElement {
   const [loop, setLoop] = useState<true | false>(false);
   const [totalTime, setTotalTime] = useState<number>(0);
   const hostPlayer = React.createRef();
+
+  const handlePause = () => {
+    setIsPlay(false);
+  };
+
+  const handlePlay = () => {
+    setIsPlay(true);
+  };
+
+  const handleLoop = () => {
+    setLoop(true);
+  };
 
   // 이벤트 타입이 안뜨는데 지정 어떻게? any?
   const handleOnProgress = (e: any) => {
@@ -22,7 +35,7 @@ function Study(): ReactElement {
   const handleSeekProgress = () => {};
 
   return (
-    <div>
+    <StudyWrapper>
       <ReactPlayer
         url="https://www.youtube.com/watch?v=WMweEpGlu_U"
         playing={isPlay}
@@ -36,8 +49,14 @@ function Study(): ReactElement {
       />
       <Player />
       <Lyrics />
-    </div>
+    </StudyWrapper>
   );
 }
 
 export default Study;
+
+const StudyWrapper = styled.div`
+  .react-player__play-icon {
+    display: none;
+  }
+`;
