@@ -1,0 +1,16 @@
+{
+  "artists": [
+    {
+      "id": 1,
+      "name": "BTS",
+      "profileImageUrl": "",
+      "logo": ""
+    },
+    {
+      "id": 2,
+      "name": "BLACKPINK",
+      "profileImageUrl": "",
+      "logo": ""
+    }
+  ]
+}

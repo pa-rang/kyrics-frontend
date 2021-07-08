@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "json-server ./json-server/mock-api.json --port 3005"
   },
   "dependencies": {
     "@emotion/react": "^11.4.0",
