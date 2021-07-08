@@ -30,7 +30,11 @@ function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
             <div className="user__profile">
               <p className="user__profile--logout">Log out</p>
               <button className="user__profile--button" onClick={handleProfileClick}>
-                <img className="user__profile--button--picture" src="" alt=""></img>
+                <img
+                  className="user__profile--button--picture"
+                  src="/assets/icons/IcDefaultProfile.svg"
+                  alt=""
+                ></img>
                 <p className="user__profile--button--name">Name</p>
               </button>
             </div>
