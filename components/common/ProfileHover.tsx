@@ -25,6 +25,9 @@ function ProfileHover(): ReactElement {
 
 const Wrap = styled.div`
   display: flex;
+  position: absolute;
+  top: 80px;
+  right: 58px;
   flex-direction: column;
   align-items: center;
   /* justify-content: space-around; */

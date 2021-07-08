@@ -1,7 +1,7 @@
 import Title from 'components/home/Title';
 import React from 'react';
 
-import Header from '../components/common/header';
+import Header from '../components/common/Header';
 
 function Home() {
   return (
