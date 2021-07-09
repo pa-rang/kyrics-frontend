@@ -10,6 +10,7 @@ interface Props {
 function YoutubeModal({ isModalOpened, setIsModalOpened }: Props) {
   return (
     <YoutubeModalWrapper isModalOpened={isModalOpened}>
+      {/* modal 의 currentTime이랑 player의 currentTime이랑 연계되어야 하기 때문에, 이후에 나희가 만든 player component에서 modal을 따로 띄우겠음. 일단 퍼블리싱했음. */}
       <div className="modal">
         <iframe
           // type="text/html"
@@ -46,7 +47,7 @@ const YoutubeModalWrapper = styled.div<{ isModalOpened: boolean }>`
   top: 0;
   justify-content: center;
   background: rgba(0, 0, 0, 0.8);
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 
   .modal {
