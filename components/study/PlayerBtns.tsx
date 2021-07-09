@@ -6,7 +6,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import YoutubeModal from './YoutubeModal';
 
-const PlayerBtns = ({ videoId }: { videoId: string }) => {
+const PlayerBtns = ({ videoId }: { videoId?: string }) => {
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   // data를 받아와서, favortite 초기값을 설정해줄 예정.

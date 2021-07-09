@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 interface Props {
-  videoId: string;
+  videoId?: string;
   isModalOpened: boolean;
   setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
