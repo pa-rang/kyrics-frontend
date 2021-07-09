@@ -12,16 +12,11 @@ function Study(): ReactElement {
   const [loop, setLoop] = useState<boolean>(false);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [isMessageOpened, setIsMessageOpened] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const hostVideo = useRef(null);
-
-  // console.log('[hostVideo]: ', hostVideo.current);
 
   useEffect(() => {
     if (hostVideo.current) {
-      console.log('[hostVideo]:', hostVideo.current.getDuration());
-      setTotalTime(hostVideo.current.getDuration());
-      // console.log('총시간 알려죠', hostVideo.current.getDuration());
+      setTotalTime(Math.floor(hostVideo.current.getDuration()));
     }
   }, [isPlay]);
 
@@ -36,7 +31,6 @@ function Study(): ReactElement {
 
   const handleLoop = () => {
     setIsMessageOpened(true);
-    // 3초 뒤엔 다시 false로 바꿈
     setTimeout(setIsMessageOpened, 2000, false);
     if (loop === true) {
       setLoop(false);
@@ -68,13 +62,23 @@ function Study(): ReactElement {
   };
 
   const handleBackTime = () => {
-    setCurrentTime(currentTime - 10);
-    hostVideo.current.seekTo(currentTime - 10);
+    if (currentTime > 10) {
+      hostVideo.current.seekTo(currentTime - 10);
+      setCurrentTime(currentTime - 10);
+    } else {
+      hostVideo.current.seekTo(0);
+      setCurrentTime(0);
+    }
   };
 
   const handleForwardTime = () => {
-    setCurrentTime(currentTime + 10);
-    hostVideo.current.seekTo(currentTime + 10);
+    if (currentTime < totalTime - 10) {
+      setCurrentTime(currentTime + 10);
+      hostVideo.current.seekTo(currentTime + 10);
+    } else {
+      setCurrentTime(totalTime);
+      hostVideo.current.seekTo(totalTime);
+    }
   };
 
   const handleVolumeChange = (e: any) => {
