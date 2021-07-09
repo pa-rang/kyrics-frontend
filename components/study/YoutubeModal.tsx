@@ -29,13 +29,6 @@ function YoutubeModal({ videoId, isModalOpened, setIsModalOpened }: Props) {
           onClick={() => setIsModalOpened(false)}
           aria-hidden="true"
         />
-        <img
-          className="miniPlayer--btn"
-          src="assets/icons/youtubeMiniPlayer.svg"
-          alt=""
-          onClick={() => setIsModalOpened(false)}
-          aria-hidden="true"
-        />
       </div>
     </YoutubeModalWrapper>
   );
