@@ -32,6 +32,10 @@ function Player({
 }: PlayerProps): ReactElement {
   const title = '앨범 제목';
   const singer = '가수';
+  const currentTimeForm =
+    currentTime % 60 <= 9
+      ? `0${Math.floor(currentTime / 60)}:0${currentTime % 60} `
+      : `0${Math.floor(currentTime / 60)}:${currentTime % 60} `;
 
   return (
     <PlayerWrapper isMessageOpened={isMessageOpened}>
@@ -49,7 +53,7 @@ function Player({
           onInput={handleSeekTime}
         />
         <div className="player-custom__time">
-          <div className="player-custom__time__current">{currentTime}</div>
+          <div className="player-custom__time__current">{currentTimeForm}</div>
           <div className="player-custom__time__end">{totalTime}</div>
         </div>
         <div className="player-custom__control">
