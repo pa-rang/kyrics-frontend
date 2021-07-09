@@ -1,7 +1,6 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
-import { CopyIcon, FavoriteIcon, YoutubeIcon } from '@assets/index';
 import styled from '@emotion/styled';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import YoutubeModal from './YoutubeModal';
@@ -15,6 +14,7 @@ const PlayerBtns = ({ videoId }: { videoId?: string }) => {
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
+
     if (target.src.includes('assets/icons/onFavorite.svg')) return;
 
     const hoverIcon = `hover${target.className}`;
