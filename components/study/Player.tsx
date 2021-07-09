@@ -22,6 +22,7 @@ interface PlayerProps {
 interface StyledProps {
   isMessageOpened: boolean;
   isVolumeOpened: boolean;
+  isLooped: boolean;
 }
 function Player({
   volume,
@@ -52,7 +53,11 @@ function Player({
       : `0${Math.floor(totalTime / 60)}:${totalTime % 60} `;
 
   return (
-    <PlayerWrapper isMessageOpened={isMessageOpened} isVolumeOpened={isVolumeOpened}>
+    <PlayerWrapper
+      isMessageOpened={isMessageOpened}
+      isVolumeOpened={isVolumeOpened}
+      isLooped={loop}
+    >
       <img className="player-album" src="assets/images/exampleImg.svg" alt="albumImage" />
       <div className="player-custom">
         <div className="player-custom__title">
@@ -296,12 +301,16 @@ const PlayerWrapper = styled.div<StyledProps>`
         justify-content: center;
         &__btn {
           margin-bottom: 10px;
-          background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
           width: 20px;
           height: 20px;
-          &:hover {
-            background: url('assets/icons/replayIconHover.svg') no-repeat 0 0;
-          }
+          ${({ isLooped }) =>
+            isLooped
+              ? css`
+                  background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
+                `
+              : css`
+                  background: url('assets/icons/replayIconHover.svg') no-repeat 0 0;
+                `}
         }
         &__onoff {
           visibility: hidden;
