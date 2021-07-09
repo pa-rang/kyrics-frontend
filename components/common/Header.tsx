@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import router from 'next/router';
 import React, { ReactElement, useState } from 'react';
 
-import ProfileHover from './ProfileHover';
+import ProfileMenu from './ProfileMenu';
 
 interface HeaderProps {
   isLoggedIn: boolean;
@@ -46,7 +46,7 @@ function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
           )}
         </div>
       </div>
-      {isProfileClicked && <ProfileHover />}
+      {isProfileClicked && <ProfileMenu />}
     </HeaderWrap>
   );
 }
