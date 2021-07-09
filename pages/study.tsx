@@ -51,7 +51,7 @@ function Study(): ReactElement {
   };
 
   const handleOnProgress = (e: { playedSeconds: number }) => {
-    setCurrentTime(Math.floor(e.playedSeconds));
+    setCurrentTime(Math.floor(e.playedSeconds) + 1);
   };
 
   const handleSeekTime = (e: React.FormEvent<HTMLInputElement>) => {
