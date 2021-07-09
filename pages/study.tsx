@@ -7,8 +7,8 @@ import ReactPlayer from 'react-player';
 function Study(): ReactElement {
   const [isPlay, setIsPlay] = useState<boolean>(true);
   const [currentTime, setCurrentTime] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(1);
-  const [volumeBar, setVolumeBar] = useState<number>(0);
+  const [volume, setVolume] = useState<number>(0.5);
+  const [volumeBar, setVolumeBar] = useState<number>(50);
   const [loop, setLoop] = useState<boolean>(false);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [isMessageOpened, setIsMessageOpened] = useState<boolean>(false);
@@ -84,6 +84,7 @@ function Study(): ReactElement {
   const handleVolumeChange = (e: any) => {
     setIsVolumeOpened(true);
     console.log(isVolumeOpened);
+    console.log(volume);
     setVolume(e.target.value / 100);
     setVolumeBar(e.target.value);
   };
@@ -129,7 +130,7 @@ export default Study;
 
 const StudyWrapper = styled.div`
   .react-player__play-icon {
-    /* display: none; */
+    display: none;
   }
   .react-default-player {
     /* display: none; */
