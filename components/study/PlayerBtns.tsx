@@ -1,7 +1,7 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
 import { CopyIcon, FavoriteIcon, YoutubeIcon } from '@assets/index';
 import styled from '@emotion/styled';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import YoutubeModal from './YoutubeModal';
@@ -29,10 +29,16 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
       copyRef.current && (copyRef.current.style.display = 'none');
     }, 2000);
   };
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  // data를 받아와서, favortite 초기값을 설정해줄 예정.
+  const handleFavorite = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    const target = e.target as HTMLImageElement;
+    const src: string = isFavorite ? 'assets/icons/favorite.svg' : 'assets/icons/onFavorite.svg';
 
-  // const handleYoutubeModal = (videoId: string): void => {
-  //   console.log(videoId);
-  // };
+    target.src = src;
+    setIsFavorite((isFavorite) => !isFavorite);
+    // favorite를 수정하는 put code 추가 예정
+  };
 
   return (
     <PlayerBtnsWrapper>
@@ -42,6 +48,8 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
         alt="favorite"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={handleFavorite}
+        aria-hidden="true"
       />
       <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={handleCopy}>
         <img
