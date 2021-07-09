@@ -1,6 +1,7 @@
 import PlayerBtns from '@components/study/PlayerBtns';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 interface PlayerProps {
   playing: boolean;
@@ -15,6 +16,13 @@ interface PlayerProps {
   handleLoop: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   loop: boolean;
   isMessageOpened: boolean;
+  isVolumeOpened: boolean;
+  mouseEnterController: () => void;
+  mouseLeaveController: () => void;
+}
+interface StyledProps {
+  isMessageOpened: boolean;
+  isVolumeOpened: boolean;
 }
 function Player({
   playing,
@@ -29,6 +37,9 @@ function Player({
   handleLoop,
   loop,
   isMessageOpened,
+  isVolumeOpened,
+  mouseEnterController,
+  mouseLeaveController,
 }: PlayerProps): ReactElement {
   const title = '앨범 제목';
   const singer = '가수';
@@ -38,7 +49,7 @@ function Player({
       : `0${Math.floor(currentTime / 60)}:${currentTime % 60} `;
 
   return (
-    <PlayerWrapper isMessageOpened={isMessageOpened}>
+    <PlayerWrapper isMessageOpened={isMessageOpened} isVolumeOpened={isVolumeOpened}>
       <img className="player-album" src="assets/images/exampleImg.svg" alt="albumImage" />
       <div className="player-custom">
         <div className="player-custom__title">
@@ -62,7 +73,11 @@ function Player({
           <button className="player-custom__control__forward" onClick={handleForwardTime}></button>
         </div>
         <div className="player-custom__lastcontrol">
-          <div className="player-custom__lastcontrol__volume">
+          <div
+            className="player-custom__lastcontrol__volume"
+            onMouseEnter={mouseEnterController}
+            onMouseLeave={mouseLeaveController}
+          >
             <button className="player-custom__lastcontrol__volume__btn"></button>
             <input
               className="player-custom__lastcontrol__volume__bar hover-to-display"
@@ -97,7 +112,7 @@ function Player({
 
 export default Player;
 
-const PlayerWrapper = styled.div<{ isMessageOpened: boolean }>`
+const PlayerWrapper = styled.div<StyledProps>`
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -136,6 +151,28 @@ const PlayerWrapper = styled.div<{ isMessageOpened: boolean }>`
       opacity: 0;
     }
     50% {
+      visibility: visible;
+      opacity: 1;
+    }
+    100% {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadein {
+    0% {
+      visibility: hidden;
+      opacity: 0;
+    }
+    100% {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeout {
+    0% {
       visibility: visible;
       opacity: 1;
     }
@@ -223,12 +260,18 @@ const PlayerWrapper = styled.div<{ isMessageOpened: boolean }>`
           width: 25px;
           height: 25px;
         }
+
         &__bar {
           -webkit-appearance: none;
+          visibility: hidden;
           border-radius: 10px;
           background-color: #9d9d9d;
           width: 76.01px;
           height: 3px;
+          ${({ isVolumeOpened }) =>
+            isVolumeOpened
+              ? 'animation: fadein 1s; visibility: visible;'
+              : 'animation: fadeout 1s;'}
         }
       }
       &__replay {

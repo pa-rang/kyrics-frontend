@@ -12,14 +12,18 @@ function Study(): ReactElement {
   const [loop, setLoop] = useState<boolean>(false);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [isMessageOpened, setIsMessageOpened] = useState<boolean>(false);
-  const hostVideo = useRef();
+  const [loading, setLoading] = useState<boolean>(false);
+  const hostVideo = useRef(null);
 
-  console.log(hostVideo.current);
+  // console.log('[hostVideo]: ', hostVideo.current);
 
   useEffect(() => {
-    setTotalTime(hostVideo.current.getDuration());
-    console.log(hostVideo.current.getDuration());
-  }, []);
+    if (hostVideo.current) {
+      console.log('[hostVideo]:', hostVideo.current.getDuration());
+      setTotalTime(hostVideo.current.getDuration());
+      // console.log('총시간 알려죠', hostVideo.current.getDuration());
+    }
+  }, [isPlay]);
 
   const handlePlay = () => {
     if (isPlay === true) {
@@ -39,6 +43,15 @@ function Study(): ReactElement {
     } else {
       setLoop(true);
     }
+  };
+  const [isVolumeOpened, setIsVolumeOpened] = useState<boolean>(false);
+  const mouseEnterController = () => {
+    setIsVolumeOpened(true);
+    console.log(isVolumeOpened);
+  };
+  const mouseLeaveController = () => {
+    setIsVolumeOpened(false);
+    console.log(isVolumeOpened);
   };
 
   // 이벤트 타입이 안뜨는데 지정 어떻게? any?
@@ -65,6 +78,8 @@ function Study(): ReactElement {
   };
 
   const handleVolumeChange = (e: any) => {
+    setIsVolumeOpened(true);
+    console.log(isVolumeOpened);
     setVolume(e.target.value / 100);
     setVolumeBar(e.target.value);
   };
@@ -98,6 +113,9 @@ function Study(): ReactElement {
         handleLoop={handleLoop}
         loop={loop}
         isMessageOpened={isMessageOpened}
+        isVolumeOpened={isVolumeOpened}
+        mouseEnterController={mouseEnterController}
+        mouseLeaveController={mouseLeaveController}
       />
       <Lyrics />
     </StudyWrapper>
