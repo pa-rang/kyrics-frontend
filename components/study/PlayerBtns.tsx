@@ -66,23 +66,22 @@ const PlayerBtnsWrapper = styled.div`
   position: relative;
   align-items: center;
   justify-content: center;
-  margin-top: 10rem;
   img:hover {
     color: #6465f4;
   }
   .CopyIcon {
-    margin: 0 2.5rem;
+    margin: 0 25px;
   }
   .copy--msg {
     display: none;
     position: absolute;
-    top: 5.7rem;
+    top: 57px;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
     background-color: red;
-    width: 16.3rem;
-    height: 4.1rem;
-    font-size: 2rem;
+    width: 163px;
+    height: 41px;
+    font-size: 20px;
   }
 `;
