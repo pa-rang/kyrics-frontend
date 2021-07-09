@@ -17,7 +17,7 @@ function ProfileMenu(): ReactElement {
       </button>
       <button className="option">
         <img className="option__icon" src="/assets/icons/IcMyVoca.svg" alt=""></img>
-        <p className="option__label">My voca</p>
+        <p className="option__label">My vocab</p>
       </button>
     </Wrap>
   );
