@@ -36,6 +36,7 @@ function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
                   alt=""
                 ></img>
                 <p className="user__profile--button--name">Name</p>
+                {isProfileClicked && <ProfileMenu />}
               </button>
             </div>
           ) : (
@@ -46,7 +47,6 @@ function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
           )}
         </div>
       </div>
-      {isProfileClicked && <ProfileMenu />}
     </HeaderWrap>
   );
 }
@@ -86,6 +86,7 @@ const HeaderWrap = styled.div`
 
       &--button {
         display: flex;
+        position: relative;
         border: none;
         background: transparent;
         cursor: pointer;

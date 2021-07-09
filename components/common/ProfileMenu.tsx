@@ -26,8 +26,8 @@ function ProfileMenu(): ReactElement {
 const Wrap = styled.div`
   display: flex;
   position: absolute;
-  top: 80px;
-  right: 58px;
+  top: 50px;
+  right: 0px;
   flex-direction: column;
   align-items: center;
   border-radius: 16px;
