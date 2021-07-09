@@ -6,7 +6,7 @@ import Header from '../components/common/Header';
 function Home() {
   return (
     <>
-      <Header isLoggedIn={false} />
+      <Header isLoggedIn={true} />
       <Title />
       <div>안녕하세요.</div>
     </>
