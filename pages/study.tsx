@@ -5,7 +5,7 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 
 function Study(): ReactElement {
-  const [isPlay, setIsPlay] = useState<boolean>(true);
+  const [isPlay, setIsPlay] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [volume, setVolume] = useState<number>(0.5);
   const [volumeBar, setVolumeBar] = useState<number>(50);
@@ -93,11 +93,10 @@ function Study(): ReactElement {
     <StudyWrapper>
       <div className="react-default-player">
         <ReactPlayer
-          url="https://youtu.be/IHNzOHi8sJs"
           playing={isPlay}
+          url="https://youtu.be/IHNzOHi8sJs"
           loop={loop}
           controls={true}
-          light={true}
           volume={volume}
           ref={hostVideo}
           width="650px"
@@ -129,9 +128,6 @@ function Study(): ReactElement {
 export default Study;
 
 const StudyWrapper = styled.div`
-  .react-player__play-icon {
-    display: none;
-  }
   .react-default-player {
     /* display: none; */
   }
