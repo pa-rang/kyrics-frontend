@@ -63,14 +63,16 @@ function Player({
         <div className="player-custom__title">
           {title}-{singer}
         </div>
-        <input
-          className="player-custom__progressbar"
-          type="range"
-          min={0}
-          max={totalTime}
-          value={currentTime}
-          onInput={handleSeekTime}
-        />
+        <div className="player-custom__progress">
+          <input
+            className="player-custom__progress__bar"
+            type="range"
+            min={0}
+            max={totalTime}
+            value={currentTime}
+            onInput={handleSeekTime}
+          />
+        </div>
         <div className="player-custom__time">
           <div className="player-custom__time__current">{currentTimeForm}</div>
           <div className="player-custom__time__end">{finishedTime}</div>
@@ -206,13 +208,18 @@ const PlayerWrapper = styled.div<StyledProps>`
       font-weight: bold;
       font-style: normal;
     }
-    &__progressbar {
-      -webkit-appearance: none;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      background-color: #9d9d9d;
-      width: 612px;
-      height: 3px;
+    &__progress {
+      display: flex;
+      justify-content: center;
+      width: 636px;
+      &__bar {
+        -webkit-appearance: none;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        background-color: #9d9d9d;
+        width: 612px;
+        height: 3px;
+      }
     }
     &__time {
       display: flex;
