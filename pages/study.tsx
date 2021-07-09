@@ -13,6 +13,12 @@ function Study(): ReactElement {
   const [totalTime, setTotalTime] = useState<number>(0);
   const [isMessageOpened, setIsMessageOpened] = useState<boolean>(false);
   const hostVideo = useRef(null);
+  const [percentage, setPercentage] = useState<number>(0);
+
+  useEffect(() => {
+    setPercentage(currentTime / (totalTime / 100));
+    console.log(percentage);
+  }, [currentTime]);
 
   useEffect(() => {
     if (hostVideo.current) {
@@ -110,6 +116,7 @@ function Study(): ReactElement {
         isVolumeOpened={isVolumeOpened}
         mouseEnterController={mouseEnterController}
         mouseLeaveController={mouseLeaveController}
+        percentage={percentage}
       />
       <Lyrics />
     </StudyWrapper>

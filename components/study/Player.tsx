@@ -18,12 +18,14 @@ interface PlayerProps {
   isVolumeOpened: boolean;
   mouseEnterController: () => void;
   mouseLeaveController: () => void;
+  percentage: number;
 }
 interface StyledProps {
   isMessageOpened: boolean;
   isVolumeOpened: boolean;
   isLooped: boolean;
   volume: number;
+  percentage: number;
 }
 function Player({
   volume,
@@ -40,6 +42,7 @@ function Player({
   isVolumeOpened,
   mouseEnterController,
   mouseLeaveController,
+  percentage,
 }: PlayerProps): ReactElement {
   const title = '앨범 제목';
   const singer = '가수';
@@ -52,12 +55,6 @@ function Player({
     totalTime % 60 <= 9
       ? `0${Math.floor(totalTime / 60)}:0${totalTime % 60} `
       : `0${Math.floor(totalTime / 60)}:${totalTime % 60} `;
-  // const [percentage, setPercentage] = useState<number>(0);
-
-  // useEffect(() => {
-  //   setPercentage(Math.floor(currentTime / totalTime / 100));
-  //   console.log(percentage);
-  // }, [currentTime]);
 
   return (
     <PlayerWrapper
@@ -65,6 +62,7 @@ function Player({
       isVolumeOpened={isVolumeOpened}
       isLooped={loop}
       volume={volume}
+      percentage={percentage}
     >
       <img className="player-album" src="assets/images/exampleImg.svg" alt="albumImage" />
       <div className="player-custom">
@@ -152,10 +150,6 @@ const PlayerWrapper = styled.div<StyledProps>`
   input[type='range']:focus {
     outline: none; /* input range에 포커스 되었을 경우 기본 블러처리 제거 */
   }
-  /* 
-  input {
-    background: linear-gradient(to right, #ffffff 0%, #ffffff 50%, #9d9d9d 50%, #9d9d9d 100%);
-  } */
   @keyframes fadeinout {
     0% {
       visibility: hidden;
@@ -220,6 +214,15 @@ const PlayerWrapper = styled.div<StyledProps>`
         background-color: #9d9d9d;
         width: 612px;
         height: 3px;
+        ${({ percentage }) => css`
+          background: linear-gradient(
+            to right,
+            #ffffff 0%,
+            #ffffff ${percentage}%,
+            #9d9d9d ${percentage}%,
+            #9d9d9d 100%
+          );
+        `}
       }
     }
     &__time {
