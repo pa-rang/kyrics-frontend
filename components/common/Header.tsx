@@ -18,7 +18,7 @@ function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
 
   function handleProfileClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
-    setIsProfileClicked(isProfileClicked => !isProfileClicked);
+    setIsProfileClicked((isProfileClicked) => !isProfileClicked);
   }
 
   return (
