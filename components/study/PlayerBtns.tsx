@@ -8,12 +8,13 @@ import YoutubeModal from './YoutubeModal';
 
 const PlayerBtns = ({ videoId }: { videoId: string }) => {
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  // data를 받아와서, favortite 초기값을 설정해줄 예정.
   const copyRef = useRef<HTMLDivElement | null>(null);
   const favoriteAddRef = useRef<HTMLDivElement | null>(null);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
-    console.log(target.src);
     if (target.src.includes('assets/icons/onFavorite.svg')) return;
 
     const hoverIcon = `hover${target.className}`;
@@ -26,7 +27,6 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
     const Icon = target.className;
 
     if (target.src.includes('assets/icons/onFavorite.svg')) return;
-
     target.src = `assets/icons/${Icon}.svg`;
   };
 
@@ -36,8 +36,7 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
       copyRef.current && (copyRef.current.style.display = 'none');
     }, 2000);
   };
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  // data를 받아와서, favortite 초기값을 설정해줄 예정.
+
   const handleFavorite = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
     const src: string = isFavorite
