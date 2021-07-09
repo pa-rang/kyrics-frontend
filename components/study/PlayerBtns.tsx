@@ -10,10 +10,11 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const copyRef = useRef<HTMLDivElement | null>(null);
   const favoriteAddRef = useRef<HTMLDivElement | null>(null);
+
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
-
-    if (target.src === 'assets/icons/onFavorite.svg') return;
+    console.log(target.src);
+    if (target.src.includes('assets/icons/onFavorite.svg')) return;
 
     const hoverIcon = `hover${target.className}`;
 
@@ -23,6 +24,8 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
   const handleMouseLeave = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
     const Icon = target.className;
+
+    if (target.src.includes('assets/icons/onFavorite.svg')) return;
 
     target.src = `assets/icons/${Icon}.svg`;
   };
@@ -37,20 +40,21 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
   // data를 받아와서, favortite 초기값을 설정해줄 예정.
   const handleFavorite = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
-    const src: string = isFavorite ? 'assets/icons/favorite.svg' : 'assets/icons/onFavorite.svg';
+    const src: string = isFavorite
+      ? 'assets/icons/FavoriteIcon.svg'
+      : 'assets/icons/onFavorite.svg';
 
     target.src = src;
+    if (!isFavorite) {
+      favoriteAddRef.current && (favoriteAddRef.current.style.display = 'flex');
+      setTimeout(() => {
+        favoriteAddRef.current && (favoriteAddRef.current.style.display = 'none');
+      }, 2000);
+      //
+    }
+
     setIsFavorite((isFavorite) => !isFavorite);
     // favorite를 수정하는 put code 추가 예정
-    favoriteAddRef.current &&
-      (isFavorite
-        ? (favoriteAddRef.current.innerText = 'Deleted')
-        : (favoriteAddRef.current.innerText = 'Added'));
-    favoriteAddRef.current && (favoriteAddRef.current.style.display = 'flex');
-    setTimeout(() => {
-      favoriteAddRef.current && (favoriteAddRef.current.style.display = 'none');
-    }, 2000);
-    // 2초뒤에 메시지를 지우는 것으로 했는데, 연속으로 아이콘을 클릭할때 의도한대로 작동하지 않는 문제 발생.
   };
 
   return (
@@ -58,7 +62,7 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
       <div className="icon--container">
         <img
           className="FavoriteIcon"
-          src={FavoriteIcon.src}
+          src="assets/icons/FavoriteIcon.svg"
           alt="favorite"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -73,7 +77,7 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
         <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={handleCopy}>
           <img
             className="CopyIcon"
-            src={CopyIcon.src}
+            src="assets/icons/CopyIcon.svg"
             alt="copy"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -86,7 +90,7 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
 
       <img
         className="YoutubeIcon"
-        src={YoutubeIcon.src}
+        src="assets/icons/YoutubeIcon.svg"
         alt="youtube"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
