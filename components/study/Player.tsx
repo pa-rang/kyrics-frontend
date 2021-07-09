@@ -1,7 +1,7 @@
 import PlayerBtns from '@components/study/PlayerBtns';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 interface PlayerProps {
   volume: number;
@@ -23,6 +23,7 @@ interface StyledProps {
   isMessageOpened: boolean;
   isVolumeOpened: boolean;
   isLooped: boolean;
+  volume: number;
 }
 function Player({
   volume,
@@ -51,12 +52,19 @@ function Player({
     totalTime % 60 <= 9
       ? `0${Math.floor(totalTime / 60)}:0${totalTime % 60} `
       : `0${Math.floor(totalTime / 60)}:${totalTime % 60} `;
+  // const [percentage, setPercentage] = useState<number>(0);
+
+  // useEffect(() => {
+  //   setPercentage(Math.floor(currentTime / totalTime / 100));
+  //   console.log(percentage);
+  // }, [currentTime]);
 
   return (
     <PlayerWrapper
       isMessageOpened={isMessageOpened}
       isVolumeOpened={isVolumeOpened}
       isLooped={loop}
+      volume={volume}
     >
       <img className="player-album" src="assets/images/exampleImg.svg" alt="albumImage" />
       <div className="player-custom">
@@ -141,16 +149,13 @@ const PlayerWrapper = styled.div<StyledProps>`
     height: 16px;
   }
 
-  input[type='range']::-ms-fill-lower {
-    border: 0.2px solid #010101;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    background: #2a6495;
-  }
-
   input[type='range']:focus {
     outline: none; /* input range에 포커스 되었을 경우 기본 블러처리 제거 */
   }
+  /* 
+  input {
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 50%, #9d9d9d 50%, #9d9d9d 100%);
+  } */
   @keyframes fadeinout {
     0% {
       visibility: hidden;
@@ -291,6 +296,15 @@ const PlayerWrapper = styled.div<StyledProps>`
           background-color: #9d9d9d;
           width: 76.01px;
           height: 3px;
+          ${({ volume }) => css`
+            background: linear-gradient(
+              to right,
+              #ffffff 0%,
+              #ffffff ${volume}%,
+              #9d9d9d ${volume}%,
+              #9d9d9d 100%
+            );
+          `}
           ${({ isVolumeOpened }) =>
             isVolumeOpened
               ? 'animation: fadein 1s; visibility: visible;'
