@@ -59,6 +59,8 @@ function Player({
               type="range"
               min={0}
               max={100}
+              value={volume}
+              onInput={handleVolumeChange}
             />
           </div>
           <div className="player-custom__lastcontrol__replay">
