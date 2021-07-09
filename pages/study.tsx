@@ -26,7 +26,6 @@ function Study(): ReactElement {
     } else {
       setIsPlay(true);
     }
-    console.log(isPlay);
   };
 
   const handleLoop = () => {
@@ -41,21 +40,15 @@ function Study(): ReactElement {
   const [isVolumeOpened, setIsVolumeOpened] = useState<boolean>(false);
   const mouseEnterController = () => {
     setIsVolumeOpened(true);
-    console.log(isVolumeOpened);
   };
   const mouseLeaveController = () => {
     setIsVolumeOpened(false);
-    console.log(isVolumeOpened);
   };
 
-  // 이벤트 타입이 안뜨는데 지정 어떻게? any?
   const handleOnProgress = (e: any) => {
     setCurrentTime(Math.floor(e.playedSeconds));
-    console.log(e);
-    console.log('얘는 스테이트', currentTime);
   };
 
-  // progress bar 제어 -> 원하는 시간 받으면 그 값으로 돌아가도록
   const handleSeekTime = (e: any) => {
     setCurrentTime(e.target.value);
     hostVideo.current.seekTo(e.target.value);
@@ -83,8 +76,6 @@ function Study(): ReactElement {
 
   const handleVolumeChange = (e: any) => {
     setIsVolumeOpened(true);
-    console.log(isVolumeOpened);
-    console.log(volume);
     setVolume(e.target.value / 100);
     setVolumeBar(e.target.value);
   };
