@@ -252,10 +252,11 @@ const PlayerWrapper = styled.div<StyledProps>`
       justify-content: center;
       &__back {
         background: url('assets/icons/backIcon.svg') no-repeat 0 0;
-        width: 17px;
-        height: 21px;
+        width: 19px;
+        height: 23px;
         &:hover {
-          background: url('assets/icons/backIconHover.svg') no-repeat 0 0;
+          filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%) hue-rotate(49deg)
+            brightness(95%) contrast(85%);
         }
       }
       &__playBtn {
@@ -264,24 +265,24 @@ const PlayerWrapper = styled.div<StyledProps>`
         ${({ isPlay }) =>
           isPlay
             ? css`
-                background: url('assets/icons/playIcon.svg') no-repeat 0 0;
+                background: url('assets/icons/pauseIcon.svg') no-repeat 0 0;
               `
             : css`
-                background: url('assets/icons/pauseIcon.svg') no-repeat 0 0;
+                background: url('assets/icons/playIcon.svg') no-repeat 0 0;
               `}
-
         width: 31px;
         height: 31px;
         &:hover {
-          background: url('assets/icons/playIconHover.svg') no-repeat 0 0;
+          filter: brightness(0) saturate(100%) invert(93%) sepia(0%) saturate(43%) hue-rotate(297deg) brightness(116%) contrast(76%); */
         }
       }
       &__forward {
         background: url('assets/icons/forwardIcon.svg') no-repeat 0 0;
-        width: 17px;
-        height: 21px;
+        width: 19px;
+        height: 23px;
         &:hover {
-          background: url('assets/icons/forwardIconHover.svg') no-repeat 0 0;
+          filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%) hue-rotate(49deg)
+            brightness(95%) contrast(85%);
         }
       }
     }
@@ -300,7 +301,8 @@ const PlayerWrapper = styled.div<StyledProps>`
           width: 25px;
           height: 25px;
           &:hover {
-            background: url('assets/icons/soundIconHover.svg') no-repeat 0 0;
+            filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%) hue-rotate(49deg)
+            brightness(95%) contrast(85%);
           }
         }
 
@@ -335,14 +337,13 @@ const PlayerWrapper = styled.div<StyledProps>`
           margin-bottom: 10px;
           width: 20px;
           height: 20px;
+          background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
           ${({ isLooped }) =>
-            isLooped
-              ? css`
-                  background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
-                `
-              : css`
-                  background: url('assets/icons/replayIconHover.svg') no-repeat 0 0;
-                `}
+            isLooped &&
+            css`
+              filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%)
+                hue-rotate(49deg) brightness(95%) contrast(85%);
+            `}
         }
         &__onoff {
           visibility: hidden;
