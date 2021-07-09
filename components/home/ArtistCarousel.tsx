@@ -30,7 +30,7 @@ const Wrap = styled.div`
   display: flex;
   position: absolute;
   justify-content: center;
-  margin-top: -85px;
+  margin-top: -114px;
   width: 100%;
   height: 270px;
 `;
