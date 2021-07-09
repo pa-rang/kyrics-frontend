@@ -9,8 +9,12 @@ import YoutubeModal from './YoutubeModal';
 const PlayerBtns = ({ videoId }: { videoId: string }) => {
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const copyRef = useRef<HTMLDivElement | null>(null);
+  const favoriteAddRef = useRef<HTMLDivElement | null>(null);
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
+
+    if (target.src === 'assets/icons/onFavorite.svg') return;
+
     const hoverIcon = `hover${target.className}`;
 
     target.src = `assets/icons/${hoverIcon}.svg`;
@@ -38,28 +42,48 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
     target.src = src;
     setIsFavorite((isFavorite) => !isFavorite);
     // favorite를 수정하는 put code 추가 예정
+    favoriteAddRef.current &&
+      (isFavorite
+        ? (favoriteAddRef.current.innerText = 'Deleted')
+        : (favoriteAddRef.current.innerText = 'Added'));
+    favoriteAddRef.current && (favoriteAddRef.current.style.display = 'flex');
+    setTimeout(() => {
+      favoriteAddRef.current && (favoriteAddRef.current.style.display = 'none');
+    }, 2000);
+    // 2초뒤에 메시지를 지우는 것으로 했는데, 연속으로 아이콘을 클릭할때 의도한대로 작동하지 않는 문제 발생.
   };
 
   return (
     <PlayerBtnsWrapper>
-      <img
-        className="FavoriteIcon"
-        src={FavoriteIcon.src}
-        alt="favorite"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleFavorite}
-        aria-hidden="true"
-      />
-      <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={handleCopy}>
+      <div className="icon--container">
         <img
-          className="CopyIcon"
-          src={CopyIcon.src}
-          alt="copy"
+          className="FavoriteIcon"
+          src={FavoriteIcon.src}
+          alt="favorite"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onClick={handleFavorite}
+          aria-hidden="true"
         />
-      </CopyToClipboard>
+        <div className="favoriteAdd--msg msg" ref={favoriteAddRef}>
+          Added
+        </div>
+      </div>
+      <div className="icon--container">
+        <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={handleCopy}>
+          <img
+            className="CopyIcon"
+            src={CopyIcon.src}
+            alt="copy"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          />
+        </CopyToClipboard>
+        <div className="copy--msg msg" ref={copyRef}>
+          Link Copied
+        </div>
+      </div>
+
       <img
         className="YoutubeIcon"
         src={YoutubeIcon.src}
@@ -74,9 +98,6 @@ const PlayerBtns = ({ videoId }: { videoId: string }) => {
         isModalOpened={isModalOpened}
         setIsModalOpened={setIsModalOpened}
       />
-      <div className="copy--msg" ref={copyRef}>
-        Copied !
-      </div>
     </PlayerBtnsWrapper>
   );
 };
@@ -94,16 +115,23 @@ const PlayerBtnsWrapper = styled.div`
   .CopyIcon {
     margin: 0 25px;
   }
-  .copy--msg {
+  .icon--container {
+    position: relative;
+  }
+  .msg {
     display: none;
     position: absolute;
-    top: 57px;
+    top: 45px;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
     background-color: red;
-    width: 163px;
-    height: 41px;
-    font-size: 20px;
+    width: 90px;
+    height: 24px;
+    font-size: 12px;
+  }
+  .favoriteAdd--msg {
+    transform: translateX(-25%);
+    width: 60px;
   }
 `;
