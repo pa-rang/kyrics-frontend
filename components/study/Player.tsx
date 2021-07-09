@@ -2,7 +2,28 @@ import PlayerBtns from '@components/study/PlayerBtns';
 import styled from '@emotion/styled';
 import React, { ReactElement } from 'react';
 
-function Player(): ReactElement {
+interface PlayerProps {
+  playing: boolean;
+  volume: number;
+  handlePlay: () => void;
+  handleSeekTime: (e: any) => void;
+  totalTime: number;
+  handleVolumeChange: (e: any) => void;
+  handleBackTime: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleForwardTime: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  currentTime: number;
+}
+function Player({
+  playing,
+  volume,
+  handlePlay,
+  handleSeekTime,
+  totalTime,
+  handleVolumeChange,
+  handleBackTime,
+  handleForwardTime,
+  currentTime,
+}: PlayerProps): ReactElement {
   const title = '앨범 제목';
   const singer = '가수';
 
@@ -13,15 +34,22 @@ function Player(): ReactElement {
         <div className="player-custom__title">
           {title}-{singer}
         </div>
-        <input className="player-custom__progressbar" type="range" min={0} max={100} />
+        <input
+          className="player-custom__progressbar"
+          type="range"
+          min={0}
+          max={totalTime}
+          value={currentTime}
+          onInput={handleSeekTime}
+        />
         <div className="player-custom__time">
-          <div className="player-custom__time__current">00:00</div>
-          <div className="player-custom__time__end">03:30</div>
+          <div className="player-custom__time__current">{currentTime}</div>
+          <div className="player-custom__time__end">{totalTime}</div>
         </div>
         <div className="player-custom__control">
-          <button className="player-custom__control__back"></button>
-          <button className="player-custom__control__playBtn"></button>
-          <button className="player-custom__control__forward"></button>
+          <button className="player-custom__control__back" onClick={handleBackTime}></button>
+          <button className="player-custom__control__playBtn" onClick={handlePlay}></button>
+          <button className="player-custom__control__forward" onClick={handleForwardTime}></button>
         </div>
         <div className="player-custom__lastcontrol">
           <div className="player-custom__lastcontrol__volume">
