@@ -1,10 +1,13 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
 import { CopyIcon, FavoriteIcon, YoutubeIcon } from '@assets/index';
 import styled from '@emotion/styled';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const PlayerBtns = () => {
+import YoutubeModal from './YoutubeModal';
+
+const PlayerBtns = ({ videoId }: { videoId: string }) => {
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const copyRef = useRef<HTMLDivElement | null>(null);
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
@@ -26,6 +29,10 @@ const PlayerBtns = () => {
       copyRef.current && (copyRef.current.style.display = 'none');
     }, 2000);
   };
+
+  // const handleYoutubeModal = (videoId: string): void => {
+  //   console.log(videoId);
+  // };
 
   return (
     <PlayerBtnsWrapper>
@@ -51,6 +58,13 @@ const PlayerBtns = () => {
         alt="youtube"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={() => setIsModalOpened(true)}
+        aria-hidden="true"
+      />
+      <YoutubeModal
+        videoId={videoId}
+        isModalOpened={isModalOpened}
+        setIsModalOpened={setIsModalOpened}
       />
       <div className="copy--msg" ref={copyRef}>
         Copied !
