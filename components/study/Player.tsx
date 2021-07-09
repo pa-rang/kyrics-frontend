@@ -1,7 +1,7 @@
 import PlayerBtns from '@components/study/PlayerBtns';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
 interface PlayerProps {
   volume: number;
@@ -90,7 +90,7 @@ function Player({
           >
             <button className="player-custom__lastcontrol__volume__btn"></button>
             <input
-              className="player-custom__lastcontrol__volume__bar hover-to-display"
+              className="player-custom__lastcontrol__volume__bar"
               type="range"
               min={0}
               max={100}
@@ -104,13 +104,9 @@ function Player({
               onClick={handleLoop}
             ></button>
             {loop ? (
-              <button className="player-custom__lastcontrol__replay__onoff click-to-display">
-                on
-              </button>
+              <button className="player-custom__lastcontrol__replay__onoff">on</button>
             ) : (
-              <button className="player-custom__lastcontrol__replay__onoff click-to-display">
-                off
-              </button>
+              <button className="player-custom__lastcontrol__replay__onoff">off</button>
             )}
           </div>
         </div>
