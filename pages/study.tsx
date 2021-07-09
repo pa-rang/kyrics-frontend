@@ -19,7 +19,7 @@ function Study(): ReactElement {
   useEffect(() => {
     setTotalTime(hostVideo.current.getDuration());
     console.log(hostVideo.current.getDuration());
-  }, [isPlay]);
+  }, []);
 
   const handlePlay = () => {
     if (isPlay === true) {
@@ -43,7 +43,7 @@ function Study(): ReactElement {
 
   // 이벤트 타입이 안뜨는데 지정 어떻게? any?
   const handleOnProgress = (e: any) => {
-    setCurrentTime(e.playedSeconds);
+    setCurrentTime(Math.floor(e.playedSeconds));
     console.log(e);
     console.log('얘는 스테이트', currentTime);
   };
