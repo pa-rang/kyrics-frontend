@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import React, { ReactElement, useState } from 'react';
 
 interface PlayerProps {
-  playing: boolean;
   volume: number;
   handlePlay: () => void;
   handleSeekTime: (e: any) => void;
@@ -25,7 +24,6 @@ interface StyledProps {
   isVolumeOpened: boolean;
 }
 function Player({
-  playing,
   volume,
   handlePlay,
   handleSeekTime,
@@ -48,6 +46,11 @@ function Player({
       ? `0${Math.floor(currentTime / 60)}:0${currentTime % 60} `
       : `0${Math.floor(currentTime / 60)}:${currentTime % 60} `;
 
+  const finishedTime =
+    totalTime % 60 <= 9
+      ? `0${Math.floor(totalTime / 60)}:0${totalTime % 60} `
+      : `0${Math.floor(totalTime / 60)}:${totalTime % 60} `;
+
   return (
     <PlayerWrapper isMessageOpened={isMessageOpened} isVolumeOpened={isVolumeOpened}>
       <img className="player-album" src="assets/images/exampleImg.svg" alt="albumImage" />
@@ -65,7 +68,7 @@ function Player({
         />
         <div className="player-custom__time">
           <div className="player-custom__time__current">{currentTimeForm}</div>
-          <div className="player-custom__time__end">{totalTime}</div>
+          <div className="player-custom__time__end">{finishedTime}</div>
         </div>
         <div className="player-custom__control">
           <button className="player-custom__control__back" onClick={handleBackTime}></button>

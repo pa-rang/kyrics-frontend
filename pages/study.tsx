@@ -101,7 +101,6 @@ function Study(): ReactElement {
         />
       </div>
       <Player
-        playing={isPlay}
         volume={volumeBar}
         handlePlay={handlePlay}
         handleSeekTime={handleSeekTime}
