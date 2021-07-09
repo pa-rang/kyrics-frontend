@@ -4,11 +4,12 @@ import styled from '@emotion/styled';
 import React, { ReactElement, useEffect, useState } from 'react';
 
 interface PlayerProps {
+  isPlay: boolean;
   volume: number;
   handlePlay: () => void;
-  handleSeekTime: (e: any) => void;
+  handleSeekTime: (e: React.FormEvent<HTMLInputElement>) => void;
   totalTime: number;
-  handleVolumeChange: (e: any) => void;
+  handleVolumeChange: (e: React.FormEvent<HTMLInputElement>) => void;
   handleBackTime: () => void;
   handleForwardTime: () => void;
   currentTime: number;
@@ -26,8 +27,10 @@ interface StyledProps {
   isLooped: boolean;
   volume: number;
   percentage: number;
+  isPlay: boolean;
 }
 function Player({
+  isPlay,
   volume,
   handlePlay,
   handleSeekTime,
@@ -63,6 +66,7 @@ function Player({
       isLooped={loop}
       volume={volume}
       percentage={percentage}
+      isPlay={isPlay}
     >
       <img className="player-album" src="assets/images/exampleImg.svg" alt="albumImage" />
       <div className="player-custom">
@@ -137,7 +141,7 @@ const PlayerWrapper = styled.div<StyledProps>`
     border: 0;
     cursor: pointer;
   }
-  /* Chrome */
+  /* only Chrome */
   input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     border-radius: 50%;
@@ -148,7 +152,7 @@ const PlayerWrapper = styled.div<StyledProps>`
   }
 
   input[type='range']:focus {
-    outline: none; /* input range에 포커스 되었을 경우 기본 블러처리 제거 */
+    outline: none;
   }
   @keyframes fadeinout {
     0% {
@@ -257,7 +261,15 @@ const PlayerWrapper = styled.div<StyledProps>`
       &__playBtn {
         margin-right: 75px;
         margin-left: 75px;
-        background: url('assets/icons/playIcon.svg') no-repeat 0 0;
+        ${({ isPlay }) =>
+          isPlay
+            ? css`
+                background: url('assets/icons/playIcon.svg') no-repeat 0 0;
+              `
+            : css`
+                background: url('assets/icons/pauseIcon.svg') no-repeat 0 0;
+              `}
+
         width: 31px;
         height: 31px;
         &:hover {

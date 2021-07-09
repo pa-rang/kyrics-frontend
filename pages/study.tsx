@@ -17,7 +17,6 @@ function Study(): ReactElement {
 
   useEffect(() => {
     setPercentage(currentTime / (totalTime / 100));
-    console.log(percentage);
   }, [currentTime]);
 
   useEffect(() => {
@@ -51,17 +50,17 @@ function Study(): ReactElement {
     setIsVolumeOpened(false);
   };
 
-  const handleOnProgress = (e: any) => {
+  const handleOnProgress = (e: { playedSeconds: number }) => {
     setCurrentTime(Math.floor(e.playedSeconds));
   };
 
-  const handleSeekTime = (e: any) => {
+  const handleSeekTime = (e: React.FormEvent<HTMLInputElement>) => {
     setCurrentTime(e.target.value);
     hostVideo.current.seekTo(e.target.value);
   };
 
   const handleBackTime = () => {
-    if (currentTime > 10) {
+    if (currentTime >= 10) {
       hostVideo.current.seekTo(currentTime - 10);
       setCurrentTime(currentTime - 10);
     } else {
@@ -71,7 +70,7 @@ function Study(): ReactElement {
   };
 
   const handleForwardTime = () => {
-    if (currentTime < totalTime - 10) {
+    if (currentTime <= totalTime - 10) {
       setCurrentTime(currentTime + 10);
       hostVideo.current.seekTo(currentTime + 10);
     } else {
@@ -80,7 +79,7 @@ function Study(): ReactElement {
     }
   };
 
-  const handleVolumeChange = (e: any) => {
+  const handleVolumeChange = (e: React.FormEvent<HTMLInputElement>) => {
     setIsVolumeOpened(true);
     setVolume(e.target.value / 100);
     setVolumeBar(e.target.value);
@@ -102,6 +101,7 @@ function Study(): ReactElement {
         />
       </div>
       <Player
+        isPlay={isPlay}
         volume={volumeBar}
         handlePlay={handlePlay}
         handleSeekTime={handleSeekTime}
