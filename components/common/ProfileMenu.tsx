@@ -46,6 +46,11 @@ const Wrap = styled.div`
     width: 204px;
     height: 30px;
 
+    &:hover {
+      filter: brightness(0) saturate(100%) invert(33%) sepia(48%) saturate(2268%) hue-rotate(222deg)
+        brightness(105%) contrast(91%);
+    }
+
     &__icon {
       margin-left: 10px;
       width: 19px;
