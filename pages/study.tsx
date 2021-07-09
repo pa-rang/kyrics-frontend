@@ -129,6 +129,6 @@ export default Study;
 
 const StudyWrapper = styled.div`
   .react-default-player {
-    /* display: none; */
+    display: none;
   }
 `;
