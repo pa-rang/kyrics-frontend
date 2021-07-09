@@ -1,7 +1,7 @@
 import PlayerBtns from '@components/study/PlayerBtns';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 
 interface PlayerProps {
   isPlay: boolean;
@@ -141,6 +141,7 @@ const PlayerWrapper = styled.div<StyledProps>`
     border: 0;
     cursor: pointer;
   }
+
   /* only Chrome */
   input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -339,7 +340,7 @@ const PlayerWrapper = styled.div<StyledProps>`
           height: 20px;
           background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
           ${({ isLooped }) =>
-            isLooped &&
+            !isLooped &&
             css`
               filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%)
                 hue-rotate(49deg) brightness(95%) contrast(85%);
