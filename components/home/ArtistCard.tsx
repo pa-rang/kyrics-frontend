@@ -33,6 +33,7 @@ function ArtistCard({ name, profileImage, logo }: Props): ReactElement {
 }
 
 const Wrap = styled.div<Props>`
+  margin-right: 40px;
   border-radius: 10px;
   width: 360px;
   height: 270px;
