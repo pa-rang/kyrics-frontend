@@ -7,7 +7,7 @@ interface Props {
   setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function YoutubeModal({ isModalOpened, setIsModalOpened }: Props) {
+function YoutubeModal({ videoId, isModalOpened, setIsModalOpened }: Props) {
   return (
     <YoutubeModalWrapper isModalOpened={isModalOpened}>
       {/* modal 의 currentTime이랑 player의 currentTime이랑 연계되어야 하기 때문에, 이후에 나희가 만든 player component에서 modal을 따로 띄우겠음. 일단 퍼블리싱했음. */}
@@ -29,17 +29,19 @@ function YoutubeModal({ isModalOpened, setIsModalOpened }: Props) {
           onClick={() => setIsModalOpened(false)}
           aria-hidden="true"
         />
+        <img
+          className="miniPlayer--btn"
+          src="assets/icons/youtubeMiniPlayer.svg"
+          alt=""
+          onClick={() => setIsModalOpened(false)}
+          aria-hidden="true"
+        />
       </div>
     </YoutubeModalWrapper>
   );
 }
 
 export default YoutubeModal;
-{
-  /* <iframe id="ytplayer" type="text/html" width="640" height="360"
-  src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://example.com"
-  frameborder="0"></iframe> */
-}
 
 const YoutubeModalWrapper = styled.div<{ isModalOpened: boolean }>`
   display: ${({ isModalOpened }) => (isModalOpened ? 'flex' : 'none')};

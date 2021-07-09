@@ -124,8 +124,9 @@ const PlayerBtnsWrapper = styled.div`
     top: 45px;
     align-items: center;
     justify-content: center;
+    opacity: 0.8;
     border-radius: 10px;
-    background-color: red;
+    background-color: #f6f6f6;
     width: 90px;
     height: 24px;
     font-size: 12px;
