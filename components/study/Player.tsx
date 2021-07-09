@@ -234,6 +234,9 @@ const PlayerWrapper = styled.div<StyledProps>`
         background: url('assets/icons/backIcon.svg') no-repeat 0 0;
         width: 17px;
         height: 21px;
+        &:hover {
+          background: url('assets/icons/backIconHover.svg') no-repeat 0 0;
+        }
       }
       &__playBtn {
         margin-right: 75px;
@@ -241,11 +244,17 @@ const PlayerWrapper = styled.div<StyledProps>`
         background: url('assets/icons/playIcon.svg') no-repeat 0 0;
         width: 31px;
         height: 31px;
+        &:hover {
+          background: url('assets/icons/playIconHover.svg') no-repeat 0 0;
+        }
       }
       &__forward {
         background: url('assets/icons/forwardIcon.svg') no-repeat 0 0;
         width: 17px;
         height: 21px;
+        &:hover {
+          background: url('assets/icons/forwardIconHover.svg') no-repeat 0 0;
+        }
       }
     }
     &__lastcontrol {
@@ -262,6 +271,9 @@ const PlayerWrapper = styled.div<StyledProps>`
           background: url('assets/icons/soundIcon.svg') no-repeat 0 0;
           width: 25px;
           height: 25px;
+          &:hover {
+            background: url('assets/icons/soundIconHover.svg') no-repeat 0 0;
+          }
         }
 
         &__bar {
@@ -287,6 +299,9 @@ const PlayerWrapper = styled.div<StyledProps>`
           background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
           width: 20px;
           height: 20px;
+          &:hover {
+            background: url('assets/icons/replayIconHover.svg') no-repeat 0 0;
+          }
         }
         &__onoff {
           visibility: hidden;
