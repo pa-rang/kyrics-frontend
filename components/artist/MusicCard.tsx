@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import router from 'next/router';
 import React, { ReactElement, useState } from 'react';
 
 interface Props {
@@ -19,8 +20,16 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
     setIsHover(false);
   }
 
+  function handleOnClick() {
+    router.push(`/study/${songId}`);
+  }
+
   return (
-    <Styled.Root onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <Styled.Root
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleOnClick}
+    >
       <img className="img" src={albumImg} alt=""></img>
       {isHover && (
         <div className="hover">
