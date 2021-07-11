@@ -12,5 +12,49 @@
       "profileImageUrl": "",
       "logo": ""
     }
+  ],
+  "artist-1-songs": [
+    {
+      "title": "Dynamite",
+      "artist": ["BTS"],
+      "albumImg": "https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png",
+      "songId": 0
+    },
+    {
+      "title": "Dynamite",
+      "artist": ["BTS"],
+      "albumImg": "https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png",
+      "songId": 0
+    },
+    {
+      "title": "Dynamite",
+      "artist": ["BTS"],
+      "albumImg": "https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png",
+      "songId": 0
+    },
+    {
+      "title": "Dynamite",
+      "artist": ["BTS"],
+      "albumImg": "https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png",
+      "songId": 0
+    },
+    {
+      "title": "Dynamite",
+      "artist": ["BTS"],
+      "albumImg": "https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png",
+      "songId": 0
+    },
+    {
+      "title": "Dynamite",
+      "artist": ["BTS"],
+      "albumImg": "https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png",
+      "songId": 0
+    },
+    {
+      "title": "Dynamite",
+      "artist": ["BTS"],
+      "albumImg": "https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png",
+      "songId": 0
+    }
   ]
 }

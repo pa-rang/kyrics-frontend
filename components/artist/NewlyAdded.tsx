@@ -1,57 +1,40 @@
 import styled from '@emotion/styled';
+import { mockClient } from 'lib/api';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
+import useSWR from 'swr';
+import { Song } from 'types';
 
 import MusicCard from './MusicCard';
 
 function NewlyAdded(): ReactElement {
-  let counter: 0;
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+
+  const { data } = useSWR(`artist-${id}-songs`, (url) => mockClient.get(url));
+  const songs = data?.data;
+
+  console.log('songs', songs);
 
   return (
-    <Wrap>
-      <p className="title">Newly Added</p>
-      <div className="cards">
-        <MusicCard
-          title={'Dynamite'}
-          artist={['BTS']}
-          albumImg={
-            'https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png'
-          }
-          songId={0}
-        ></MusicCard>
-        <MusicCard
-          title={'Dynamite'}
-          artist={['BTS']}
-          albumImg={
-            'https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png'
-          }
-          songId={0}
-        ></MusicCard>
-        <MusicCard
-          title={'Dynamite'}
-          artist={['BTS']}
-          albumImg={
-            'https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png'
-          }
-          songId={0}
-        ></MusicCard>
-        <MusicCard
-          title={'Dynamite'}
-          artist={['BTS']}
-          albumImg={
-            'https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png'
-          }
-          songId={0}
-        ></MusicCard>
-        <MusicCard
-          title={'Dynamite'}
-          artist={['BTS']}
-          albumImg={
-            'https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png'
-          }
-          songId={0}
-        ></MusicCard>
-      </div>
-    </Wrap>
+    <Styled.Root>
+      <Styled.TitleWrapper>Newly Added</Styled.TitleWrapper>
+      <Styled.MusicCardWrapper>
+        <Styled.MusicCardTightWrapper>
+          {songs?.map((song: Song, index: React.Key) => (
+            <MusicCard
+              key={index}
+              title={song.title}
+              artist={song.artist}
+              albumImg={song.albumImg}
+              songId={song.songId}
+            />
+          ))}
+        </Styled.MusicCardTightWrapper>
+      </Styled.MusicCardWrapper>
+    </Styled.Root>
   );
 }
 

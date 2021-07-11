@@ -6,3 +6,10 @@ export interface Artist {
   profileImageUrl: string;
   logo: string;
 }
+
+export interface Song {
+  title: string;
+  artist: string[];
+  albumImg: string;
+  songId: number;
+}
