@@ -47,7 +47,6 @@ const Wrap = styled.div`
   }
 
   .img {
-    
     border-radius: 10px;
     width: 200px;
     height: 200px;
@@ -58,23 +57,27 @@ const Wrap = styled.div`
     position: absolute;
     top: 0px;
     border-radius: 10px;
-    background: linear-gradient(158.98deg, rgba(231, 78, 151, 0.6) 3.15%, rgba(100, 101, 244, 0.6) 94.3%);
+    background: linear-gradient(
+      158.98deg,
+      rgba(231, 78, 151, 0.6) 3.15%,
+      rgba(100, 101, 244, 0.6) 94.3%
+    );
     width: 200px;
     height: 200px;
 
     &__label {
-        padding-top: 65px;
-        text-align: center;
-        text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-        line-height: 30px;
-        color: #FFFFFF;
-        font-size: 24px;
-        font-weight: bold;
-        font-style: normal
+      padding-top: 65px;
+      text-align: center;
+      text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+      line-height: 30px;
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: bold;
+      font-style: normal;
     }
 
     &__play {
-        padding-top: 20px;
+      padding-top: 20px;
     }
   }
 
@@ -95,6 +98,6 @@ const Wrap = styled.div`
     font-weight: 500;
     font-style: normal;
   }
-}}`;
+`;
 
 export default MusicCard;
