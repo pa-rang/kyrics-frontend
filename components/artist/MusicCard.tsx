@@ -59,9 +59,9 @@ const Styled = {
     }
 
     .hover {
-      display: ${({ isHovered }) => (isHovered ? 'block' : 'none')};
       position: absolute;
       top: 0px;
+      visibility: hidden;
       border-radius: 10px;
       background: linear-gradient(
         158.98deg,
@@ -70,6 +70,8 @@ const Styled = {
       );
       width: 200px;
       height: 200px;
+      ${({ isHovered }) =>
+        isHovered ? 'animation: fadeIn 0.5s; visibility: visible;' : 'animation: fadeOut 0.5s;'}
 
       &__label {
         padding-top: 65px;
@@ -103,6 +105,27 @@ const Styled = {
       font-size: 16px;
       font-weight: 500;
       font-style: normal;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        visibility: hidden;
+        opacity: 0;
+      }
+      100% {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+    @keyframes fadeOut {
+      0% {
+        visibility: visible;
+        opacity: 1;
+      }
+      100% {
+        visibility: hidden;
+        opacity: 0;
+      }
     }
   `,
 };
