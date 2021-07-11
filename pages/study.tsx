@@ -7,12 +7,11 @@ import ReactPlayer from 'react-player';
 function Study(): ReactElement {
   const [isPlay, setIsPlay] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(0.5);
   const [volumeBar, setVolumeBar] = useState<number>(50);
   const [loop, setLoop] = useState<boolean>(false);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [isMessageOpened, setIsMessageOpened] = useState<boolean>(false);
-  const hostVideo = useRef(null);
+  const hostVideo = useRef<ReactPlayer>();
   const [percentage, setPercentage] = useState<number>(0);
 
   useEffect(() => {
@@ -20,27 +19,20 @@ function Study(): ReactElement {
   }, [currentTime]);
 
   useEffect(() => {
-    if (hostVideo.current) {
+    if (hostVideo.current !== null) {
       setTotalTime(Math.floor(hostVideo.current.getDuration()));
+      console.log(totalTime);
     }
   }, [isPlay]);
 
   const handlePlay = () => {
-    if (isPlay === true) {
-      setIsPlay(false);
-    } else {
-      setIsPlay(true);
-    }
+    setIsPlay((isPlay) => !isPlay);
   };
 
   const handleLoop = () => {
     setIsMessageOpened(true);
     setTimeout(setIsMessageOpened, 2000, false);
-    if (loop === true) {
-      setLoop(false);
-    } else {
-      setLoop(true);
-    }
+    setLoop((loop) => !loop);
   };
   const [isVolumeOpened, setIsVolumeOpened] = useState<boolean>(false);
   const mouseEnterController = () => {
@@ -51,7 +43,7 @@ function Study(): ReactElement {
   };
 
   const handleOnProgress = (e: { playedSeconds: number }) => {
-    setCurrentTime(Math.floor(e.playedSeconds) + 1);
+    setCurrentTime(Math.floor(e.playedSeconds));
   };
 
   const handleSeekTime = (e: React.FormEvent<HTMLInputElement>) => {
@@ -81,7 +73,6 @@ function Study(): ReactElement {
 
   const handleVolumeChange = (e: React.FormEvent<HTMLInputElement>) => {
     setIsVolumeOpened(true);
-    setVolume(e.target.value / 100);
     setVolumeBar(e.target.value);
   };
 
@@ -93,7 +84,7 @@ function Study(): ReactElement {
           url="https://youtu.be/IHNzOHi8sJs"
           loop={loop}
           controls={true}
-          volume={volume}
+          volume={volumeBar / 100}
           ref={hostVideo}
           width="650px"
           height="400px"
