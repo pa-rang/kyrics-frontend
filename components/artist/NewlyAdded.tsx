@@ -62,7 +62,7 @@ const Styled = {
   MusicCardTightWrapper: styled.div`
     display: grid;
     grid-template-rows: repeat(auto-fill, 1fr);
-    gap: 40px 40px;
+    gap: 60px 40px;
     justify-content: start;
 
     @media (max-width: 547px) {
