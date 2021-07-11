@@ -26,24 +26,23 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
 
   return (
     <Styled.Root
+      isHovered={isHover}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleOnClick}
     >
       <img className="img" src={albumImg} alt=""></img>
-      {isHover && (
-        <div className="hover">
-          <p className="hover__label">Explore &gt;</p>
-          <img className="hover__play" src="/assets/icons/playBtn.svg" alt=""></img>
-        </div>
-      )}
+      <div className="hover">
+        <p className="hover__label">Explore &gt;</p>
+        <img className="hover__play" src="/assets/icons/playBtn.svg" alt=""></img>
+      </div>
       <p className="songTitle">{title}</p>
       <p className="artists">{artist.map((artist) => artist)}</p>
     </Styled.Root>
   );
 }
 const Styled = {
-  Root: styled.button`
+  Root: styled.button<{ isHovered: boolean }>`
     position: relative;
     border: none;
     background: white;
@@ -60,6 +59,7 @@ const Styled = {
     }
 
     .hover {
+      display: ${({ isHovered }) => (isHovered ? 'block' : 'none')};
       position: absolute;
       top: 0px;
       border-radius: 10px;
