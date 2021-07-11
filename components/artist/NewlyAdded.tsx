@@ -38,8 +38,12 @@ function NewlyAdded(): ReactElement {
   );
 }
 
-const Wrap = styled.div`
-  .title {
+const Styled = {
+  Root: styled.div`
+    width: 100%;
+  `,
+
+  TitleWrapper: styled.p`
     margin-top: 62px;
     margin-bottom: 59px;
     text-align: center;
@@ -47,14 +51,40 @@ const Wrap = styled.div`
     font-size: 32px;
     font-weight: bold;
     font-style: normal;
-  }
+  `,
 
-  .cards {
+  MusicCardWrapper: styled.div`
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 80px;
-    padding: 0 137px;
-  }
-`;
+    justify-content: center;
+    margin: 0 64px;
+  `,
+
+  MusicCardTightWrapper: styled.div`
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 1fr);
+    gap: 20px 20px;
+    justify-content: start;
+
+    @media (max-width: 547px) {
+      grid-template-columns: repeat(1, 200px);
+    }
+
+    @media all and (min-width: 548px) and (max-width: 767px) {
+      grid-template-columns: repeat(2, 200px);
+    }
+
+    @media all and (min-width: 768px) and (max-width: 987px) {
+      grid-template-columns: repeat(3, 200px);
+    }
+
+    @media all and (min-width: 988px) and (max-width: 1209px) {
+      grid-template-columns: repeat(4, 200px);
+    }
+
+    @media (min-width: 1210px) {
+      grid-template-columns: repeat(5, 200px);
+    }
+  `,
+};
 
 export default NewlyAdded;
