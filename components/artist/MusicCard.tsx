@@ -48,8 +48,9 @@ const Styled = {
     border: none;
     background: white;
     cursor: pointer;
+    padding: 0;
     width: 200px;
-    height: 265px;
+    height: 275px;
 
     .img {
       border-radius: 10px;
