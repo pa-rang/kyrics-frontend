@@ -13,3 +13,10 @@ export interface Song {
   albumImg: string;
   songId: number;
 }
+
+export interface ITimedText {
+  startTime: number;
+  duration: number;
+  kor: string;
+  eng: string;
+}
