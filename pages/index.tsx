@@ -1,4 +1,5 @@
 import ArtistCarousel from '@components/home/ArtistCarousel';
+import Footer from '@components/common/Footer';
 import Title from 'components/home/Title';
 import { mockClient } from 'lib/api';
 import React from 'react';
@@ -17,6 +18,7 @@ function Home() {
       <Header isLoggedIn={true} />
       <Title />
       <ArtistCarousel />
+      <Footer />
     </>
   );
 }
