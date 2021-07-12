@@ -1,10 +1,15 @@
+import LinedTitle from '@components/signup/LinedTitle';
 import styled from '@emotion/styled';
+import { mainLogo } from '@public/assets';
 import React from 'react';
 
 function SignUp() {
   return (
     <Styled.Root>
-      <Styled.Contents>HI</Styled.Contents>
+      <Styled.Contents>
+        <Styled.Logo src={mainLogo.src} alt="kyrics" />
+        <LinedTitle>Sign Up</LinedTitle>
+      </Styled.Contents>
     </Styled.Root>
   );
 }
@@ -20,4 +25,11 @@ const Styled = {
   `,
 
   Contents: styled.div``,
+
+  Logo: styled.img`
+    width: 360px;
+    @media (max-width: 768px) {
+      width: 180px;
+    }
+  `,
 };
