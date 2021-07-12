@@ -1,3 +1,4 @@
+import Footer from '@components/common/Footer';
 import Title from 'components/home/Title';
 import { mockClient } from 'lib/api';
 import React from 'react';
@@ -16,6 +17,7 @@ function Home() {
       <Header isLoggedIn={true} />
       <Title />
       <div>안녕하세요.</div>
+      <Footer />
     </>
   );
 }
