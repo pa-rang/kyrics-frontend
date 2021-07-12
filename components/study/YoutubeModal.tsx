@@ -17,7 +17,7 @@ function YoutubeModal({ videoId, isModalOpened, setIsModalOpened }: Props) {
           title="youtuve video player"
           width="1149px"
           height="647px"
-          src="https://www.youtube.com/embed/Y1o74zp8ugE"
+          src="https://www.youtube.com/embed/-5q5mZbe3V8"
           // src=`https://www.youtube.com/embed/${videoId}`
           frameBorder="0"
           allowFullScreen
@@ -38,16 +38,21 @@ export default YoutubeModal;
 
 const YoutubeModalWrapper = styled.div<{ isModalOpened: boolean }>`
   display: ${({ isModalOpened }) => (isModalOpened ? 'flex' : 'none')};
-  position: absolute;
+  position: fixed;
   top: 0;
+  left: 0;
   justify-content: center;
+  z-index: 11;
   background: rgba(0, 0, 0, 0.8);
   width: 100vw;
   height: 100vh;
 
   .modal {
-    position: absolute;
+    position: fixed;
     top: 90px;
+  }
+  iframe {
+    z-index: 12;
   }
   .modalClose--btn {
     position: absolute;

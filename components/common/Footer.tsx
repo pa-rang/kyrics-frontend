@@ -63,6 +63,7 @@ const Styled = {
   Root: styled.div`
     display: flex;
     background-color: #f6f6f6;
+    width: 100%;
     color: #9d9d9d;
   `,
   Left: styled.div`
