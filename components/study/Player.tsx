@@ -274,7 +274,8 @@ const PlayerWrapper = styled.div<StyledProps>`
         width: 31px;
         height: 31px;
         &:hover {
-          filter: brightness(0) saturate(100%) invert(93%) sepia(0%) saturate(43%) hue-rotate(297deg) brightness(116%) contrast(76%); */
+          filter: brightness(0) saturate(100%) invert(93%) sepia(0%) saturate(43%)
+            hue-rotate(297deg) brightness(116%) contrast(76%);
         }
       }
       &__forward {
@@ -302,8 +303,8 @@ const PlayerWrapper = styled.div<StyledProps>`
           width: 25px;
           height: 25px;
           &:hover {
-            filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%) hue-rotate(49deg)
-            brightness(95%) contrast(85%);
+            filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%)
+              hue-rotate(49deg) brightness(95%) contrast(85%);
           }
         }
 
@@ -336,9 +337,9 @@ const PlayerWrapper = styled.div<StyledProps>`
         justify-content: center;
         &__btn {
           margin-bottom: 10px;
+          background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
           width: 20px;
           height: 20px;
-          background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
           ${({ isLooped }) =>
             !isLooped &&
             css`

@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 import YoutubeModal from './YoutubeModal';
 
 interface Props {
@@ -100,6 +101,7 @@ function PlayerBtns({ videoId }: Props) {
       />
     </PlayerBtnsWrapper>
   );
+}
 
 export default PlayerBtns;
 
