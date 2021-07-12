@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "json-server ./json-server/mock-api.json --port 3005"
   },
   "dependencies": {
     "@emotion/react": "^11.4.0",
@@ -17,6 +18,7 @@
     "react": "^17.0.2",
     "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "17.0.2",
+    "react-player": "^2.9.0",
     "recoil": "^0.3.1",
     "reset-css": "^5.0.1",
     "swr": "^0.5.6"
@@ -35,6 +37,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "json-server": "^0.16.3",
     "prettier": "^2.3.2",
     "stylelint": "^13.13.1",
     "stylelint-config-concentric-order": "^4.0.1",
