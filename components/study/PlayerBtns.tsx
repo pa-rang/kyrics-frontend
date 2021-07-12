@@ -1,7 +1,9 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useRecoilValue } from 'recoil';
+import { songDataState } from 'states';
 
 import YoutubeModal from './YoutubeModal';
 
@@ -15,6 +17,11 @@ function PlayerBtns({ videoId }: Props) {
   // data를 받아와서, favorite 초기값을 설정해줄 예정.
   const [isFavoriteMsgOpen, setIsFavoriteMsgOpen] = useState(false);
   const [isCopyMsgOpen, setIsCopyMsgOpen] = useState(false);
+  const songData = useRecoilValue(songDataState);
+
+  useEffect(() => {
+    setIsFavorite(songData?.isSaved);
+  }, [songData]);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
