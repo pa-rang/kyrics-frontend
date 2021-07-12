@@ -16,9 +16,12 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:jsx-a11y/recommended",
     "prettier/prettier",
-    "plugin:import/recommended"
+    "plugin:import/recommended",
+    "next",
+    "next/core-web-vitals"
   ],
   "rules": {
+    "@next/next/no-img-element": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "prettier/prettier": "error",
