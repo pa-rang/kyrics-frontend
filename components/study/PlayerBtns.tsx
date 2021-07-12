@@ -1,20 +1,20 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
 import styled from '@emotion/styled';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import YoutubeModal from './YoutubeModal';
 
 interface Props {
-  videoId: string;
+  videoId?: string;
 }
 
 function PlayerBtns({ videoId }: Props) {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  // data를 받아와서, favortite 초기값을 설정해줄 예정.
-  const copyRef = useRef<HTMLDivElement | null>(null);
-  const favoriteAddRef = useRef<HTMLDivElement | null>(null);
+  // data를 받아와서, favorite 초기값을 설정해줄 예정.
+  const [isFavoriteMsgOpen, setIsFavoriteMsgOpen] = useState(false);
+  const [isCopyMsgOpen, setIsCopyMsgOpen] = useState(false);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
@@ -35,12 +35,11 @@ function PlayerBtns({ videoId }: Props) {
   };
 
   const handleCopy = () => {
-    copyRef.current && (copyRef.current.style.display = 'flex');
+    setIsCopyMsgOpen(true);
     setTimeout(() => {
-      copyRef.current && (copyRef.current.style.display = 'none');
+      setIsCopyMsgOpen(false);
     }, 2000);
   };
-
   const handleFavorite = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
     const src: string = isFavorite
@@ -49,11 +48,10 @@ function PlayerBtns({ videoId }: Props) {
 
     target.src = src;
     if (!isFavorite) {
-      favoriteAddRef.current && (favoriteAddRef.current.style.display = 'flex');
+      setIsFavoriteMsgOpen(true);
       setTimeout(() => {
-        favoriteAddRef.current && (favoriteAddRef.current.style.display = 'none');
+        setIsFavoriteMsgOpen(false);
       }, 2000);
-      //
     }
 
     setIsFavorite((isFavorite) => !isFavorite);
@@ -61,7 +59,7 @@ function PlayerBtns({ videoId }: Props) {
   };
 
   return (
-    <PlayerBtnsWrapper>
+    <PlayerBtnsWrapper isFavoriteMsgOpen={isFavoriteMsgOpen} isCopyMsgOpen={isCopyMsgOpen}>
       <div className="icon--container">
         <img
           className="FavoriteIcon"
@@ -72,9 +70,7 @@ function PlayerBtns({ videoId }: Props) {
           onClick={handleFavorite}
           aria-hidden="true"
         />
-        <div className="favoriteAdd--msg msg" ref={favoriteAddRef}>
-          Added
-        </div>
+        <div className="favoriteAdd--msg msg">Added</div>
       </div>
       <div className="icon--container">
         <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={handleCopy}>
@@ -86,9 +82,7 @@ function PlayerBtns({ videoId }: Props) {
             onMouseLeave={handleMouseLeave}
           />
         </CopyToClipboard>
-        <div className="copy--msg msg" ref={copyRef}>
-          Link Copied
-        </div>
+        <div className="copy--msg msg">Link Copied</div>
       </div>
 
       <img
@@ -111,7 +105,7 @@ function PlayerBtns({ videoId }: Props) {
 
 export default PlayerBtns;
 
-const PlayerBtnsWrapper = styled.div`
+const PlayerBtnsWrapper = styled.div<{ isFavoriteMsgOpen: boolean; isCopyMsgOpen: boolean }>`
   display: flex;
   position: relative;
   align-items: center;
@@ -138,7 +132,11 @@ const PlayerBtnsWrapper = styled.div`
     height: 24px;
     font-size: 12px;
   }
+  .copy--msg {
+    display: ${({ isCopyMsgOpen }) => (isCopyMsgOpen ? 'flex' : 'none')};
+  }
   .favoriteAdd--msg {
+    display: ${({ isFavoriteMsgOpen }) => (isFavoriteMsgOpen ? 'flex' : 'none')};
     transform: translateX(-25%);
     width: 60px;
   }
