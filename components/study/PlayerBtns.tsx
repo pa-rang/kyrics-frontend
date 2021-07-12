@@ -5,7 +5,11 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import YoutubeModal from './YoutubeModal';
 
-const PlayerBtns = ({ videoId }: { videoId?: string }) => {
+interface Props {
+  videoId: string;
+}
+
+function PlayerBtns({ videoId }: Props) {
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   // data를 받아와서, favortite 초기값을 설정해줄 예정.
@@ -103,7 +107,7 @@ const PlayerBtns = ({ videoId }: { videoId?: string }) => {
       />
     </PlayerBtnsWrapper>
   );
-};
+}
 
 export default PlayerBtns;
 
