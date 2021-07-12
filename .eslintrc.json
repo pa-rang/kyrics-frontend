@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 {
   "plugins": [
     "react",
@@ -14,9 +16,12 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:jsx-a11y/recommended",
     "prettier/prettier",
-    "plugin:import/recommended"
+    "plugin:import/recommended",
+    "next",
+    "next/core-web-vitals"
   ],
   "rules": {
+    "@next/next/no-img-element": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "prettier/prettier": "error",
@@ -39,7 +44,8 @@
       { "blankLine": "always", "prev": "*", "next": "return" },
       { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
       { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
-    ]
+    ],
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   "settings": {
     "import/resolver": {

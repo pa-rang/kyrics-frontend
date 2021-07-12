@@ -2,6 +2,8 @@ import PlayerBtns from '@components/study/PlayerBtns';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { ReactElement } from 'react';
+import { useRecoilValue } from 'recoil';
+import { songDataState } from 'states';
 
 interface PlayerProps {
   isPlay: boolean;
@@ -47,12 +49,14 @@ function Player({
   mouseLeaveController,
   percentage,
 }: PlayerProps): ReactElement {
-  const title = '앨범 제목';
-  const singer = '가수';
+  const songData = useRecoilValue(songDataState);
+  const artist = songData?.artist;
+  const title = songData?.title;
+
   const currentTimeForm =
     currentTime % 60 <= 9
-      ? `0${Math.floor(currentTime / 60)}:0${currentTime % 60} `
-      : `0${Math.floor(currentTime / 60)}:${currentTime % 60} `;
+      ? `0${Math.floor(currentTime / 60)}:0${Math.floor(currentTime) % 60} `
+      : `0${Math.floor(currentTime / 60)}:${Math.floor(currentTime) % 60} `;
 
   const finishedTime =
     totalTime % 60 <= 9
@@ -71,7 +75,7 @@ function Player({
       <img className="player-album" src="assets/images/exampleImg.svg" alt="albumImage" />
       <div className="player-custom">
         <div className="player-custom__title">
-          {title}-{singer}
+          {title}-{artist}
         </div>
         <div className="player-custom__progress">
           <input
@@ -133,6 +137,7 @@ const PlayerWrapper = styled.div<StyledProps>`
   align-items: center;
   justify-content: space-around;
   background: url('assets/images/playerBackground.svg') no-repeat 0 0;
+  background-size: cover;
   width: 100%;
   height: 263px;
 
@@ -338,7 +343,6 @@ const PlayerWrapper = styled.div<StyledProps>`
         &__btn {
           margin-bottom: 10px;
           background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
-
           width: 20px;
           height: 20px;
           ${({ isLooped }) =>
