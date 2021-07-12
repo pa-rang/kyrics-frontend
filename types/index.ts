@@ -6,3 +6,10 @@ export interface Artist {
   profileImageUrl: string;
   logo: string;
 }
+
+export interface ITimedText {
+  startTime: number;
+  duration: number;
+  kor: string;
+  eng: string;
+}
