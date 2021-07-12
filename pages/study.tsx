@@ -1,12 +1,8 @@
 import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import styled from '@emotion/styled';
-<<<<<<<
-import React, { ReactElement, RefObject, useEffect, useRef, useState } from 'react';
-=======
 import { mockClient } from 'lib/api';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
->>>>>>>
 import ReactPlayer from 'react-player';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { songDataState } from 'states';
