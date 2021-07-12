@@ -1,7 +1,7 @@
 import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import styled from '@emotion/styled';
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, RefObject, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 
 function Study(): ReactElement {
@@ -19,8 +19,8 @@ function Study(): ReactElement {
   }, [currentTime]);
 
   useEffect(() => {
-    if (hostVideo.current !== null) {
-      setTotalTime(Math.floor(hostVideo.current.getDuration()));
+    if (hostVideo?.current !== null) {
+      setTotalTime(Math.floor(hostVideo?.current?.getDuration()));
       console.log(totalTime);
     }
   }, [isPlay]);
@@ -47,16 +47,18 @@ function Study(): ReactElement {
   };
 
   const handleSeekTime = (e: React.FormEvent<HTMLInputElement>) => {
-    setCurrentTime(e.target.value);
-    hostVideo.current.seekTo(e.target.value);
+    const target = e.target as HTMLInputElement;
+
+    setCurrentTime(parseInt(target.value));
+    hostVideo?.current?.seekTo(e.target.value);
   };
 
   const handleBackTime = () => {
     if (currentTime >= 10) {
-      hostVideo.current.seekTo(currentTime - 10);
+      hostVideo?.current?.seekTo(currentTime - 10);
       setCurrentTime(currentTime - 10);
     } else {
-      hostVideo.current.seekTo(0);
+      hostVideo?.current?.seekTo(0);
       setCurrentTime(0);
     }
   };
@@ -64,10 +66,10 @@ function Study(): ReactElement {
   const handleForwardTime = () => {
     if (currentTime <= totalTime - 10) {
       setCurrentTime(currentTime + 10);
-      hostVideo.current.seekTo(currentTime + 10);
+      hostVideo?.current?.seekTo(currentTime + 10);
     } else {
       setCurrentTime(totalTime);
-      hostVideo.current.seekTo(totalTime);
+      hostVideo?.current?.seekTo(totalTime);
     }
   };
 
@@ -89,6 +91,14 @@ function Study(): ReactElement {
           width="650px"
           height="400px"
           onProgress={(e) => handleOnProgress(e)}
+          config={{
+            youtube: {
+              playerVars: {
+                autoplay: 1,
+                enablejsapi: 1,
+              },
+            },
+          }}
         />
       </div>
       <Player
