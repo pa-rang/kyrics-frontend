@@ -1,3 +1,4 @@
+import Footer from '@components/common/Footer';
 import styled from '@emotion/styled';
 import React, { useEffect, useRef, useState } from 'react';
 import { ITimedText } from 'types';
@@ -366,10 +367,8 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
     });
   }, [currentTime]);
 
-  const handleSize = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    const target = e.target as HTMLImageElement;
-
-    if (target.src.includes('Up')) {
+  const handleSize = (type: string) => {
+    if (type === 'Up') {
       if (fontSize === 'Big') {
         return;
       } else if (fontSize === 'Medium') {
@@ -389,13 +388,13 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   };
 
   return (
-    <Styled.Root fontSize={fontSize} engTranslated={engTranslated} isDropDown={isDropDown}>
+    <Styled.Root fontSize={fontSize} engTranslated={engTranslated}>
       <div>
         <Styled.Title>Lyrics</Styled.Title>
         <Styled.Main>
           <Styled.Steps>
             <img
-              src={!isQuizStep ? onStep1.src : offStep1.src}
+              src={isQuizStep ? offStep1.src : onStep1.src}
               alt=""
               className="step1"
               onClick={() => setIsQuizStep(false)}
@@ -409,7 +408,9 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
               aria-hidden="true"
             />
           </Styled.Steps>
-          {!isQuizStep ? (
+          {isQuizStep ? (
+            <Quiz />
+          ) : (
             <div className="lyrics--box">
               <div className="textSizeController">
                 <img className="alphabet" src={Alphabet.src} alt="" />
@@ -417,14 +418,14 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
                   className="sizeUp"
                   src={sizeUp.src}
                   alt=""
-                  onClick={handleSize}
+                  onClick={() => handleSize('Up')}
                   aria-hidden="true"
                 />
                 <img
                   className="sizeDown"
                   src={sizeDown.src}
                   alt=""
-                  onClick={handleSize}
+                  onClick={() => handleSize('Down')}
                   aria-hidden="true"
                 />
               </div>
@@ -433,25 +434,27 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
                 onClick={() => setIsDropDown((isDropDown) => !isDropDown)}
                 aria-hidden="true"
               >
-                {!engTranslated ? 'Translate' : 'English'}
+                {engTranslated ? 'English' : 'Translate'}
                 <img src={dropDownIcon.src} alt="" />
-                <div className="language__dropdown">
-                  <div
-                    className="language__none lang"
-                    onClick={() => setEngTranslated(false)}
-                    aria-hidden="true"
-                  >
-                    None
+                {isDropDown && (
+                  <div className="language__dropdown">
+                    <div
+                      className="language__none lang"
+                      onClick={() => setEngTranslated(false)}
+                      aria-hidden="true"
+                    >
+                      None
+                    </div>
+                    <div
+                      className="language__english lang"
+                      onClick={() => setEngTranslated(true)}
+                      aria-hidden="true"
+                    >
+                      English
+                    </div>
+                    {/* <div>Japanese</div> */}
                   </div>
-                  <div
-                    className="language__english lang"
-                    onClick={() => setEngTranslated(true)}
-                    aria-hidden="true"
-                  >
-                    English
-                  </div>
-                  {/* <div>Japanese</div> */}
-                </div>
+                )}
               </div>
               <div className="lyrics__lines">
                 {timedtext &&
@@ -479,8 +482,6 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
                   ))}
               </div>
             </div>
-          ) : (
-            <Quiz />
           )}
         </Styled.Main>
       </div>
@@ -493,7 +494,6 @@ export default Lyrics;
 interface StyledProps {
   fontSize: string;
   engTranslated: boolean;
-  isDropDown: boolean;
 }
 
 const Styled = {
@@ -501,6 +501,9 @@ const Styled = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    .lyrics--box {
+      height: 100%;
+    }
 
     .textSizeController {
       position: absolute;
@@ -534,7 +537,7 @@ const Styled = {
         margin-left: 8px;
       }
       .language__dropdown {
-        display: ${({ isDropDown }) => (isDropDown ? 'flex' : 'none')};
+        display: flex;
         position: absolute;
         top: 49px;
         /* height: 125px; */
@@ -563,8 +566,8 @@ const Styled = {
           font-weight: ${({ engTranslated }) => (engTranslated ? 400 : 700)};
         }
         .language__english {
-          color: ${({ engTranslated }) => (!engTranslated ? '#9d9d9d' : '#464646')};
-          font-weight: ${({ engTranslated }) => (!engTranslated ? 400 : 700)};
+          color: ${({ engTranslated }) => (engTranslated ? '#464646' : '#9d9d9d')};
+          font-weight: ${({ engTranslated }) => (engTranslated ? 700 : 400)};
         }
       }
     }
@@ -572,8 +575,8 @@ const Styled = {
       display: flex;
       flex-direction: column;
       align-items: center;
-      transform: translateY(100px);
       margin: auto;
+      padding-top: 100px;
       .lyrics__line {
         display: flex;
         flex: 0 1 auto;

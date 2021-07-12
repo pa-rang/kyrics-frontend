@@ -133,6 +133,7 @@ const PlayerWrapper = styled.div<StyledProps>`
   align-items: center;
   justify-content: space-around;
   background: url('assets/images/playerBackground.svg') no-repeat 0 0;
+  background-size: cover;
   width: 100%;
   height: 263px;
 
