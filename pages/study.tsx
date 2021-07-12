@@ -11,7 +11,7 @@ function Study(): ReactElement {
   const [loop, setLoop] = useState<boolean>(false);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [isMessageOpened, setIsMessageOpened] = useState<boolean>(false);
-  const hostVideo = useRef<ReactPlayer>();
+  const hostVideo = useRef<any>();
   const [percentage, setPercentage] = useState<number>(0);
 
   useEffect(() => {
@@ -91,6 +91,7 @@ function Study(): ReactElement {
           width="650px"
           height="400px"
           onProgress={(e) => handleOnProgress(e)}
+          progressInterval={100}
           config={{
             youtube: {
               playerVars: {
