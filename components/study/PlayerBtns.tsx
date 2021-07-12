@@ -10,8 +10,8 @@ interface Props {
 }
 
 function PlayerBtns({ videoId }: Props) {
-  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   // data를 받아와서, favortite 초기값을 설정해줄 예정.
   const copyRef = useRef<HTMLDivElement | null>(null);
   const favoriteAddRef = useRef<HTMLDivElement | null>(null);
