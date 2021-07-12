@@ -51,8 +51,8 @@ function Player({
   const singer = '가수';
   const currentTimeForm =
     currentTime % 60 <= 9
-      ? `0${Math.floor(currentTime / 60)}:0${currentTime % 60} `
-      : `0${Math.floor(currentTime / 60)}:${currentTime % 60} `;
+      ? `0${Math.floor(currentTime / 60)}:0${Math.floor(currentTime) % 60} `
+      : `0${Math.floor(currentTime / 60)}:${Math.floor(currentTime) % 60} `;
 
   const finishedTime =
     totalTime % 60 <= 9
