@@ -9,15 +9,17 @@ interface Props {
   songId: number;
 }
 
+type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
+
 function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
-  const [isHover, setIsHover] = useState<boolean>(false);
+  const [isHover, setIsHover] = useState<HoverState>('idle');
 
   function handleMouseEnter() {
-    setIsHover(true);
+    setIsHover('MouseEnter');
   }
 
   function handleMouseLeave() {
-    setIsHover(false);
+    setIsHover('MouseLeave');
   }
 
   function handleOnClick() {
@@ -32,6 +34,7 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
       onClick={handleOnClick}
     >
       <img className="img" src={albumImg} alt=""></img>
+
       <div className="hover">
         <p className="hover__label">Explore &gt;</p>
         <img className="hover__play" src="/assets/icons/playBtn.svg" alt=""></img>
@@ -42,7 +45,7 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   );
 }
 const Styled = {
-  Root: styled.button<{ isHovered: boolean }>`
+  Root: styled.button<{ isHovered: HoverState }>`
     position: relative;
     border: none;
     background: white;
@@ -71,7 +74,9 @@ const Styled = {
       width: 200px;
       height: 200px;
       ${({ isHovered }) =>
-        isHovered ? 'animation: fadeIn 0.5s; visibility: visible;' : 'animation: fadeOut 0.5s;'}
+        isHovered === 'MouseEnter'
+          ? 'animation: fadeIn 0.5s; visibility: visible;'
+          : isHovered === 'MouseLeave' && 'animation: fadeOut 0.5s;'}
 
       &__label {
         padding-top: 65px;
