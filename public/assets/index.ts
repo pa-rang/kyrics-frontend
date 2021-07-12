@@ -9,4 +9,4 @@ export { default as onStep1 } from './icons/onStep1.svg';
 export { default as onStep2 } from './icons/onStep2.svg';
 export { default as sizeDown } from './icons/sizeDown.svg';
 export { default as sizeUp } from './icons/sizeUp.svg';
-export { default as YoutubeIcon } from './icons/YoutubeIcon.svg';
+export { default as YoutubeIcon } from './icons/youtubeIcon.svg';
