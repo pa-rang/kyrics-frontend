@@ -33,7 +33,6 @@ function ArtistCard({ name, profileImage, logo }: Props): ReactElement {
 }
 
 const Wrap = styled.div<Props>`
-  margin-right: 40px;
   border-radius: 10px;
   width: 360px;
   height: 270px;
@@ -41,6 +40,7 @@ const Wrap = styled.div<Props>`
   object-fit: cover;
 
   .bgImg {
+    position: relative;
     border: none;
     background: linear-gradient(black, black), url(${(props: Props) => props.profileImage});
     background-blend-mode: saturation;
@@ -52,6 +52,15 @@ const Wrap = styled.div<Props>`
   }
 
   .hover {
+    display: flex;
+
+    /* .bgImg와 위치 동일 */
+    position: absolute;
+    top: 0px;
+
+    flex-direction: column;
+    align-items: center;
+
     background: linear-gradient(
       139.09deg,
       rgba(231, 78, 151, 0.5) 5.46%,
