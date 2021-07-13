@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React, { ReactElement, useState } from 'react';
 
+type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
 interface Props {
   name: string;
   profileImage: string;
@@ -8,31 +9,34 @@ interface Props {
 }
 
 function ArtistCard({ name, profileImage, logo }: Props): ReactElement {
-  const [isHover, setIsHover] = useState(false);
+  const [isHover, setIsHover] = useState<HoverState>('idle');
 
   function handleMouseEnter() {
-    setIsHover(true);
+    setIsHover('MouseEnter');
   }
 
   function handleMouseLeave() {
-    setIsHover(false);
+    setIsHover('MouseLeave');
   }
 
   return (
-    <Wrap name={name} profileImage={profileImage} logo={logo}>
+    <Wrap profileImage={profileImage} isHovered={isHover}>
       <button className="bgImg" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        {isHover && (
-          <div className="hover">
-            <img className="hover__logo" src={logo} alt=""></img>
-            <p className="hover__label">Explore &gt;</p>
-          </div>
-        )}
+        <div className="hover">
+          <img className="hover__logo" src={logo} alt=""></img>
+          <p className="hover__label">Explore &gt;</p>
+        </div>
       </button>
     </Wrap>
   );
 }
 
-const Wrap = styled.div<Props>`
+interface StyledProps {
+  profileImage: string;
+  isHovered: HoverState;
+}
+
+const Wrap = styled.div<StyledProps>`
   border-radius: 10px;
   width: 360px;
   height: 270px;
@@ -42,7 +46,7 @@ const Wrap = styled.div<Props>`
   .bgImg {
     position: relative;
     border: none;
-    background: linear-gradient(black, black), url(${(props: Props) => props.profileImage});
+    background: linear-gradient(black, black), url(${(props: StyledProps) => props.profileImage});
     background-blend-mode: saturation;
     background-size: cover;
     cursor: pointer;
@@ -53,14 +57,11 @@ const Wrap = styled.div<Props>`
 
   .hover {
     display: flex;
-
-    /* .bgImg와 위치 동일 */
     position: absolute;
     top: 0px;
-
     flex-direction: column;
     align-items: center;
-
+    visibility: hidden;
     background: linear-gradient(
       139.09deg,
       rgba(231, 78, 151, 0.5) 5.46%,
@@ -69,6 +70,10 @@ const Wrap = styled.div<Props>`
     background-size: fill;
     width: 100%;
     height: 100%;
+    ${({ isHovered }) =>
+      isHovered === 'MouseEnter'
+        ? 'animation: fadeIn 0.5s; visibility: visible;'
+        : isHovered === 'MouseLeave' && 'animation: fadeOut 0.5s;'}
 
     &__logo {
       margin-top: 55px;
@@ -86,6 +91,26 @@ const Wrap = styled.div<Props>`
       font-size: 24px;
       font-weight: bold;
       font-style: normal;
+    }
+  }
+  @keyframes fadeIn {
+    0% {
+      visibility: hidden;
+      opacity: 0;
+    }
+    100% {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  @keyframes fadeOut {
+    0% {
+      visibility: visible;
+      opacity: 1;
+    }
+    100% {
+      visibility: hidden;
+      opacity: 0;
     }
   }
 `;
