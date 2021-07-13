@@ -2,8 +2,8 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useRecoilValue } from 'recoil';
-import { songDataState } from 'states';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { isModalOpenedState, songDataState } from 'states';
 
 import YoutubeModal from './YoutubeModal';
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 function PlayerBtns({ videoId }: Props) {
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isModalOpened, setIsModalOpened] = useRecoilState(isModalOpenedState);
   const [isFavorite, setIsFavorite] = useState(false);
   // data를 받아와서, favorite 초기값을 설정해줄 예정.
   const [isFavoriteMsgOpen, setIsFavoriteMsgOpen] = useState(false);
@@ -101,11 +101,11 @@ function PlayerBtns({ videoId }: Props) {
         onClick={() => setIsModalOpened(true)}
         aria-hidden="true"
       />
-      <YoutubeModal
+      {/* <YoutubeModal
         videoId={videoId}
         isModalOpened={isModalOpened}
         setIsModalOpened={setIsModalOpened}
-      />
+      /> */}
     </PlayerBtnsWrapper>
   );
 }
