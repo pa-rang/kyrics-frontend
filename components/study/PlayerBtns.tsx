@@ -21,6 +21,7 @@ function PlayerBtns({ videoId }: Props) {
 
   useEffect(() => {
     setIsFavorite(songData?.isSaved);
+    console.log('songData?.isSaved', songData?.isSaved);
   }, [songData]);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {

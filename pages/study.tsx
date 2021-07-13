@@ -19,6 +19,7 @@ function Study(): ReactElement {
   const hostVideo = useRef(null) as any;
   const host = hostVideo.current as ReactPlayer;
   const [percentage, setPercentage] = useState<number>(0);
+  const [modalHeight, setModalHeight] = useState<number>(0);
   const [isModalOpened, setIsModalOpened] = useRecoilState(isModalOpenedState);
   const setSongData = useSetRecoilState(songDataState);
   const { data } = useSWR('song-1', (url) => mockClient.get(url));
@@ -101,10 +102,31 @@ function Study(): ReactElement {
     setVolumeBar(parseInt(target.value));
   };
 
+  useEffect(() => {
+    const modalWidth: number = window.outerWidth * 0.7;
+
+    setModalHeight(modalWidth * 0.628);
+  }, [isModalOpened]);
+
+  const adjustModalHeight = () => {
+    const modalWidth: number = window.outerWidth * 0.7;
+
+    setModalHeight(modalWidth * 0.628);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', adjustModalHeight);
+
+    return () => {
+      // cleanup
+      window.removeEventListener('resize', adjustModalHeight);
+    };
+  }, []);
+
   return (
     <Styled.Root>
       <Styled.ModalWrapper isModalOpened={isModalOpened}>
-        <Styled.Modal>
+        <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
             playing={isPlay}
             url={url}
@@ -176,11 +198,12 @@ const Styled = {
     width: 100vw;
     height: 100vh;
   `,
-  Modal: styled.div`
+  Modal: styled.div<{ modalHeight: number }>`
     position: fixed;
     top: 90px;
-    width: 71%;
-    height: 80%;
+    width: 70%;
+    height: ${({ modalHeight }) => `${modalHeight}px`};
+    /* height: 50%; */
     img {
       position: absolute;
       top: 15.33px;
