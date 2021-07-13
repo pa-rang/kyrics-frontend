@@ -91,27 +91,19 @@ const Styled = {
       font-style: normal;
     }
     .my-song {
-      ${({ onSongs }) =>
-        onSongs &&
+      ${({ mySongs }) =>
+        mySongs &&
         css`
           border-bottom: 4px solid #8c8cff;
           color: #6465f4;
-          font-family: Poppins;
-          font-size: 24px;
-          font-weight: bold;
-          font-style: normal;
         `}
     }
     .my-voca {
-      ${({ onVocab }) =>
-        onVocab &&
+      ${({ myVocab }) =>
+        myVocab &&
         css`
           border-bottom: 4px solid #8c8cff;
           color: #6465f4;
-          font-family: Poppins;
-          font-size: 24px;
-          font-weight: bold;
-          font-style: normal;
         `}
     }
   `,
