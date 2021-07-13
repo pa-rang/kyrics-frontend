@@ -5,13 +5,13 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
 
-type defaultState = 'mySongs' | 'myVocab';
+type currentState = 'mySongs' | 'myVocab';
 function Collection(): ReactElement {
   const router = useRouter();
   const pid = router.query;
   const [mySongs, setmySongs] = useState<boolean | undefined>();
   const [myVocab, setmyVocab] = useState<boolean | undefined>();
-  const [defaultState, setDefaultState] = useState<defaultState>();
+
   //localhost:3000/mypage/collection?type=mysongs
   //localhost:3000/mypage/collection?type=myvocab
   const setFirstState = () => {
@@ -19,12 +19,11 @@ function Collection(): ReactElement {
     if (pid.type === 'mysongs') {
       setmySongs(true);
       setmyVocab(false);
-      setDefaultState('mySongs');
       console.log(pid.type);
-    } else {
+    }
+    if (pid.type === 'myvocab') {
       setmySongs(false);
       setmyVocab(true);
-      setDefaultState('myVocab');
       console.log(pid.type);
     }
   };
@@ -33,34 +32,52 @@ function Collection(): ReactElement {
     setFirstState();
   }, [pid]);
 
-  const mouseOnSongs = () => {
-    setOnSongs(true);
-    setOnVocab(false);
+  const mousemySongs = () => {
+    setmySongs(true);
+    setmyVocab(false);
   };
   const mouseLeaveSongs = () => {
-    setOnSongs(false);
+    setmySongs(false);
     setFirstState();
   };
-  const mouseOnVocab = () => {
-    setOnVocab(true);
-    setOnSongs(false);
+  const mousemyVocab = () => {
+    setmyVocab(true);
+    setmySongs(false);
   };
 
   const mouseLeaveVocab = () => {
-    setOnVocab(false);
+    setmyVocab(false);
     setFirstState();
+  };
+
+  const clickSongs = () => {
+    router.push('/mypage/collection?mysongs=true');
+  };
+
+  const clickVocab = () => {
+    router.push('/mypage/collection?myvocab=true');
   };
 
   return (
     <Styled.Root>
       <Header isLoggedIn={true} />
-      <Styled.MyCollection onSongs={onSongs} onVocab={onVocab}>
-        <li className="my-song" onMouseEnter={mouseOnSongs} onMouseLeave={mouseLeaveSongs}>
+      <Styled.MyCollection mySongs={mySongs} myVocab={myVocab}>
+        <button
+          className="my-song"
+          onClick={clickSongs}
+          onMouseEnter={mousemySongs}
+          onMouseLeave={mouseLeaveSongs}
+        >
           My Songs
-        </li>
-        <li className="my-voca" onMouseEnter={mouseOnVocab} onMouseLeave={mouseLeaveVocab}>
+        </button>
+        <button
+          className="my-voca"
+          onClick={clickVocab}
+          onMouseEnter={mousemyVocab}
+          onMouseLeave={mouseLeaveVocab}
+        >
           My Vocab
-        </li>
+        </button>
       </Styled.MyCollection>
       <Footer />
     </Styled.Root>
@@ -71,19 +88,24 @@ export default Collection;
 
 const Styled = {
   Root: styled.div``,
-  MyCollection: styled.div<{ onSongs: boolean | undefined; onVocab: boolean | undefined }>`
+  MyCollection: styled.div<{
+    mySongs: boolean | undefined;
+    myVocab: boolean | undefined;
+  }>`
     display: flex;
     justify-content: center;
     border-bottom: 2px solid #e1e1e1;
     width: 100%;
     height: 43px;
-    li {
+    button {
       margin-right: 61px;
+      outline: 0;
+      border: 0;
+      background: transparent;
       cursor: pointer;
       padding-right: 17px;
       padding-bottom: 7px;
       padding-left: 17px;
-      list-style: none;
       color: #e1e1e1;
       font-family: Poppins;
       font-size: 24px;
