@@ -9,18 +9,23 @@ type defaultState = 'mySongs' | 'myVocab';
 function Collection(): ReactElement {
   const router = useRouter();
   const pid = router.query;
-  const [onSongs, setOnSongs] = useState<boolean | undefined>();
-  const [onVocab, setOnVocab] = useState<boolean | undefined>();
+  const [mySongs, setmySongs] = useState<boolean | undefined>();
+  const [myVocab, setmyVocab] = useState<boolean | undefined>();
   const [defaultState, setDefaultState] = useState<defaultState>();
   //localhost:3000/mypage/collection?type=mysongs
   //localhost:3000/mypage/collection?type=myvocab
   const setFirstState = () => {
-    if ((pid.type = 'mysongs')) {
-      setOnSongs(true);
-      setOnVocab(false);
+    console.log(pid);
+    if (pid.type === 'mysongs') {
+      setmySongs(true);
+      setmyVocab(false);
+      setDefaultState('mySongs');
+      console.log(pid.type);
     } else {
-      setOnSongs(false);
-      setOnVocab(true);
+      setmySongs(false);
+      setmyVocab(true);
+      setDefaultState('myVocab');
+      console.log(pid.type);
     }
   };
 
