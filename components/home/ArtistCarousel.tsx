@@ -1,27 +1,29 @@
 import styled from '@emotion/styled';
+import { mockClient } from 'lib/api';
 import React, { ReactElement } from 'react';
 
 import ArtistCard from './ArtistCard';
 import NewSongCard from './NewSongCard';
 
 function ArtistCarousel(): ReactElement {
+  const { data } = useSWR<{ data: Artist[] }>('/artists', mockClient.get);
+
+  console.log(data?.data);
+
+  const artists = data?.data;
+
   return (
     <Wrap>
       <ArtistCard
-        name={'BTS'}
-        profileImage={
-          'https://img0.yna.co.kr/etc/inner/EN/2021/06/16/AEN20210616005400315_01_i_P2.jpg'
-        }
-        logo={'https://1000logos.net/wp-content/uploads/2018/03/BTS_Logo.png'}
-      />
-      <ArtistCard
-        name={'BTS'}
-        profileImage={
-          'https://img0.yna.co.kr/etc/inner/EN/2021/06/16/AEN20210616005400315_01_i_P2.jpg'
-        }
-        logo={'https://1000logos.net/wp-content/uploads/2018/03/BTS_Logo.png'}
-      />
-      <NewSongCard />
+            {artists?.map((artist: Artist) => (
+              <ArtistCard
+                key={artist.id}
+                name={artist.name}
+                profileImage={artist.profileImageUrl}
+                logo={artist.logo}
+              />
+            ))}
+            <NewSongCard />
     </Wrap>
   );
 }
