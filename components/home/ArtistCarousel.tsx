@@ -51,7 +51,7 @@ function Arrow(props: any) {
 
   return (
     <button className={className} style={{ ...style }} onClick={onClick}>
-      <img src={img} alt=""></img>
+      <img className="arrowImg" src={img} alt=""></img>
     </button>
   );
 }
@@ -74,11 +74,16 @@ const Styled = {
     .slick-arrow {
       &:before {
         position: absolute;
-        z-index: 1;
-        margin-top: 50px;
         width: 21px;
         height: 50px;
       }
+    }
+
+    .arrowImg {
+      position: absolute;
+      z-index: 1;
+      margin-top: -20px;
+      margin-left: -10px;
     }
 
     @media (max-width: 1200px) {
