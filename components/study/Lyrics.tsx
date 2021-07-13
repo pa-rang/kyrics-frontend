@@ -71,7 +71,16 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
         <Styled.Title>Lyrics</Styled.Title>
         <Styled.Main>
           <Styled.Steps>
-            <img
+            <Styled.LeftStep onClick={() => setIsQuizStep(false)} aria-hidden="true">
+              <div>STEP 1</div>
+              <div>Lyrics</div>
+            </Styled.LeftStep>
+            <Styled.CenterStep></Styled.CenterStep>
+            <Styled.RightStep onClick={() => setIsQuizStep(true)} aria-hidden="true">
+              <div>STEP 2</div>
+              <div>Quiz</div>
+            </Styled.RightStep>
+            {/* <img
               src={isQuizStep ? offStep1.src : onStep1.src}
               alt=""
               className="step1"
@@ -84,7 +93,7 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
               className="step2"
               onClick={() => setIsQuizStep(true)}
               aria-hidden="true"
-            />
+            /> */}
           </Styled.Steps>
           {isQuizStep ? (
             <Quiz />
@@ -292,6 +301,55 @@ const Styled = {
     cursor: pointer;
     .step2 {
       transform: translateX(-34px);
+    }
+  `,
+  LeftStep: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 10px;
+    background-color: #6465f4;
+    width: 100%;
+    max-width: 390px;
+    height: 100px;
+    color: #ffffff;
+    div:nth-child(1) {
+      height: 27px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    div:nth-child(2) {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  `,
+  CenterStep: styled.div`
+    border-top: 50px solid #c8c8ee;
+    border-bottom: 50px solid #c8c8ee;
+    border-left: 24px solid #6465f4;
+    width: 0px;
+    height: 0px;
+  `,
+  RightStep: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 10px;
+    background-color: #c8c8ee;
+    width: 100%;
+    max-width: 390px;
+    height: 100px;
+    color: #ffffff;
+    div:nth-child(1) {
+      height: 27px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    div:nth-child(2) {
+      font-size: 16px;
+      font-weight: 500;
     }
   `,
   Title: styled.div`
