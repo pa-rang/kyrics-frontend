@@ -24,7 +24,7 @@ function ArtistCard({ name, profileImage, logo }: Props): ReactElement {
         {isHover && (
           <div className="hover">
             <img className="hover__logo" src={logo} alt=""></img>
-            <p className="hover__label">Start exploring &gt;</p>
+            <p className="hover__label">Explore &gt;</p>
           </div>
         )}
       </button>
