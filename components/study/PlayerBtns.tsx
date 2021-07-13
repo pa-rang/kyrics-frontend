@@ -2,33 +2,33 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { isModalOpenedState, songDataState } from 'states';
-
-import YoutubeModal from './YoutubeModal';
 
 interface Props {
   videoId?: string;
 }
 
-function PlayerBtns({ videoId }: Props) {
-  const [isModalOpened, setIsModalOpened] = useRecoilState(isModalOpenedState);
+function PlayerBtns() {
+  const setIsModalOpened = useSetRecoilState(isModalOpenedState);
   const [isFavorite, setIsFavorite] = useState(false);
   // data를 받아와서, favorite 초기값을 설정해줄 예정.
   const [isFavoriteMsgOpen, setIsFavoriteMsgOpen] = useState(false);
   const [isCopyMsgOpen, setIsCopyMsgOpen] = useState(false);
   const songData = useRecoilValue(songDataState);
+  const [onFavorite, setOnFavorite] = useState<'on' | ''>('');
 
   useEffect(() => {
-    setIsFavorite(songData?.isSaved);
-    console.log('songData?.isSaved', songData?.isSaved);
+    const isSaved = songData?.isSaved;
+
+    setIsFavorite(isSaved);
+    isSaved ? setOnFavorite('on') : setOnFavorite('');
   }, [songData]);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
 
-    if (target.src.includes('assets/icons/onFavorite.svg')) return;
-
+    if (target.src.includes('Favorite') && isFavorite) return;
     const hoverIcon = `hover${target.className}`;
 
     target.src = `assets/icons/${hoverIcon}.svg`;
@@ -36,9 +36,10 @@ function PlayerBtns({ videoId }: Props) {
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
+
+    if (target.src.includes('Favorite') && isFavorite) return;
     const Icon = target.className;
 
-    if (target.src.includes('assets/icons/onFavorite.svg')) return;
     target.src = `assets/icons/${Icon}.svg`;
   };
 
@@ -48,13 +49,8 @@ function PlayerBtns({ videoId }: Props) {
       setIsCopyMsgOpen(false);
     }, 2000);
   };
-  const handleFavorite = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    const target = e.target as HTMLImageElement;
-    const src: string = isFavorite
-      ? 'assets/icons/FavoriteIcon.svg'
-      : 'assets/icons/onFavorite.svg';
-
-    target.src = src;
+  const handleFavorite = () => {
+    isFavorite ? setOnFavorite('') : setOnFavorite('on');
     if (!isFavorite) {
       setIsFavoriteMsgOpen(true);
       setTimeout(() => {
@@ -71,7 +67,7 @@ function PlayerBtns({ videoId }: Props) {
       <div className="icon--container">
         <img
           className="FavoriteIcon"
-          src="assets/icons/FavoriteIcon.svg"
+          src={`assets/icons/${onFavorite}FavoriteIcon.svg`}
           alt="favorite"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -102,11 +98,6 @@ function PlayerBtns({ videoId }: Props) {
         onClick={() => setIsModalOpened(true)}
         aria-hidden="true"
       />
-      {/* <YoutubeModal
-        videoId={videoId}
-        isModalOpened={isModalOpened}
-        setIsModalOpened={setIsModalOpened}
-      /> */}
     </PlayerBtnsWrapper>
   );
 }
