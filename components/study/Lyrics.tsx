@@ -64,9 +64,27 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
       }
     }
   };
+  const [width, setWidth] = useState<number>(0);
+
+  useEffect(() => {
+    console.log(window.outerWidth);
+    setWidth(window.outerWidth);
+  }, []);
+
+  const measureWidth = () => {
+    setWidth(window.outerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', measureWidth);
+
+    return () => {
+      window.removeEventListener('resize', measureWidth);
+    };
+  }, []);
 
   return (
-    <Styled.Root fontSize={fontSize} engTranslated={engTranslated}>
+    <Styled.Root fontSize={fontSize} engTranslated={engTranslated} width={width}>
       <Styled.Lyrics>
         <Styled.Title>Lyrics</Styled.Title>
         <Styled.Main>
@@ -177,6 +195,7 @@ export default Lyrics;
 interface StyledProps {
   fontSize: string;
   engTranslated: boolean;
+  width: number;
 }
 
 const Styled = {
@@ -184,8 +203,10 @@ const Styled = {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
 
+    margin: 0px ${({ width }) => (141 * width) / 1440}px;
+
+    width: 100%;
     .textSizeController {
       position: absolute;
       top: 136px;
@@ -394,7 +415,6 @@ const Styled = {
     max-width: 780px;
 
     @media (max-width: 768px) {
-      margin: 0 36px;
       margin-top: 23px;
       min-width: 289px;
     }
