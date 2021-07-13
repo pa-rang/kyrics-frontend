@@ -9,6 +9,7 @@ function SignUp() {
       <Styled.Contents>
         <Styled.Logo src={mainLogo.src} alt="kyrics" />
         <LinedTitle>Sign Up</LinedTitle>
+        <button>Sign up with Google</button>
       </Styled.Contents>
     </Styled.Root>
   );
