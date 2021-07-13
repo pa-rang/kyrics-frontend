@@ -207,6 +207,12 @@ const Styled = {
     margin: 0px ${({ width }) => (141 * width) / 1440}px;
 
     width: 100%;
+    .lyrics--box {
+      @media (max-width: 768px) {
+        height: 600px;
+        overflow-y: scroll;
+      }
+    }
     .textSizeController {
       position: absolute;
       top: 136px;
