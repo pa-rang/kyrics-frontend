@@ -43,6 +43,7 @@ const Styled = {
     display: flex;
     justify-content: center;
     margin-top: -114px;
+    margin-bottom: 200px;
     height: 270px;
   `,
 
@@ -59,11 +60,6 @@ const Styled = {
         /* font-size: 50px; */
       }
     }
-
-    /* .slick-track {
-      margin-right: auto;
-      margin-left: auto;
-    } */
 
     @media (max-width: 1200px) {
       width: 800px;
