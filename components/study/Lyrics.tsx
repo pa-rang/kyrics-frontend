@@ -67,33 +67,27 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
 
   return (
     <Styled.Root fontSize={fontSize} engTranslated={engTranslated}>
-      <div>
+      <Styled.Lyrics>
         <Styled.Title>Lyrics</Styled.Title>
         <Styled.Main>
           <Styled.Steps>
-            <Styled.LeftStep onClick={() => setIsQuizStep(false)} aria-hidden="true">
+            <Styled.LeftStep
+              onClick={() => setIsQuizStep(false)}
+              aria-hidden="true"
+              isQuizStep={isQuizStep}
+            >
               <div>STEP 1</div>
               <div>Lyrics</div>
             </Styled.LeftStep>
-            <Styled.CenterStep></Styled.CenterStep>
-            <Styled.RightStep onClick={() => setIsQuizStep(true)} aria-hidden="true">
+            <Styled.CenterStep isQuizStep={isQuizStep}></Styled.CenterStep>
+            <Styled.RightStep
+              onClick={() => setIsQuizStep(true)}
+              aria-hidden="true"
+              isQuizStep={isQuizStep}
+            >
               <div>STEP 2</div>
               <div>Quiz</div>
             </Styled.RightStep>
-            {/* <img
-              src={isQuizStep ? offStep1.src : onStep1.src}
-              alt=""
-              className="step1"
-              onClick={() => setIsQuizStep(false)}
-              aria-hidden="true"
-            />
-            <img
-              src={isQuizStep ? onStep2.src : offStep2.src}
-              alt=""
-              className="step2"
-              onClick={() => setIsQuizStep(true)}
-              aria-hidden="true"
-            /> */}
           </Styled.Steps>
           {isQuizStep ? (
             <Quiz />
@@ -171,7 +165,7 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
             </div>
           )}
         </Styled.Main>
-      </div>
+      </Styled.Lyrics>
     </Styled.Root>
   );
 }
@@ -186,11 +180,9 @@ interface StyledProps {
 const Styled = {
   Root: styled.div<StyledProps>`
     display: flex;
-    flex-direction: column;
     align-items: center;
-    .lyrics--box {
-      height: 100%;
-    }
+    justify-content: center;
+    width: 100%;
 
     .textSizeController {
       position: absolute;
@@ -264,6 +256,7 @@ const Styled = {
       align-items: center;
       margin: auto;
       padding-top: 100px;
+      width: 100%;
       .lyrics__line {
         display: flex;
         flex: 0 1 auto;
@@ -296,6 +289,14 @@ const Styled = {
       }
     }
   `,
+  Lyrics: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  `,
   Steps: styled.div`
     display: flex;
     cursor: pointer;
@@ -303,13 +304,14 @@ const Styled = {
       transform: translateX(-34px);
     }
   `,
-  LeftStep: styled.div`
+  LeftStep: styled.div<{ isQuizStep: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-top-left-radius: 10px;
-    background-color: #6465f4;
+    /* background-color: #6465f4; */
+    background-color: ${({ isQuizStep }) => (isQuizStep ? '#c8c8ee' : '#6465f4')};
     width: 100%;
     max-width: 390px;
     height: 100px;
@@ -324,20 +326,21 @@ const Styled = {
       font-weight: 500;
     }
   `,
-  CenterStep: styled.div`
-    border-top: 50px solid #c8c8ee;
-    border-bottom: 50px solid #c8c8ee;
-    border-left: 24px solid #6465f4;
+  CenterStep: styled.div<{ isQuizStep: boolean }>`
+    border-top: 50px solid ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
+    border-bottom: 50px solid ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
+    border-left: 24px solid ${({ isQuizStep }) => (isQuizStep ? '#c8c8ee' : '#6465f4')};
+
     width: 0px;
     height: 0px;
   `,
-  RightStep: styled.div`
+  RightStep: styled.div<{ isQuizStep: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-top-right-radius: 10px;
-    background-color: #c8c8ee;
+    background-color: ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
     width: 100%;
     max-width: 390px;
     height: 100px;
@@ -362,6 +365,7 @@ const Styled = {
   Main: styled.div`
     position: relative;
     background-color: #f6f6f6;
-    width: 780px;
+    width: 100%;
+    max-width: 780px;
   `,
 };
