@@ -1,6 +1,7 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import { withTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { mockClient } from 'lib/api';
 import React, { ReactElement } from 'react';
@@ -38,6 +39,23 @@ function ArtistCarousel(): ReactElement {
   );
 }
 
+interface ArrowProps {
+  className: any;
+  style: any;
+  onClick: any;
+  img: any;
+}
+
+function Arrow(props: any) {
+  const { className, style, onClick, img } = props;
+
+  return (
+    <button className={className} style={{ ...style }} onClick={onClick}>
+      <img src={img} alt=""></img>
+    </button>
+  );
+}
+
 const Styled = {
   Root: styled.div`
     display: flex;
@@ -48,7 +66,6 @@ const Styled = {
   `,
 
   InnerWrap: styled.div`
-    /* padding: 0 16px; */
     width: 1200px;
     .slick-list {
       padding: 0 18px !important;
@@ -56,8 +73,11 @@ const Styled = {
 
     .slick-arrow {
       &:before {
-        color: black;
-        /* font-size: 50px; */
+        position: absolute;
+        z-index: 1;
+        margin-top: 50px;
+        width: 21px;
+        height: 50px;
       }
     }
 
@@ -67,7 +87,7 @@ const Styled = {
         padding: 0 18px !important;
       }
     }
-    @media (max-width: 1030px) {
+    @media (max-width: 900px) {
       width: 400px;
 
       .slick-list {
@@ -87,6 +107,8 @@ const sliderProps: Settings = {
   slidesToScroll: 3,
   initialSlide: 0,
   dots: true,
+  prevArrow: <Arrow img={'/assets/icons/icPrevArrow.svg'} />,
+  nextArrow: <Arrow img={'/assets/icons/icNextArrow.svg'} />,
   responsive: [
     {
       breakpoint: 1200,
@@ -96,7 +118,7 @@ const sliderProps: Settings = {
       },
     },
     {
-      breakpoint: 1030,
+      breakpoint: 900,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
