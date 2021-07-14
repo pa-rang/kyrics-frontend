@@ -1,8 +1,12 @@
 import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import styled from '@emotion/styled';
+import { mockClient } from 'lib/api';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { songDataState } from 'states';
+import useSWR from 'swr';
 import { ITimedText } from 'types';
 
 function Study(): ReactElement {
@@ -15,6 +19,15 @@ function Study(): ReactElement {
   const hostVideo = useRef(null) as any;
   const host = hostVideo.current as ReactPlayer;
   const [percentage, setPercentage] = useState<number>(0);
+  const setSongData = useSetRecoilState(songDataState);
+  const { data } = useSWR('song-1', (url) => mockClient.get(url));
+  const url = data?.data?.youtubeUrl;
+
+  // setSongData(data?.data);
+  // 왜 바로 setSongData를 해주면 error 가 날까?
+  useEffect(() => {
+    setSongData(data?.data);
+  }, [data]);
 
   useEffect(() => {
     setPercentage(currentTime / (totalTime / 100));
@@ -92,7 +105,8 @@ function Study(): ReactElement {
       <div className="react-default-player">
         <ReactPlayer
           playing={isPlay}
-          url="https://youtu.be/-5q5mZbe3V8"
+          url={url}
+          // url="https://www.youtube.com/embed/-5q5mZbe3V8"
           loop={loop}
           controls={true}
           volume={volumeBar / 100}

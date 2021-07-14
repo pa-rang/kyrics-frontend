@@ -2,6 +2,8 @@ import PlayerBtns from '@components/study/PlayerBtns';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { ReactElement, useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { songDataState } from 'states';
 
 interface PlayerProps {
   isPlay: boolean;
@@ -48,8 +50,10 @@ function Player({
   mouseLeaveController,
   percentage,
 }: PlayerProps): ReactElement {
-  const title = '앨범 제목';
-  const singer = '가수';
+  const songData = useRecoilValue(songDataState);
+  const artist = songData?.artist;
+  const title = songData?.title;
+
   const currentTimeForm =
     currentTime % 60 <= 9
       ? `0${Math.floor(currentTime / 60)}:0${Math.floor(currentTime) % 60} `
@@ -96,7 +100,17 @@ function Player({
         <div className="player-custom__title">
           <span className="title">{title}</span>
           {!miniplayerVisible && <span> - </span>}
-          <span className="singer">{singer}</span>
+          <span className="artist">{artist}</span>
+        </div>
+        <div className="player-custom__progress">
+          <input
+            className="player-custom__progress__bar"
+            type="range"
+            min={0}
+            max={totalTime}
+            value={currentTime}
+            onInput={handleSeekTime}
+          />
         </div>
         <div className="player-ptc">
           <div className="player-pt">
