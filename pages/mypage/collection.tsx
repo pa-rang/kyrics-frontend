@@ -1,6 +1,7 @@
 import Footer from '@components/common/Footer';
 import Header from '@components/common/Header';
 import MySongItem from '@components/mypage/mysong/MySongItem';
+import MyVocab from '@components/mypage/mysong/MyVocab';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { mockClient } from 'lib/api';
@@ -94,10 +95,13 @@ function Collection(): ReactElement {
       </Styled.MyCollection>
       <Styled.drawCard>
         <div className="card-item">
-          {data?.data &&
+          {data?.data && pid.type === 'mysongs' ? (
             data?.data.map((data: mySongItem, index: React.Key) => {
               return <MySongItem mySongData={data} key={index} />;
-            })}
+            })
+          ) : (
+            <MyVocab />
+          )}
         </div>
       </Styled.drawCard>
       <Footer />
