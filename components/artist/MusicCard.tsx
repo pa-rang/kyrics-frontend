@@ -63,7 +63,7 @@ const Styled = {
 
     .hover {
       position: absolute;
-      top: 0px;
+      top: 1px;
       visibility: hidden;
       border-radius: 10px;
       background: linear-gradient(
