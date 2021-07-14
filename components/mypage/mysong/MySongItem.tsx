@@ -22,7 +22,7 @@ function MySongItem() {
               <div key={index}>{item}</div>
             ))}
           </Styled.Artist>
-          <img src="assets/icons/mySongStar.svg" alt="" />
+          <img src="assets/icons/mySongStar.svg" alt="album-cover" />
         </Styled.Bottom>
       </Styled.Container>
     </Styled.Root>
