@@ -62,6 +62,7 @@ const Styled = {
     width: 126px;
   `,
   Artist: styled.div`
+    color: #949494;
     font-size: 16px;
     font-weight: 500;
   `,
