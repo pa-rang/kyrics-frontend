@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
 
-type currentState = 'mySongs' | 'myVocab';
 function Collection(): ReactElement {
   const router = useRouter();
   const pid = router.query;
@@ -19,12 +18,10 @@ function Collection(): ReactElement {
     if (pid.type === 'mysongs') {
       setmySongs(true);
       setmyVocab(false);
-      console.log(pid.type);
     }
     if (pid.type === 'myvocab') {
       setmySongs(false);
       setmyVocab(true);
-      console.log(pid.type);
     }
   };
 
