@@ -59,22 +59,24 @@ function Collection(): ReactElement {
     <Styled.Root>
       <Header isLoggedIn={true} />
       <Styled.MyCollection mySongs={mySongs} myVocab={myVocab}>
-        <button
-          className="my-song"
-          onClick={clickSongs}
-          onMouseEnter={mousemySongs}
-          onMouseLeave={mouseLeaveSongs}
-        >
-          My Songs
-        </button>
-        <button
-          className="my-voca"
-          onClick={clickVocab}
-          onMouseEnter={mousemyVocab}
-          onMouseLeave={mouseLeaveVocab}
-        >
-          My Vocab
-        </button>
+        <div className="my-collection">
+          <button
+            className="my-collection__song"
+            onClick={clickSongs}
+            onMouseEnter={mousemySongs}
+            onMouseLeave={mouseLeaveSongs}
+          >
+            My Songs
+          </button>
+          <button
+            className="my-collection__voca"
+            onClick={clickVocab}
+            onMouseEnter={mousemyVocab}
+            onMouseLeave={mouseLeaveVocab}
+          >
+            My Vocab
+          </button>
+        </div>
       </Styled.MyCollection>
       <Footer />
     </Styled.Root>
@@ -89,13 +91,10 @@ const Styled = {
     mySongs: boolean | undefined;
     myVocab: boolean | undefined;
   }>`
-    display: flex;
-    justify-content: center;
-    box-shadow: 0 0 0 2px #e1e1e1 inset;
+    border-bottom: 2px solid #e1e1e1;
     width: 100%;
-    height: 43px;
+    height: 42px;
     button {
-      margin-right: 44px;
       outline: 0;
       border: 0;
       background: transparent;
@@ -109,21 +108,28 @@ const Styled = {
       font-weight: bold;
       font-style: normal;
     }
-    .my-song {
-      ${({ mySongs }) =>
-        mySongs &&
-        css`
-          border-bottom: 4px solid #8c8cff;
-          color: #6465f4;
-        `}
-    }
-    .my-voca {
-      ${({ myVocab }) =>
-        myVocab &&
-        css`
-          border-bottom: 4px solid #8c8cff;
-          color: #6465f4;
-        `}
+    .my-collection {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 43px;
+      &__song {
+        margin-right: 27px;
+        ${({ mySongs }) =>
+          mySongs &&
+          css`
+            border-bottom: 4px solid #8c8cff;
+            color: #6465f4;
+          `}
+      }
+      &__voca {
+        ${({ myVocab }) =>
+          myVocab &&
+          css`
+            border-bottom: 4px solid #8c8cff;
+            color: #6465f4;
+          `}
+      }
     }
   `,
 };
