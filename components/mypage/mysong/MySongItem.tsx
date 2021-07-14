@@ -7,15 +7,6 @@ interface mySongItemProps {
   index: React.Key;
 }
 function MySongItem({ mySongData, key }: mySongItemProps) {
-  // const mySongData = {
-  //   id: 1,
-  //   title: 'Life goes ondddddddd',
-  //   artist: ['BTS'],
-  //   albumImageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a2/BTS_-_Be_Cover.png',
-  //   albumTitle: 'BE',
-  // };
-  // 나희야 props로 mySongData 넘겨받고 map 돌려줘.
-
   return (
     <Styled.Root>
       <Styled.Container>
