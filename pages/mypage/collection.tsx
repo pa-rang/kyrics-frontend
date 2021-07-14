@@ -91,11 +91,11 @@ const Styled = {
   }>`
     display: flex;
     justify-content: center;
-    border-bottom: 2px solid #e1e1e1;
+    box-shadow: 0 0 0 2px #e1e1e1 inset;
     width: 100%;
     height: 43px;
     button {
-      margin-right: 61px;
+      margin-right: 44px;
       outline: 0;
       border: 0;
       background: transparent;
