@@ -96,7 +96,11 @@ const Styled = {
 
     .songTitle {
       margin-top: 17px;
+      padding: 0 5px;
+      overflow: hidden;
       text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       color: #464646;
       font-size: 24px;
       font-weight: bold;
