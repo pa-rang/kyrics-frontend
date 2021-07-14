@@ -119,6 +119,9 @@ const PlayerBtnsWrapper = styled.div<{ isFavoriteMsgOpen: boolean; isCopyMsgOpen
   align-items: center;
   justify-content: center;
   margin-right: 20px;
+  img {
+    cursor: pointer;
+  }
   img:hover {
     color: #6465f4;
   }

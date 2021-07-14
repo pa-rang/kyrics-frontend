@@ -118,7 +118,6 @@ function Study(): ReactElement {
     window.addEventListener('resize', adjustModalHeight);
 
     return () => {
-      // cleanup
       window.removeEventListener('resize', adjustModalHeight);
     };
   }, []);
@@ -137,7 +136,6 @@ function Study(): ReactElement {
             ref={hostVideo}
             width="100%"
             height="100%"
-            // height="400px"
             onProgress={(e) => handleOnProgress(e)}
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
@@ -203,12 +201,12 @@ const Styled = {
     top: 90px;
     width: 70%;
     height: ${({ modalHeight }) => `${modalHeight}px`};
-    /* height: 50%; */
     img {
       position: absolute;
       top: 15.33px;
       right: -28.33px;
       transform: translateX(100%);
+      cursor: pointer;
     }
   `,
 };
