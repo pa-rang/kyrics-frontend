@@ -4,7 +4,7 @@ import React from 'react';
 function MySongItem() {
   const mySongData = {
     id: 1,
-    title: 'Life goes on',
+    title: 'Life goes ondddddddd',
     artist: ['BTS'],
     albumImageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a2/BTS_-_Be_Cover.png',
     albumTitle: 'BE',
@@ -55,14 +55,20 @@ const Styled = {
     }
   `,
   Title: styled.div`
+    width: auto;
+    max-width: 135px;
     height: 27px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: #656565;
     font-size: 20px;
-    font-weight: 700x;
+    font-weight: 700;
   `,
   Bottom: styled.div`
     display: flex;
     justify-content: space-between;
+    width: 126px;
   `,
   Artist: styled.div`
     font-size: 16px;
