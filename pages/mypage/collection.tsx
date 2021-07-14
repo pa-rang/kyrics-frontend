@@ -1,10 +1,12 @@
 import Footer from '@components/common/Footer';
 import Header from '@components/common/Header';
+import MySongItem from '@components/mypage/mysong/MySongItem';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { mockClient } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
-
+import useSWR from 'swr';
 interface StyledProps {
   mySongs: boolean | undefined;
   myVocab: boolean | undefined;
@@ -14,7 +16,9 @@ function Collection(): ReactElement {
   const pid = router.query;
   const [mySongs, setmySongs] = useState<boolean | undefined>();
   const [myVocab, setmyVocab] = useState<boolean | undefined>();
+  const { data } = useSWR('mysongs', (url) => mockClient.get(url));
 
+  console.log(data?.data);
   const setFirstState = () => {
     console.log(pid);
     if (pid.type === 'mysongs') {
