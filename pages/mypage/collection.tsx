@@ -151,4 +151,23 @@ const Styled = {
       }
     }
   `,
+  drawCard: styled.div`
+    display: flex;
+    justify-content: center;
+    background: #f9fbfd;
+    width: 100%;
+    /* height: 749px; */
+    overflow-y: scroll;
+    .card-item {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+      column-gap: 25px;
+      margin-top: 74px;
+      margin-bottom: 74px;
+      margin-left: 25px;
+      width: 1070px;
+      height: 445px;
+      row-gap: 25px;
+    }
+  `,
 };
