@@ -1,14 +1,19 @@
 import styled from '@emotion/styled';
+import { mySongItem } from '@pages/mypage/collection';
 import React from 'react';
 
-function MySongItem() {
-  const mySongData = {
-    id: 1,
-    title: 'Life goes ondddddddd',
-    artist: ['BTS'],
-    albumImageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a2/BTS_-_Be_Cover.png',
-    albumTitle: 'BE',
-  };
+interface mySongItemProps {
+  mySongData: mySongItem;
+  index: React.Key;
+}
+function MySongItem({ mySongData, key }: mySongItemProps) {
+  // const mySongData = {
+  //   id: 1,
+  //   title: 'Life goes ondddddddd',
+  //   artist: ['BTS'],
+  //   albumImageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a2/BTS_-_Be_Cover.png',
+  //   albumTitle: 'BE',
+  // };
   // 나희야 props로 mySongData 넘겨받고 map 돌려줘.
 
   return (
@@ -17,12 +22,7 @@ function MySongItem() {
         <img src={mySongData.albumImageUrl} alt="" />
         <Styled.Title>{mySongData.title}</Styled.Title>
         <Styled.Bottom>
-          <Styled.Artist>
-            {mySongData.artist.map((item: string, index: React.Key) => (
-              <div key={index}>{item}</div>
-            ))}
-          </Styled.Artist>
-          <img src="assets/icons/mySongStar.svg" alt="album-cover" />
+          <Styled.Artist>{mySongData.artist}</Styled.Artist>
         </Styled.Bottom>
       </Styled.Container>
     </Styled.Root>

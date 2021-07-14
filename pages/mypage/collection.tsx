@@ -11,6 +11,14 @@ interface StyledProps {
   mySongs: boolean | undefined;
   myVocab: boolean | undefined;
 }
+
+export interface mySongItem {
+  id: number;
+  title: string;
+  artist: string;
+  albumImageUrl: string;
+}
+
 function Collection(): ReactElement {
   const router = useRouter();
   const pid = router.query;
@@ -84,6 +92,14 @@ function Collection(): ReactElement {
           </button>
         </div>
       </Styled.MyCollection>
+      <Styled.drawCard>
+        <div className="card-item">
+          {data?.data &&
+            data?.data.map((data: mySongItem, index: React.Key) => {
+              return <MySongItem mySongData={data} key={index} />;
+            })}
+        </div>
+      </Styled.drawCard>
       <Footer />
     </Styled.Root>
   );
