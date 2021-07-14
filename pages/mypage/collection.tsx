@@ -5,14 +5,16 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
 
+interface StyledProps {
+  mySongs: boolean | undefined;
+  myVocab: boolean | undefined;
+}
 function Collection(): ReactElement {
   const router = useRouter();
   const pid = router.query;
   const [mySongs, setmySongs] = useState<boolean | undefined>();
   const [myVocab, setmyVocab] = useState<boolean | undefined>();
 
-  //localhost:3000/mypage/collection?type=mysongs
-  //localhost:3000/mypage/collection?type=myvocab
   const setFirstState = () => {
     console.log(pid);
     if (pid.type === 'mysongs') {
@@ -87,10 +89,7 @@ export default Collection;
 
 const Styled = {
   Root: styled.div``,
-  MyCollection: styled.div<{
-    mySongs: boolean | undefined;
-    myVocab: boolean | undefined;
-  }>`
+  MyCollection: styled.div<StyledProps>`
     border-bottom: 2px solid #e1e1e1;
     width: 100%;
     height: 42px;
