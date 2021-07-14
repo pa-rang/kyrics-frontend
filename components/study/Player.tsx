@@ -30,6 +30,7 @@ interface StyledProps {
   volume: number;
   percentage: number;
   isPlay: boolean;
+  miniplayerVisible: boolean;
 }
 function Player({
   isPlay,
@@ -63,6 +64,25 @@ function Player({
       ? `0${Math.floor(totalTime / 60)}:0${totalTime % 60} `
       : `0${Math.floor(totalTime / 60)}:${totalTime % 60} `;
 
+  const [miniplayerVisible, setMiniplayerVisible] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', showMiniplayer);
+
+    return () => {
+      window.removeEventListener('scroll', showMiniplayer);
+    };
+  }, []);
+
+  const showMiniplayer = () => {
+    if (window.scrollY > 353) {
+      setMiniplayerVisible(true);
+
+      return;
+    }
+    setMiniplayerVisible(false);
+  };
+
   return (
     <PlayerWrapper
       isMessageOpened={isMessageOpened}
@@ -71,8 +91,11 @@ function Player({
       volume={volume}
       percentage={percentage}
       isPlay={isPlay}
+      miniplayerVisible={miniplayerVisible}
     >
-      <img className="player-album" src="assets/images/exampleImg.svg" alt="albumImage" />
+      {!miniplayerVisible && (
+        <img className="player-album" src="assets/images/exampleImg.svg" alt="albumImage" />
+      )}
       <div className="player-custom">
         <div className="player-custom__title">
           {title}-{artist}
@@ -87,14 +110,30 @@ function Player({
             onInput={handleSeekTime}
           />
         </div>
-        <div className="player-custom__time">
-          <div className="player-custom__time__current">{currentTimeForm}</div>
-          <div className="player-custom__time__end">{finishedTime}</div>
-        </div>
-        <div className="player-custom__control">
-          <button className="player-custom__control__back" onClick={handleBackTime}></button>
-          <button className="player-custom__control__playBtn" onClick={handlePlay}></button>
-          <button className="player-custom__control__forward" onClick={handleForwardTime}></button>
+        <div className="player-ptc">
+          <div className="player-pt">
+            <div className="player-custom__progress">
+              <div className="player-custom__time__current">{currentTimeForm}</div>
+              <input
+                className="player-custom__progress__bar"
+                type="range"
+                min={0}
+                max={totalTime}
+                value={currentTime}
+                onInput={handleSeekTime}
+              />
+              <div className="player-custom__time__end">{finishedTime}</div>
+            </div>
+            <div className="player-custom__time"></div>
+          </div>
+          <div className="player-custom__control">
+            <button className="player-custom__control__back" onClick={handleBackTime}></button>
+            <button className="player-custom__control__playBtn" onClick={handlePlay}></button>
+            <button
+              className="player-custom__control__forward"
+              onClick={handleForwardTime}
+            ></button>
+          </div>
         </div>
         <div className="player-custom__lastcontrol">
           <div
@@ -125,7 +164,7 @@ function Player({
           </div>
         </div>
       </div>
-      <PlayerBtns />
+      {!miniplayerVisible && <PlayerBtns />}
     </PlayerWrapper>
   );
 }
@@ -140,6 +179,27 @@ const PlayerWrapper = styled.div<StyledProps>`
   background-size: cover;
   width: 100%;
   height: 263px;
+  ${({ miniplayerVisible }) =>
+    miniplayerVisible &&
+    css`
+      position: fixed;
+      bottom: 200px;
+      z-index: 100;
+      height: 100px;
+    `}
+  .player-ptc {
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+    width: 100%;
+  }
+
+  .player-pt {
+    display: flex;
+    flex-direction: ${({ miniplayerVisible }) => (miniplayerVisible ? 'row' : 'column')};
+    align-items: center;
+    justify-content: center;
+  }
 
   button {
     outline: 0;
@@ -198,12 +258,17 @@ const PlayerWrapper = styled.div<StyledProps>`
   }
 
   .player-album {
+    margin-left: 20px;
     width: 160px;
     height: 160px;
   }
   .player-custom {
     display: flex;
-    flex-direction: column;
+    flex: 1;
+    flex-direction: ${({ miniplayerVisible }) => (miniplayerVisible ? 'row' : 'column')};
+    align-items: center;
+    justify-content: center;
+
     &__title {
       margin-bottom: 41px;
       text-align: center;
@@ -212,17 +277,65 @@ const PlayerWrapper = styled.div<StyledProps>`
       font-size: 24px;
       font-weight: bold;
       font-style: normal;
+      ${({ miniplayerVisible }) =>
+        miniplayerVisible &&
+        css`
+          display: flex;
+          flex-direction: column;
+          margin-right: 192px;
+          margin-bottom: 0;
+        `}
     }
     &__progress {
       display: flex;
+      position: relative;
       justify-content: center;
-      width: 636px;
+      /* width: 300px; */
+      width: 100%;
+      max-width: 612px;
+      .player-custom__time__current {
+        position: absolute;
+        top: 30px;
+        left: 0px;
+
+        ${({ miniplayerVisible }) =>
+          miniplayerVisible &&
+          css`
+            top: 0;
+            left: -10px;
+            transform: translateX(-100%);
+          `}
+        line-height: 14px;
+        color: #e1e1e1;
+        font-family: Roboto;
+        font-size: 12px;
+      }
+      .player-custom__time__end {
+        position: absolute;
+        top: 30px;
+        right: 0px;
+
+        ${({ miniplayerVisible }) =>
+          miniplayerVisible &&
+          css`
+            top: 0;
+            right: -10px;
+            transform: translateX(100%);
+          `}
+
+        line-height: 14px;
+        color: #e1e1e1;
+        font-family: Roboto;
+        font-size: 12px;
+      }
       &__bar {
         -webkit-appearance: none;
         margin-bottom: 20px;
         border-radius: 10px;
         background-color: #9d9d9d;
-        width: 612px;
+
+        width: 100%;
+        max-width: 612px;
         height: 3px;
         ${({ percentage }) => css`
           background: linear-gradient(
@@ -235,23 +348,7 @@ const PlayerWrapper = styled.div<StyledProps>`
         `}
       }
     }
-    &__time {
-      display: flex;
-      justify-content: space-between;
-      width: 636px;
-      &__current {
-        line-height: 14px;
-        color: #e1e1e1;
-        font-family: Roboto;
-        font-size: 12px;
-      }
-      &__end {
-        line-height: 14px;
-        color: #e1e1e1;
-        font-family: Roboto;
-        font-size: 12px;
-      }
-    }
+
     &__control {
       display: flex;
       align-items: center;
@@ -293,9 +390,20 @@ const PlayerWrapper = styled.div<StyledProps>`
         }
       }
     }
+
     &__lastcontrol {
       display: flex;
+      align-items: center;
       justify-content: space-between;
+      margin-top: 10px;
+      padding: 0 30px;
+      width: 100%;
+      max-width: 670px;
+      ${({ miniplayerVisible }) =>
+        miniplayerVisible &&
+        css`
+          width: 70px;
+        `}
       &__volume {
         display: flex;
         align-items: center;
@@ -337,11 +445,12 @@ const PlayerWrapper = styled.div<StyledProps>`
       }
       &__replay {
         display: flex;
+        position: relative;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         &__btn {
-          margin-bottom: 10px;
+          /* margin-bottom: 10px; */
           background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
           width: 20px;
           height: 20px;
@@ -353,6 +462,8 @@ const PlayerWrapper = styled.div<StyledProps>`
             `}
         }
         &__onoff {
+          position: absolute;
+          top: 30px;
           visibility: hidden;
           opacity: 0.8;
           border-radius: 10px;

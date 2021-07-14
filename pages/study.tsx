@@ -5,7 +5,7 @@ import { mockClient } from 'lib/api';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { songDataState } from 'states';
+import { isModalOpenedState, songDataState } from 'states';
 import useSWR from 'swr';
 import { ITimedText } from 'types';
 
@@ -19,6 +19,8 @@ function Study(): ReactElement {
   const hostVideo = useRef(null) as any;
   const host = hostVideo.current as ReactPlayer;
   const [percentage, setPercentage] = useState<number>(0);
+  const [modalHeight, setModalHeight] = useState<number>(0);
+  const [isModalOpened, setIsModalOpened] = useRecoilState(isModalOpenedState);
   const setSongData = useSetRecoilState(songDataState);
   const { data } = useSWR('song-1', (url) => mockClient.get(url));
   const url = data?.data?.youtubeUrl;
@@ -100,31 +102,62 @@ function Study(): ReactElement {
     setVolumeBar(parseInt(target.value));
   };
 
+  useEffect(() => {
+    const modalWidth: number = window.outerWidth * 0.7;
+
+    setModalHeight(modalWidth * 0.628);
+  }, [isModalOpened]);
+
+  const adjustModalHeight = () => {
+    const modalWidth: number = window.outerWidth * 0.7;
+
+    setModalHeight(modalWidth * 0.628);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', adjustModalHeight);
+
+    return () => {
+      window.removeEventListener('resize', adjustModalHeight);
+    };
+  }, []);
+
   return (
-    <StudyWrapper>
-      <div className="react-default-player">
-        <ReactPlayer
-          playing={isPlay}
-          url={url}
-          // url="https://www.youtube.com/embed/-5q5mZbe3V8"
-          loop={loop}
-          controls={true}
-          volume={volumeBar / 100}
-          ref={hostVideo}
-          width="650px"
-          height="400px"
-          onProgress={(e) => handleOnProgress(e)}
-          progressInterval={100}
-          config={{
-            youtube: {
-              playerVars: {
-                autoplay: 1,
-                enablejsapi: 1,
+    <Styled.Root>
+      <Styled.ModalWrapper isModalOpened={isModalOpened}>
+        <Styled.Modal modalHeight={modalHeight}>
+          <ReactPlayer
+            playing={isPlay}
+            url={url}
+            // url="https://www.youtube.com/embed/-5q5mZbe3V8"
+            loop={loop}
+            controls={true}
+            volume={volumeBar / 100}
+            ref={hostVideo}
+            width="100%"
+            height="100%"
+            onProgress={(e) => handleOnProgress(e)}
+            onPlay={() => setIsPlay(true)}
+            onPause={() => setIsPlay(false)}
+            progressInterval={100}
+            config={{
+              youtube: {
+                playerVars: {
+                  autoplay: 1,
+                  enablejsapi: 1,
+                },
               },
-            },
-          }}
-        />
-      </div>
+            }}
+          />
+          <img
+            className="modalClose--btn"
+            src="assets/icons/modalCloseIcon.svg"
+            alt=""
+            onClick={() => setIsModalOpened(false)}
+            aria-hidden="true"
+          />
+        </Styled.Modal>
+      </Styled.ModalWrapper>
       <Player
         isPlay={isPlay}
         volume={volumeBar}
@@ -144,14 +177,36 @@ function Study(): ReactElement {
         percentage={percentage}
       />
       <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
-    </StudyWrapper>
+    </Styled.Root>
   );
 }
 
 export default Study;
 
-const StudyWrapper = styled.div`
-  .react-default-player {
-    display: none;
-  }
-`;
+const Styled = {
+  Root: styled.div``,
+  ModalWrapper: styled.div<{ isModalOpened: boolean }>`
+    display: ${({ isModalOpened }) => (isModalOpened ? 'flex' : 'none')};
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    z-index: 11;
+    background: rgba(0, 0, 0, 0.8);
+    width: 100vw;
+    height: 100vh;
+  `,
+  Modal: styled.div<{ modalHeight: number }>`
+    position: fixed;
+    top: 90px;
+    width: 70%;
+    height: ${({ modalHeight }) => `${modalHeight}px`};
+    img {
+      position: absolute;
+      top: 15.33px;
+      right: -28.33px;
+      transform: translateX(100%);
+      cursor: pointer;
+    }
+  `,
+};

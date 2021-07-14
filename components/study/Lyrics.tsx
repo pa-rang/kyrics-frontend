@@ -64,27 +64,50 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
       }
     }
   };
+  const [width, setWidth] = useState<number>(0);
+
+  useEffect(() => {
+    console.log(window.outerWidth);
+    setWidth(window.outerWidth);
+  }, []);
+
+  const measureWidth = () => {
+    setWidth(window.outerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', measureWidth);
+
+    return () => {
+      window.removeEventListener('resize', measureWidth);
+    };
+  }, []);
 
   return (
-    <Styled.Root fontSize={fontSize} engTranslated={engTranslated}>
-      <div>
+    <Styled.Root fontSize={fontSize} engTranslated={engTranslated} width={width}>
+      <Styled.Lyrics>
         <Styled.Title>Lyrics</Styled.Title>
         <Styled.Main>
           <Styled.Steps>
-            <img
-              src={isQuizStep ? offStep1.src : onStep1.src}
-              alt=""
-              className="step1"
+            <Styled.LeftStep
               onClick={() => setIsQuizStep(false)}
               aria-hidden="true"
-            />
-            <img
-              src={isQuizStep ? onStep2.src : offStep2.src}
-              alt=""
-              className="step2"
+              isQuizStep={isQuizStep}
+              className="step"
+            >
+              <div>STEP 1</div>
+              <div>Lyrics</div>
+            </Styled.LeftStep>
+            <Styled.CenterStep isQuizStep={isQuizStep}></Styled.CenterStep>
+            <Styled.RightStep
               onClick={() => setIsQuizStep(true)}
               aria-hidden="true"
-            />
+              isQuizStep={isQuizStep}
+              className="step"
+            >
+              <div>STEP 2</div>
+              <div>Quiz</div>
+            </Styled.RightStep>
           </Styled.Steps>
           {isQuizStep ? (
             <Quiz />
@@ -162,7 +185,7 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
             </div>
           )}
         </Styled.Main>
-      </div>
+      </Styled.Lyrics>
     </Styled.Root>
   );
 }
@@ -172,28 +195,31 @@ export default Lyrics;
 interface StyledProps {
   fontSize: string;
   engTranslated: boolean;
+  width: number;
 }
 
 const Styled = {
   Root: styled.div<StyledProps>`
     display: flex;
-    flex-direction: column;
     align-items: center;
-    .lyrics--box {
-      height: 100%;
-    }
+    justify-content: center;
 
+    margin: 0px ${({ width }) => (141 * width) / 1440}px;
+
+    width: 100%;
     .textSizeController {
       position: absolute;
       top: 136px;
       left: 41px;
-
       .alphabet {
         margin-right: 7px;
       }
       .sizeUp,
       .sizeDown {
         cursor: pointer;
+      }
+      @media (max-width: 768px) {
+        display: none;
       }
     }
 
@@ -228,7 +254,6 @@ const Styled = {
         cursor: auto;
         padding: 20px 0;
         width: 132px;
-
         .lang {
           display: flex;
           align-items: center;
@@ -247,6 +272,15 @@ const Styled = {
           color: ${({ engTranslated }) => (engTranslated ? '#464646' : '#9d9d9d')};
           font-weight: ${({ engTranslated }) => (engTranslated ? 700 : 400)};
         }
+        @media (max-width: 768px) {
+          top: 30px;
+        }
+      }
+      @media (max-width: 768px) {
+        top: 71px;
+        width: 84px;
+        height: 25px;
+        font-size: 10px;
       }
     }
     .lyrics__lines {
@@ -255,44 +289,114 @@ const Styled = {
       align-items: center;
       margin: auto;
       padding-top: 100px;
+      width: 100%;
       .lyrics__line {
         display: flex;
         flex: 0 1 auto;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-bottom: 35px;
+        margin-bottom: ${({ engTranslated }) => (engTranslated ? '35px' : '30px')};
         cursor: pointer;
-
         .lyrics {
           text-align: center;
           line-height: 30px;
           color: #464646;
-          font-size: ${({ fontSize }) =>
-            fontSize === 'Medium' ? '20px' : fontSize === 'Big' ? '24px' : '16px'};
         }
         .kor {
-          margin-bottom: 10px;
+          margin-bottom: ${({ engTranslated }) => (engTranslated ? '10px' : '0')};
+          font-size: ${({ fontSize }) =>
+            fontSize === 'Medium' ? '20px' : fontSize === 'Big' ? '24px' : '12px'};
+
+          @media (max-width: 768px) {
+            font-size: 14px;
+          }
         }
         .eng {
           display: ${({ engTranslated }) => (engTranslated ? 'visible' : 'none')};
-
           color: #9d9d9d;
           font-size: ${({ fontSize }) =>
             fontSize === 'Medium' ? '16px' : fontSize === 'Big' ? '20px' : '12px'};
+          @media (max-width: 768px) {
+            font-size: 12px;
+          }
         }
         .highlight {
           color: #6465f4;
         }
+        @media (max-width: 768px) {
+          margin-bottom: 20px;
+        }
+      }
+      @media (max-width: 768px) {
+        padding-top: 66px;
       }
     }
+  `,
+  Lyrics: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   `,
   Steps: styled.div`
     display: flex;
     cursor: pointer;
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 390px;
+      height: 100px;
+      color: #ffffff;
+      div:nth-child(1) {
+        height: 27px;
+        font-size: 24px;
+        font-weight: 700;
+        @media (max-width: 768px) {
+          height: 16px;
+          font-size: 14px;
+        }
+      }
+      div:nth-child(2) {
+        font-size: 16px;
+        font-weight: 500;
+        @media (max-width: 768px) {
+          font-size: 10px;
+        }
+      }
+      @media (max-width: 768px) {
+        height: 50px;
+      }
+    }
     .step2 {
       transform: translateX(-34px);
     }
+  `,
+  LeftStep: styled.div<{ isQuizStep: boolean }>`
+    border-top-left-radius: 10px;
+    background-color: ${({ isQuizStep }) => (isQuizStep ? '#c8c8ee' : '#6465f4')};
+  `,
+  CenterStep: styled.div<{ isQuizStep: boolean }>`
+    border-top: 50px solid ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
+    border-bottom: 50px solid ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
+    border-left: 24px solid ${({ isQuizStep }) => (isQuizStep ? '#c8c8ee' : '#6465f4')};
+
+    width: 0px;
+    height: 0px;
+    @media (max-width: 768px) {
+      border-top: 25px solid ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
+      border-bottom: 25px solid ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
+      border-left: 10px solid ${({ isQuizStep }) => (isQuizStep ? '#c8c8ee' : '#6465f4')};
+    }
+  `,
+  RightStep: styled.div<{ isQuizStep: boolean }>`
+    border-top-right-radius: 10px;
+    background-color: ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
   `,
   Title: styled.div`
     margin-top: 36px;
@@ -300,10 +404,19 @@ const Styled = {
     color: #7d7d7d;
     font-size: 24px;
     font-weight: 700;
+    @media (max-width: 768px) {
+      display: none;
+    }
   `,
   Main: styled.div`
     position: relative;
     background-color: #f6f6f6;
-    width: 780px;
+    width: 100%;
+    max-width: 780px;
+
+    @media (max-width: 768px) {
+      margin-top: 23px;
+      min-width: 289px;
+    }
   `,
 };

@@ -5,3 +5,8 @@ export const songDataState = atom({
   key: 'songDataState',
   default: {} as ISongData,
 });
+
+export const isModalOpenedState = atom({
+  key: 'isModalOpenedState',
+  default: false,
+});
