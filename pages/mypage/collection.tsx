@@ -30,7 +30,7 @@ function Collection(): ReactElement {
 
   useEffect(() => {
     setFirstState();
-  }, [pid]);
+  }, [pid.type]);
 
   const mousemySongs = () => {
     setmySongs(true);
@@ -51,11 +51,11 @@ function Collection(): ReactElement {
   };
 
   const clickSongs = () => {
-    router.push('/mypage/collection?mysongs=true');
+    router.push('/mypage/collection?type=mysongs');
   };
 
   const clickVocab = () => {
-    router.push('/mypage/collection?myvocab=true');
+    router.push('/mypage/collection?type=myvocab');
   };
 
   return (
