@@ -94,7 +94,9 @@ function Player({
       )}
       <div className="player-custom">
         <div className="player-custom__title">
-          {title}-{singer}
+          <span className="title">{title}</span>
+          {!miniplayerVisible && <span> - </span>}
+          <span className="singer">{singer}</span>
         </div>
         <div className="player-ptc">
           <div className="player-pt">
@@ -170,11 +172,13 @@ const PlayerWrapper = styled.div<StyledProps>`
       position: fixed;
       bottom: 200px;
       z-index: 100;
+      height: 100px;
     `}
   .player-ptc {
     display: flex;
     flex-direction: column;
     padding: 0 30px;
+    width: 100%;
   }
 
   .player-pt {
@@ -249,7 +253,8 @@ const PlayerWrapper = styled.div<StyledProps>`
     display: flex;
     flex: 1;
     flex-direction: ${({ miniplayerVisible }) => (miniplayerVisible ? 'row' : 'column')};
-    max-width: 612px;
+    align-items: center;
+    justify-content: center;
 
     &__title {
       margin-bottom: 41px;
@@ -259,6 +264,14 @@ const PlayerWrapper = styled.div<StyledProps>`
       font-size: 24px;
       font-weight: bold;
       font-style: normal;
+      ${({ miniplayerVisible }) =>
+        miniplayerVisible &&
+        css`
+          display: flex;
+          flex-direction: column;
+          margin-right: 192px;
+          margin-bottom: 0;
+        `}
     }
     &__progress {
       display: flex;
@@ -364,12 +377,20 @@ const PlayerWrapper = styled.div<StyledProps>`
         }
       }
     }
+
     &__lastcontrol {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-top: 10px;
       padding: 0 30px;
+      width: 100%;
+      max-width: 670px;
+      ${({ miniplayerVisible }) =>
+        miniplayerVisible &&
+        css`
+          width: 70px;
+        `}
       &__volume {
         display: flex;
         align-items: center;
