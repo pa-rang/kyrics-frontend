@@ -174,6 +174,7 @@ const PlayerWrapper = styled.div<StyledProps>`
   .player-ptc {
     display: flex;
     flex-direction: column;
+    padding: 0 30px;
   }
 
   .player-pt {
@@ -240,6 +241,7 @@ const PlayerWrapper = styled.div<StyledProps>`
   }
 
   .player-album {
+    margin-left: 20px;
     width: 160px;
     height: 160px;
   }
@@ -367,6 +369,7 @@ const PlayerWrapper = styled.div<StyledProps>`
       align-items: center;
       justify-content: space-between;
       margin-top: 10px;
+      padding: 0 30px;
       &__volume {
         display: flex;
         align-items: center;
