@@ -94,7 +94,6 @@ const Styled = {
     }
     @media (max-width: 900px) {
       width: 400px;
-
       .slick-list {
         padding: 0 20px !important;
       }
