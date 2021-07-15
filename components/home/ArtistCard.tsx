@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 
 type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   logo: string;
 }
 
-function ArtistCard({ name, profileImage, logo }: Props): ReactElement {
+function ArtistCard({ name, profileImage, logo }: Props) {
   const [isHover, setIsHover] = useState<HoverState>('idle');
 
   function handleMouseEnter() {
@@ -92,6 +92,11 @@ const Wrap = styled.div<StyledProps>`
       font-weight: bold;
       font-style: normal;
     }
+  }
+
+  @media (max-width: 500px) {
+    width: 240px;
+    height: 180px;
   }
   @keyframes fadeIn {
     0% {

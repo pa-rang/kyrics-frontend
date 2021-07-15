@@ -580,18 +580,18 @@ const Styled = {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-bottom: 35px;
+        margin-bottom: 30px;
         cursor: pointer;
 
         .lyrics {
           text-align: center;
-          line-height: 30px;
+          line-height: 1.5;
           color: #464646;
           font-size: ${({ fontSize }) =>
             fontSize === 'Medium' ? '20px' : fontSize === 'Big' ? '24px' : '16px'};
         }
         .kor {
-          margin-bottom: 10px;
+          margin-bottom: 8px;
         }
         .eng {
           display: ${({ engTranslated }) => (engTranslated ? 'visible' : 'none')};

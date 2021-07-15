@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import React, { ReactElement } from 'react';
+import React from 'react';
 
-function Title(): ReactElement {
+function Title() {
   return (
     <TitleWrap>
       <div className="bgImage">
@@ -17,13 +17,9 @@ function Title(): ReactElement {
 
 const TitleWrap = styled.div`
   .bgImage {
-    /* background-size: cover; */
-    /* height: 440px; */
-    /* margin-top: 0;
-    margin-right: 0;
-    margin-left: 0; */
     background: url(/assets/images/homeBackground.svg) no-repeat;
-    width: 100vw;
+    background-size: cover;
+    width: 100%;
     height: 435px;
   }
 
@@ -31,12 +27,16 @@ const TitleWrap = styled.div`
     padding-top: 132px;
     text-align: center;
     text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-    line-height: 60px;
+    line-height: 1.5;
     white-space: nowrap;
     color: #ffffff;
     font-size: 40px;
     font-weight: bold;
     font-style: normal;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   }
 `;
 
