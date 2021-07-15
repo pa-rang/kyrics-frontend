@@ -29,3 +29,20 @@ export interface IMySongItem {
   artist: string;
   albumImageUrl: string;
 }
+
+export interface PlayerProps {
+  handleSeekTime: (e: React.FormEvent<HTMLInputElement>) => void;
+  handleBackTime: () => void;
+  handleForwardTime: () => void;
+}
+
+export interface PlayControllerProps {
+  handlePlay: () => void;
+  handleSeekTime: (e: React.FormEvent<HTMLInputElement>) => void;
+  handleVolumeChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  handleBackTime: () => void;
+  handleForwardTime: () => void;
+  handleLoop: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  mouseEnterController: () => void;
+  mouseLeaveController: () => void;
+}
