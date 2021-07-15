@@ -144,6 +144,7 @@ const Styled = {
   Root: styled.div`
     display: flex;
     flex-direction: column;
+    width: 44.166667%;
     height: 160px;
     button {
       outline: 0;
@@ -178,14 +179,14 @@ const Styled = {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 636px;
+    width: 100%;
     .bar {
       align-self: center;
       -webkit-appearance: none;
       margin-bottom: 20px;
       border-radius: 10px;
       background-color: #9d9d9d;
-      width: 612px;
+      width: 96.2267415%;
       height: 3px;
       ${({ percentage }) => css`
         background: linear-gradient(
@@ -200,7 +201,7 @@ const Styled = {
     .time {
       display: flex;
       justify-content: space-between;
-      width: 636px;
+      width: 100%;
       &__current {
         line-height: 14px;
         color: #e1e1e1;
