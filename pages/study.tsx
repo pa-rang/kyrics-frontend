@@ -5,22 +5,34 @@ import { mockClient } from 'lib/api';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { isModalOpenedState, songDataState } from 'states';
+import {
+  currentTimeAtom,
+  isMessageOpenedAtom,
+  isModalOpenedState,
+  isPlayAtom,
+  isVolumeOpenedAtom,
+  loopAtom,
+  percentageAtom,
+  songDataState,
+  totalTimeAtom,
+  volumeBarAtom,
+} from 'states';
 import useSWR from 'swr';
 import { ITimedText } from 'types';
 
 function Study(): ReactElement {
-  const [isPlay, setIsPlay] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [volumeBar, setVolumeBar] = useState<number>(50);
-  const [loop, setLoop] = useState<boolean>(false);
-  const [totalTime, setTotalTime] = useState<number>(0);
-  const [isMessageOpened, setIsMessageOpened] = useState<boolean>(false);
+  const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
+  const [currentTime, setCurrentTime] = useRecoilState<number>(currentTimeAtom);
+  const [volumeBar, setVolumeBar] = useRecoilState<number>(volumeBarAtom);
+  const [loop, setLoop] = useRecoilState<boolean>(loopAtom);
+  const [totalTime, setTotalTime] = useRecoilState<number>(totalTimeAtom);
+  const [isMessageOpened, setIsMessageOpened] = useRecoilState<boolean>(isMessageOpenedAtom);
   const hostVideo = useRef(null) as any;
   const host = hostVideo.current as ReactPlayer;
-  const [percentage, setPercentage] = useState<number>(0);
-  const [modalHeight, setModalHeight] = useState<number>(0);
+  const [percentage, setPercentage] = useRecoilState<number>(percentageAtom);
+  const [modalHeight, setModalHeight] = useRecoilState<number>(0);
   const [isModalOpened, setIsModalOpened] = useRecoilState(isModalOpenedState);
+  const [isVolumeOpened, setIsVolumeOpened] = useRecoilState<boolean>(isVolumeOpenedAtom);
   const setSongData = useSetRecoilState(songDataState);
   const { data } = useSWR('song-1', (url) => mockClient.get(url));
   const url = data?.data?.youtubeUrl;
@@ -51,7 +63,7 @@ function Study(): ReactElement {
     setTimeout(setIsMessageOpened, 2000, false);
     setLoop((loop) => !loop);
   };
-  const [isVolumeOpened, setIsVolumeOpened] = useState<boolean>(false);
+
   const mouseEnterController = () => {
     setIsVolumeOpened(true);
   };
