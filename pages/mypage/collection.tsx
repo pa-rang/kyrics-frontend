@@ -38,25 +38,6 @@ function Collection(): ReactElement {
   useEffect(() => {
     setFirstState();
   }, [pid.type]);
-
-  const mousemySongs = () => {
-    setmySongs(true);
-    setmyVocab(false);
-  };
-  const mouseLeaveSongs = () => {
-    setmySongs(false);
-    setFirstState();
-  };
-  const mousemyVocab = () => {
-    setmyVocab(true);
-    setmySongs(false);
-  };
-
-  const mouseLeaveVocab = () => {
-    setmyVocab(false);
-    setFirstState();
-  };
-
   const clickSongs = () => {
     router.push('/mypage/collection?type=mysongs');
   };
@@ -70,20 +51,10 @@ function Collection(): ReactElement {
       <Header isLoggedIn={true} />
       <Styled.MyCollection mySongs={mySongs} myVocab={myVocab}>
         <div className="my-collection">
-          <button
-            className="my-collection__song"
-            onClick={clickSongs}
-            onMouseEnter={mousemySongs}
-            onMouseLeave={mouseLeaveSongs}
-          >
+          <button className="my-collection__song" onClick={clickSongs}>
             My Songs
           </button>
-          <button
-            className="my-collection__voca"
-            onClick={clickVocab}
-            onMouseEnter={mousemyVocab}
-            onMouseLeave={mouseLeaveVocab}
-          >
+          <button className="my-collection__voca" onClick={clickVocab}>
             My Vocab
           </button>
         </div>
