@@ -3,14 +3,14 @@
     {
       "id": 1,
       "name": "BTS",
-      "profileImageUrl": "",
-      "logo": ""
+      "profileImageUrl": "https://img0.yna.co.kr/etc/inner/EN/2021/06/16/AEN20210616005400315_01_i_P2.jpg",
+      "logo": "https://1000logos.net/wp-content/uploads/2018/03/BTS_Logo.png"
     },
     {
       "id": 2,
       "name": "BLACKPINK",
-      "profileImageUrl": "",
-      "logo": ""
+      "profileImageUrl": "https://img0.yna.co.kr/etc/inner/EN/2021/06/16/AEN20210616005400315_01_i_P2.jpg",
+      "logo": "https://1000logos.net/wp-content/uploads/2018/03/BTS_Logo.png"
     }
   ]
 }
