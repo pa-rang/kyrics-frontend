@@ -3,11 +3,10 @@ import styled from '@emotion/styled';
 import { mainLogo } from '@public/assets';
 import axios from 'axios';
 import { client } from 'lib/api';
-import { isServer } from 'lib/constants/env';
 import React from 'react';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
-function SignUp() {
+function Login() {
   const handleGoogleLoginSuccess = async (
     response: GoogleLoginResponse | GoogleLoginResponseOffline,
   ) => {
@@ -16,15 +15,9 @@ function SignUp() {
       return;
     }
 
-    console.log('response', response);
     const {
-      accessToken,
       profileObj: { name, email, googleId, imageUrl },
     } = response;
-
-    const token = {
-      'x-access-token': accessToken,
-    };
 
     const payload = {
       name,
@@ -34,12 +27,6 @@ function SignUp() {
       profileImageUrl: imageUrl,
     };
 
-    const loginClient = axios.create({
-      baseURL: 'http://kyrics-test-env.eba-kez2mzcm.ap-northeast-2.elasticbeanstalk.com/login',
-      headers: token,
-    });
-
-    // const { data } = await loginClient.post('/login', payload);
     const { data } = await client.post('/login', payload);
 
     console.log('data', data);
@@ -66,7 +53,7 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default Login;
 
 const Styled = {
   Root: styled.div`
