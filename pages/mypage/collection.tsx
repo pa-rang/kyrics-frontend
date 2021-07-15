@@ -8,16 +8,11 @@ import { mockClient } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
 import useSWR from 'swr';
+
+import { IMySongItem } from '../../types';
 interface StyledProps {
   mySongs: boolean | undefined;
   myVocab: boolean | undefined;
-}
-
-export interface mySongItem {
-  id: number;
-  title: string;
-  artist: string;
-  albumImageUrl: string;
 }
 
 function Collection(): ReactElement {
@@ -96,7 +91,7 @@ function Collection(): ReactElement {
       <Styled.drawCard>
         <div className="card-item">
           {data?.data && pid.type === 'mysongs' ? (
-            data?.data.map((data: mySongItem, index: React.Key) => {
+            data?.data.map((data: IMySongItem, index: React.Key) => {
               return <MySongItem mySongData={data} key={index} />;
             })
           ) : (

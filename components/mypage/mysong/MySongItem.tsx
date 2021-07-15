@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { mySongItem } from '@pages/mypage/collection';
 import React from 'react';
 
+import { IMySongItem } from '../../../types';
+
 interface mySongItemProps {
-  mySongData: mySongItem;
+  mySongData: IMySongItem;
 }
 function MySongItem({ mySongData }: mySongItemProps) {
   return (
@@ -13,6 +14,7 @@ function MySongItem({ mySongData }: mySongItemProps) {
         <Styled.Title>{mySongData.title}</Styled.Title>
         <Styled.Bottom>
           <Styled.Artist>{mySongData.artist}</Styled.Artist>
+          <img src="/assets/icons/favoriteSong.svg" alt="favorites" />
         </Styled.Bottom>
       </Styled.Container>
     </Styled.Root>

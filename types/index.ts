@@ -13,3 +13,9 @@ export interface ITimedText {
   kor: string;
   eng: string;
 }
+export interface IMySongItem {
+  id: number;
+  title: string;
+  artist: string;
+  albumImageUrl: string;
+}
