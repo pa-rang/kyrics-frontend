@@ -17,13 +17,9 @@ function Title(): ReactElement {
 
 const TitleWrap = styled.div`
   .bgImage {
-    /* background-size: cover; */
-    /* height: 440px; */
-    /* margin-top: 0;
-    margin-right: 0;
-    margin-left: 0; */
     background: url(/assets/images/homeBackground.svg) no-repeat;
-    width: 100vw;
+    background-size: cover;
+    width: 100%;
     height: 435px;
   }
 
