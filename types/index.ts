@@ -7,6 +7,13 @@ export interface Artist {
   logo: string;
 }
 
+export interface Song {
+  title: string;
+  artist: string[];
+  albumImg: string;
+  songId: number;
+}
+
 export interface ITimedText {
   startTime: number;
   duration: number;
@@ -15,3 +22,9 @@ export interface ITimedText {
 }
 
 type SocialType = 'Google' | 'Facebook';
+export interface IMySongItem {
+  id: number;
+  title: string;
+  artist: string;
+  albumImageUrl: string;
+}

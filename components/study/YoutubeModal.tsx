@@ -24,7 +24,7 @@ function YoutubeModal({ videoId, isModalOpened, setIsModalOpened }: Props) {
         ></iframe>
         <img
           className="modalClose--btn"
-          src="assets/icons/modalCloseIcon.svg"
+          src="/assets/icons/modalCloseIcon.svg"
           alt=""
           onClick={() => setIsModalOpened(false)}
           aria-hidden="true"
