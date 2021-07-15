@@ -7,6 +7,13 @@ export interface Artist {
   logo: string;
 }
 
+export interface Song {
+  title: string;
+  artist: string[];
+  albumImg: string;
+  songId: number;
+}
+
 export interface ITimedText {
   startTime: number;
   duration: number;
