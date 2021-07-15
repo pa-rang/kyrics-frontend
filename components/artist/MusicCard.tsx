@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import router from 'next/router';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useRef, useState } from 'react';
 
 interface Props {
   title: string;
@@ -13,17 +13,39 @@ type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
 
 function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   const [isHover, setIsHover] = useState<HoverState>('idle');
+  const songTitle = useRef<HTMLParagraphElement>(null);
+  const [textWidth, setTextWidth] = useState({ offset: 0, scroll: 0 });
+  // const title: ;
 
   function handleMouseEnter() {
     setIsHover('MouseEnter');
+    if (isEllipsisActive(songTitle)) {
+      const title = songTitle.current as any;
+
+      console.log(title.style.display);
+      title && (title.style.visibility = 'visible');
+    }
   }
 
   function handleMouseLeave() {
     setIsHover('MouseLeave');
+    if (isEllipsisActive(songTitle)) {
+      const title = songTitle.current as any;
+
+      title && (title.style.visibility = 'hidden');
+    }
   }
 
   function handleOnClick() {
     router.push(`/study/${songId}`);
+  }
+
+  function isEllipsisActive(e: any) {
+    console.log(e.current.offsetWidth, e.current.scrollWidth);
+
+    // setTextWidth({ offset: e.current.offsetWidth, scroll: e.current.scrollWidth });
+
+    return e.current.offsetWidth < e.current.scrollWidth;
   }
 
   return (
@@ -38,11 +60,16 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
         <p className="hover__label">Explore &gt;</p>
         <img className="hover__play" src="/assets/icons/playBtn.svg" alt=""></img>
       </div>
-      {isHover === 'MouseEnter' ? (
-        <p className="songTitle__hover">{title}</p>
+      {/* {isHover === 'MouseEnter' && isEllipsisActive ? (
+        <p className="songTitle__hover" ref={songTitle}>
+          {title}
+        </p>
       ) : (
         <p className="songTitle">{title}</p>
-      )}
+      )} */}
+      <p className="songTitle__hover" ref={songTitle}>
+        {title}
+      </p>
       <p className="artists">{artist.map((artist) => artist)}</p>
     </Styled.Root>
   );
@@ -112,6 +139,7 @@ const Styled = {
     }
 
     .songTitle__hover {
+      visibility: hidden;
       margin-top: 17px;
       padding: 0 5px;
       animation: scroll-left 5s linear infinite;
