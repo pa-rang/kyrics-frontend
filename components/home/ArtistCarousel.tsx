@@ -103,7 +103,7 @@ const Styled = {
 const sliderProps: Settings = {
   arrows: true,
   infinite: true,
-  // autoplay: true,
+  autoplay: true,
   pauseOnHover: true,
   speed: 500,
   slidesToShow: 3,

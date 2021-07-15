@@ -8,7 +8,7 @@ import Header from '../components/common/Header';
 function Home() {
   return (
     <>
-      <Header isLoggedIn={true} />
+      <Header isLoggedIn={false} />
       <Title />
       <ArtistCarousel />
       <Footer />
