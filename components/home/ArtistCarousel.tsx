@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import styled from '@emotion/styled';
-import { mockClient } from 'lib/api';
+import { client, mockClient } from 'lib/api';
 import React from 'react';
 import Slider, { Settings } from 'react-slick';
 import useSWR from 'swr';
@@ -11,12 +11,14 @@ import { Artist } from 'types';
 import ArtistCard from './ArtistCard';
 import NewSongCard from './NewSongCard';
 
+interface ArtistData {
+  data: Artist[];
+}
+
 function ArtistCarousel() {
-  const { data } = useSWR<{ data: Artist[] }>('/artists', mockClient.get);
+  const { data } = useSWR<{ data: ArtistData }>('/artists', client.get);
 
-  console.log(data?.data);
-
-  const artists = data?.data;
+  const artists = data?.data.data;
 
   return (
     <>
@@ -28,7 +30,7 @@ function ArtistCarousel() {
                 key={artist.id}
                 name={artist.name}
                 profileImage={artist.profileImageUrl}
-                logo={artist.logo}
+                logo={artist.logoImageUrl}
               />
             ))}
             <NewSongCard />

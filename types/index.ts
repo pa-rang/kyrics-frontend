@@ -4,7 +4,7 @@ export interface Artist {
   id: number;
   name: string;
   profileImageUrl: string;
-  logo: string;
+  logoImageUrl: string;
 }
 
 export interface Song {
