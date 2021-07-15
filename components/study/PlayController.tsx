@@ -144,6 +144,7 @@ const Styled = {
   Root: styled.div`
     display: flex;
     flex-direction: column;
+    height: 160px;
     button {
       outline: 0;
       border: 0;
@@ -179,6 +180,7 @@ const Styled = {
     justify-content: center;
     width: 636px;
     .bar {
+      align-self: center;
       -webkit-appearance: none;
       margin-bottom: 20px;
       border-radius: 10px;

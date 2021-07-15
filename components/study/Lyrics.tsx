@@ -203,10 +203,7 @@ const Styled = {
     display: flex;
     align-items: center;
     justify-content: center;
-
     margin: 0px ${({ width }) => (141 * width) / 1440}px;
-
-    width: 100%;
     .textSizeController {
       position: absolute;
       top: 136px;
