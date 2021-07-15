@@ -63,6 +63,7 @@ const Styled = {
   Root: styled.div`
     display: flex;
     background-color: #f6f6f6;
+    padding-bottom: 70px;
     color: #9d9d9d;
   `,
   Left: styled.div`
@@ -97,9 +98,10 @@ const Styled = {
   Right: styled.div`
     display: grid;
     flex-basis: 60%;
-    grid-template-rows: repeat(4, 45px);
+    grid-template-rows: repeat(3, 45px);
     grid-template-columns: repeat(4, 1fr);
-    margin-top: 100px;
+    margin-top: 90px;
+    margin-right: 70px;
     .line {
       border-top: 1px solid #9d9d9d;
       width: 15px;
@@ -117,6 +119,9 @@ const Styled = {
     }
     img {
       margin-right: 12px;
+    }
+    @media (max-width: 1100px) {
+      display: none;
     }
   `,
 };
