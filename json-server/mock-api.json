@@ -3,14 +3,14 @@
     {
       "id": 1,
       "name": "BTS",
-      "profileImageUrl": "",
-      "logo": ""
+      "profileImageUrl": "https://img0.yna.co.kr/etc/inner/EN/2021/06/16/AEN20210616005400315_01_i_P2.jpg",
+      "logo": "https://1000logos.net/wp-content/uploads/2018/03/BTS_Logo.png"
     },
     {
       "id": 2,
       "name": "BLACKPINK",
-      "profileImageUrl": "",
-      "logo": ""
+      "profileImageUrl": "https://img0.yna.co.kr/etc/inner/EN/2021/06/16/AEN20210616005400315_01_i_P2.jpg",
+      "logo": "https://1000logos.net/wp-content/uploads/2018/03/BTS_Logo.png"
     }
   ],
   "artist-1-songs": [
@@ -55,6 +55,68 @@
       "artist": ["BTS"],
       "albumImg": "https://upload.wikimedia.org/wikipedia/ko/thumb/d/db/BTS_-_Butter.png/220px-BTS_-_Butter.png",
       "songId": 0
+    }
+  ],
+  "mysongs": [
+    {
+      "id": 1,
+      "title": "DNA",
+      "artist": "BTS",
+      "albumImageUrl": "https://kyrics.s3.ap-northeast-2.amazonaws.com/album/2.png"
+    },
+    {
+      "id": 2,
+      "title": "마지막처럼 (AS IF IT'S YOUR LAST)",
+      "artist": "BLACKPINK",
+      "albumImageUrl": "https://kyrics.s3.ap-northeast-2.amazonaws.com/album/9.png"
+    },
+    {
+      "id": 3,
+      "title": "DNA",
+      "artist": "BTS",
+      "albumImageUrl": "https://kyrics.s3.ap-northeast-2.amazonaws.com/album/2.png"
+    },
+    {
+      "id": 4,
+      "title": "마지막처럼 (AS IF IT'S YOUR LAST)",
+      "artist": "BLACKPINK",
+      "albumImageUrl": "https://kyrics.s3.ap-northeast-2.amazonaws.com/album/9.png"
+    },
+    {
+      "id": 5,
+      "title": "DNA",
+      "artist": "BTS",
+      "albumImageUrl": "https://kyrics.s3.ap-northeast-2.amazonaws.com/album/2.png"
+    },
+    {
+      "id": 6,
+      "title": "마지막처럼 (AS IF IT'S YOUR LAST)",
+      "artist": "BLACKPINK",
+      "albumImageUrl": "https://kyrics.s3.ap-northeast-2.amazonaws.com/album/9.png"
+    },
+    {
+      "id": 7,
+      "title": "DNA",
+      "artist": "BTS",
+      "albumImageUrl": "https://kyrics.s3.ap-northeast-2.amazonaws.com/album/2.png"
+    },
+    {
+      "id": 8,
+      "title": "마지막처럼 (AS IF IT'S YOUR LAST)",
+      "artist": "BLACKPINK",
+      "albumImageUrl": "https://kyrics.s3.ap-northeast-2.amazonaws.com/album/9.png"
+    },
+    {
+      "id": 9,
+      "title": "DNA",
+      "artist": "BTS",
+      "albumImageUrl": "https://kyrics.s3.ap-northeast-2.amazonaws.com/album/2.png"
+    },
+    {
+      "id": 10,
+      "title": "마지막처럼 (AS IF IT'S YOUR LAST)",
+      "artist": "BLACKPINK",
+      "albumImageUrl": "https://kyrics.s3.ap-northeast-2.amazonaws.com/album/9.png"
     }
   ]
 }

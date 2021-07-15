@@ -63,7 +63,11 @@ const Styled = {
   Root: styled.div`
     display: flex;
     background-color: #f6f6f6;
+    padding-bottom: 70px;
     color: #9d9d9d;
+    @media (max-width: 768px) {
+      padding-bottom: 43px;
+    }
   `,
   Left: styled.div`
     flex-basis: 40%;
@@ -73,11 +77,16 @@ const Styled = {
       margin-top: 32px;
       margin-bottom: 105px;
     }
+    @media (max-width: 768px) {
+      margin-left: 20px;
+      font-size: 12px;
+    }
   `,
   Email: styled.div`
     display: flex;
     align-items: center;
     height: 24px;
+    white-space: nowrap;
     & > img {
       margin-right: 4px;
     }
@@ -87,19 +96,22 @@ const Styled = {
     align-items: center;
     margin-bottom: 4px;
     height: 24px;
+    white-space: nowrap;
     & > img {
       margin-right: 4px;
     }
   `,
   Copyright: styled.div`
+    white-space: nowrap;
     font-size: 12px;
   `,
   Right: styled.div`
     display: grid;
     flex-basis: 60%;
-    grid-template-rows: repeat(4, 45px);
+    grid-template-rows: repeat(3, 45px);
     grid-template-columns: repeat(4, 1fr);
-    margin-top: 100px;
+    margin-top: 90px;
+    margin-right: 70px;
     .line {
       border-top: 1px solid #9d9d9d;
       width: 15px;
@@ -117,6 +129,10 @@ const Styled = {
     }
     img {
       margin-right: 12px;
+    }
+    @media (max-width: 1100px) {
+      display: none;
+      flex-basis: 1;
     }
   `,
 };
