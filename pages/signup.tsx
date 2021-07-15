@@ -39,8 +39,8 @@ function SignUp() {
       headers: token,
     });
 
-    const { data } = await loginClient.post('/login', payload);
-    // const { data } = await client.post('/login', payload);
+    // const { data } = await loginClient.post('/login', payload);
+    const { data } = await client.post('/login', payload);
 
     console.log('data', data);
   };
