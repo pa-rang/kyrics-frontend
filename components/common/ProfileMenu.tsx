@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 function ProfileMenu(): ReactElement {
