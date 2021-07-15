@@ -1,28 +1,20 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
-function MySongItem() {
-  const mySongData = {
-    id: 1,
-    title: 'Life goes ondddddddd',
-    artist: ['BTS'],
-    albumImageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a2/BTS_-_Be_Cover.png',
-    albumTitle: 'BE',
-  };
-  // 나희야 props로 mySongData 넘겨받고 map 돌려줘.
+import { IMySongItem } from '../../../types';
 
+interface mySongItemProps {
+  mySongData: IMySongItem;
+}
+function MySongItem({ mySongData }: mySongItemProps) {
   return (
     <Styled.Root>
       <Styled.Container>
         <img src={mySongData.albumImageUrl} alt="" />
         <Styled.Title>{mySongData.title}</Styled.Title>
         <Styled.Bottom>
-          <Styled.Artist>
-            {mySongData.artist.map((item: string, index: React.Key) => (
-              <div key={index}>{item}</div>
-            ))}
-          </Styled.Artist>
-          <img src="assets/icons/mySongStar.svg" alt="album-cover" />
+          <Styled.Artist>{mySongData.artist}</Styled.Artist>
+          <img src="/assets/icons/favoriteSong.svg" alt="favorites" />
         </Styled.Bottom>
       </Styled.Container>
     </Styled.Root>
