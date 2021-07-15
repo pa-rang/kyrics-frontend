@@ -9,7 +9,7 @@ export interface Artist {
 
 export interface ArtistSongs {
   id: number;
-  name: string;
+  artist: string;
   backgroundImage: string;
   songs: Song[];
 }
