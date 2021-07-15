@@ -4,13 +4,11 @@ import styled from '@emotion/styled';
 import { mockClient } from 'lib/api';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   currentTimeAtom,
-  isMessageOpenedAtom,
   isModalOpenedState,
   isPlayAtom,
-  isVolumeOpenedAtom,
   loopAtom,
   percentageAtom,
   songDataState,
@@ -23,16 +21,14 @@ import { ITimedText } from 'types';
 function Study(): ReactElement {
   const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
   const [currentTime, setCurrentTime] = useRecoilState<number>(currentTimeAtom);
-  const [volumeBar, setVolumeBar] = useRecoilState<number>(volumeBarAtom);
-  const [loop, setLoop] = useRecoilState<boolean>(loopAtom);
+  const volumeBar = useRecoilValue<number>(volumeBarAtom);
+  const loop = useRecoilValue<boolean>(loopAtom);
   const [totalTime, setTotalTime] = useRecoilState<number>(totalTimeAtom);
-  const [isMessageOpened, setIsMessageOpened] = useRecoilState<boolean>(isMessageOpenedAtom);
   const hostVideo = useRef(null) as any;
   const host = hostVideo.current as ReactPlayer;
-  const [percentage, setPercentage] = useRecoilState<number>(percentageAtom);
-  const [modalHeight, setModalHeight] = useRecoilState<number>(0);
+  const setPercentage = useSetRecoilState<number>(percentageAtom);
+  const [modalHeight, setModalHeight] = useState<number>(0);
   const [isModalOpened, setIsModalOpened] = useRecoilState(isModalOpenedState);
-  const [isVolumeOpened, setIsVolumeOpened] = useRecoilState<boolean>(isVolumeOpenedAtom);
   const setSongData = useSetRecoilState(songDataState);
   const { data } = useSWR('song-1', (url) => mockClient.get(url));
   const url = data?.data?.youtubeUrl;
@@ -53,23 +49,6 @@ function Study(): ReactElement {
       console.log(totalTime);
     }
   }, [isPlay]);
-
-  const handlePlay = () => {
-    setIsPlay((isPlay) => !isPlay);
-  };
-
-  const handleLoop = () => {
-    setIsMessageOpened(true);
-    setTimeout(setIsMessageOpened, 2000, false);
-    setLoop((loop) => !loop);
-  };
-
-  const mouseEnterController = () => {
-    setIsVolumeOpened(true);
-  };
-  const mouseLeaveController = () => {
-    setIsVolumeOpened(false);
-  };
 
   const handleOnProgress = (e: { playedSeconds: number }) => {
     setCurrentTime(e.playedSeconds);
@@ -107,13 +86,6 @@ function Study(): ReactElement {
     }
   };
 
-  const handleVolumeChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-
-    setIsVolumeOpened(true);
-    setVolumeBar(parseInt(target.value));
-  };
-
   useEffect(() => {
     const modalWidth: number = window.outerWidth * 0.7;
 
@@ -141,7 +113,6 @@ function Study(): ReactElement {
           <ReactPlayer
             playing={isPlay}
             url={url}
-            // url="https://www.youtube.com/embed/-5q5mZbe3V8"
             loop={loop}
             controls={true}
             volume={volumeBar / 100}
@@ -171,22 +142,9 @@ function Study(): ReactElement {
         </Styled.Modal>
       </Styled.ModalWrapper>
       <Player
-        isPlay={isPlay}
-        volume={volumeBar}
-        handlePlay={handlePlay}
         handleSeekTime={handleSeekTime}
-        totalTime={totalTime}
-        handleVolumeChange={handleVolumeChange}
         handleBackTime={handleBackTime}
         handleForwardTime={handleForwardTime}
-        currentTime={currentTime}
-        handleLoop={handleLoop}
-        loop={loop}
-        isMessageOpened={isMessageOpened}
-        isVolumeOpened={isVolumeOpened}
-        mouseEnterController={mouseEnterController}
-        mouseLeaveController={mouseLeaveController}
-        percentage={percentage}
       />
       <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
     </Styled.Root>
