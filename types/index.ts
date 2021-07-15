@@ -13,3 +13,5 @@ export interface ITimedText {
   kor: string;
   eng: string;
 }
+
+type SocialType = 'Google' | 'Facebook';
