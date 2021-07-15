@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import styled from '@emotion/styled';
-import { client, mockClient } from 'lib/api';
+import { client } from 'lib/api';
 import React from 'react';
 import Slider, { Settings } from 'react-slick';
 import useSWR from 'swr';
