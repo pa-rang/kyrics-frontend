@@ -76,6 +76,7 @@ const HeaderWrap = styled.div`
     @media (max-width: 768px) {
       margin-left: 20px;
       background-image: url(/assets/icons/SmallHeaderLogo.svg);
+      height: 20px;
     }
   }
 
@@ -106,7 +107,6 @@ const HeaderWrap = styled.div`
 
         &--picture {
           border-radius: 14px;
-          box-shadow: 3px 3px 7px 4px rgba(98, 98, 98, 0.12);
           background-color: #6465f4;
           width: 28px;
           height: 28px;
@@ -118,8 +118,12 @@ const HeaderWrap = styled.div`
           line-height: 27px;
           white-space: nowrap;
           color: #6465f4;
+          font-size: 20px;
           font-weight: bold;
           font-style: normal;
+          @media (max-width: 768px) {
+            font-size: 16px;
+          }
         }
       }
       @media (max-width: 768px) {

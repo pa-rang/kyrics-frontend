@@ -1,17 +1,17 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import { withTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { mockClient } from 'lib/api';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import Slider, { Settings } from 'react-slick';
 import useSWR from 'swr';
 import { Artist } from 'types';
 
 import ArtistCard from './ArtistCard';
 import NewSongCard from './NewSongCard';
-function ArtistCarousel(): ReactElement {
+
+function ArtistCarousel() {
   const { data } = useSWR<{ data: Artist[] }>('/artists', mockClient.get);
 
   console.log(data?.data);
@@ -40,15 +40,13 @@ function ArtistCarousel(): ReactElement {
 }
 
 interface ArrowProps {
-  className: any;
-  style: any;
-  onClick: any;
-  img: any;
+  className?: string;
+  style?: { [key: string]: string };
+  onClick?: () => void;
+  img?: string;
 }
 
-function Arrow(props: any) {
-  const { className, style, onClick, img } = props;
-
+function Arrow({ className, style, onClick, img }: ArrowProps) {
   return (
     <button className={className} style={{ ...style }} onClick={onClick}>
       <img className="arrowImg" src={img} alt=""></img>
@@ -104,7 +102,7 @@ const Styled = {
 const sliderProps: Settings = {
   arrows: true,
   infinite: true,
-  // autoplay: true,
+  autoplay: true,
   pauseOnHover: true,
   speed: 500,
   slidesToShow: 3,
