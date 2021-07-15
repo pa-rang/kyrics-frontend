@@ -165,6 +165,9 @@ const Styled = {
     input[type='range']:focus {
       outline: none;
     }
+    @media screen and (max-width: 900px) {
+      width: 68%;
+    }
   `,
   Title: styled.div`
     margin-bottom: 41px;

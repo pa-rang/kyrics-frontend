@@ -142,4 +142,7 @@ const PlayerBtnsWrapper = styled.div<{ isFavoriteMsgOpen: boolean; isCopyMsgOpen
     transform: translateX(-25%);
     width: 60px;
   }
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;

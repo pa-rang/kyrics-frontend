@@ -29,7 +29,6 @@ const PlayerWrapper = styled.div`
   width: 100%;
   height: 263px;
   .player-album {
-    /* width: 11.1111%; */
     width: 160px;
     height: 160px;
   }
