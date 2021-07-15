@@ -4,9 +4,8 @@ import React from 'react';
 
 interface mySongItemProps {
   mySongData: mySongItem;
-  index: React.Key;
 }
-function MySongItem({ mySongData, key }: mySongItemProps) {
+function MySongItem({ mySongData }: mySongItemProps) {
   return (
     <Styled.Root>
       <Styled.Container>
