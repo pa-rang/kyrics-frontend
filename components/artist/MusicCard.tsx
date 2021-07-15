@@ -15,25 +15,24 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   const [isHover, setIsHover] = useState<HoverState>('idle');
   const songTitle = useRef<HTMLParagraphElement>(null);
   const [textWidth, setTextWidth] = useState({ offset: 0, scroll: 0 });
-  // const title: ;
 
   function handleMouseEnter() {
     setIsHover('MouseEnter');
-    if (isEllipsisActive(songTitle)) {
-      const title = songTitle.current as any;
+    // if (isEllipsisActive(songTitle)) {
+    //   const title = songTitle.current as any;
 
-      console.log(title.style.display);
-      title && (title.style.visibility = 'visible');
-    }
+    //   console.log(title.style.display);
+    //   title && (title.style.visibility = 'visible');
+    // }
   }
 
   function handleMouseLeave() {
     setIsHover('MouseLeave');
-    if (isEllipsisActive(songTitle)) {
-      const title = songTitle.current as any;
+    // if (isEllipsisActive(songTitle)) {
+    //   const title = songTitle.current as any;
 
-      title && (title.style.visibility = 'hidden');
-    }
+    //   title && (title.style.visibility = 'hidden');
+    // }
   }
 
   function handleOnClick() {
@@ -67,9 +66,10 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
       ) : (
         <p className="songTitle">{title}</p>
       )} */}
-      <p className="songTitle__hover" ref={songTitle}>
+      {/* <p className="songTitle__hover" ref={songTitle}>
         {title}
-      </p>
+      </p> */}
+      <p className="songTitle">{title}</p>
       <p className="artists">{artist.map((artist) => artist)}</p>
     </Styled.Root>
   );
