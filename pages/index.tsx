@@ -5,11 +5,12 @@ import Title from 'components/home/Title';
 import { client } from 'lib/api';
 import React from 'react';
 import useSWR from 'swr';
+import { Artist } from 'types';
 
 import Header from '../components/common/Header';
 
 function Home() {
-  const { data } = useSWR('/artists', client.get);
+  const { data } = useSWR<{ data: Artist[] }>('/artists', client.get);
 
   console.log('client data', data?.data);
 
