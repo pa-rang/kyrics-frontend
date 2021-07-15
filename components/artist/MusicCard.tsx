@@ -4,7 +4,7 @@ import React, { ReactElement, useRef, useState } from 'react';
 
 interface Props {
   title: string;
-  artist: string[];
+  artist: string;
   albumImg: string;
   songId: number;
 }
@@ -70,7 +70,7 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
         {title}
       </p> */}
       <p className="songTitle">{title}</p>
-      <p className="artists">{artist.map((artist) => artist)}</p>
+      <p className="artists">{artist}</p>
     </Styled.Root>
   );
 }

@@ -7,11 +7,18 @@ export interface Artist {
   logoImageUrl: string;
 }
 
+export interface ArtistSongs {
+  id: number;
+  name: string;
+  backgroundImage: string;
+  songs: Song[];
+}
+
 export interface Song {
+  id: number;
   title: string;
-  artist: string[];
-  albumImg: string;
-  songId: number;
+  artist: string;
+  albumImageUrl: string;
 }
 
 export interface ITimedText {
