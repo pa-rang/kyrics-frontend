@@ -28,7 +28,7 @@ function ArtistCarousel() {
             {artists?.map((artist: Artist) => (
               <ArtistCard
                 key={artist.id}
-                name={artist.name}
+                id={artist.id}
                 profileImage={artist.profileImageUrl}
                 logo={artist.logoImageUrl}
               />

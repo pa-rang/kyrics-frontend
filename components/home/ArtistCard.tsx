@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
+import router from 'next/router';
 import React, { useState } from 'react';
 
 type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
 interface Props {
-  name: string;
+  id: number;
   profileImage: string;
   logo: string;
 }
 
-function ArtistCard({ name, profileImage, logo }: Props) {
+function ArtistCard({ id, profileImage, logo }: Props) {
   const [isHover, setIsHover] = useState<HoverState>('idle');
 
   function handleMouseEnter() {
@@ -19,9 +20,18 @@ function ArtistCard({ name, profileImage, logo }: Props) {
     setIsHover('MouseLeave');
   }
 
+  function handleOnClick() {
+    router.push(`artist/${id}`);
+  }
+
   return (
     <Wrap profileImage={profileImage} isHovered={isHover}>
-      <button className="bgImg" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <button
+        className="bgImg"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleOnClick}
+      >
         <div className="hover">
           <img className="hover__logo" src={logo} alt=""></img>
           <p className="hover__label">Explore &gt;</p>
