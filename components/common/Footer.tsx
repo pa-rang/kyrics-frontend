@@ -5,14 +5,14 @@ function Footer() {
   return (
     <Styled.Root>
       <Styled.Left>
-        <img src="assets/icons/kyricsGrayName.svg" alt="" />
+        <img src="/assets/icons/kyricsGrayName.svg" alt="" />
         <div>
           <Styled.Email>
-            <img src="assets/icons/emailIcon.svg" alt="" />
+            <img src="/assets/icons/emailIcon.svg" alt="" />
             <span>woorimal.zip@gmail.com</span>
           </Styled.Email>
           <Styled.Github>
-            <img src="assets/icons/githubIcon.svg" alt="" />
+            <img src="/assets/icons/githubIcon.svg" alt="" />
             <span>https://github.com/Kyrics</span>
           </Styled.Github>
           <Styled.Copyright>Copyright &#169; 2021. Kyrics. All rights reserved.</Styled.Copyright>
@@ -50,7 +50,7 @@ function Footer() {
           <span>
             김서현&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </span>
-          <img src="assets/icons/kyricsGrayLogo.svg" alt=""></img>
+          <img src="/assets/icons/kyricsGrayLogo.svg" alt=""></img>
         </div>
       </Styled.Right>
     </Styled.Root>

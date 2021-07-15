@@ -19,19 +19,19 @@ function PlayerBtns({ videoId }: Props) {
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
 
-    if (target.src.includes('assets/icons/onFavorite.svg')) return;
+    if (target.src.includes('/assets/icons/onFavorite.svg')) return;
 
     const hoverIcon = `hover${target.className}`;
 
-    target.src = `assets/icons/${hoverIcon}.svg`;
+    target.src = `/assets/icons/${hoverIcon}.svg`;
   };
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
     const Icon = target.className;
 
-    if (target.src.includes('assets/icons/onFavorite.svg')) return;
-    target.src = `assets/icons/${Icon}.svg`;
+    if (target.src.includes('/assets/icons/onFavorite.svg')) return;
+    target.src = `/assets/icons/${Icon}.svg`;
   };
 
   const handleCopy = () => {
@@ -43,8 +43,8 @@ function PlayerBtns({ videoId }: Props) {
   const handleFavorite = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
     const src: string = isFavorite
-      ? 'assets/icons/FavoriteIcon.svg'
-      : 'assets/icons/onFavorite.svg';
+      ? '/assets/icons/FavoriteIcon.svg'
+      : '/assets/icons/onFavorite.svg';
 
     target.src = src;
     if (!isFavorite) {
@@ -63,7 +63,7 @@ function PlayerBtns({ videoId }: Props) {
       <div className="icon--container">
         <img
           className="FavoriteIcon"
-          src="assets/icons/FavoriteIcon.svg"
+          src="/assets/icons/FavoriteIcon.svg"
           alt="favorite"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -76,7 +76,7 @@ function PlayerBtns({ videoId }: Props) {
         <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={handleCopy}>
           <img
             className="CopyIcon"
-            src="assets/icons/CopyIcon.svg"
+            src="/assets/icons/CopyIcon.svg"
             alt="copy"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -87,7 +87,7 @@ function PlayerBtns({ videoId }: Props) {
 
       <img
         className="YoutubeIcon"
-        src="assets/icons/YoutubeIcon.svg"
+        src="/assets/icons/YoutubeIcon.svg"
         alt="youtube"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

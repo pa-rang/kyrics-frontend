@@ -76,6 +76,7 @@ const HeaderWrap = styled.div`
     @media (max-width: 768px) {
       margin-left: 20px;
       background-image: url(/assets/icons/SmallHeaderLogo.svg);
+      height: 20px;
     }
   }
 
