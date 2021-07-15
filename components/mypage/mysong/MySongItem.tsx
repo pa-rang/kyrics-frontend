@@ -14,7 +14,7 @@ function MySongItem({ mySongData }: mySongItemProps) {
         <Styled.Title>{mySongData.title}</Styled.Title>
         <Styled.Bottom>
           <Styled.Artist>{mySongData.artist}</Styled.Artist>
-          <img src="/assets/icons/favoriteSong.svg" alt="favorites" />
+          <img src="/assets/icons/mySongStar.svg" alt="favorites" />
         </Styled.Bottom>
       </Styled.Container>
     </Styled.Root>
