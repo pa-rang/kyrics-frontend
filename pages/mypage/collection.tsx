@@ -8,16 +8,11 @@ import { mockClient } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
 import useSWR from 'swr';
+
+import { IMySongItem } from '../../types';
 interface StyledProps {
   mySongs: boolean | undefined;
   myVocab: boolean | undefined;
-}
-
-export interface mySongItem {
-  id: number;
-  title: string;
-  artist: string;
-  albumImageUrl: string;
 }
 
 function Collection(): ReactElement {
@@ -42,26 +37,7 @@ function Collection(): ReactElement {
 
   useEffect(() => {
     setFirstState();
-    e;
   }, [pid.type]);
-
-  const mousemySongs = () => {
-    setmySongs(true);
-    setmyVocab(false);
-  };
-  const mouseLeaveSongs = () => {
-    setmySongs(false);
-    setFirstState();
-  };
-  const mousemyVocab = () => {
-    setmyVocab(true);
-    setmySongs(false);
-  };
-
-  const mouseLeaveVocab = () => {
-    setmyVocab(false);
-    setFirstState();
-  };
 
   const clickSongs = () => {
     router.push('/mypage/collection?type=mysongs');
@@ -76,20 +52,10 @@ function Collection(): ReactElement {
       <Header isLoggedIn={true} />
       <Styled.MyCollection mySongs={mySongs} myVocab={myVocab}>
         <div className="my-collection">
-          <button
-            className="my-collection__song"
-            onClick={clickSongs}
-            onMouseEnter={mousemySongs}
-            onMouseLeave={mouseLeaveSongs}
-          >
+          <button className="my-collection__song" onClick={clickSongs}>
             My Songs
           </button>
-          <button
-            className="my-collection__voca"
-            onClick={clickVocab}
-            onMouseEnter={mousemyVocab}
-            onMouseLeave={mouseLeaveVocab}
-          >
+          <button className="my-collection__voca" onClick={clickVocab}>
             My Vocab
           </button>
         </div>
@@ -97,7 +63,7 @@ function Collection(): ReactElement {
       <Styled.drawCard>
         <div className="card-item">
           {data?.data && pid.type === 'mysongs' ? (
-            data?.data.map((data: mySongItem, index: React.Key) => {
+            data?.data.map((data: IMySongItem, index: React.Key) => {
               return <MySongItem mySongData={data} key={index} />;
             })
           ) : (
