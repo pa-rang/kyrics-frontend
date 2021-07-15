@@ -109,7 +109,6 @@ const PlayerBtnsWrapper = styled.div<{ isFavoriteMsgOpen: boolean; isCopyMsgOpen
   position: relative;
   align-items: center;
   justify-content: center;
-  margin-right: 20px;
   img {
     cursor: pointer;
   }
