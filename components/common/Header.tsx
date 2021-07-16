@@ -3,7 +3,8 @@
 import styled from '@emotion/styled';
 import useGetUser from 'hooks/useGetUser';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { mutate } from 'swr';
 
 import ProfileMenu from './ProfileMenu';
 
@@ -11,6 +12,10 @@ function Header() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const router = useRouter();
   const user = useGetUser();
+
+  useEffect(() => {
+    mutate('/user');
+  }, []);
 
   console.log('user', user);
 
@@ -24,6 +29,12 @@ function Header() {
     setIsProfileClicked((isProfileClicked) => !isProfileClicked);
   }
 
+  function handleLogout() {
+    localStorage.removeItem('userToken');
+    mutate('/user');
+    window.location.reload();
+  }
+
   return (
     <HeaderWrap>
       <div className="header">
@@ -31,7 +42,9 @@ function Header() {
         <div className="user">
           {user ? (
             <div className="user__profile">
-              <p className="user__profile--logout">Log out</p>
+              <p className="user__profile--logout" onClick={handleLogout}>
+                Log out
+              </p>
               <button className="user__profile--button" onClick={handleProfileClick}>
                 <img
                   className="user__profile--button--picture"

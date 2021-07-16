@@ -6,6 +6,7 @@ import { clickable } from 'lib/mixin';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { mutate } from 'swr';
 import { LoginResponse } from 'types';
 
 function Login() {
@@ -36,6 +37,7 @@ function Login() {
     const { token, isNewUser } = data?.data;
 
     localStorage.setItem('userToken', token);
+    mutate('/user');
 
     if (isNewUser) {
       router.replace('/login/email');
