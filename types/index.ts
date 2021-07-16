@@ -1,4 +1,14 @@
-export type Example = string;
+export interface LoginResponse {
+  token: string;
+  isNewUser: boolean;
+}
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  profileImageUrl: string;
+}
 
 export interface IMyVocab {
   id: number;
@@ -45,6 +55,8 @@ export interface ITimedText {
   kor: string;
   eng: string;
 }
+
+type SocialType = 'Google' | 'Facebook';
 export interface IMySongItem {
   id: number;
   title: string;
