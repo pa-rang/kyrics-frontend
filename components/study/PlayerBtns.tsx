@@ -31,7 +31,7 @@ function PlayerBtns() {
     if (target.src.includes('Favorite') && isFavorite) return;
     const hoverIcon = `hover${target.className}`;
 
-    target.src = `assets/icons/${hoverIcon}.svg`;
+    target.src = `/assets/icons/${hoverIcon}.svg`;
   };
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
@@ -80,7 +80,7 @@ function PlayerBtns() {
         <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={handleCopy}>
           <img
             className="CopyIcon"
-            src="assets/icons/CopyIcon.svg"
+            src="/assets/icons/CopyIcon.svg"
             alt="copy"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -91,7 +91,7 @@ function PlayerBtns() {
 
       <img
         className="YoutubeIcon"
-        src="assets/icons/YoutubeIcon.svg"
+        src="/assets/icons/YoutubeIcon.svg"
         alt="youtube"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

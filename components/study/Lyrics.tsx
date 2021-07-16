@@ -297,7 +297,7 @@ const Styled = {
         cursor: pointer;
         .lyrics {
           text-align: center;
-          line-height: 30px;
+          line-height: 1.5;
           color: #464646;
         }
         .kor {

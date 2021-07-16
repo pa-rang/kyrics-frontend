@@ -57,6 +57,13 @@ const HeaderWrap = styled.div`
     align-items: center;
     justify-content: space-between;
     height: 90px;
+    font-size: 20px;
+    @media (max-width: 768px) {
+      height: 50px;
+    }
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   }
 
   .logo {
@@ -66,6 +73,11 @@ const HeaderWrap = styled.div`
     cursor: pointer;
     width: 176px;
     height: 31px;
+    @media (max-width: 768px) {
+      margin-left: 20px;
+      background-image: url(/assets/icons/SmallHeaderLogo.svg);
+      height: 20px;
+    }
   }
 
   .user {
@@ -79,9 +91,11 @@ const HeaderWrap = styled.div`
         line-height: 27px;
         white-space: nowrap;
         color: #9d9d9d;
-        font-size: 20px;
         font-weight: bold;
         font-style: normal;
+        @media (max-width: 768px) {
+          margin-right: 24px;
+        }
       }
 
       &--button {
@@ -93,7 +107,6 @@ const HeaderWrap = styled.div`
 
         &--picture {
           border-radius: 14px;
-          box-shadow: 3px 3px 7px 4px rgba(98, 98, 98, 0.12);
           background-color: #6465f4;
           width: 28px;
           height: 28px;
@@ -108,7 +121,13 @@ const HeaderWrap = styled.div`
           font-size: 20px;
           font-weight: bold;
           font-style: normal;
+          @media (max-width: 768px) {
+            font-size: 16px;
+          }
         }
+      }
+      @media (max-width: 768px) {
+        margin-right: 19px;
       }
     }
 
@@ -121,7 +140,6 @@ const HeaderWrap = styled.div`
         line-height: 27px;
         white-space: nowrap;
         color: #9d9d9d;
-        font-size: 20px;
         font-weight: bold;
         font-style: normal;
       }
@@ -132,9 +150,11 @@ const HeaderWrap = styled.div`
         line-height: 27px;
         white-space: nowrap;
         color: #6465f4;
-        font-size: 20px;
         font-weight: bold;
         font-style: normal;
+        @media (max-width: 768px) {
+          margin-right: 24px;
+        }
       }
     }
   }

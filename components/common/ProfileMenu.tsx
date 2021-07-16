@@ -1,21 +1,39 @@
 import styled from '@emotion/styled';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 function ProfileMenu(): ReactElement {
+  const router = useRouter();
+
   return (
     <Wrap>
-      <button className="option">
+      <button className="option" onClick={() => router.push('/mypage/settings')}>
         <img className="option__icon" src="/assets/icons/IcSetting.svg" alt=""></img>
         <p className="option__label">Account Settings</p>
         <div className="option__border"></div>
       </button>
-      <button className="option">
+      <button
+        className="option"
+        onClick={() =>
+          router.push({
+            pathname: '/mypage/collection',
+            query: { type: 'mysongs' },
+          })
+        }
+      >
         <img className="option__icon" src="/assets/icons/IcMySong.svg" alt=""></img>
         <p className="option__label">My songs</p>
         <div className="option__border"></div>
       </button>
-      <button className="option">
+      <button
+        className="option"
+        onClick={() =>
+          router.push({
+            pathname: '/mypage/collection',
+            query: { type: 'myvocab' },
+          })
+        }
+      >
         <img className="option__icon" src="/assets/icons/IcMyVoca.svg" alt=""></img>
         <p className="option__label">My vocab</p>
       </button>

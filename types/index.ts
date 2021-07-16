@@ -17,6 +17,13 @@ export interface ISongData {
   youtubeUrl: string;
 }
 
+export interface Song {
+  title: string;
+  artist: string[];
+  albumImg: string;
+  songId: number;
+}
+
 export interface ITimedText {
   startTime: number;
   duration: number;
