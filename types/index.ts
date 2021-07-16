@@ -4,14 +4,21 @@ export interface Artist {
   id: number;
   name: string;
   profileImageUrl: string;
-  logo: string;
+  logoImageUrl: string;
+}
+
+export interface ArtistSongs {
+  id: number;
+  artist: string;
+  backgroundImageUrl: string;
+  songs: Song[];
 }
 
 export interface Song {
+  id: number;
   title: string;
-  artist: string[];
-  albumImg: string;
-  songId: number;
+  artist: string;
+  albumImageUrl: string;
 }
 
 export interface ITimedText {

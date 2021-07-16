@@ -1,35 +1,26 @@
 import styled from '@emotion/styled';
-import { mockClient } from 'lib/api';
-import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
-import useSWR from 'swr';
-import { Song } from 'types';
+import { ArtistSongs, Song } from 'types';
 
 import MusicCard from './MusicCard';
 
-function NewlyAdded(): ReactElement {
-  const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+interface Props {
+  songs: Song[];
+}
 
-  const { data } = useSWR(`artist-${id}-songs`, (url) => mockClient.get(url));
-  const songs = data?.data;
-
-  console.log('songs', songs);
-
+function NewlyAdded({ songs }: Props): ReactElement {
   return (
     <Styled.Root>
       <Styled.TitleWrapper>Newly Added</Styled.TitleWrapper>
       <Styled.MusicCardWrapper>
         <Styled.MusicCardTightWrapper>
-          {songs?.map((song: Song, index: React.Key) => (
+          {songs?.map((song: Song) => (
             <MusicCard
-              key={index}
+              key={song.id}
               title={song.title}
               artist={song.artist}
-              albumImg={song.albumImg}
-              songId={song.songId}
+              albumImg={song.albumImageUrl}
+              songId={song.id}
             />
           ))}
         </Styled.MusicCardTightWrapper>

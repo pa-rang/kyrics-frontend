@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import router from 'next/router';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useRef, useState } from 'react';
 
 interface Props {
   title: string;
-  artist: string[];
+  artist: string;
   albumImg: string;
   songId: number;
 }
@@ -13,17 +13,38 @@ type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
 
 function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   const [isHover, setIsHover] = useState<HoverState>('idle');
+  const songTitle = useRef<HTMLParagraphElement>(null);
+  const [textWidth, setTextWidth] = useState({ offset: 0, scroll: 0 });
 
   function handleMouseEnter() {
     setIsHover('MouseEnter');
+    // if (isEllipsisActive(songTitle)) {
+    //   const title = songTitle.current as any;
+
+    //   console.log(title.style.display);
+    //   title && (title.style.visibility = 'visible');
+    // }
   }
 
   function handleMouseLeave() {
     setIsHover('MouseLeave');
+    // if (isEllipsisActive(songTitle)) {
+    //   const title = songTitle.current as any;
+
+    //   title && (title.style.visibility = 'hidden');
+    // }
   }
 
   function handleOnClick() {
     router.push(`/study/${songId}`);
+  }
+
+  function isEllipsisActive(e: any) {
+    console.log(e.current.offsetWidth, e.current.scrollWidth);
+
+    // setTextWidth({ offset: e.current.offsetWidth, scroll: e.current.scrollWidth });
+
+    return e.current.offsetWidth < e.current.scrollWidth;
   }
 
   return (
@@ -34,13 +55,22 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
       onClick={handleOnClick}
     >
       <img className="img" src={albumImg} alt=""></img>
-
       <div className="hover">
         <p className="hover__label">Explore &gt;</p>
         <img className="hover__play" src="/assets/icons/playBtn.svg" alt=""></img>
       </div>
+      {/* {isHover === 'MouseEnter' && isEllipsisActive ? (
+        <p className="songTitle__hover" ref={songTitle}>
+          {title}
+        </p>
+      ) : (
+        <p className="songTitle">{title}</p>
+      )} */}
+      {/* <p className="songTitle__hover" ref={songTitle}>
+        {title}
+      </p> */}
       <p className="songTitle">{title}</p>
-      <p className="artists">{artist.map((artist) => artist)}</p>
+      <p className="artists">{artist}</p>
     </Styled.Root>
   );
 }
@@ -53,6 +83,7 @@ const Styled = {
     padding: 0;
     width: 200px;
     height: 275px;
+    overflow: hidden;
 
     .img {
       border-radius: 10px;
@@ -96,7 +127,24 @@ const Styled = {
 
     .songTitle {
       margin-top: 17px;
+      padding: 0 5px;
+      overflow: hidden;
       text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #464646;
+      font-size: 24px;
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    .songTitle__hover {
+      visibility: hidden;
+      margin-top: 17px;
+      padding: 0 5px;
+      animation: scroll-left 5s linear infinite;
+      text-align: left;
+      white-space: nowrap;
       color: #464646;
       font-size: 24px;
       font-weight: bold;
@@ -112,6 +160,7 @@ const Styled = {
       font-style: normal;
     }
 
+    /* 페이드인 애니메이션 */
     @keyframes fadeIn {
       0% {
         visibility: hidden;
@@ -122,6 +171,8 @@ const Styled = {
         opacity: 1;
       }
     }
+
+    /* 페이드아웃 애니메이션 */
     @keyframes fadeOut {
       0% {
         visibility: visible;
@@ -130,6 +181,22 @@ const Styled = {
       100% {
         visibility: hidden;
         opacity: 0;
+      }
+    }
+
+    /* 글자 흐르는 애니메이션 */
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0%);
+      }
+      10% {
+        transform: translateX(0%);
+      }
+      60% {
+        transform: translateX(-120%);
+      }
+      60.0001% {
+        transform: translateX(120%);
       }
     }
   `,

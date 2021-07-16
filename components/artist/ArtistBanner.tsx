@@ -1,27 +1,34 @@
 import styled from '@emotion/styled';
 import React, { ReactElement } from 'react';
 
-function ArtistBanner(): ReactElement {
-  const artistName = 'BTS';
+interface Props {
+  name: string;
+  bgImg: string;
+}
 
+interface StyledProps {
+  bgImg: string;
+}
+
+function ArtistBanner({ name, bgImg }: Props): ReactElement {
   return (
-    <BannerWrap>
+    <BannerWrap bgImg={bgImg}>
       <div className="bgImg">
-        <p className="title">{artistName}</p>
-        <p className="subTitle">Learn Korean with {artistName}!</p>
+        <p className="title">{name}</p>
+        <p className="subTitle">Learn Korean with {name}!</p>
       </div>
     </BannerWrap>
   );
 }
 
-const BannerWrap = styled.div`
+const BannerWrap = styled.div<StyledProps>`
   .bgImg {
     background: linear-gradient(
         158.98deg,
         rgba(231, 78, 151, 0.4) 3.15%,
         rgba(100, 101, 244, 0.4) 94.3%
       ),
-      url('https://img.hankyung.com/photo/201908/c05e2425a01667953569fc908e0be320.jpg') no-repeat;
+      url({bgImg}) no-repeat;
     background-size: cover;
     width: 100%;
     height: 424px;
