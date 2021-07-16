@@ -37,6 +37,14 @@ function Main() {
 
   const DeleteAccount = () => {
     setIsDeleteModalOpened(false);
+    client
+      .delete('/user')
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
@@ -93,7 +101,7 @@ function Main() {
                 <button onClick={() => setIsDeleteModalOpened(false)} aria-hidden="true">
                   Cancel
                 </button>
-                <button onClick={DeleteAccount}>Save</button>
+                <button onClick={DeleteAccount}>Delete</button>
               </Styled.EditModalButton>
             </Styled.EditModalMain>
           </Styled.EditModal>
