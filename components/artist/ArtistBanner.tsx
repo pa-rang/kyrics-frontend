@@ -11,6 +11,8 @@ interface StyledProps {
 }
 
 function ArtistBanner({ name, bgImg }: Props): ReactElement {
+  console.log(bgImg);
+
   return (
     <BannerWrap bgImg={bgImg}>
       <div className="bgImg">
@@ -28,7 +30,8 @@ const BannerWrap = styled.div<StyledProps>`
         rgba(231, 78, 151, 0.4) 3.15%,
         rgba(100, 101, 244, 0.4) 94.3%
       ),
-      url({bgImg}) no-repeat;
+      url(${(props: StyledProps) => props.bgImg}) no-repeat;
+    background-position: center;
     background-size: cover;
     width: 100%;
     height: 424px;
