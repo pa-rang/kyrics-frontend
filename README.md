@@ -17,12 +17,12 @@
 1. Home View
 ![image](https://user-images.githubusercontent.com/24906022/125967698-4f128db9-3430-477e-b39b-3265e082b402.png)
 
-아티스트를 선택하는 화면입니다.
+- 아티스트를 선택하는 화면입니다.
 
 2. Artist View
 ![image](https://user-images.githubusercontent.com/24906022/125967749-9f6a3f96-a83d-4d71-956f-9b3774589479.png)
 
-아티스트의 노래를 선택하는 화면입니다. 
+- 아티스트의 노래를 선택하는 화면입니다. 
 
 3. Study View
 ![image](https://user-images.githubusercontent.com/24906022/125967825-8ea8848f-9ecf-4159-8126-156df3f3062a.png)
