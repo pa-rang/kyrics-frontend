@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
-import { FavoriteIcon } from '@public/assets';
+import { FavoriteIcon, favoriteSong } from '@public/assets';
 import React from 'react';
 
-function FavoriteButton() {
-  return <Styled.Root src={FavoriteIcon.src} />;
+interface Props {
+  myvocab?: boolean;
+}
+
+function FavoriteButton({ myvocab }: Props) {
+  return <Styled.Root src={myvocab ? favoriteSong.src : FavoriteIcon.src} />;
 }
 
 export default FavoriteButton;

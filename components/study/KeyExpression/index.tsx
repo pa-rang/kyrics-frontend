@@ -42,6 +42,7 @@ function KeyExpression() {
             kor={kor}
             korExample={korExample}
             style={{ marginBottom: '12px' }}
+            myvocab={false}
           />
         ))}
       </Styled.KeyExpressionWrapper>

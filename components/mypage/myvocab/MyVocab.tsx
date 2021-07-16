@@ -25,13 +25,14 @@ function MyVocab() {
         keyExpressions.map(({ eng, engExample, kor, korExample }) => (
           <KeyExpressionItem
             key={kor}
-            type="line-left"
+            type="line-top"
             width="254px"
             eng={eng}
             engExample={engExample}
             kor={kor}
             korExample={korExample}
-            style={{ marginBottom: '12px' }}
+            style={{}}
+            myvocab={true}
           />
         ))}
     </Styled.Card>
@@ -47,9 +48,7 @@ const Styled = {
     justify-items: center;
     column-gap: 25px;
     margin: 50px;
-    /* margin: 74px 32px; */
-    /* width: 1070px; */
     width: 100%;
-    row-gap: 25px;
+    row-gap: 70px;
   `,
 };

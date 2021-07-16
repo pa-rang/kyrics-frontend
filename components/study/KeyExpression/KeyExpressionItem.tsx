@@ -13,9 +13,19 @@ interface Props {
   kor: string;
   korExample: string;
   style?: { [key: string]: string };
+  myvocab?: boolean;
 }
 
-function KeyExpressionItem({ type, width, eng, engExample, kor, korExample, style }: Props) {
+function KeyExpressionItem({
+  type,
+  width,
+  eng,
+  engExample,
+  kor,
+  korExample,
+  style,
+  myvocab,
+}: Props) {
   return (
     <Styled.Root width={width} style={{ ...style }}>
       <Styled.KeywordWrapper>
@@ -27,7 +37,7 @@ function KeyExpressionItem({ type, width, eng, engExample, kor, korExample, styl
         <Styled.EngExample>{engExample}</Styled.EngExample>
       </Styled.ExampleWrapper>
       <Styled.Line />
-      <FavoriteButton />
+      <FavoriteButton myvocab={myvocab} />
     </Styled.Root>
   );
 }

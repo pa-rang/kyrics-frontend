@@ -2,6 +2,7 @@ export { default as Alphabet } from './icons/Alphabet.svg';
 export { default as CopyIcon } from './icons/CopyIcon.svg';
 export { default as dropDownIcon } from './icons/dropDownIcon.svg';
 export { default as FavoriteIcon } from './icons/FavoriteIcon.svg';
+export { default as favoriteSong } from './icons/favoriteSong.svg';
 export { default as hoverYoutubeIcon } from './icons/hoverYoutubeIcon.svg';
 export { default as offStep1 } from './icons/offStep1.svg';
 export { default as offStep2 } from './icons/offStep2.svg';
