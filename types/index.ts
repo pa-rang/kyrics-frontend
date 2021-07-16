@@ -3,6 +3,13 @@ export interface LoginResponse {
   isNewUser: boolean;
 }
 
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  profileImageUrl: string;
+}
+
 export interface Artist {
   id: number;
   name: string;

@@ -5,7 +5,7 @@ import { isServer } from './constants/env';
 export interface KyricsResponse<T> {
   status: number;
   message: string;
-  data: T;
+  data?: T;
 }
 
 export interface KyricsSWRResponse<T> {

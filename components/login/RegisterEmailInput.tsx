@@ -1,10 +1,19 @@
 import styled from '@emotion/styled';
+import { client, KyricsSWRResponse } from 'lib/api';
 import { colors } from 'lib/constants/colors';
 import { clickable } from 'lib/mixin';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import { User } from 'types';
 
 function RegisterEmailInput() {
   const [inputValue, setInputValue] = useState('');
+  const { data } = useSWR<KyricsSWRResponse<User>>('/user', client.get);
+  const email = data?.data.data?.email;
+
+  useEffect(() => {
+    setInputValue(email || '');
+  }, [email]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
