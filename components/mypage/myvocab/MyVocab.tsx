@@ -8,11 +8,12 @@ import { IMyVocab } from 'types';
 // import MyVocabItem from './MyVocabItem';
 
 function MyVocab() {
-  //   const { data } = useSWR<{ data: IMyVocab[] }>('/user/vocab', client.get);
-  const { data } = useSWR<{ data: IMyVocab[] }>('/myvocab', mockClient.get);
+  const { data } = useSWR<{ data: IMyVocab[] }>('/user/vocab', client.get);
+  // const { data } = useSWR<{ data: IMyVocab[] }>('/myvocab', mockClient.get);
   const [keyExpressions, setKeyExpressions] = useState<IMyVocab[]>();
 
   useEffect(() => {
+    console.log(data);
     const keys = data?.data as any;
 
     setKeyExpressions(keys);
@@ -21,6 +22,7 @@ function MyVocab() {
   return (
     <Styled.Card>
       {keyExpressions &&
+        keyExpressions[0] &&
         keyExpressions.map(({ id, eng, engExample, kor, korExample }) => (
           <KeyExpressionItem
             id={id}

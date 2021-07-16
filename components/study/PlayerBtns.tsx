@@ -62,9 +62,23 @@ function PlayerBtns() {
       setTimeout(() => {
         setIsFavoriteMsgOpen(false);
       }, 2000);
-      client.post(`user/song/${id}`);
+      client
+        .post(`user/song/${id}`)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     } else {
-      client.delete(`user/song/${id}`);
+      client
+        .delete(`user/song/${id}`)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
 
     setIsFavorite((isFavorite) => !isFavorite);

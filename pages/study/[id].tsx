@@ -3,6 +3,7 @@ import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import useGetUser from 'hooks/useGetUser';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
@@ -44,6 +45,7 @@ function Study(): ReactElement {
   // const { data } = useSWR('song-1', (url) => mockClient.get(url));
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
   const url = data?.data?.data?.youtubeUrl;
+  const user = useGetUser();
 
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?

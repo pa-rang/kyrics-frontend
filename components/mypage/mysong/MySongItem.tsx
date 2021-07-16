@@ -1,12 +1,22 @@
 import styled from '@emotion/styled';
+import { client } from 'lib/api';
+import { useRouter } from 'next/router';
 import React from 'react';
+import { mutate } from 'swr';
 
 import { IMySongItem } from '../../../types';
 
 interface mySongItemProps {
   mySongData: IMySongItem;
+  id: number;
 }
-function MySongItem({ mySongData }: mySongItemProps) {
+function MySongItem({ mySongData, id }: mySongItemProps) {
+  const handleDelete = async () => {
+    const data = await client.delete(`user/song/${id}`);
+
+    mutate('/user/song');
+  };
+
   return (
     <Styled.Root>
       <Styled.Container>
@@ -15,7 +25,7 @@ function MySongItem({ mySongData }: mySongItemProps) {
           <Styled.Title>{mySongData.title}</Styled.Title>
           <Styled.Bottom>
             <Styled.Artist>{mySongData.artist}</Styled.Artist>
-            <button />
+            <button onClick={handleDelete} />
           </Styled.Bottom>
         </span>
       </Styled.Container>
