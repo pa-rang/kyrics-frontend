@@ -48,10 +48,9 @@ function Study(): ReactElement {
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?
   useEffect(() => {
-    const data2 = data?.data?.data as any;
-
-    // setSongData 인수에 넣으면 에러가 난다.
-    setSongData(data2);
+    if (!data) return;
+    // setSongData 인수에 넣으면 에러가 난다.`
+    setSongData(data?.data?.data);
   }, [data]);
 
   useEffect(() => {
