@@ -1,21 +1,14 @@
 import styled from '@emotion/styled';
-import { mockClient } from 'lib/api';
+import axios from 'axios';
+import { client } from 'lib/api';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { songDataState } from 'states';
 import useSWR from 'swr';
-import { ITimedText } from 'types';
+import { ISongData, ITimedText } from 'types';
 
-import {
-  Alphabet,
-  dropDownIcon,
-  offStep1,
-  offStep2,
-  onStep1,
-  onStep2,
-  sizeDown,
-  sizeUp,
-} from '../../public/assets';
+import { Alphabet, dropDownIcon, sizeDown, sizeUp } from '../../public/assets';
 import Quiz from './Quiz';
 
 interface Props {
@@ -25,24 +18,35 @@ interface Props {
 
 function Lyrics({ handleLyrics, currentTime }: Props) {
   const songData = useRecoilValue(songDataState);
-  const [timedtext, setTimedtext] = useState<ITimedText[] | null>(null);
+  const [timedtext, setTimedtext] = useState<ITimedText[] | undefined>();
   const [startTime, setStartTime] = useState<number>();
   const [isDropDown, setIsDropDown] = useState(false);
   const [engTranslated, setEngTranslated] = useState(false);
   const [isQuizStep, setIsQuizStep] = useState(false);
   const [fontSize, setFontSize] = useState('Medium');
-  const { data } = useSWR('song-1', (url) => mockClient.get(url));
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+  // const { data } = useSWR('song-1', (url) => mockClient.get(url));
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
 
   useEffect(() => {
-    setTimedtext(data?.data?.lyrics);
-  }, [songData]);
+    setTimedtext(data?.data?.data?.lyrics);
+  }, [data]);
 
   useEffect(() => {
-    timedtext?.forEach((line: ITimedText) => {
-      if (line.startTime <= currentTime && currentTime < line.startTime + line.duration) {
-        setStartTime(line.startTime);
-      }
-    });
+    // console.log(timedtext);
+    timedtext &&
+      timedtext.forEach((line: ITimedText) => {
+        // console.log(line.startTime <= currentTime && currentTime < line.startTime + line.duration);
+        console.log('line.startTime', line.startTime);
+        console.log('curentTime', currentTime);
+        console.log('line.startTime + line.duration', line.startTime + line.duration);
+        if (line.startTime <= currentTime && currentTime < line.startTime + line.duration) {
+          setStartTime(line.startTime);
+        }
+      });
   }, [currentTime]);
 
   const handleSize = (type: string) => {
@@ -297,7 +301,7 @@ const Styled = {
         cursor: pointer;
         .lyrics {
           text-align: center;
-          line-height: 30px;
+          line-height: 1.5;
           color: #464646;
         }
         .kor {

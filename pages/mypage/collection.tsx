@@ -18,44 +18,26 @@ interface StyledProps {
 function Collection(): ReactElement {
   const router = useRouter();
   const pid = router.query;
-  const [mySongs, setmySongs] = useState<boolean | undefined>();
-  const [myVocab, setmyVocab] = useState<boolean | undefined>();
+  const [mySongs, setMySongs] = useState<boolean | undefined>();
+  const [myVocab, setMyVocab] = useState<boolean | undefined>();
   const { data } = useSWR('mysongs', (url) => mockClient.get(url));
 
   console.log(data?.data);
   const setFirstState = () => {
     console.log(pid);
     if (pid.type === 'mysongs') {
-      setmySongs(true);
-      setmyVocab(false);
+      setMySongs(true);
+      setMyVocab(false);
     }
     if (pid.type === 'myvocab') {
-      setmySongs(false);
-      setmyVocab(true);
+      setMySongs(false);
+      setMyVocab(true);
     }
   };
 
   useEffect(() => {
     setFirstState();
   }, [pid.type]);
-
-  const mousemySongs = () => {
-    setmySongs(true);
-    setmyVocab(false);
-  };
-  const mouseLeaveSongs = () => {
-    setmySongs(false);
-    setFirstState();
-  };
-  const mousemyVocab = () => {
-    setmyVocab(true);
-    setmySongs(false);
-  };
-
-  const mouseLeaveVocab = () => {
-    setmyVocab(false);
-    setFirstState();
-  };
 
   const clickSongs = () => {
     router.push('/mypage/collection?type=mysongs');
@@ -66,29 +48,19 @@ function Collection(): ReactElement {
   };
 
   return (
-    <Styled.Root>
+    <>
       <Header isLoggedIn={true} />
       <Styled.MyCollection mySongs={mySongs} myVocab={myVocab}>
         <div className="my-collection">
-          <button
-            className="my-collection__song"
-            onClick={clickSongs}
-            onMouseEnter={mousemySongs}
-            onMouseLeave={mouseLeaveSongs}
-          >
+          <button className="my-collection__song" onClick={clickSongs}>
             My Songs
           </button>
-          <button
-            className="my-collection__voca"
-            onClick={clickVocab}
-            onMouseEnter={mousemyVocab}
-            onMouseLeave={mouseLeaveVocab}
-          >
+          <button className="my-collection__voca" onClick={clickVocab}>
             My Vocab
           </button>
         </div>
       </Styled.MyCollection>
-      <Styled.drawCard>
+      <Styled.DrawCard>
         <div className="card-item">
           {data?.data && pid.type === 'mysongs' ? (
             data?.data.map((data: IMySongItem, index: React.Key) => {
@@ -98,16 +70,15 @@ function Collection(): ReactElement {
             <MyVocab />
           )}
         </div>
-      </Styled.drawCard>
+      </Styled.DrawCard>
       <Footer />
-    </Styled.Root>
+    </>
   );
 }
 
 export default Collection;
 
 const Styled = {
-  Root: styled.div``,
   MyCollection: styled.div<StyledProps>`
     border-bottom: 2px solid #e1e1e1;
     width: 100%;
@@ -150,22 +121,18 @@ const Styled = {
       }
     }
   `,
-  drawCard: styled.div`
+  DrawCard: styled.div`
     display: flex;
     justify-content: center;
     background: #f9fbfd;
     width: 100%;
-    /* height: 749px; */
-    overflow-y: scroll;
+
     .card-item {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
       column-gap: 25px;
-      margin-top: 74px;
-      margin-bottom: 74px;
-      margin-left: 25px;
+      margin: 74px 32px;
       width: 1070px;
-      height: 445px;
       row-gap: 25px;
     }
   `,

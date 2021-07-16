@@ -191,8 +191,8 @@ const Styled = {
     justify-content: center;
     width: 100%;
     .bar {
-      align-self: center;
       -webkit-appearance: none;
+      align-self: center;
       margin-bottom: 20px;
       border-radius: 10px;
       background-color: #9d9d9d;
@@ -231,7 +231,7 @@ const Styled = {
     align-items: center;
     justify-content: center;
     .back-btn {
-      background: url('assets/icons/backIcon.svg') no-repeat 0 0;
+      background: url('/assets/icons/backIcon.svg') no-repeat 0 0;
       width: 19px;
       height: 23px;
       &:hover {
@@ -245,10 +245,10 @@ const Styled = {
       ${({ isPlay }) =>
         isPlay
           ? css`
-              background: url('assets/icons/pauseIcon.svg') no-repeat 0 0;
+              background: url('/assets/icons/pauseIcon.svg') no-repeat 0 0;
             `
           : css`
-              background: url('assets/icons/playIcon.svg') no-repeat 0 0;
+              background: url('/assets/icons/playIcon.svg') no-repeat 0 0;
             `}
       width: 31px;
       height: 31px;
@@ -258,7 +258,7 @@ const Styled = {
       }
     }
     .forward-btn {
-      background: url('assets/icons/forwardIcon.svg') no-repeat 0 0;
+      background: url('/assets/icons/forwardIcon.svg') no-repeat 0 0;
       width: 19px;
       height: 23px;
       &:hover {
@@ -313,7 +313,7 @@ const Styled = {
       width: 116.01px;
       height: 25px;
       &__btn {
-        background: url('assets/icons/soundIcon.svg') no-repeat 0 0;
+        background: url('/assets/icons/soundIcon.svg') no-repeat 0 0;
         width: 25px;
         height: 25px;
         &:hover {
@@ -348,7 +348,7 @@ const Styled = {
       justify-content: center;
       &__btn {
         margin-bottom: 10px;
-        background: url('assets/icons/replayIcon.svg') no-repeat 0 0;
+        background: url('/assets/icons/replayIcon.svg') no-repeat 0 0;
         width: 20px;
         height: 20px;
         ${({ isLooped }) =>

@@ -1,8 +1,8 @@
-import Header from '@components/common/Header';
 import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import styled from '@emotion/styled';
-import { mockClient } from 'lib/api';
+import { client, mockClient } from 'lib/api';
+import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -17,7 +17,7 @@ import {
   volumeBarAtom,
 } from 'states';
 import useSWR from 'swr';
-import { ITimedText } from 'types';
+import { ISongData, ITimedText } from 'types';
 
 function Study(): ReactElement {
   const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
@@ -31,14 +31,21 @@ function Study(): ReactElement {
   const [modalHeight, setModalHeight] = useState<number>(0);
   const [isModalOpened, setIsModalOpened] = useRecoilState(isModalOpenedState);
   const setSongData = useSetRecoilState(songDataState);
-  const { data } = useSWR('song-1', (url) => mockClient.get(url));
-
-  const url = data?.data?.youtubeUrl;
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+  // const { data } = useSWR('song-1', (url) => mockClient.get(url));
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  const url = data?.data?.data?.youtubeUrl;
 
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?
   useEffect(() => {
-    setSongData(data?.data);
+    const data2 = data?.data?.data as any;
+
+    // setSongData 인수에 넣으면 에러가 난다.
+    setSongData(data2);
   }, [data]);
 
   useEffect(() => {
@@ -110,7 +117,6 @@ function Study(): ReactElement {
 
   return (
     <Styled.Root>
-      <Header isLoggedIn={false} />
       <Styled.ModalWrapper isModalOpened={isModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
@@ -137,7 +143,7 @@ function Study(): ReactElement {
           />
           <img
             className="modalClose--btn"
-            src="assets/icons/modalCloseIcon.svg"
+            src="/assets/icons/modalCloseIcon.svg"
             alt=""
             onClick={() => setIsModalOpened(false)}
             aria-hidden="true"
