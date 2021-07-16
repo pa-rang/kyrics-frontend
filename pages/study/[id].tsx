@@ -1,6 +1,7 @@
 import Header from '@components/common/Header';
 import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
@@ -142,7 +143,7 @@ function Study(): ReactElement {
   }, []);
 
   return (
-    <Styled.Root>
+    <Styled.Root isModalOpened={isModalOpened}>
       <Header isLoggedIn={true} />
       <Styled.ModalWrapper isModalOpened={isModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
@@ -193,7 +194,14 @@ function Study(): ReactElement {
 export default Study;
 
 const Styled = {
-  Root: styled.div``,
+  Root: styled.div<{ isModalOpened: boolean }>`
+    ${({ isModalOpened }) =>
+      isModalOpened &&
+      css`
+        height: 100vh;
+        overflow-y: hidden;
+      `}
+  `,
   ModalWrapper: styled.div<{ isModalOpened: boolean }>`
     display: ${({ isModalOpened }) => (isModalOpened ? 'flex' : 'none')};
     position: fixed;
@@ -204,6 +212,7 @@ const Styled = {
     background: rgba(0, 0, 0, 0.8);
     width: 100vw;
     height: 100vh;
+    overflow-y: hidden;
   `,
   Modal: styled.div<{ modalHeight: number }>`
     position: fixed;
