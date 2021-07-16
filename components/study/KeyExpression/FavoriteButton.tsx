@@ -1,28 +1,31 @@
 import styled from '@emotion/styled';
 import { FavoriteIcon, favoriteSong } from '@public/assets';
 import { client } from 'lib/api';
-import React, { useEffect, useState } from 'react';
-import useSWR from 'swr';
-import { IMyVocab } from 'types';
+import React from 'react';
+import { mutate } from 'swr';
 
 interface Props {
-  deleteFavorite: (id: number) => void;
   id: number;
-  myvocab: boolean;
+  isSaved: boolean;
+  type: 'line-top' | 'line-left';
+  songId: number | undefined;
 }
 
-interface KyricsResponse<T> {
-  status: number;
-  message: string;
-  data: T;
-}
+function FavoriteButton({ id, isSaved, type, songId }: Props) {
+  const handleClick = async (id: number) => {
+    if (isSaved) {
+      await client.delete(`/user/vocab/${id}`);
+    } else {
+      await client.post(`/user/vocab/${id}`);
+    }
+    songId && mutate(`/song/${songId}/vocab`);
+  };
 
-function FavoriteButton({ myvocab, deleteFavorite, id }: Props) {
   return (
     <Styled.Root
-      myvocab={myvocab}
-      src={myvocab ? favoriteSong.src : FavoriteIcon.src}
-      onClick={() => deleteFavorite(id)}
+      type={type}
+      src={isSaved ? favoriteSong.src : FavoriteIcon.src}
+      onClick={() => handleClick(id)}
     />
   );
 }
@@ -30,9 +33,9 @@ function FavoriteButton({ myvocab, deleteFavorite, id }: Props) {
 export default FavoriteButton;
 
 const Styled = {
-  Root: styled.img<{ myvocab: boolean }>`
+  Root: styled.img<{ type: 'line-top' | 'line-left' }>`
     position: absolute;
-    top: ${({ myvocab }) => (myvocab ? '24px' : '16px')};
+    top: ${({ type }) => (type === 'line-top' ? '24px' : '16px')};
     right: 16px;
     cursor: pointer;
   `,

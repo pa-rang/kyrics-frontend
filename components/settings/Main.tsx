@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import useGetUser from 'hooks/useGetUser';
+import { useGetUser } from 'hooks/api';
 import { client } from 'lib/api';
 import React, { useRef, useState } from 'react';
 import { mutate } from 'swr';

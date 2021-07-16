@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import styled from '@emotion/styled';
-import useGetUser from 'hooks/useGetUser';
+import { useGetUser } from 'hooks/api';
+import { isServer } from 'lib/constants/env';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { mutate } from 'swr';
 
 import ProfileMenu from './ProfileMenu';
@@ -13,11 +14,9 @@ function Header() {
   const router = useRouter();
   const user = useGetUser();
 
-  useEffect(() => {
-    mutate('/user');
-  }, []);
-
   console.log('user', user);
+
+  console.log('localStorage.getItem("userToken")', isServer || localStorage.getItem('userToken'));
 
   function handleLogoClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();

@@ -13,6 +13,8 @@ function RegisterEmailInput() {
   const [inputValue, setInputValue] = useState('');
   const { data } = useSWR<KyricsSWRResponse<User>>('/user', client.get);
   const email = data?.data?.data?.email;
+
+  console.log('email', email);
   const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null);
 
   useEffect(() => {
