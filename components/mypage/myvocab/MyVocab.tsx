@@ -13,7 +13,6 @@ function MyVocab() {
   const [keyExpressions, setKeyExpressions] = useState<IMyVocab[]>();
 
   useEffect(() => {
-    console.log(data?.data);
     const keys = data?.data as any;
 
     setKeyExpressions(keys);

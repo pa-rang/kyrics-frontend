@@ -20,7 +20,6 @@ function Collection(): ReactElement {
   const [myVocab, setMyVocab] = useState<boolean | undefined>();
 
   const setFirstState = () => {
-    console.log(pid);
     if (pid.type === 'mysongs') {
       setMySongs(true);
       setMyVocab(false);
