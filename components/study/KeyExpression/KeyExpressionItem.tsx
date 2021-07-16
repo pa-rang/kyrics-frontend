@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { FavoriteIcon } from '@public/assets';
 import { ellipsisText } from 'lib/mixin';
@@ -13,7 +14,7 @@ interface Props {
   kor: string;
   korExample: string;
   style?: { [key: string]: string };
-  myvocab?: boolean;
+  myvocab: boolean;
 }
 
 function KeyExpressionItem({
@@ -36,7 +37,7 @@ function KeyExpressionItem({
         <Styled.KorExample>{korExample}</Styled.KorExample>
         <Styled.EngExample>{engExample}</Styled.EngExample>
       </Styled.ExampleWrapper>
-      <Styled.Line />
+      <Styled.Line type={type} />
       <FavoriteButton myvocab={myvocab} />
     </Styled.Root>
   );
@@ -53,14 +54,24 @@ const Styled = {
     width: ${({ width }) => width};
   `,
 
-  Line: styled.div`
+  Line: styled.div<{ type: 'line-top' | 'line-left' }>`
     position: absolute;
     top: 0px;
     left: 0px;
-    border-radius: 8px 0 0 8px;
     background-color: #6465f4;
-    width: 8px;
-    height: 100%;
+
+    ${({ type }) =>
+      type === 'line-left'
+        ? css`
+            border-radius: 8px 0 0 8px;
+            width: 8px;
+            height: 100%;
+          `
+        : css`
+            border-radius: 8px 8px 0 0;
+            width: 100%;
+            height: 8px;
+          `}
   `,
 
   KeywordWrapper: styled.div`

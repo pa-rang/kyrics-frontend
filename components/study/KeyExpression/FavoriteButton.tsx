@@ -3,19 +3,19 @@ import { FavoriteIcon, favoriteSong } from '@public/assets';
 import React from 'react';
 
 interface Props {
-  myvocab?: boolean;
+  myvocab: boolean;
 }
 
 function FavoriteButton({ myvocab }: Props) {
-  return <Styled.Root src={myvocab ? favoriteSong.src : FavoriteIcon.src} />;
+  return <Styled.Root myvocab={myvocab} src={myvocab ? favoriteSong.src : FavoriteIcon.src} />;
 }
 
 export default FavoriteButton;
 
 const Styled = {
-  Root: styled.img`
+  Root: styled.img<{ myvocab: boolean }>`
     position: absolute;
-    top: 12px;
+    top: ${({ myvocab }) => (myvocab ? '24px' : '16px')};
     right: 16px;
   `,
 };
