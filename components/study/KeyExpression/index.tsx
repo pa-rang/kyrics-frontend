@@ -13,7 +13,7 @@ function KeyExpression() {
     query: { id },
   } = router;
 
-  const { data } = useSWR<KyricsSWRResponse<KeyExpression[]>>('/song/${id}/vocab', client.get, {
+  const { data } = useSWR<KyricsSWRResponse<IMyVocab[]>>(`/song/${id}/vocab`, client.get, {
     revalidateOnFocus: false,
     errorRetryCount: 3,
   });
