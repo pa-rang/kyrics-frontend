@@ -1,5 +1,6 @@
 import Header from '@components/common/Header';
 import Lyrics from '@components/study/Lyrics';
+import MiniPlayer from '@components/study/MiniPlayer';
 import Player from '@components/study/Player';
 import styled from '@emotion/styled';
 import { client } from 'lib/api';
@@ -157,6 +158,13 @@ function Study(): ReactElement {
         handleBackTime={handleBackTime}
         handleForwardTime={handleForwardTime}
       />
+      <Styled.MiniPlayerWrapper>
+        <MiniPlayer
+          handleSeekTime={handleSeekTime}
+          handleBackTime={handleBackTime}
+          handleForwardTime={handleForwardTime}
+        />
+      </Styled.MiniPlayerWrapper>
       <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
     </Styled.Root>
   );
@@ -189,5 +197,11 @@ const Styled = {
       transform: translateX(100%);
       cursor: pointer;
     }
+  `,
+  MiniPlayerWrapper: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
   `,
 };
