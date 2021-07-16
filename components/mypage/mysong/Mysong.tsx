@@ -26,10 +26,17 @@ export default Mysong;
 const Styled = {
   Card: styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+    grid-template-columns: repeat(auto-fill, 165px);
+    justify-content: center;
     column-gap: 25px;
     margin: 74px 32px;
     width: 1070px;
     row-gap: 25px;
+    @media (max-width: 580px) {
+      grid-template-columns: repeat(auto-fill, 92px);
+      column-gap: 16px;
+      margin: 53px 12px;
+      row-gap: 16px;
+    }
   `,
 };

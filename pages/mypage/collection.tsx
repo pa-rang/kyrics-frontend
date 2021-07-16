@@ -82,6 +82,9 @@ const Styled = {
       font-size: 24px;
       font-weight: bold;
       font-style: normal;
+      @media (max-width: 768px) {
+        font-size: 16px;
+      }
     }
     .my-collection {
       display: flex;
