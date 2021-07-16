@@ -1,7 +1,6 @@
 import Footer from '@components/common/Footer';
 import Header from '@components/common/Header';
 import MySongItem from '@components/mypage/mysong/MySongItem';
-import MyVocab from '@components/mypage/mysong/MyVocab';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { mockClient } from 'lib/api';
@@ -10,6 +9,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { IMySongItem } from '../../types';
+import MyVocab from './MyVocab';
 interface StyledProps {
   mySongs: boolean | undefined;
   myVocab: boolean | undefined;
