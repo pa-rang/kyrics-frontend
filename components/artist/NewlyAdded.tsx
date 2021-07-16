@@ -31,7 +31,12 @@ function NewlyAdded({ songs }: Props): ReactElement {
 
 const Styled = {
   Root: styled.div`
+    margin-bottom: 80px;
     width: 100%;
+
+    @media (max-width: 547px) {
+      margin-bottom: 40px;
+    }
   `,
 
   TitleWrapper: styled.p`
