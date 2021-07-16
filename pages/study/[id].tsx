@@ -42,7 +42,6 @@ function Study(): ReactElement {
   const {
     query: { id },
   } = router;
-  // const { data } = useSWR('song-1', (url) => mockClient.get(url));
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
   const url = data?.data?.data?.youtubeUrl;
   const user = useGetUser();
