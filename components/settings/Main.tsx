@@ -13,6 +13,7 @@ interface IUserData {
 function Main() {
   const [isEditModalOpened, setIsEditModalOpened] = useState(false);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
+  const [isCompleteModalOpened, setIsCompleteModalOpened] = useState(false);
   const { data } = useSWR<{ data: IUserData }>('/userdata', mockClient.get);
   const userData = data?.data;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -37,6 +38,7 @@ function Main() {
 
   const DeleteAccount = () => {
     setIsDeleteModalOpened(false);
+    setIsCompleteModalOpened(true);
     client
       .delete('/user')
       .then(function (response) {
@@ -51,8 +53,8 @@ function Main() {
     <Styled.Root>
       <Styled.Blank></Styled.Blank>
       <Styled.Container>
-        {/* <img src={userData?.profileImageUrl} alt="profile" /> */}
-        <img src="/assets/images/profileExample.svg" alt="profile" />
+        <img src={userData?.profileImageUrl} alt="profile" />
+        {/* <img src="/assets/images/profileExample.svg" alt="profile" /> */}
         <Styled.Name>{userData?.name}</Styled.Name>
         <Styled.Email>{userData?.email}</Styled.Email>
         <Styled.Desc>
@@ -109,6 +111,21 @@ function Main() {
                 </button>
                 <button onClick={DeleteAccount} className="deleteBtn">
                   Delete
+                </button>
+              </Styled.EditModalButton>
+            </Styled.EditModalMain>
+          </Styled.EditModal>
+        </Styled.EditModalWrapper>
+      )}
+      {isCompleteModalOpened && (
+        <Styled.EditModalWrapper>
+          <Styled.EditModal>
+            <Styled.EditModalHeader></Styled.EditModalHeader>
+            <Styled.EditModalMain>
+              <Styled.EditModalText>Your Account is deleted.</Styled.EditModalText>
+              <Styled.EditModalButton className="completeModalBtn">
+                <button onClick={() => setIsCompleteModalOpened(false)} aria-hidden="true">
+                  Confirm
                 </button>
               </Styled.EditModalButton>
             </Styled.EditModalMain>
@@ -265,6 +282,9 @@ const Styled = {
     width: 100%;
     /* height: 194px; */
     color: #464646;
+    .completeModalBtn {
+      justify-content: center;
+    }
     input {
       margin-bottom: 20px;
       outline: 0;
