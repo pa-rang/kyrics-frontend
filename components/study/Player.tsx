@@ -1,13 +1,25 @@
 import PlayerBtns from '@components/study/PlayerBtns';
 import styled from '@emotion/styled';
+import { client } from 'lib/api';
 import React, { ReactElement } from 'react';
-import { PlayerProps } from 'types';
+import useSWR from 'swr';
+import { ISongData, PlayerProps } from 'types';
 
 import PlayController from './PlayController';
+
+interface ISongDataWrapper {
+  data: ISongData;
+}
 function Player({ handleSeekTime, handleBackTime, handleForwardTime }: PlayerProps): ReactElement {
+  const id = 1;
+  const { data } = useSWR<{ data: ISongDataWrapper }>(`/song/${id}`, client.get);
+  const albumImageUrl: string | undefined = data?.data.data.albumImageUrl;
+
+  console.log('>>', data?.data.data);
+
   return (
     <PlayerWrapper>
-      <img className="player-album" src="/assets/images/exampleImg.svg" alt="albumImage" />
+      <img className="player-album" src={albumImageUrl} alt="albumImage" />
       <PlayController
         handleSeekTime={handleSeekTime}
         handleBackTime={handleBackTime}
