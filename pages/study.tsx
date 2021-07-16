@@ -1,3 +1,4 @@
+import KeyExpression from '@components/study/KeyExpression';
 import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import styled from '@emotion/styled';
@@ -146,7 +147,9 @@ function Study(): ReactElement {
         handleBackTime={handleBackTime}
         handleForwardTime={handleForwardTime}
       />
-      <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
+      <Styled.Contents>
+        <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
+      </Styled.Contents>
     </Styled.Root>
   );
 }
@@ -155,6 +158,9 @@ export default Study;
 
 const Styled = {
   Root: styled.div``,
+  Contents: styled.div`
+    display: flex;
+  `,
   ModalWrapper: styled.div<{ isModalOpened: boolean }>`
     display: ${({ isModalOpened }) => (isModalOpened ? 'flex' : 'none')};
     position: fixed;

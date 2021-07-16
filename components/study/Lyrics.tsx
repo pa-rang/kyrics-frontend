@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import useWindowSize from 'hooks/useWindowSize';
 import { mockClient } from 'lib/api';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -16,6 +17,7 @@ import {
   sizeDown,
   sizeUp,
 } from '../../public/assets';
+import KeyExpression from './KeyExpression';
 import Quiz from './Quiz';
 
 interface Props {
@@ -32,6 +34,8 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   const [isQuizStep, setIsQuizStep] = useState(false);
   const [fontSize, setFontSize] = useState('Medium');
   const { data } = useSWR('song-1', (url) => mockClient.get(url));
+
+  const size = useWindowSize();
 
   useEffect(() => {
     setTimedtext(data?.data?.lyrics);
@@ -186,6 +190,7 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
           )}
         </Styled.Main>
       </Styled.Lyrics>
+      {size && size.width > 1080 && <KeyExpression />}
     </Styled.Root>
   );
 }
@@ -203,10 +208,9 @@ const Styled = {
     display: flex;
     align-items: center;
     justify-content: center;
-
     margin: 0px ${({ width }) => (141 * width) / 1440}px;
-
     width: 100%;
+
     .textSizeController {
       position: absolute;
       top: 136px;
