@@ -45,11 +45,15 @@ export default MyVocab;
 const Styled = {
   Card: styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(234px, 1fr));
-    justify-items: center;
+    grid-template-columns: repeat(auto-fill, 254px);
+    justify-content: center;
     column-gap: 25px;
     margin: 50px;
-    width: 100%;
+    width: 1200px;
     row-gap: 70px;
+    @media (max-width: 768px) {
+      margin: 30px;
+      row-gap: 20px;
+    }
   `,
 };
