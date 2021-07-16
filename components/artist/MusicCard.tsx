@@ -123,10 +123,23 @@ const Styled = {
         font-size: 24px;
         font-weight: bold;
         font-style: normal;
+
+        @media (max-width: 547px) {
+          padding-top: 20px;
+          font-size: 15px;
+        }
       }
 
       &__play {
-        padding-top: 20px;
+        margin-top: 20px;
+        width: 30px;
+        height: 30px;
+
+        @media (max-width: 547px) {
+          margin-top: 5px;
+          width: 20px;
+          height: 20px;
+        }
       }
 
       @media (max-width: 547px) {
