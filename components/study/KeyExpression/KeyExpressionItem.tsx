@@ -40,6 +40,17 @@ function KeyExpressionItem({
       });
   };
 
+  const addFavorite = (id: number) => {
+    client
+      .post(`/user/vocab/${id}`)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <Styled.Root width={width} style={{ ...style }}>
       <Styled.KeywordWrapper>
@@ -51,7 +62,12 @@ function KeyExpressionItem({
         <Styled.EngExample>{engExample}</Styled.EngExample>
       </Styled.ExampleWrapper>
       <Styled.Line type={type} />
-      <FavoriteButton myvocab={myvocab} deleteFavorite={deleteFavorite} id={id} />
+      <FavoriteButton
+        myvocab={myvocab}
+        deleteFavorite={deleteFavorite}
+        addFavorite={addFavorite}
+        id={id}
+      />
     </Styled.Root>
   );
 }

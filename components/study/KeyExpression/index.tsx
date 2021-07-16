@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import axios from 'axios';
 import { client } from 'lib/api';
 import React from 'react';
 import useSWR from 'swr';
+import { IMyVocab } from 'types';
 
 import KeyExpressionItem from './KeyExpressionItem';
 
@@ -12,17 +12,9 @@ interface KyricsResponse<T> {
   data: T;
 }
 
-export interface KeyExpression {
-  id: number;
-  eng: string;
-  engExample: string;
-  kor: string;
-  korExample: string;
-}
-
 function KeyExpression() {
   const { data } = useSWR<{
-    data: KyricsResponse<KeyExpression[]>;
+    data: KyricsResponse<IMyVocab[]>;
   }>('/song/1/vocab', client.get, {
     revalidateOnFocus: false,
     errorRetryCount: 3,
