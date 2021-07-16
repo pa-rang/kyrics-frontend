@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { mainLogo } from '@public/assets';
+import { clickable } from 'lib/mixin';
+import Link from 'next/link';
 import React from 'react';
 
 interface Props {
@@ -10,7 +12,9 @@ function LoginLayout({ children }: Props) {
   return (
     <Styled.Root>
       <Styled.Contents>
-        <Styled.Logo src={mainLogo.src} alt="kyrics" />
+        <Link href="/" passHref>
+          <Styled.Logo src={mainLogo.src} alt="kyrics" />
+        </Link>
         {children}
       </Styled.Contents>
     </Styled.Root>
@@ -44,6 +48,8 @@ const Styled = {
   Logo: styled.img`
     margin-bottom: 40px;
     width: 360px;
+    ${clickable}
+
     @media (max-width: 768px) {
       width: 180px;
     }
