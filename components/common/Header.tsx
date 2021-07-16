@@ -83,7 +83,7 @@ const HeaderWrap = styled.div`
   .user {
     &__profile {
       display: flex;
-      margin-right: 55px;
+      margin-right: 140px;
 
       &--logout {
         margin-right: 40px;
@@ -95,12 +95,14 @@ const HeaderWrap = styled.div`
         font-style: normal;
         @media (max-width: 768px) {
           margin-right: 24px;
+          font-size: 12px;
         }
       }
 
       &--button {
         display: flex;
         position: relative;
+        align-items: center;
         border: none;
         background: transparent;
         cursor: pointer;
@@ -111,6 +113,10 @@ const HeaderWrap = styled.div`
           width: 28px;
           height: 28px;
           overflow: hidden;
+          @media (max-width: 768px) {
+            width: 20px;
+            height: 20px;
+          }
         }
 
         &--name {
@@ -122,10 +128,12 @@ const HeaderWrap = styled.div`
           font-weight: bold;
           font-style: normal;
           @media (max-width: 768px) {
-            font-size: 16px;
+            margin-left: 4px;
+            font-size: 12px;
           }
         }
       }
+
       @media (max-width: 768px) {
         margin-right: 19px;
       }
@@ -142,6 +150,9 @@ const HeaderWrap = styled.div`
         color: #9d9d9d;
         font-weight: bold;
         font-style: normal;
+        @media (max-width: 768px) {
+          font-size: 12px;
+        }
       }
 
       &--signUp {
@@ -153,8 +164,13 @@ const HeaderWrap = styled.div`
         font-weight: bold;
         font-style: normal;
         @media (max-width: 768px) {
-          margin-right: 24px;
+          margin-left: 24px;
+          font-size: 12px;
         }
+      }
+
+      @media (max-width: 768px) {
+        margin-right: 19px;
       }
     }
   }

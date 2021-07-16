@@ -1,11 +1,13 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { FavoriteIcon } from '@public/assets';
+import { client } from 'lib/api';
 import { ellipsisText } from 'lib/mixin';
 import React from 'react';
 
 import FavoriteButton from './FavoriteButton';
 
 interface Props {
+  id: number;
   type: 'line-top' | 'line-left';
   width: string;
   eng: string;
@@ -13,9 +15,42 @@ interface Props {
   kor: string;
   korExample: string;
   style?: { [key: string]: string };
+  myvocab: boolean;
 }
 
-function KeyExpressionItem({ type, width, eng, engExample, kor, korExample, style }: Props) {
+function KeyExpressionItem({
+  id,
+  type,
+  width,
+  eng,
+  engExample,
+  kor,
+  korExample,
+  style,
+  myvocab,
+}: Props) {
+  const deleteFavorite = (id: number) => {
+    client
+      .delete(`/user/vocab/${id}`)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const addFavorite = (id: number) => {
+    client
+      .post(`/user/vocab/${id}`)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <Styled.Root width={width} style={{ ...style }}>
       <Styled.KeywordWrapper>
@@ -26,8 +61,13 @@ function KeyExpressionItem({ type, width, eng, engExample, kor, korExample, styl
         <Styled.KorExample>{korExample}</Styled.KorExample>
         <Styled.EngExample>{engExample}</Styled.EngExample>
       </Styled.ExampleWrapper>
-      <Styled.Line />
-      <FavoriteButton />
+      <Styled.Line type={type} />
+      <FavoriteButton
+        myvocab={myvocab}
+        deleteFavorite={deleteFavorite}
+        addFavorite={addFavorite}
+        id={id}
+      />
     </Styled.Root>
   );
 }
@@ -43,14 +83,24 @@ const Styled = {
     width: ${({ width }) => width};
   `,
 
-  Line: styled.div`
+  Line: styled.div<{ type: 'line-top' | 'line-left' }>`
     position: absolute;
     top: 0px;
     left: 0px;
-    border-radius: 8px 0 0 8px;
     background-color: #6465f4;
-    width: 8px;
-    height: 100%;
+
+    ${({ type }) =>
+      type === 'line-left'
+        ? css`
+            border-radius: 8px 0 0 8px;
+            width: 8px;
+            height: 100%;
+          `
+        : css`
+            border-radius: 8px 8px 0 0;
+            width: 100%;
+            height: 8px;
+          `}
   `,
 
   KeywordWrapper: styled.div`
