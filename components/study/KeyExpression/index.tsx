@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { client } from 'lib/api';
+import { useRouter } from 'next/router';
 import React from 'react';
 import useSWR from 'swr';
 
@@ -19,9 +20,14 @@ export interface KeyExpression {
 }
 
 function KeyExpression() {
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+
   const { data } = useSWR<{
     data: KyricsResponse<KeyExpression[]>;
-  }>('/song/1/vocab', client.get, {
+  }>(`/song/${id}/vocab`, client.get, {
     revalidateOnFocus: false,
     errorRetryCount: 3,
   });

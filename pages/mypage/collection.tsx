@@ -3,7 +3,7 @@ import Header from '@components/common/Header';
 import MySongItem from '@components/mypage/mysong/MySongItem';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { mockClient } from 'lib/api';
+import { client, mockClient } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
 import useSWR from 'swr';
@@ -22,7 +22,8 @@ function Collection(): ReactElement {
   const [myVocab, setMyVocab] = useState<boolean | undefined>();
   const { data } = useSWR('mysongs', (url) => mockClient.get(url));
 
-  console.log(data?.data);
+  // const { data } = useSWR<any>('/user/song', client.get);
+  // 실제 서버 연결 코드
   const setFirstState = () => {
     console.log(pid);
     if (pid.type === 'mysongs') {
