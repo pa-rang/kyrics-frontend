@@ -32,6 +32,11 @@ const BannerWrap = styled.div<StyledProps>`
     background-size: cover;
     width: 100%;
     height: 424px;
+
+    @media (max-width: 767px) {
+      height: 134px;
+      object-fit: cover;
+    }
   }
 
   .title {
@@ -41,6 +46,11 @@ const BannerWrap = styled.div<StyledProps>`
     font-size: 64px;
     font-weight: 600;
     font-style: normal;
+
+    @media (max-width: 767px) {
+      padding-top: 45px;
+      font-size: 24px;
+    }
   }
 
   .subTitle {
@@ -51,6 +61,11 @@ const BannerWrap = styled.div<StyledProps>`
     font-size: 28px;
     font-weight: 500;
     font-style: normal;
+
+    @media (max-width: 767px) {
+      padding-top: 5px;
+      font-size: 14px;
+    }
   }
 `;
 

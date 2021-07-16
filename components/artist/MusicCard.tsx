@@ -90,6 +90,11 @@ const Styled = {
       width: 200px;
       height: 200px;
       object-fit: cover;
+
+      @media (max-width: 547px) {
+        width: 98px;
+        height: 98px;
+      }
     }
 
     .hover {
@@ -123,6 +128,11 @@ const Styled = {
       &__play {
         padding-top: 20px;
       }
+
+      @media (max-width: 547px) {
+        width: 98px;
+        height: 98px;
+      }
     }
 
     .songTitle {
@@ -136,6 +146,11 @@ const Styled = {
       font-size: 24px;
       font-weight: bold;
       font-style: normal;
+
+      @media (max-width: 547px) {
+        margin-top: 6px;
+        font-size: 16px;
+      }
     }
 
     .songTitle__hover {
@@ -158,6 +173,16 @@ const Styled = {
       font-size: 16px;
       font-weight: 500;
       font-style: normal;
+
+      @media (max-width: 547px) {
+        margin-top: 0px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 547px) {
+      width: 98px;
+      height: 142px;
     }
 
     /* 페이드인 애니메이션 */
