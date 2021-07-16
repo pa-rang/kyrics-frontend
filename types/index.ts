@@ -42,7 +42,6 @@ export interface PlayerProps {
   handleBackTime: () => void;
   handleForwardTime: () => void;
 }
-
 export interface PlayControllerProps {
   handlePlay: () => void;
   handleSeekTime: (e: React.FormEvent<HTMLInputElement>) => void;
