@@ -57,22 +57,20 @@ function Study(): ReactElement {
   useEffect(() => {
     if (host !== null) {
       setTotalTime(Math.floor(host.getDuration()));
-      console.log(totalTime);
     }
   }, [isPlay]);
 
-  //   const [scrollTop, setScrollTop] = useState();
+  const [miniPlayerOpened, setMiniPlayerOpened] = useState(false);
 
-  //   const onScroll = (e: any) => {
-  //     setScrollTop(e.srcElement.scrollingElement.scrollTop);
-  //   };
-
-  //   useEffect(() => {
-  //     window.addEventListener('scroll', onScroll);
-  //   }, []);
-
-  console.log(window.scroll);
-
+  useEffect(() => {
+    console.log(window.scrollY);
+    console.log(miniPlayerOpened);
+    if (window.scrollY > 353) {
+      setMiniPlayerOpened(true);
+    } else {
+      setMiniPlayerOpened(false);
+    }
+  });
   const handleOnProgress = (e: { playedSeconds: number }) => {
     setCurrentTime(e.playedSeconds);
   };
@@ -175,6 +173,7 @@ function Study(): ReactElement {
           handleSeekTime={handleSeekTime}
           handleBackTime={handleBackTime}
           handleForwardTime={handleForwardTime}
+          miniPlayerOpened={miniPlayerOpened}
         />
       </Styled.MiniPlayerWrapper>
       <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />

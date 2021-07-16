@@ -13,11 +13,16 @@ import {
   totalTimeAtom,
   volumeBarAtom,
 } from 'states';
-import { PlayerProps } from 'types';
 interface ProgressStyledProps {
   percentage: number;
 }
 
+interface MiniPlayerProps {
+  handleSeekTime: (e: React.FormEvent<HTMLInputElement>) => void;
+  handleBackTime: () => void;
+  handleForwardTime: () => void;
+  miniPlayerOpened: boolean | undefined;
+}
 interface PlayControlStyledProps {
   isPlay: boolean;
 }
@@ -35,7 +40,8 @@ function MiniPlayer({
   handleSeekTime,
   handleBackTime,
   handleForwardTime,
-}: PlayerProps): ReactElement {
+  miniPlayerOpened,
+}: MiniPlayerProps): ReactElement {
   const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
   const currentTime = useRecoilValue<number>(currentTimeAtom);
   const [volumeBar, setVolumeBar] = useRecoilState<number>(volumeBarAtom);
@@ -83,7 +89,7 @@ function MiniPlayer({
   };
 
   return (
-    <Styled.Root>
+    <Styled.Root miniPlayerOpened={miniPlayerOpened}>
       <Styled.Title>
         <div className="title">{title}</div>
         <div className="artist">{artist}</div>
@@ -141,8 +147,9 @@ function MiniPlayer({
 export default MiniPlayer;
 
 const Styled = {
-  Root: styled.div`
-    display: flex;
+  Root: styled.div<{ miniPlayerOpened: boolean | undefined }>`
+    display: ${({ miniPlayerOpened }) => (miniPlayerOpened ? 'flex' : 'none')};
+    position: fixed;
     align-items: center;
     justify-content: space-around;
     border-radius: 10px;
