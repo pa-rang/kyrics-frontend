@@ -10,6 +10,7 @@ import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
 
 import { Alphabet, dropDownIcon, sizeDown, sizeUp } from '../../public/assets';
+import KeyExpression from './KeyExpression';
 import Quiz from './Quiz';
 
 interface Props {
