@@ -2,10 +2,13 @@ import LinedTitle from '@components/signup/LinedTitle';
 import styled from '@emotion/styled';
 import { mainLogo } from '@public/assets';
 import { client, KyricsResponse } from 'lib/api';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
 function Login() {
+  const router = useRouter();
+
   const handleGoogleLoginSuccess = async (
     response: GoogleLoginResponse | GoogleLoginResponseOffline,
   ) => {
@@ -33,6 +36,7 @@ function Login() {
     } = await client.post<KyricsResponse<{ token: string }>>('/login', payload);
 
     localStorage.setItem('userToken', token);
+    router.push('/');
   };
 
   const handleGoogleLoginFailure = () => {
@@ -66,9 +70,14 @@ const Styled = {
     height: 100vh;
   `,
 
-  Contents: styled.div``,
+  Contents: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `,
 
   Logo: styled.img`
+    margin-bottom: 40px;
     width: 360px;
     @media (max-width: 768px) {
       width: 180px;
