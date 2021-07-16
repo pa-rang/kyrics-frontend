@@ -45,7 +45,7 @@ function Collection(): ReactElement {
 
   return (
     <>
-      <Header isLoggedIn={true} />
+      <Header />
       <Styled.MyCollection mySongs={mySongs} myVocab={myVocab}>
         <div className="my-collection">
           <button className="my-collection__song" onClick={clickSongs}>

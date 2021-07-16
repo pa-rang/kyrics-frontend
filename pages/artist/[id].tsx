@@ -25,7 +25,7 @@ function Artist(): ReactElement {
 
   return (
     <div>
-      <Header isLoggedIn={true} />
+      <Header />
       {songs && <ArtistBanner name={songs.artist} bgImg={songs?.backgroundImageUrl} />}
       {songs && <NewlyAdded songs={songs?.songs} />}
       <Footer />
