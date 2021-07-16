@@ -4,6 +4,7 @@ import Mysong from '@components/mypage/mysong/Mysong';
 import MyVocab from '@components/mypage/myvocab/MyVocab';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { client, mockClient } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
 

@@ -11,6 +11,8 @@ interface StyledProps {
 }
 
 function ArtistBanner({ name, bgImg }: Props): ReactElement {
+  console.log(bgImg);
+
   return (
     <BannerWrap bgImg={bgImg}>
       <div className="bgImg">
@@ -28,10 +30,16 @@ const BannerWrap = styled.div<StyledProps>`
         rgba(231, 78, 151, 0.4) 3.15%,
         rgba(100, 101, 244, 0.4) 94.3%
       ),
-      url({bgImg}) no-repeat;
+      url(${(props: StyledProps) => props.bgImg}) no-repeat;
+    background-position: center;
     background-size: cover;
     width: 100%;
     height: 424px;
+
+    @media (max-width: 767px) {
+      height: 134px;
+      object-fit: cover;
+    }
   }
 
   .title {
@@ -41,6 +49,11 @@ const BannerWrap = styled.div<StyledProps>`
     font-size: 64px;
     font-weight: 600;
     font-style: normal;
+
+    @media (max-width: 767px) {
+      padding-top: 45px;
+      font-size: 24px;
+    }
   }
 
   .subTitle {
@@ -51,6 +64,11 @@ const BannerWrap = styled.div<StyledProps>`
     font-size: 28px;
     font-weight: 500;
     font-style: normal;
+
+    @media (max-width: 767px) {
+      padding-top: 5px;
+      font-size: 14px;
+    }
   }
 `;
 

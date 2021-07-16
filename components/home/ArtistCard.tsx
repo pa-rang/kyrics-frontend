@@ -85,12 +85,24 @@ const Wrap = styled.div<StyledProps>`
         ? 'animation: fadeIn 0.5s; visibility: visible;'
         : isHovered === 'MouseLeave' && 'animation: fadeOut 0.5s;'}
 
+    @media (max-width: 767px) {
+      visibility: visible;
+      visibility: visible;
+      background: linear-gradient(rgba(199, 199, 199, 0.5) 5.46%, rgba(0, 0, 0, 0.5) 100%);
+    }
+
     &__logo {
       margin-top: 55px;
       width: 190px;
       height: 100px;
       object-fit: contain;
       filter: brightness(0) invert(1);
+
+      @media (max-width: 767px) {
+        margin-top: 42px;
+        width: 121px;
+        height: 64px;
+      }
     }
 
     &__label {
@@ -101,10 +113,15 @@ const Wrap = styled.div<StyledProps>`
       font-size: 24px;
       font-weight: bold;
       font-style: normal;
+
+      @media (max-width: 767px) {
+        margin-top: 10px;
+        font-size: 20px;
+      }
     }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 767px) {
     width: 240px;
     height: 180px;
   }

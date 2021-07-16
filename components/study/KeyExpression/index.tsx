@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { client } from 'lib/api';
+import { useRouter } from 'next/router';
 import React from 'react';
 import useSWR from 'swr';
 import { IMyVocab } from 'types';
@@ -13,9 +14,14 @@ interface KyricsResponse<T> {
 }
 
 function KeyExpression() {
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+
   const { data } = useSWR<{
     data: KyricsResponse<IMyVocab[]>;
-  }>('/song/1/vocab', client.get, {
+  }>('/song/${id}/vocab', client.get, {
     revalidateOnFocus: false,
     errorRetryCount: 3,
   });
