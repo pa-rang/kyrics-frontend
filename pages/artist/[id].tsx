@@ -1,5 +1,6 @@
 import ArtistBanner from '@components/artist/ArtistBanner';
 import NewlyAdded from '@components/artist/NewlyAdded';
+import Footer from '@components/common/Footer';
 import Header from '@components/common/Header';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
@@ -27,6 +28,7 @@ function Artist(): ReactElement {
       <Header isLoggedIn={true} />
       {songs && <ArtistBanner name={songs.artist} bgImg={songs?.backgroundImageUrl} />}
       {songs && <NewlyAdded songs={songs?.songs} />}
+      <Footer />
     </div>
   );
 }

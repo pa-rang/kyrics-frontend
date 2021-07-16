@@ -63,6 +63,11 @@ const Styled = {
     margin-top: -114px;
     margin-bottom: 200px;
     height: 270px;
+
+    @media (max-width: 767px) {
+      margin-top: -25px;
+      margin-bottom: 70px;
+    }
   `,
 
   InnerWrap: styled.div`
@@ -77,6 +82,10 @@ const Styled = {
         width: 21px;
         height: 50px;
       }
+      @media (max-width: 767px) {
+        width: 13px;
+        height: 32px;
+      }
     }
 
     .arrowImg {
@@ -84,6 +93,13 @@ const Styled = {
       z-index: 1;
       margin-top: -20px;
       margin-left: -10px;
+
+      @media (max-width: 767px) {
+        margin-top: -20px;
+        width: 13px;
+        height: 32px;
+        object-fit: contain;
+      }
     }
 
     @media (max-width: 1200px) {
@@ -94,6 +110,14 @@ const Styled = {
     }
     @media (max-width: 900px) {
       width: 400px;
+      .slick-list {
+        padding: 0 20px !important;
+      }
+    }
+
+    @media (max-width: 767px) {
+      width: 280px;
+      height: 180px;
       .slick-list {
         padding: 0 20px !important;
       }

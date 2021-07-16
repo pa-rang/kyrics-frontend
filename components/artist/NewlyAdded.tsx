@@ -31,7 +31,12 @@ function NewlyAdded({ songs }: Props): ReactElement {
 
 const Styled = {
   Root: styled.div`
+    margin-bottom: 80px;
     width: 100%;
+
+    @media (max-width: 547px) {
+      margin-bottom: 40px;
+    }
   `,
 
   TitleWrapper: styled.p`
@@ -42,12 +47,21 @@ const Styled = {
     font-size: 32px;
     font-weight: bold;
     font-style: normal;
+
+    @media (max-width: 547px) {
+      margin-top: 20px;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
   `,
 
   MusicCardWrapper: styled.div`
     display: flex;
     justify-content: center;
     margin: 0 64px;
+    @media (max-width: 547px) {
+      margin: 0 0px;
+    }
   `,
 
   MusicCardTightWrapper: styled.div`
@@ -57,7 +71,8 @@ const Styled = {
     justify-content: start;
 
     @media (max-width: 547px) {
-      grid-template-columns: repeat(1, 200px);
+      grid-template-columns: repeat(2, 98px);
+      gap: 20px 40px;
     }
 
     @media all and (min-width: 548px) and (max-width: 767px) {

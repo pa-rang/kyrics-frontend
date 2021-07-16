@@ -91,6 +91,10 @@ const Wrap = styled.div<StyledProps>`
       height: 100px;
       object-fit: contain;
       filter: brightness(0) invert(1);
+
+      @media (max-width: 767px) {
+        margin-top: 45px;
+      }
     }
 
     &__label {
@@ -101,10 +105,14 @@ const Wrap = styled.div<StyledProps>`
       font-size: 24px;
       font-weight: bold;
       font-style: normal;
+
+      @media (max-width: 767px) {
+        visibility: hidden;
+      }
     }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 767px) {
     width: 240px;
     height: 180px;
   }
