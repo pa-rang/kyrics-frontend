@@ -27,14 +27,9 @@ function Main() {
           <img src="/assets/icons/emailIcon.svg" alt="email" />
           <span>Email Address</span>
         </Styled.Desc>
-        <Styled.Edit>
+        <Styled.Edit onClick={() => setIsModalOpened(true)} aria-hidden="true">
           {userData?.email}
-          <img
-            src="/assets/icons/editIcon.svg"
-            alt="edit"
-            onClick={() => setIsModalOpened(true)}
-            aria-hidden="true"
-          />
+          <img src="/assets/icons/editIcon.svg" alt="edit" />
         </Styled.Edit>
         <Styled.Delete>
           <img src="/assets/icons/deleteIcon.svg" alt="delete" />
@@ -190,7 +185,10 @@ const Styled = {
     align-items: center;
     justify-content: center;
     width: 40%;
-    height: 210px;
+    /* height: 210px;x */
+    @media (max-width: 768px) {
+      width: 70%;
+    }
   `,
   ModalHeader: styled.div`
     border-radius: 10px 10px 0 0;
@@ -205,7 +203,7 @@ const Styled = {
     border-radius: 0 0 10px 10px;
     background-color: #ffffff;
     width: 100%;
-    height: 194px;
+    /* height: 194px; */
     color: #464646;
     input {
       margin-bottom: 20px;
@@ -218,25 +216,33 @@ const Styled = {
       color: #464646;
       font-size: 20px;
       font-weight: 500;
+      @media (max-width: 768px) {
+        font-size: 16px;
+      }
     }
   `,
   ModalText: styled.div`
-    margin-top: 30px;
-    margin-bottom: 21px;
+    margin: 30px 10px 21px 10px;
     text-align: center;
     font-size: 20px;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   `,
 
   ModalButton: styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 30px;
     width: 170px;
     button {
       outline: 0;
       border: 0;
       border-radius: 5px;
       background-color: #9d9d9d;
+      cursor: pointer;
       width: 70px;
       height: 27px;
       color: #ffffff;
