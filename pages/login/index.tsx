@@ -1,6 +1,6 @@
-import LinedTitle from '@components/signup/LinedTitle';
+import LinedTitle from '@components/login/LinedTitle';
+import LoginLayout from '@components/login/LoginLayout';
 import styled from '@emotion/styled';
-import { mainLogo } from '@public/assets';
 import { client, KyricsResponse } from 'lib/api';
 import { clickable } from 'lib/mixin';
 import { useRouter } from 'next/router';
@@ -50,59 +50,27 @@ function Login() {
   };
 
   return (
-    <Styled.Root>
-      <Styled.Contents>
-        <Styled.Logo src={mainLogo.src} alt="kyrics" />
-        <LinedTitle>Log In</LinedTitle>
-        <GoogleLogin
-          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
-          onSuccess={handleGoogleLoginSuccess}
-          onFailure={handleGoogleLoginFailure}
-          cookiePolicy={'single_host_origin'}
-          render={(renderProps) => (
-            <Styled.GoogleLoginButton onClick={renderProps.onClick}>
-              <img src="/assets/icons/googleLogo.svg" alt="google-login" />
-              <div>Log in with Google</div>
-            </Styled.GoogleLoginButton>
-          )}
-        />
-      </Styled.Contents>
-    </Styled.Root>
+    <LoginLayout>
+      <LinedTitle>Log In</LinedTitle>
+      <GoogleLogin
+        clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
+        onSuccess={handleGoogleLoginSuccess}
+        onFailure={handleGoogleLoginFailure}
+        cookiePolicy={'single_host_origin'}
+        render={(renderProps) => (
+          <Styled.GoogleLoginButton onClick={renderProps.onClick}>
+            <img src="/assets/icons/googleLogo.svg" alt="google-login" />
+            <div>Log in with Google</div>
+          </Styled.GoogleLoginButton>
+        )}
+      />
+    </LoginLayout>
   );
 }
 
 export default Login;
 
 const Styled = {
-  Root: styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: url('/assets/images/bottom-background.svg') no-repeat;
-    background-position: bottom;
-    background-size: contain;
-    height: 100vh;
-  `,
-
-  Contents: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 120px;
-
-    @media (max-width: 768px) {
-      margin-bottom: 60px;
-    }
-  `,
-
-  Logo: styled.img`
-    margin-bottom: 40px;
-    width: 360px;
-    @media (max-width: 768px) {
-      width: 180px;
-    }
-  `,
-
   GoogleLoginButton: styled.button`
     display: flex;
     align-items: center;
