@@ -29,16 +29,16 @@ function Header() {
       <div className="header">
         <button className="logo" onClick={handleLogoClick}></button>
         <div className="user">
-          {isLoggedIn ? (
+          {user ? (
             <div className="user__profile">
               <p className="user__profile--logout">Log out</p>
               <button className="user__profile--button" onClick={handleProfileClick}>
                 <img
                   className="user__profile--button--picture"
-                  src="/assets/icons/IcDefaultProfile.svg"
+                  src={user.profileImageUrl}
                   alt=""
                 ></img>
-                <p className="user__profile--button--name">Name</p>
+                <p className="user__profile--button--name">{user.name}</p>
                 {isProfileClicked && <ProfileMenu />}
               </button>
             </div>
@@ -124,13 +124,13 @@ const HeaderWrap = styled.div`
         }
 
         &--name {
-          margin-left: 9px;
+          margin-left: 6px;
           line-height: 27px;
+          line-height: 1.2;
           white-space: nowrap;
-          color: #6465f4;
-          font-size: 20px;
+          color: #9d9d9d;
+          font-size: 18px;
           font-weight: bold;
-          font-style: normal;
           @media (max-width: 768px) {
             margin-left: 4px;
             font-size: 12px;
