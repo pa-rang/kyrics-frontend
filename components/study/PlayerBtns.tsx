@@ -40,7 +40,7 @@ function PlayerBtns() {
     if (target.src.includes('Favorite') && isFavorite) return;
     const Icon = target.className;
 
-    target.src = `assets/icons/${Icon}.svg`;
+    target.src = `/assets/icons/${Icon}.svg`;
   };
 
   const handleCopy = () => {
@@ -67,7 +67,7 @@ function PlayerBtns() {
       <div className="icon--container">
         <img
           className="FavoriteIcon"
-          src={`assets/icons/${onFavorite}FavoriteIcon.svg`}
+          src={`/assets/icons/${onFavorite}FavoriteIcon.svg`}
           alt="favorite"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}

@@ -7,7 +7,7 @@ import PlayController from './PlayController';
 function Player({ handleSeekTime, handleBackTime, handleForwardTime }: PlayerProps): ReactElement {
   return (
     <PlayerWrapper>
-      <img className="player-album" src="assets/images/exampleImg.svg" alt="albumImage" />
+      <img className="player-album" src="/assets/images/exampleImg.svg" alt="albumImage" />
       <PlayController
         handleSeekTime={handleSeekTime}
         handleBackTime={handleBackTime}
@@ -24,7 +24,7 @@ const PlayerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background: url('assets/images/playerBackground.svg') no-repeat 0 0;
+  background: url('/assets/images/playerBackground.svg') no-repeat 0 0;
   background-size: cover;
   width: 100%;
   height: 263px;
