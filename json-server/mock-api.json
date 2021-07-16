@@ -1,4 +1,48 @@
 {
+  "myvocab": [
+    {
+      "id": 1,
+      "kor": "봄",
+      "eng": "spring",
+      "korExample": "벌써 봄이 왔다.",
+      "engExample": "Spring has already come."
+    },
+    {
+      "id": 2,
+      "kor": "봄",
+      "eng": "spring",
+      "korExample": "벌써 봄이 왔다.",
+      "engExample": "Spring has already come."
+    },
+    {
+      "id": 3,
+      "kor": "봄",
+      "eng": "spring",
+      "korExample": "벌써 봄이 왔다.",
+      "engExample": "Spring has already come."
+    },
+    {
+      "id": 4,
+      "kor": "봄",
+      "eng": "spring",
+      "korExample": "벌써 봄이 왔다.",
+      "engExample": "Spring has already come."
+    },
+    {
+      "id": 5,
+      "kor": "봄",
+      "eng": "spring",
+      "korExample": "벌써 봄이 왔다.",
+      "engExample": "Spring has already come."
+    },
+    {
+      "id": 6,
+      "kor": "봄",
+      "eng": "spring",
+      "korExample": "벌써 봄이 왔다.",
+      "engExample": "Spring has already come."
+    }
+  ],
   "userdata": {
     "id": 1,
     "name": "kyrics",

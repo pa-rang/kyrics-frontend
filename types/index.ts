@@ -1,5 +1,13 @@
 export type Example = string;
 
+export interface IMyVocab {
+  id: number;
+  kor: string;
+  eng: string;
+  korExample: string;
+  engExample: string;
+}
+
 export interface Artist {
   id: number;
   name: string;
