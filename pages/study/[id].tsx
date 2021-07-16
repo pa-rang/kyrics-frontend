@@ -65,12 +65,13 @@ function Study(): ReactElement {
   useEffect(() => {
     console.log(window.scrollY);
     console.log(miniPlayerOpened);
-    if (window.scrollY > 353) {
+    if (window.scrollY > 312) {
       setMiniPlayerOpened(true);
     } else {
       setMiniPlayerOpened(false);
     }
   });
+
   const handleOnProgress = (e: { playedSeconds: number }) => {
     setCurrentTime(e.playedSeconds);
   };
