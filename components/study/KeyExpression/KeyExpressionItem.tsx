@@ -62,12 +62,7 @@ function KeyExpressionItem({
         <Styled.EngExample>{engExample}</Styled.EngExample>
       </Styled.ExampleWrapper>
       <Styled.Line type={type} />
-      <FavoriteButton
-        myvocab={myvocab}
-        deleteFavorite={deleteFavorite}
-        addFavorite={addFavorite}
-        id={id}
-      />
+      <FavoriteButton myvocab={myvocab} deleteFavorite={deleteFavorite} id={id} />
     </Styled.Root>
   );
 }

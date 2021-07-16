@@ -21,7 +21,7 @@ function KeyExpression() {
 
   const { data } = useSWR<{
     data: KyricsResponse<IMyVocab[]>;
-  }>('/song/${id}/vocab', client.get, {
+  }>(`/song/${id}/vocab`, client.get, {
     revalidateOnFocus: false,
     errorRetryCount: 3,
   });
