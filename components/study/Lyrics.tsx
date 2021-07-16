@@ -40,13 +40,8 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   }, [data]);
 
   useEffect(() => {
-    // console.log(timedtext);
     timedtext &&
       timedtext.forEach((line: ITimedText) => {
-        // console.log(line.startTime <= currentTime && currentTime < line.startTime + line.duration);
-        console.log('line.startTime', line.startTime);
-        console.log('curentTime', currentTime);
-        console.log('line.startTime + line.duration', line.startTime + line.duration);
         if (line.startTime <= currentTime && currentTime < line.startTime + line.duration) {
           setStartTime(line.startTime);
         }

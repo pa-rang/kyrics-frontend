@@ -306,9 +306,9 @@ const Styled = {
       width: 116.01px;
       height: 25px;
       &__btn {
-        background: url('/assets/icons/soundIcon.svg') no-repeat 0 0;
-        width: 25px;
-        height: 25px;
+        background: url('/assets/icons/soundMiniIcon.svg') no-repeat 0 0;
+        width: 23px;
+        height: 23px;
         &:hover {
           filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%) hue-rotate(49deg)
             brightness(95%) contrast(85%);

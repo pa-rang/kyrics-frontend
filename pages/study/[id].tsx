@@ -61,6 +61,18 @@ function Study(): ReactElement {
     }
   }, [isPlay]);
 
+  //   const [scrollTop, setScrollTop] = useState();
+
+  //   const onScroll = (e: any) => {
+  //     setScrollTop(e.srcElement.scrollingElement.scrollTop);
+  //   };
+
+  //   useEffect(() => {
+  //     window.addEventListener('scroll', onScroll);
+  //   }, []);
+
+  console.log(window.scroll);
+
   const handleOnProgress = (e: { playedSeconds: number }) => {
     setCurrentTime(e.playedSeconds);
   };
