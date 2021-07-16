@@ -1,4 +1,7 @@
-export type Example = string;
+export interface LoginResponse {
+  token: string;
+  isNewUser: boolean;
+}
 
 export interface Artist {
   id: number;

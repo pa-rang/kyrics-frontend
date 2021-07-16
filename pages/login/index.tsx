@@ -6,6 +6,7 @@ import { clickable } from 'lib/mixin';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { LoginResponse } from 'types';
 
 function Login() {
   const router = useRouter();
@@ -30,25 +31,29 @@ function Login() {
       profileImageUrl: imageUrl,
     };
 
-    const {
-      data: {
-        data: { token },
-      },
-    } = await client.post<KyricsResponse<{ token: string }>>('/login', payload);
+    const { data } = await client.post<KyricsResponse<LoginResponse>>('/login', payload);
+
+    console.log('data?.data', data?.data);
+    const { token, isNewUser } = data?.data;
 
     localStorage.setItem('userToken', token);
-    router.push('/');
+
+    if (isNewUser) {
+      router.replace('/login/email');
+    } else {
+      router.replace('/');
+    }
   };
 
   const handleGoogleLoginFailure = () => {
-    console.log('failure');
+    alert('로그인에 실패햐였습니다. 다시 시도해주세요.');
   };
 
   return (
     <Styled.Root>
       <Styled.Contents>
         <Styled.Logo src={mainLogo.src} alt="kyrics" />
-        <LinedTitle>Sign Up</LinedTitle>
+        <LinedTitle>Log In</LinedTitle>
         <GoogleLogin
           clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
           onSuccess={handleGoogleLoginSuccess}
@@ -73,6 +78,9 @@ const Styled = {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: url('/assets/images/bottom-background.svg') no-repeat;
+    background-position: bottom;
+    background-size: contain;
     height: 100vh;
   `,
 
