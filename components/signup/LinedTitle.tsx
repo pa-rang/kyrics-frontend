@@ -22,13 +22,17 @@ const Styled = {
   Root: styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
   `,
 
   Line: styled.h2<{ lineWidth: number }>`
     border: 1px solid ${colors.gray3};
     width: ${({ lineWidth }) => `${lineWidth}px`};
     height: 1px;
+
+    @media (max-width: 768px) {
+      width: 40px;
+    }
   `,
 
   Text: styled.h2`
@@ -36,5 +40,9 @@ const Styled = {
     color: ${colors.gray3};
     font-size: 32px;
     font-weight: bold;
+    @media (max-width: 768px) {
+      margin: 0 12px;
+      font-size: 18px;
+    }
   `,
 };

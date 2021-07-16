@@ -2,6 +2,7 @@ import LinedTitle from '@components/signup/LinedTitle';
 import styled from '@emotion/styled';
 import { mainLogo } from '@public/assets';
 import { client, KyricsResponse } from 'lib/api';
+import { clickable } from 'lib/mixin';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
@@ -47,13 +48,18 @@ function Login() {
     <Styled.Root>
       <Styled.Contents>
         <Styled.Logo src={mainLogo.src} alt="kyrics" />
-        <LinedTitle lineWidth={80}>Sign Up</LinedTitle>
+        <LinedTitle>Sign Up</LinedTitle>
         <GoogleLogin
           clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
-          buttonText="Sign up with Google"
           onSuccess={handleGoogleLoginSuccess}
           onFailure={handleGoogleLoginFailure}
           cookiePolicy={'single_host_origin'}
+          render={(renderProps) => (
+            <Styled.GoogleLoginButton onClick={renderProps.onClick}>
+              <img src="/assets/icons/googleLogo.svg" alt="google-login" />
+              <div>Log in with Google</div>
+            </Styled.GoogleLoginButton>
+          )}
         />
       </Styled.Contents>
     </Styled.Root>
@@ -74,6 +80,11 @@ const Styled = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 120px;
+
+    @media (max-width: 768px) {
+      margin-bottom: 60px;
+    }
   `,
 
   Logo: styled.img`
@@ -81,6 +92,46 @@ const Styled = {
     width: 360px;
     @media (max-width: 768px) {
       width: 180px;
+    }
+  `,
+
+  GoogleLoginButton: styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 3px 3px 7px 4px rgba(98, 98, 98, 0.09);
+    background-color: #fff;
+    padding: 18px 96px;
+    ${clickable}
+
+    &:hover {
+      box-shadow: 3px 3px 7px 4px rgba(98, 98, 98, 0.15);
+    }
+
+    & > img {
+      margin-right: 12px;
+    }
+
+    & > div {
+      color: #464646;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      padding: 12px 54px;
+      font-size: 10px;
+
+      & > img {
+        margin-right: 8px;
+      }
+
+      & > div {
+        font-size: 14px;
+      }
     }
   `,
 };
