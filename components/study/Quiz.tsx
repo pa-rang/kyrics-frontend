@@ -24,15 +24,24 @@ const Root = styled.div`
     color: #6465f4;
     font-size: 60px;
     font-weight: 700;
+    @media (max-width: 768px) {
+      font-size: 40px;
+    }
   }
   .quiz--msg2 {
     color: #6465f4;
     font-size: 90px;
     font-weight: 600;
+    @media (max-width: 768px) {
+      font-size: 60px;
+    }
   }
   .quiz--msg3 {
     margin-top: 20px;
     color: #9d9d9d;
     font-size: 20px;
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
   }
 `;

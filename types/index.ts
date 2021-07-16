@@ -14,6 +14,16 @@ export interface ArtistSongs {
   songs: Song[];
 }
 
+export interface ISongData {
+  albumImageUrl: string;
+  artist: string;
+  id: number;
+  isSaved: boolean;
+  lyrics: ITimedText[];
+  title: string;
+  youtubeUrl: string;
+}
+
 export interface Song {
   id: number;
   title: string;
@@ -32,4 +42,21 @@ export interface IMySongItem {
   title: string;
   artist: string;
   albumImageUrl: string;
+}
+
+export interface PlayerProps {
+  handleSeekTime: (e: React.FormEvent<HTMLInputElement>) => void;
+  handleBackTime: () => void;
+  handleForwardTime: () => void;
+}
+
+export interface PlayControllerProps {
+  handlePlay: () => void;
+  handleSeekTime: (e: React.FormEvent<HTMLInputElement>) => void;
+  handleVolumeChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  handleBackTime: () => void;
+  handleForwardTime: () => void;
+  handleLoop: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  mouseEnterController: () => void;
+  mouseLeaveController: () => void;
 }
