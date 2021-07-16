@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import React, { ReactElement } from 'react';
+import React from 'react';
 
-function NewSongCard(): ReactElement {
+function NewSongCard() {
+  const requestNewSongUrl = 'https://forms.gle/NF4iTYvfesPZwgGt9';
+
   return (
     <Wrap>
       <p className="title">
@@ -9,7 +11,12 @@ function NewSongCard(): ReactElement {
         <br />
         you’re looking for?
       </p>
-      <button className="button">
+      <button
+        className="button"
+        onClick={() => {
+          window.open(requestNewSongUrl, '_blank');
+        }}
+      >
         <p className="button__label">Request new songs!</p>
         <img className="button__arrow" src="/assets/icons/icArrow.svg" alt=""></img>
       </button>
