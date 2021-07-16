@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { client } from 'lib/api';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
@@ -10,6 +11,7 @@ import {
   isVolumeOpenedAtom,
   loopAtom,
   percentageAtom,
+  songDataState,
   totalTimeAtom,
   volumeBarAtom,
 } from 'states';
@@ -46,13 +48,18 @@ function PlayController({
   const [isMessageOpened, setIsMessageOpened] = useRecoilState<boolean>(isMessageOpenedAtom);
   const percentage = useRecoilValue<number>(percentageAtom);
   const [isVolumeOpened, setIsVolumeOpened] = useRecoilState<boolean>(isVolumeOpenedAtom);
+  // const router = useRouter();
+  // const {
+  //   query: { id },
+  // } = router;
 
-  const id = 1;
-  const { data } = useSWR<{ data: ISongDataWrapper }>(`/song/${id}`, client.get);
-  const title: string | undefined = data?.data.data.title;
-  const artist: string | undefined = data?.data.data.artist;
+  // const { data } = useSWR<{ data: ISongDataWrapper }>(`/song/${id}`, client.get);
+  // const title: string | undefined = data?.data.data.title;
+  // const artist: string | undefined = data?.data.data.artist;
+  const data = useRecoilValue(songDataState);
+  const title = data?.title;
+  const artist = data?.artist;
 
-  console.log('>>', data?.data.data.artist);
   const currentTimeForm =
     currentTime % 60 <= 9
       ? `0${Math.floor(currentTime / 60)}:0${Math.floor(currentTime) % 60} `
