@@ -16,6 +16,7 @@ export interface IMyVocab {
   eng: string;
   korExample: string;
   engExample: string;
+  isSaved: boolean;
 }
 
 export interface Artist {
