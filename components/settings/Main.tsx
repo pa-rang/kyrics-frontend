@@ -11,13 +11,14 @@ interface IUserData {
 }
 
 function Main() {
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isEditModalOpened, setIsEditModalOpened] = useState(false);
+  const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   const { data } = useSWR<{ data: IUserData }>('/userdata', mockClient.get);
   const userData = data?.data;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const editEmail = () => {
-    setIsModalOpened(false);
+    setIsEditModalOpened(false);
 
     const inputTag = inputRef.current as HTMLInputElement;
     const edited = inputTag.value;
@@ -34,6 +35,10 @@ function Main() {
       });
   };
 
+  const DeleteAccount = () => {
+    setIsDeleteModalOpened(false);
+  };
+
   return (
     <Styled.Root>
       <Styled.Blank></Styled.Blank>
@@ -46,33 +51,53 @@ function Main() {
           <img src="/assets/icons/emailIcon.svg" alt="email" />
           <span>Email Address</span>
         </Styled.Desc>
-        <Styled.Edit onClick={() => setIsModalOpened(true)} aria-hidden="true">
+        <Styled.Edit onClick={() => setIsEditModalOpened(true)} aria-hidden="true">
           {userData?.email}
           <img src="/assets/icons/editIcon.svg" alt="edit" />
         </Styled.Edit>
-        <Styled.Delete>
+        <Styled.Delete onClick={() => setIsDeleteModalOpened(true)} aria-hidden="true">
           <img src="/assets/icons/deleteIcon.svg" alt="delete" />
           <span>Delete Account</span>
         </Styled.Delete>
       </Styled.Container>
-      {isModalOpened && (
-        <Styled.ModalWrapper>
-          <Styled.Modal>
-            <Styled.ModalHeader></Styled.ModalHeader>
-            <Styled.ModalMain>
-              <Styled.ModalText>
+      {isEditModalOpened && (
+        <Styled.EditModalWrapper>
+          <Styled.EditModal>
+            <Styled.EditModalHeader></Styled.EditModalHeader>
+            <Styled.EditModalMain>
+              <Styled.EditModalText>
                 Insert new email address to get latest from Kyrics
-              </Styled.ModalText>
+              </Styled.EditModalText>
               <input type="text" defaultValue={userData?.email} ref={inputRef} />
-              <Styled.ModalButton>
-                <button onClick={() => setIsModalOpened(false)} aria-hidden="true">
+              <Styled.EditModalButton>
+                <button onClick={() => setIsEditModalOpened(false)} aria-hidden="true">
                   Cancel
                 </button>
                 <button onClick={editEmail}>Save</button>
-              </Styled.ModalButton>
-            </Styled.ModalMain>
-          </Styled.Modal>
-        </Styled.ModalWrapper>
+              </Styled.EditModalButton>
+            </Styled.EditModalMain>
+          </Styled.EditModal>
+        </Styled.EditModalWrapper>
+      )}
+      {isDeleteModalOpened && (
+        <Styled.EditModalWrapper>
+          <Styled.EditModal>
+            <Styled.EditModalHeader></Styled.EditModalHeader>
+            <Styled.EditModalMain>
+              <Styled.EditModalText>
+                You are about to delete your Account.
+                <br />
+                Are you sure?
+              </Styled.EditModalText>
+              <Styled.EditModalButton>
+                <button onClick={() => setIsDeleteModalOpened(false)} aria-hidden="true">
+                  Cancel
+                </button>
+                <button onClick={DeleteAccount}>Save</button>
+              </Styled.EditModalButton>
+            </Styled.EditModalMain>
+          </Styled.EditModal>
+        </Styled.EditModalWrapper>
       )}
     </Styled.Root>
   );
@@ -187,7 +212,7 @@ const Styled = {
       margin-right: 8px;
     }
   `,
-  ModalWrapper: styled.div`
+  EditModalWrapper: styled.div`
     display: flex;
     position: fixed;
     top: 0;
@@ -198,7 +223,7 @@ const Styled = {
     width: 100%;
     height: 100%;
   `,
-  Modal: styled.div`
+  EditModal: styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -209,13 +234,13 @@ const Styled = {
       width: 70%;
     }
   `,
-  ModalHeader: styled.div`
+  EditModalHeader: styled.div`
     border-radius: 10px 10px 0 0;
     background-color: #6465f4;
     width: 100%;
     height: 16px;
   `,
-  ModalMain: styled.div`
+  EditModalMain: styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -240,7 +265,7 @@ const Styled = {
       }
     }
   `,
-  ModalText: styled.div`
+  EditModalText: styled.div`
     margin: 30px 20px 21px 20px;
     text-align: center;
     font-size: 20px;
@@ -250,7 +275,7 @@ const Styled = {
     }
   `,
 
-  ModalButton: styled.div`
+  EditModalButton: styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -266,6 +291,12 @@ const Styled = {
       height: 27px;
       color: #ffffff;
       font-size: 12px;
+    }
+    button:nth-child(1):hover {
+      background-color: #6465f4;
+    }
+    button:nth-child(2):hover {
+      background-color: #6465f4;
     }
   `,
 };
