@@ -22,8 +22,9 @@ function MyVocab() {
   return (
     <Styled.Card>
       {keyExpressions &&
-        keyExpressions.map(({ eng, engExample, kor, korExample }) => (
+        keyExpressions.map(({ id, eng, engExample, kor, korExample }) => (
           <KeyExpressionItem
+            id={id}
             key={kor}
             type="line-top"
             width="254px"

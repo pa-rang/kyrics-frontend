@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import axios from 'axios';
 import { client } from 'lib/api';
 import React from 'react';
 import useSWR from 'swr';
@@ -12,6 +13,7 @@ interface KyricsResponse<T> {
 }
 
 export interface KeyExpression {
+  id: number;
   eng: string;
   engExample: string;
   kor: string;
@@ -32,7 +34,7 @@ function KeyExpression() {
     <Styled.Root>
       <Styled.Title>Key Expression</Styled.Title>
       <Styled.KeyExpressionWrapper>
-        {keyExpressions?.map(({ eng, engExample, kor, korExample }) => (
+        {keyExpressions?.map(({ id, eng, engExample, kor, korExample }) => (
           <KeyExpressionItem
             key={kor}
             type="line-left"
@@ -43,6 +45,7 @@ function KeyExpression() {
             korExample={korExample}
             style={{ marginBottom: '12px' }}
             myvocab={false}
+            id={id}
           />
         ))}
       </Styled.KeyExpressionWrapper>

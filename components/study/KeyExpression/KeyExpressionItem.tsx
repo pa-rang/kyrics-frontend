@@ -1,12 +1,14 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { FavoriteIcon } from '@public/assets';
+import { client } from 'lib/api';
 import { ellipsisText } from 'lib/mixin';
 import React from 'react';
 
 import FavoriteButton from './FavoriteButton';
 
 interface Props {
+  id: number;
   type: 'line-top' | 'line-left';
   width: string;
   eng: string;
@@ -18,6 +20,7 @@ interface Props {
 }
 
 function KeyExpressionItem({
+  id,
   type,
   width,
   eng,
@@ -27,6 +30,17 @@ function KeyExpressionItem({
   style,
   myvocab,
 }: Props) {
+  const deleteFavorite = (id: number) => {
+    client
+      .delete(`/user/vocab/${id}`)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <Styled.Root width={width} style={{ ...style }}>
       <Styled.KeywordWrapper>
@@ -38,7 +52,7 @@ function KeyExpressionItem({
         <Styled.EngExample>{engExample}</Styled.EngExample>
       </Styled.ExampleWrapper>
       <Styled.Line type={type} />
-      <FavoriteButton myvocab={myvocab} />
+      <FavoriteButton myvocab={myvocab} deleteFavorite={deleteFavorite} id={id} />
     </Styled.Root>
   );
 }
