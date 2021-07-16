@@ -1,21 +1,15 @@
 import PlayerBtns from '@components/study/PlayerBtns';
 import styled from '@emotion/styled';
-import { client } from 'lib/api';
 import React, { ReactElement } from 'react';
-import useSWR from 'swr';
-import { ISongData, PlayerProps } from 'types';
+import { useRecoilValue } from 'recoil';
+import { songDataState } from 'states';
+import { PlayerProps } from 'types';
 
 import PlayController from './PlayController';
 
-interface ISongDataWrapper {
-  data: ISongData;
-}
 function Player({ handleSeekTime, handleBackTime, handleForwardTime }: PlayerProps): ReactElement {
-  const id = 1;
-  const { data } = useSWR<{ data: ISongDataWrapper }>(`/song/${id}`, client.get);
-  const albumImageUrl: string | undefined = data?.data.data.albumImageUrl;
-
-  console.log('>>', data?.data.data);
+  const data = useRecoilValue(songDataState);
+  const albumImageUrl = data?.albumImageUrl;
 
   return (
     <PlayerWrapper>

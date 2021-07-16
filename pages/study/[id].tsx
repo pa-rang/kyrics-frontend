@@ -1,7 +1,8 @@
+import Header from '@components/common/Header';
 import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import styled from '@emotion/styled';
-import { client, mockClient } from 'lib/api';
+import { client } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
@@ -117,6 +118,7 @@ function Study(): ReactElement {
 
   return (
     <Styled.Root>
+      <Header isLoggedIn={true} />
       <Styled.ModalWrapper isModalOpened={isModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
