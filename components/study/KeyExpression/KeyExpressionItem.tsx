@@ -7,7 +7,7 @@ import FavoriteButton from './FavoriteButton';
 
 interface Props {
   id: number;
-  songId: number;
+  songId?: number;
   type: 'line-top' | 'line-left';
   width: string;
   eng: string;

@@ -8,7 +8,7 @@ interface Props {
   id: number;
   isSaved: boolean;
   type: 'line-top' | 'line-left';
-  songId: number;
+  songId: number | undefined;
 }
 
 function FavoriteButton({ id, isSaved, type, songId }: Props) {
@@ -18,7 +18,7 @@ function FavoriteButton({ id, isSaved, type, songId }: Props) {
     } else {
       await client.post(`/user/vocab/${id}`);
     }
-    mutate(`/song/${songId}/vocab`);
+    songId && mutate(`/song/${songId}/vocab`);
   };
 
   return (

@@ -30,7 +30,7 @@ function MyVocab() {
             engExample={engExample}
             kor={kor}
             korExample={korExample}
-            myvocab={true}
+            isSaved={true}
           />
         ))}
     </Styled.Card>
