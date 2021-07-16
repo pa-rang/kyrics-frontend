@@ -1,12 +1,12 @@
 import Footer from '@components/common/Footer';
 import Header from '@components/common/Header';
+import Mysong from '@components/mypage/mysong/Mysong';
 import MySongItem from '@components/mypage/mysong/MySongItem';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { mockClient } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
-import useSWR from 'swr';
 
 import { IMySongItem } from '../../types';
 import MyVocab from './MyVocab';
@@ -20,9 +20,7 @@ function Collection(): ReactElement {
   const pid = router.query;
   const [mySongs, setMySongs] = useState<boolean | undefined>();
   const [myVocab, setMyVocab] = useState<boolean | undefined>();
-  const { data } = useSWR('mysongs', (url) => mockClient.get(url));
 
-  console.log(data?.data);
   const setFirstState = () => {
     console.log(pid);
     if (pid.type === 'mysongs') {
@@ -61,15 +59,7 @@ function Collection(): ReactElement {
         </div>
       </Styled.MyCollection>
       <Styled.DrawCard>
-        <div className="card-item">
-          {data?.data && pid.type === 'mysongs' ? (
-            data?.data.map((data: IMySongItem, index: React.Key) => {
-              return <MySongItem mySongData={data} key={index} />;
-            })
-          ) : (
-            <MyVocab />
-          )}
-        </div>
+        <div className="card-item">{pid.type === 'mysongs' ? <Mysong /> : <MyVocab />}</div>
       </Styled.DrawCard>
       <Footer />
     </>
