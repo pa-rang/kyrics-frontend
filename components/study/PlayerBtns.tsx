@@ -50,6 +50,7 @@ function PlayerBtns() {
   };
 
   const handleCopy = () => {
+    console.log(router);
     setIsCopyMsgOpen(true);
     setTimeout(() => {
       setIsCopyMsgOpen(false);
@@ -100,7 +101,7 @@ function PlayerBtns() {
         <div className="favoriteAdd--msg msg">Added</div>
       </div>
       <div className="icon--container">
-        <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={handleCopy}>
+        <CopyToClipboard text={`https://kyrics.vercel.app/${router.asPath}`} onCopy={handleCopy}>
           <img
             className="CopyIcon"
             src="/assets/icons/CopyIcon.svg"
