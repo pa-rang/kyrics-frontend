@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import styled from '@emotion/styled';
-import useGetUser from 'hooks/useGetUser';
+import { useGetUser } from 'hooks/api';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { mutate } from 'swr';
 
 import ProfileMenu from './ProfileMenu';
@@ -12,8 +12,6 @@ function Header() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const router = useRouter();
   const user = useGetUser();
-
-  console.log('user', user);
 
   function handleLogoClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();

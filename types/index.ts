@@ -56,7 +56,6 @@ export interface ITimedText {
   eng: string;
 }
 
-type SocialType = 'Google' | 'Facebook';
 export interface IMySongItem {
   id: number;
   title: string;

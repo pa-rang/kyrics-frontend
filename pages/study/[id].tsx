@@ -3,7 +3,7 @@ import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import useGetUser from 'hooks/useGetUser';
+import { useGetUser } from 'hooks/api';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
