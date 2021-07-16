@@ -1,5 +1,7 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import styled from '@emotion/styled';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import React, { ReactElement, useState } from 'react';
 
 import ProfileMenu from './ProfileMenu';
@@ -10,6 +12,7 @@ interface HeaderProps {
 
 function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
+  const router = useRouter();
 
   function handleLogoClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
@@ -41,8 +44,9 @@ function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
             </div>
           ) : (
             <div className="user__anonymous">
-              <p className="user__anonymous--login">Log in</p>
-              <p className="user__anonymous--signUp">Sign up</p>
+              <p className="user__anonymous--login" onClick={() => router.push('/login')}>
+                Log In
+              </p>
             </div>
           )}
         </div>
@@ -150,6 +154,10 @@ const HeaderWrap = styled.div`
         color: #9d9d9d;
         font-weight: bold;
         font-style: normal;
+
+        &:hover {
+          color: #6465f4;
+        }
         @media (max-width: 768px) {
           font-size: 12px;
         }
