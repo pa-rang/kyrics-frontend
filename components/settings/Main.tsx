@@ -53,6 +53,9 @@ const Styled = {
   `,
   Blank: styled.div`
     height: 100px;
+    @media (max-width: 768px) {
+      height: 60px;
+    }
   `,
   Container: styled.div`
     display: flex;
@@ -61,7 +64,6 @@ const Styled = {
     justify-content: center;
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
-    /* margin: 120px; */
     background-color: #ffffff;
     width: 70%;
     & > img {
@@ -70,7 +72,14 @@ const Styled = {
       border-radius: 50%;
       width: 86px;
       height: 86px;
-      /* object-fit: fill; */
+      @media (max-width: 768px) {
+        margin-top: 50px;
+        margin-bottom: 16px;
+        background-color: #f8fafc;
+      }
+    }
+    @media (max-width: 768px) {
+      background-color: #f8fafc;
     }
   `,
   Name: styled.div`
@@ -79,14 +88,20 @@ const Styled = {
     color: #464646;
     font-size: 24px;
     font-weight: 700x;
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
   `,
   Email: styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
     color: #9d9d9d;
     font-size: 16px;
     font-weight: 500;
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
   `,
   Desc: styled.div`
     margin-bottom: 14px;
@@ -95,6 +110,9 @@ const Styled = {
     font-weight: 500;
     & > img {
       margin-right: 8px;
+    }
+    @media (max-width: 768px) {
+      font-size: 12px;
     }
   `,
   Edit: styled.div`
@@ -108,9 +126,14 @@ const Styled = {
     cursor: pointer;
     padding: 0 50px;
     height: 39px;
+    font-size: 20px;
     & > img {
       position: absolute;
       right: 21px;
+    }
+    @media (max-width: 768px) {
+      margin-bottom: 80px;
+      font-size: 12px;
     }
   `,
   Delete: styled.div`
