@@ -2,6 +2,7 @@ import Header from '@components/common/Header';
 import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import styled from '@emotion/styled';
+import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
@@ -19,6 +20,9 @@ import {
 } from 'states';
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
+
+// import { KeyExpression } from '@components/study/KeyExpression/index';
+import KeyExpression from '../../components/study/KeyExpression';
 
 function Study(): ReactElement {
   const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
@@ -116,6 +120,27 @@ function Study(): ReactElement {
     };
   }, []);
 
+  const size = useWindowSize();
+
+  const [width, setWidth] = useState<number>(0);
+
+  useEffect(() => {
+    console.log(window.outerWidth);
+    setWidth(window.outerWidth);
+  }, []);
+
+  const measureWidth = () => {
+    setWidth(window.outerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', measureWidth);
+
+    return () => {
+      window.removeEventListener('resize', measureWidth);
+    };
+  }, []);
+
   return (
     <Styled.Root>
       <Header isLoggedIn={true} />
@@ -157,7 +182,10 @@ function Study(): ReactElement {
         handleBackTime={handleBackTime}
         handleForwardTime={handleForwardTime}
       />
-      <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
+      <Styled.Main width={width}>
+        <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
+        {size && size.width > 1080 && <KeyExpression />}
+      </Styled.Main>
     </Styled.Root>
   );
 }
@@ -189,5 +217,11 @@ const Styled = {
       transform: translateX(100%);
       cursor: pointer;
     }
+  `,
+  Main: styled.div<{ width: number }>`
+    display: flex;
+    justify-content: center;
+    padding: 0px ${({ width }) => (141 * width) / 1440}px;
+    /* padding-right: 100px; */
   `,
 };
