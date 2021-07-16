@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { mockClient } from 'lib/api';
-import React, { useState } from 'react';
+import { client, mockClient } from 'lib/api';
+import React, { useRef, useState } from 'react';
 import useSWR from 'swr';
 
 interface IUserData {
@@ -14,6 +14,25 @@ function Main() {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const { data } = useSWR<{ data: IUserData }>('/userdata', mockClient.get);
   const userData = data?.data;
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const editEmail = () => {
+    setIsModalOpened(false);
+
+    const inputTag = inputRef.current as HTMLInputElement;
+    const edited = inputTag.value;
+
+    client
+      .patch('/user/email', {
+        email: edited,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <Styled.Root>
@@ -44,12 +63,12 @@ function Main() {
               <Styled.ModalText>
                 Insert new email address to get latest from Kyrics
               </Styled.ModalText>
-              <input type="text" defaultValue={userData?.email} />
+              <input type="text" defaultValue={userData?.email} ref={inputRef} />
               <Styled.ModalButton>
                 <button onClick={() => setIsModalOpened(false)} aria-hidden="true">
                   Cancel
                 </button>
-                <button>Save</button>
+                <button onClick={editEmail}>Save</button>
               </Styled.ModalButton>
             </Styled.ModalMain>
           </Styled.Modal>
