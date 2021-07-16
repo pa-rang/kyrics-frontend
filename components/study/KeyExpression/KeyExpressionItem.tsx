@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { FavoriteIcon } from '@public/assets';
 import { client } from 'lib/api';
 import { ellipsisText } from 'lib/mixin';
 import React from 'react';
