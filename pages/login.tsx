@@ -47,7 +47,7 @@ function Login() {
     <Styled.Root>
       <Styled.Contents>
         <Styled.Logo src={mainLogo.src} alt="kyrics" />
-        <LinedTitle>Sign Up</LinedTitle>
+        <LinedTitle lineWidth={80}>Sign Up</LinedTitle>
         <GoogleLogin
           clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
           buttonText="Sign up with Google"

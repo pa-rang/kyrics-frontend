@@ -6,12 +6,12 @@ interface Props {
   lineWidth?: number;
 }
 
-function LinedTitle({ lineWidth, children }: PropsWithChildren<Props>) {
+function LinedTitle({ lineWidth = 80, children }: PropsWithChildren<Props>) {
   return (
     <Styled.Root>
-      <Styled.Line />
+      <Styled.Line lineWidth={lineWidth} />
       <Styled.Text>{children}</Styled.Text>
-      <Styled.Line />
+      <Styled.Line lineWidth={lineWidth} />
     </Styled.Root>
   );
 }
@@ -22,15 +22,17 @@ const Styled = {
   Root: styled.div`
     display: flex;
     align-items: center;
+    margin-bottom: 24px;
   `,
 
-  Line: styled.h2`
+  Line: styled.h2<{ lineWidth: number }>`
     border: 1px solid ${colors.gray3};
-    width: 40px;
+    width: ${({ lineWidth }) => `${lineWidth}px`};
     height: 1px;
   `,
 
   Text: styled.h2`
+    margin: 0 16px;
     color: ${colors.gray3};
     font-size: 32px;
     font-weight: bold;
