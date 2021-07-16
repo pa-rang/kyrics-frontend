@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import axios from 'axios';
+import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
