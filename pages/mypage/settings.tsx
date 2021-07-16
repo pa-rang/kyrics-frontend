@@ -6,7 +6,7 @@ import React from 'react';
 function Settings() {
   return (
     <div>
-      <Header isLoggedIn={true} />
+      <Header />
       <Main />
       <Footer />
     </div>

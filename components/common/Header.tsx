@@ -1,15 +1,18 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import styled from '@emotion/styled';
-import router from 'next/router';
-import React, { ReactElement, useState } from 'react';
+import useGetUser from 'hooks/useGetUser';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 
 import ProfileMenu from './ProfileMenu';
 
-interface HeaderProps {
-  isLoggedIn: boolean;
-}
-
-function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
+function Header() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
+  const router = useRouter();
+  const user = useGetUser();
+
+  console.log('user', user);
 
   function handleLogoClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
@@ -26,23 +29,24 @@ function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
       <div className="header">
         <button className="logo" onClick={handleLogoClick}></button>
         <div className="user">
-          {isLoggedIn ? (
+          {user ? (
             <div className="user__profile">
               <p className="user__profile--logout">Log out</p>
               <button className="user__profile--button" onClick={handleProfileClick}>
                 <img
                   className="user__profile--button--picture"
-                  src="/assets/icons/IcDefaultProfile.svg"
+                  src={user.profileImageUrl}
                   alt=""
                 ></img>
-                <p className="user__profile--button--name">Name</p>
+                <p className="user__profile--button--name">{user.name}</p>
                 {isProfileClicked && <ProfileMenu />}
               </button>
             </div>
           ) : (
             <div className="user__anonymous">
-              <p className="user__anonymous--login">Log in</p>
-              <p className="user__anonymous--signUp">Sign up</p>
+              <p className="user__anonymous--login" onClick={() => router.push('/login')}>
+                Log In
+              </p>
             </div>
           )}
         </div>
@@ -120,13 +124,13 @@ const HeaderWrap = styled.div`
         }
 
         &--name {
-          margin-left: 9px;
+          margin-left: 6px;
           line-height: 27px;
+          line-height: 1.2;
           white-space: nowrap;
-          color: #6465f4;
-          font-size: 20px;
+          color: #9d9d9d;
+          font-size: 18px;
           font-weight: bold;
-          font-style: normal;
           @media (max-width: 768px) {
             margin-left: 4px;
             font-size: 12px;
@@ -150,6 +154,10 @@ const HeaderWrap = styled.div`
         color: #9d9d9d;
         font-weight: bold;
         font-style: normal;
+
+        &:hover {
+          color: #6465f4;
+        }
         @media (max-width: 768px) {
           font-size: 12px;
         }

@@ -141,7 +141,7 @@ function Study(): ReactElement {
 
   return (
     <Styled.Root isModalOpened={isModalOpened}>
-      <Header isLoggedIn={true} />
+      <Header />
       <Styled.ModalWrapper isModalOpened={isModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
