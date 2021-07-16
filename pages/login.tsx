@@ -1,8 +1,7 @@
 import LinedTitle from '@components/signup/LinedTitle';
 import styled from '@emotion/styled';
 import { mainLogo } from '@public/assets';
-import axios from 'axios';
-import { client } from 'lib/api';
+import { client, KyricsResponse } from 'lib/api';
 import React from 'react';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
@@ -27,9 +26,13 @@ function Login() {
       profileImageUrl: imageUrl,
     };
 
-    const { data } = await client.post('/login', payload);
+    const {
+      data: {
+        data: { token },
+      },
+    } = await client.post<KyricsResponse<{ token: string }>>('/login', payload);
 
-    console.log('data', data);
+    localStorage.setItem('userToken', token);
   };
 
   const handleGoogleLoginFailure = () => {
