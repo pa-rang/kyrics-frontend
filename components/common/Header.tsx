@@ -13,10 +13,6 @@ function Header() {
   const router = useRouter();
   const user = useGetUser();
 
-  useEffect(() => {
-    mutate('/user');
-  }, []);
-
   console.log('user', user);
 
   function handleLogoClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
