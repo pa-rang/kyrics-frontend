@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
+import { isServer } from 'lib/constants/env';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { mutate } from 'swr';
@@ -12,6 +13,10 @@ function Header() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const router = useRouter();
   const user = useGetUser();
+
+  console.log('user', user);
+
+  console.log('localStorage.getItem("userToken")', isServer || localStorage.getItem('userToken'));
 
   function handleLogoClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
