@@ -222,7 +222,7 @@ const Styled = {
     }
   `,
   ModalText: styled.div`
-    margin: 30px 10px 21px 10px;
+    margin: 30px 20px 21px 20px;
     text-align: center;
     font-size: 20px;
 
