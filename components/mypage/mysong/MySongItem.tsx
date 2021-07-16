@@ -11,6 +11,7 @@ interface mySongItemProps {
   id: number;
 }
 function MySongItem({ mySongData, id }: mySongItemProps) {
+  const router = useRouter();
   const handleDelete = async () => {
     const data = await client.delete(`user/song/${id}`);
 
@@ -19,7 +20,7 @@ function MySongItem({ mySongData, id }: mySongItemProps) {
 
   return (
     <Styled.Root>
-      <Styled.Container>
+      <Styled.Container onClick={() => router.push(`/study/${id}`)}>
         <img src={mySongData.albumImageUrl} alt="" />
         <span>
           <Styled.Title>{mySongData.title}</Styled.Title>
