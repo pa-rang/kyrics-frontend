@@ -33,7 +33,6 @@ function Login() {
 
     const { data } = await client.post<KyricsResponse<LoginResponse>>('/login', payload);
 
-    console.log('data?.data', data?.data);
     const { token, isNewUser } = data?.data;
 
     localStorage.setItem('userToken', token);

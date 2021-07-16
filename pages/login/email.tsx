@@ -3,6 +3,7 @@ import RegisterEmailInput from '@components/login/RegisterEmailInput';
 import styled from '@emotion/styled';
 import { colors } from 'lib/constants/colors';
 import { clickable } from 'lib/mixin';
+import Link from 'next/link';
 import React from 'react';
 
 function LoginEmailPage() {
@@ -13,7 +14,9 @@ function LoginEmailPage() {
         <br /> by adding your email address!
       </Styled.Copy>
       <RegisterEmailInput />
-      <Styled.SkipButton>Skip and continue</Styled.SkipButton>
+      <Link href="/" passHref>
+        <Styled.SkipButton>Skip and continue</Styled.SkipButton>
+      </Link>
     </LoginLayout>
   );
 }

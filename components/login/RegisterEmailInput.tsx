@@ -1,15 +1,19 @@
 import styled from '@emotion/styled';
-import { client, KyricsSWRResponse } from 'lib/api';
+import { Button, Snackbar } from '@material-ui/core';
+import { client, KyricsResponse, KyricsSWRResponse } from 'lib/api';
 import { colors } from 'lib/constants/colors';
 import { clickable } from 'lib/mixin';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { User } from 'types';
 
 function RegisterEmailInput() {
+  const router = useRouter();
   const [inputValue, setInputValue] = useState('');
   const { data } = useSWR<KyricsSWRResponse<User>>('/user', client.get);
-  const email = data?.data.data?.email;
+  const email = data?.data?.data?.email;
+  const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null);
 
   useEffect(() => {
     setInputValue(email || '');
@@ -20,20 +24,54 @@ function RegisterEmailInput() {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (inputValue === email) {
+      setSnackbarMessage('이메일이 동일합니다.');
+
+      return;
+    }
+
+    const { data } = await client.patch<KyricsResponse<Pick<User, 'name' | 'email'>>>(
+      '/user/email',
+      {
+        email: inputValue,
+      },
+    );
+
+    setSnackbarMessage(`We'll get in touch with you with ${data.data.email}`);
     setInputValue('');
+
+    router.push('/');
   };
 
   return (
-    <Styled.EmailForm onSubmit={handleSubmit}>
-      <Styled.EmailInput
-        placeholder="Enter your email"
-        value={inputValue}
-        onChange={handleChange}
+    <>
+      <Styled.EmailForm onSubmit={handleSubmit}>
+        <Styled.EmailInput
+          placeholder="Enter your email"
+          value={inputValue}
+          onChange={handleChange}
+        />
+        <Styled.SubmitInput type="submit" value="Subscribe" />
+      </Styled.EmailForm>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={!!snackbarMessage}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarMessage(null)}
+        message={snackbarMessage}
+        action={
+          <Button color="secondary" size="small" onClick={() => setSnackbarMessage(null)}>
+            홈으로 가기
+          </Button>
+        }
       />
-      <Styled.SubmitInput type="submit" value="Subscribe" />
-    </Styled.EmailForm>
+    </>
   );
 }
 
