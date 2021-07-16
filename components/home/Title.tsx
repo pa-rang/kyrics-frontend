@@ -22,6 +22,11 @@ const TitleWrap = styled.div`
     background-size: cover;
     width: 100%;
     height: 435px;
+
+    @media (max-width: 767px) {
+      height: 163px;
+      font-size: 16px;
+    }
   }
 
   .title {
@@ -35,7 +40,8 @@ const TitleWrap = styled.div`
     font-weight: bold;
     font-style: normal;
 
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
+      padding-top: 48px;
       font-size: 16px;
     }
   }

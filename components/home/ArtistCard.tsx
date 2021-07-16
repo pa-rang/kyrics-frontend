@@ -104,7 +104,7 @@ const Wrap = styled.div<StyledProps>`
     }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 767px) {
     width: 240px;
     height: 180px;
   }

@@ -34,10 +34,16 @@ const Wrap = styled.div`
     font-size: 24px;
     font-weight: bold;
     font-style: normal;
+
+    @media (max-width: 767px) {
+      margin-top: 42px;
+      font-size: 16px;
+    }
   }
 
   .button {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     margin-top: 28px;
     border: none;
@@ -57,10 +63,30 @@ const Wrap = styled.div`
       font-size: 16px;
       font-weight: bold;
       font-style: normal;
+
+      @media (max-width: 767px) {
+        font-size: 10px;
+      }
     }
 
     &__arrow {
+      @media (max-width: 767px) {
+        width: 15px;
+        height: 15px;
+      }
     }
+
+    @media (max-width: 767px) {
+      margin-top: 30px;
+      padding: 0px 16px;
+      width: 151px;
+      height: 27px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    width: 240px;
+    height: 180px;
   }
 `;
 
