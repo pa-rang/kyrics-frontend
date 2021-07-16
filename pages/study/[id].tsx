@@ -60,7 +60,6 @@ function Study(): ReactElement {
   useEffect(() => {
     if (host !== null) {
       setTotalTime(Math.floor(host.getDuration()));
-      console.log(totalTime);
     }
   }, [isPlay]);
 
@@ -125,7 +124,6 @@ function Study(): ReactElement {
   const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {
-    console.log(window.outerWidth);
     setWidth(window.outerWidth);
   }, []);
 

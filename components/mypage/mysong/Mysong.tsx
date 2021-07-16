@@ -9,8 +9,6 @@ function Mysong() {
   //   const { data } = useSWR<{ data: IMySongItem[] }>('/user/song', client.get);
   const { data } = useSWR<{ data: IMySongItem[] }>('mysongs', mockClient.get);
 
-  console.log(data);
-
   return (
     <Styled.Card>
       {data?.data[0] &&

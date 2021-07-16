@@ -11,8 +11,6 @@ interface StyledProps {
 }
 
 function ArtistBanner({ name, bgImg }: Props): ReactElement {
-  console.log(bgImg);
-
   return (
     <BannerWrap bgImg={bgImg}>
       <div className="bgImg">

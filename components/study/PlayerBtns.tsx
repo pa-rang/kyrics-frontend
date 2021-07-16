@@ -1,5 +1,7 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
 import styled from '@emotion/styled';
+import { client } from 'lib/api';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -17,6 +19,10 @@ function PlayerBtns() {
   const [isCopyMsgOpen, setIsCopyMsgOpen] = useState(false);
   const songData = useRecoilValue(songDataState);
   const [onFavorite, setOnFavorite] = useState<'on' | ''>('');
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
 
   useEffect(() => {
     const isSaved = songData?.isSaved;
@@ -56,6 +62,9 @@ function PlayerBtns() {
       setTimeout(() => {
         setIsFavoriteMsgOpen(false);
       }, 2000);
+      client.post(`user/song/${id}`);
+    } else {
+      client.delete(`user/song/${id}`);
     }
 
     setIsFavorite((isFavorite) => !isFavorite);
