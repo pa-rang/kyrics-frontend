@@ -31,6 +31,8 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   // const { data } = useSWR('song-1', (url) => mockClient.get(url));
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
 
+  const size = useWindowSize();
+
   useEffect(() => {
     setTimedtext(data?.data?.data?.lyrics);
   }, [data]);
@@ -190,6 +192,7 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
           )}
         </Styled.Main>
       </Styled.Lyrics>
+      {size && size.width > 1080 && <KeyExpression />}
     </Styled.Root>
   );
 }
