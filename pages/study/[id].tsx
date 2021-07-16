@@ -1,3 +1,4 @@
+import Header from '@components/common/Header';
 import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import styled from '@emotion/styled';
@@ -117,6 +118,7 @@ function Study(): ReactElement {
 
   return (
     <Styled.Root>
+      <Header isLoggedIn={true} />
       <Styled.ModalWrapper isModalOpened={isModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
