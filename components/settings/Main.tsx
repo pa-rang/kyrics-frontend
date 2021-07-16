@@ -78,10 +78,16 @@ function Main() {
               </Styled.EditModalText>
               <input type="text" defaultValue={userData?.email} ref={inputRef} />
               <Styled.EditModalButton>
-                <button onClick={() => setIsEditModalOpened(false)} aria-hidden="true">
+                <button
+                  className="EditCancel"
+                  onClick={() => setIsEditModalOpened(false)}
+                  aria-hidden="true"
+                >
                   Cancel
                 </button>
-                <button onClick={editEmail}>Save</button>
+                <button className="EditSave" onClick={editEmail}>
+                  Save
+                </button>
               </Styled.EditModalButton>
             </Styled.EditModalMain>
           </Styled.EditModal>
@@ -101,7 +107,9 @@ function Main() {
                 <button onClick={() => setIsDeleteModalOpened(false)} aria-hidden="true">
                   Cancel
                 </button>
-                <button onClick={DeleteAccount}>Delete</button>
+                <button onClick={DeleteAccount} className="deleteBtn">
+                  Delete
+                </button>
               </Styled.EditModalButton>
             </Styled.EditModalMain>
           </Styled.EditModal>
@@ -300,11 +308,14 @@ const Styled = {
       color: #ffffff;
       font-size: 12px;
     }
-    button:nth-child(1):hover {
+    .EditCancel:hover {
       background-color: #6465f4;
     }
-    button:nth-child(2):hover {
+    .EditSave:hover {
       background-color: #6465f4;
+    }
+    .deleteBtn {
+      background-color: red;
     }
   `,
 };
