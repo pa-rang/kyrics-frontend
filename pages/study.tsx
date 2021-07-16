@@ -31,6 +31,7 @@ function Study(): ReactElement {
   const [isModalOpened, setIsModalOpened] = useRecoilState(isModalOpenedState);
   const setSongData = useSetRecoilState(songDataState);
   const { data } = useSWR('song-1', (url) => mockClient.get(url));
+
   const url = data?.data?.youtubeUrl;
 
   // setSongData(data?.data);
