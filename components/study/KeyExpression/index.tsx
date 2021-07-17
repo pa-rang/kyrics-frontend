@@ -7,6 +7,7 @@ import useSWR from 'swr';
 import { IMyVocab } from 'types';
 
 import KeyExpressionItem from './KeyExpressionItem';
+import LookingMore from './LookingMore';
 
 function KeyExpression() {
   const router = useRouter();
@@ -24,6 +25,7 @@ function KeyExpression() {
   return (
     <Styled.Root>
       <Styled.Title>Key Expression</Styled.Title>
+      <LookingMore />
       <Styled.KeyExpressionWrapper>
         {keyExpressions?.map(({ id, eng, engExample, kor, korExample, isSaved }) => (
           <KeyExpressionItem
