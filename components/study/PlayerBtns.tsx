@@ -1,5 +1,7 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
+import LoginModal from '@components/common/LoginModal';
 import styled from '@emotion/styled';
+import { useGetUser } from 'hooks/api';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -23,6 +25,7 @@ function PlayerBtns() {
   const {
     query: { id },
   } = router;
+  const user = useGetUser();
 
   useEffect(() => {
     const isSaved = songData?.isSaved;
@@ -56,7 +59,14 @@ function PlayerBtns() {
       setIsCopyMsgOpen(false);
     }, 2000);
   };
+  const [isLoginModalOpened, setIsLoginModalOpened] = useState(false);
   const handleFavorite = () => {
+    if (!user) {
+      setIsLoginModalOpened(true);
+
+      return;
+    }
+
     isFavorite ? setOnFavorite('') : setOnFavorite('on');
     if (!isFavorite) {
       setIsFavoriteMsgOpen(true);
@@ -122,6 +132,7 @@ function PlayerBtns() {
         onClick={() => setIsModalOpened(true)}
         aria-hidden="true"
       />
+      {isLoginModalOpened && <LoginModal setIsLoginModalOpened={setIsLoginModalOpened} />}
     </PlayerBtnsWrapper>
   );
 }
