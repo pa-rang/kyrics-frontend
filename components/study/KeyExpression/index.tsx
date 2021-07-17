@@ -36,7 +36,7 @@ function KeyExpression() {
             engExample={engExample}
             kor={kor}
             korExample={korExample}
-            style={{ marginBottom: '12px' }}
+            marginBottom
             isSaved={isSaved}
             id={id}
             songId={Number(songId)}

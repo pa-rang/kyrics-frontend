@@ -16,6 +16,7 @@ interface Props {
   korExample: string;
   style?: { [key: string]: string };
   isSaved: boolean;
+  marginBottom?: boolean;
 }
 
 function KeyExpressionItem({
@@ -27,11 +28,11 @@ function KeyExpressionItem({
   engExample,
   kor,
   korExample,
-  style,
+  marginBottom,
   isSaved,
 }: Props) {
   return (
-    <Styled.Root width={width} style={{ ...style }}>
+    <Styled.Root width={width} marginBottom={marginBottom}>
       <Styled.KeywordWrapper>
         <Styled.KorKeyword>{kor}</Styled.KorKeyword>
         <Styled.EngKeyword>{eng}</Styled.EngKeyword>
@@ -49,8 +50,9 @@ function KeyExpressionItem({
 export default KeyExpressionItem;
 
 const Styled = {
-  Root: styled.div<{ width: string }>`
+  Root: styled.div<{ width: string; marginBottom: boolean | undefined }>`
     position: relative;
+    ${({ marginBottom }) => marginBottom && 'margin-bottom: 12px'};
     border: 1px solid #e1e1e1;
     border-radius: 8px;
     background-color: #fff;
