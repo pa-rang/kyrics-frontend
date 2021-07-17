@@ -1,9 +1,12 @@
 import '@styles/globals.css';
 
+import { initializeAmplitude } from 'lib/utils/amplitude';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
+
+initializeAmplitude();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
