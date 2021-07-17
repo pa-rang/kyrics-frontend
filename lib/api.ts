@@ -21,10 +21,10 @@ export const client = axios.create({
   },
 });
 
-export const clientWithToken = (token: string) => {
-  const headers = {
-    'x-access-token': token,
-  };
+// export const clientWithToken = (token: string) => {
+//   const headers = {
+//     'x-access-token': token,
+//   };
 
-  return axios.create({ baseURL: 'https://kyricserver.com', headers });
-};
+//   return axios.create({ baseURL: 'https://kyricserver.com', headers });
+// };
