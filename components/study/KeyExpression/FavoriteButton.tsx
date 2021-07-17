@@ -1,8 +1,7 @@
 import LoginModal from '@components/common/LoginModal';
 import styled from '@emotion/styled';
-import { FavoriteIcon, favoriteSong } from '@public/assets';
-import { useGetUser } from 'hooks/api';
 import { FavoriteIcon2, FavoriteYellowIcon } from '@public/assets';
+import { useGetUser } from 'hooks/api';
 import { client } from 'lib/api';
 import React, { useState } from 'react';
 import { mutate } from 'swr';
