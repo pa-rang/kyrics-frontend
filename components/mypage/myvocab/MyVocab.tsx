@@ -17,23 +17,31 @@ function MyVocab() {
   }, [data]);
 
   return (
-    <Styled.Card>
-      {keyExpressions &&
-        keyExpressions[0] &&
-        keyExpressions.map(({ id, eng, engExample, kor, korExample }) => (
-          <KeyExpressionItem
-            id={id}
-            key={kor}
-            type="line-top"
-            width="254px"
-            eng={eng}
-            engExample={engExample}
-            kor={kor}
-            korExample={korExample}
-            isSaved={true}
-          />
-        ))}
-    </Styled.Card>
+    <>
+      {keyExpressions && keyExpressions[0] ? (
+        <Styled.Card>
+          {keyExpressions &&
+            keyExpressions[0] &&
+            keyExpressions.map(({ id, eng, engExample, kor, korExample }) => (
+              <KeyExpressionItem
+                id={id}
+                key={kor}
+                type="line-top"
+                width="254px"
+                eng={eng}
+                engExample={engExample}
+                kor={kor}
+                korExample={korExample}
+                isSaved={true}
+              />
+            ))}
+        </Styled.Card>
+      ) : (
+        <Styled.EmptyCard>
+          <div className="message">Find your Key Expressions and keep them here!</div>
+        </Styled.EmptyCard>
+      )}
+    </>
   );
 }
 
@@ -51,6 +59,20 @@ const Styled = {
     @media (max-width: 768px) {
       margin: 30px;
       row-gap: 20px;
+    }
+  `,
+  EmptyCard: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 380px;
+    .message {
+      color: #9d9d9d;
+      font-family: Poppins;
+      font-size: 30px;
+      font-weight: 600;
+      font-style: normal;
     }
   `,
 };

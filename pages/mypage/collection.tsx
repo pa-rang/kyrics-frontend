@@ -17,7 +17,7 @@ function Collection(): ReactElement {
   const pid = router.query;
   const [mySongs, setMySongs] = useState<boolean | undefined>();
   const [myVocab, setMyVocab] = useState<boolean | undefined>();
-
+  // const [isSongHere, setIsSongHere] = useState<boolean | undefined>(false);
   const setFirstState = () => {
     if (pid.type === 'mysongs') {
       setMySongs(true);
