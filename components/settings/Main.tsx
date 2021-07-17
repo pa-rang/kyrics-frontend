@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import useGetUser from 'hooks/useGetUser';
+import { useGetUser } from 'hooks/api';
 import { client } from 'lib/api';
 import React, { useRef, useState } from 'react';
+import { mutate } from 'swr';
 
 function Main() {
   const [isEditModalOpened, setIsEditModalOpened] = useState(false);
@@ -14,28 +15,22 @@ function Main() {
     return <div>Loading...</div>;
   }
 
-  const editEmail = () => {
+  const editEmail = async () => {
     setIsEditModalOpened(false);
 
     const inputTag = inputRef.current as HTMLInputElement;
     const edited = inputTag.value;
 
-    client
-      .patch('/user/email', {
-        email: edited,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    await client.patch('/user/email', {
+      email: edited,
+    });
+    mutate('/user');
   };
 
-  const DeleteAccount = () => {
+  const DeleteAccount = async () => {
     setIsDeleteModalOpened(false);
     setIsCompleteModalOpened(true);
-    client
+    await client
       .delete('/user')
       .then(function (response) {
         console.log(response);
@@ -43,6 +38,8 @@ function Main() {
       .catch(function (error) {
         console.log(error);
       });
+    mutate('/user');
+    localStorage.removeItem('userToken');
   };
 
   return (

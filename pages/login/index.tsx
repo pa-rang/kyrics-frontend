@@ -2,6 +2,7 @@ import LinedTitle from '@components/login/LinedTitle';
 import LoginLayout from '@components/login/LoginLayout';
 import styled from '@emotion/styled';
 import { client, KyricsResponse } from 'lib/api';
+import { isProduction } from 'lib/constants/env';
 import { clickable } from 'lib/mixin';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -40,9 +41,13 @@ function Login() {
     mutate('/user');
 
     if (isNewUser) {
-      router.replace('/login/email');
+      isProduction
+        ? window.open('https://kyrics.vercel.app/login/email', '_self')
+        : window.open('http://localhost:3000/login/email', '_self');
     } else {
-      router.replace('/');
+      isProduction
+        ? window.open('https://kyrics.vercel.app', '_self')
+        : window.open('http://localhost:3000', '_self');
     }
   };
 

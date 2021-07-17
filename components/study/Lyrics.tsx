@@ -198,7 +198,7 @@ const Styled = {
   Root: styled.div<StyledProps>`
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     width: 100%;
     max-width: 780px;
     .textSizeController {
@@ -331,7 +331,7 @@ const Styled = {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    /* justify-content: center; */
     width: 100%;
     height: 100%;
   `,
