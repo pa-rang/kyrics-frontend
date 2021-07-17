@@ -26,6 +26,7 @@ function ArtistCard({ id, profileImage, logo, name }: Props) {
 
   function handleOnClick() {
     artistCardLogger.click('artist', { name });
+
     router.push(`artist/${id}`);
   }
 
