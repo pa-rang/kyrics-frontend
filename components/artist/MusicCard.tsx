@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { getPageLogger } from 'lib/utils/amplitude';
 import router from 'next/router';
 import React, { ReactElement, useRef, useState } from 'react';
 
@@ -10,6 +11,8 @@ interface Props {
 }
 
 type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
+
+const musicCardLogger = getPageLogger('music_card');
 
 function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   const [isHover, setIsHover] = useState<HoverState>('idle');
@@ -35,6 +38,11 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   }
 
   function handleOnClick() {
+    musicCardLogger.click('song', {
+      artist,
+      songTitle: title,
+    });
+
     router.push(`/study/${songId}`);
   }
 
