@@ -29,6 +29,7 @@ function ArtistCarousel() {
               <ArtistCard
                 key={artist.id}
                 id={artist.id}
+                name={artist.name}
                 profileImage={artist.profileImageUrl}
                 logo={artist.logoImageUrl}
               />

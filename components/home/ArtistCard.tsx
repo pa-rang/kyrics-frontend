@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { getPageLogger } from 'lib/utils/amplitude';
 import router from 'next/router';
 import React, { useState } from 'react';
 
@@ -7,9 +8,12 @@ interface Props {
   id: number;
   profileImage: string;
   logo: string;
+  name: string;
 }
 
-function ArtistCard({ id, profileImage, logo }: Props) {
+const artistCardLogger = getPageLogger('artist_card');
+
+function ArtistCard({ id, profileImage, logo, name }: Props) {
   const [isHover, setIsHover] = useState<HoverState>('idle');
 
   function handleMouseEnter() {
@@ -21,6 +25,7 @@ function ArtistCard({ id, profileImage, logo }: Props) {
   }
 
   function handleOnClick() {
+    artistCardLogger.click('artist', { name });
     router.push(`artist/${id}`);
   }
 
