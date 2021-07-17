@@ -22,7 +22,7 @@ function ProfileMenu(): ReactElement {
         }
       >
         <img className="option__icon" src="/assets/icons/IcMySong.svg" alt=""></img>
-        <p className="option__label">My songs</p>
+        <p className="option__label">My Songs</p>
         <div className="option__border"></div>
       </button>
       <button
@@ -35,7 +35,7 @@ function ProfileMenu(): ReactElement {
         }
       >
         <img className="option__icon" src="/assets/icons/IcMyVoca.svg" alt=""></img>
-        <p className="option__label">My vocab</p>
+        <p className="option__label">My Vocab</p>
       </button>
     </Wrap>
   );
