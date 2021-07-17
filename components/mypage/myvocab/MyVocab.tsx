@@ -6,12 +6,13 @@ import useSWR from 'swr';
 import { IMyVocab } from 'types';
 
 function MyVocab() {
-  const { data } = useSWR<{ data: IMyVocab[] }>('/user/vocab', client.get);
+  const { data } = useSWR<{ data: { data: IMyVocab[] } }>('/user/vocab', client.get);
   const [keyExpressions, setKeyExpressions] = useState<IMyVocab[]>();
 
+  console.log(data?.data?.data);
+
   useEffect(() => {
-    console.log(data);
-    const keys = data?.data as any;
+    const keys = data?.data?.data as any;
 
     setKeyExpressions(keys);
   }, [data]);
