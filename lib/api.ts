@@ -24,4 +24,3 @@ export const client = axios.create({
 export const clientWithoutToken = axios.create({
   baseURL: 'https://kyricserver.com',
 });
-
