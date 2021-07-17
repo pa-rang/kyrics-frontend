@@ -124,7 +124,7 @@ function PlayerBtns() {
 
       <img
         className="YoutubeIcon"
-        src="/assets/icons/youtubeIcon.svg"
+        src="/assets/icons/YoutubeIcon.svg"
         alt="youtube"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
