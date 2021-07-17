@@ -1,15 +1,13 @@
 import Footer from '@components/common/Footer';
 import Header from '@components/common/Header';
-import MySongItem from '@components/mypage/mysong/MySongItem';
+import Mysong from '@components/mypage/mysong/Mysong';
+import MyVocab from '@components/mypage/myvocab/MyVocab';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { mockClient } from 'lib/api';
+import { client, mockClient } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
-import useSWR from 'swr';
 
-import { IMySongItem } from '../../types';
-import MyVocab from './MyVocab';
 interface StyledProps {
   mySongs: boolean | undefined;
   myVocab: boolean | undefined;
@@ -20,11 +18,8 @@ function Collection(): ReactElement {
   const pid = router.query;
   const [mySongs, setMySongs] = useState<boolean | undefined>();
   const [myVocab, setMyVocab] = useState<boolean | undefined>();
-  const { data } = useSWR('mysongs', (url) => mockClient.get(url));
 
-  console.log(data?.data);
   const setFirstState = () => {
-    console.log(pid);
     if (pid.type === 'mysongs') {
       setMySongs(true);
       setMyVocab(false);
@@ -60,17 +55,7 @@ function Collection(): ReactElement {
           </button>
         </div>
       </Styled.MyCollection>
-      <Styled.DrawCard>
-        <div className="card-item">
-          {data?.data && pid.type === 'mysongs' ? (
-            data?.data.map((data: IMySongItem, index: React.Key) => {
-              return <MySongItem mySongData={data} key={index} />;
-            })
-          ) : (
-            <MyVocab />
-          )}
-        </div>
-      </Styled.DrawCard>
+      <Styled.DrawCard>{pid.type === 'mysongs' ? <Mysong /> : <MyVocab />}</Styled.DrawCard>
       <Footer />
     </>
   );
@@ -96,6 +81,9 @@ const Styled = {
       font-size: 24px;
       font-weight: bold;
       font-style: normal;
+      @media (max-width: 768px) {
+        font-size: 16px;
+      }
     }
     .my-collection {
       display: flex;
@@ -126,14 +114,5 @@ const Styled = {
     justify-content: center;
     background: #f9fbfd;
     width: 100%;
-
-    .card-item {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
-      column-gap: 25px;
-      margin: 74px 32px;
-      width: 1070px;
-      row-gap: 25px;
-    }
   `,
 };

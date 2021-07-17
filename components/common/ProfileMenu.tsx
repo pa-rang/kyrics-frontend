@@ -48,6 +48,7 @@ const Wrap = styled.div`
   right: 0px;
   flex-direction: column;
   align-items: center;
+  z-index: 1000;
   border-radius: 16px;
   box-shadow: 3px 3px 7px 4px rgba(98, 98, 98, 0.12);
   background: #f8fafc;

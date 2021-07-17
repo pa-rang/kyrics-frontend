@@ -40,8 +40,6 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   }
 
   function isEllipsisActive(e: any) {
-    console.log(e.current.offsetWidth, e.current.scrollWidth);
-
     // setTextWidth({ offset: e.current.offsetWidth, scroll: e.current.scrollWidth });
 
     return e.current.offsetWidth < e.current.scrollWidth;
