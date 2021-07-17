@@ -2,6 +2,7 @@ import LoginModal from '@components/common/LoginModal';
 import styled from '@emotion/styled';
 import { FavoriteIcon, favoriteSong } from '@public/assets';
 import { useGetUser } from 'hooks/api';
+import { FavoriteIcon2, FavoriteYellowIcon } from '@public/assets';
 import { client } from 'lib/api';
 import React, { useState } from 'react';
 import { mutate } from 'swr';
@@ -33,7 +34,7 @@ function FavoriteButton({ id, isSaved, type, songId }: Props) {
   return (
     <Styled.Root
       type={type}
-      src={isSaved ? favoriteSong.src : FavoriteIcon.src}
+      src={isSaved ? FavoriteYellowIcon.src : FavoriteIcon2.src}
       onClick={() => handleClick(id)}
     >
       {isLoginModalOpened && <LoginModal setIsLoginModalOpened={setIsLoginModalOpened} />}
