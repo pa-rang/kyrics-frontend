@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FavoriteIcon, favoriteSong } from '@public/assets';
+import { FavoriteIcon2, FavoriteYellowIcon } from '@public/assets';
 import { client } from 'lib/api';
 import React from 'react';
 import { mutate } from 'swr';
@@ -24,7 +24,7 @@ function FavoriteButton({ id, isSaved, type, songId }: Props) {
   return (
     <Styled.Root
       type={type}
-      src={isSaved ? favoriteSong.src : FavoriteIcon.src}
+      src={isSaved ? FavoriteYellowIcon.src : FavoriteIcon2.src}
       onClick={() => handleClick(id)}
     />
   );
