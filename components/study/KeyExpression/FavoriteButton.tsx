@@ -16,18 +16,21 @@ interface Props {
 function FavoriteButton({ id, isSaved, type, songId }: Props) {
   const user = useGetUser();
   const [isLoginModalOpened, setIsLoginModalOpened] = useState(false);
+
   const handleClick = async (id: number) => {
     if (!user) {
       setIsLoginModalOpened(true);
 
       return;
     }
+
     if (isSaved) {
       await client.delete(`/user/vocab/${id}`);
     } else {
       await client.post(`/user/vocab/${id}`);
     }
-    songId && mutate(`/song/${songId}/vocab`);
+
+    songId ? mutate(`/song/${songId}/vocab`) : mutate('/user/vocab');
   };
 
   return (
