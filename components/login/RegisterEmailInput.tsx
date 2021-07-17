@@ -8,6 +8,8 @@ import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { User } from 'types';
 
+import SubscribeModal from './SubscribeModal';
+
 function RegisterEmailInput() {
   const router = useRouter();
   const [inputValue, setInputValue] = useState('');
@@ -25,27 +27,12 @@ function RegisterEmailInput() {
     e.preventDefault();
     setInputValue(e.target.value);
   };
-
+  const [isSubscribeModalOpened, setIsSubscribeModalOpened] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (inputValue === email) {
-      setSnackbarMessage('이메일이 동일합니다.');
-
-      return;
-    }
-
-    const { data } = await client.patch<KyricsResponse<Pick<User, 'name' | 'email'>>>(
-      '/user/email',
-      {
-        email: inputValue,
-      },
-    );
-
-    setSnackbarMessage(`We'll get in touch with you with ${data.data.email}`);
+    setIsSubscribeModalOpened(true);
     setInputValue('');
-
-    router.push('/');
   };
 
   return (
@@ -69,10 +56,13 @@ function RegisterEmailInput() {
         message={snackbarMessage}
         action={
           <Button color="secondary" size="small" onClick={() => setSnackbarMessage(null)}>
-            홈으로 가기
+            Back
           </Button>
         }
       />
+      {isSubscribeModalOpened && (
+        <SubscribeModal setIsSubscribeModalOpened={setIsSubscribeModalOpened} email={email} />
+      )}
     </>
   );
 }
