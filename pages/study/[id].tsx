@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
 import useWindowSize from 'hooks/useWindowSize';
-import { client } from 'lib/api';
+import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
@@ -42,7 +42,7 @@ function Study(): ReactElement {
   const {
     query: { id },
   } = router;
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
   const url = data?.data?.data?.youtubeUrl;
   const user = useGetUser();
 

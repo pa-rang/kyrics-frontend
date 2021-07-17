@@ -21,10 +21,7 @@ export const client = axios.create({
   },
 });
 
-// export const clientWithToken = (token: string) => {
-//   const headers = {
-//     'x-access-token': token,
-//   };
+export const clientWithoutToken = axios.create({
+  baseURL: 'https://kyricserver.com',
+});
 
-//   return axios.create({ baseURL: 'https://kyricserver.com', headers });
-// };
