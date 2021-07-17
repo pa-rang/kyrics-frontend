@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { defaultSWROptions } from 'hooks/api';
-import { client, KyricsSWRResponse } from 'lib/api';
+import { client, clientWithoutToken, KyricsSWRResponse } from 'lib/api';
 import { useRouter } from 'next/router';
 import React from 'react';
 import useSWR from 'swr';
@@ -17,7 +17,7 @@ function KeyExpression() {
 
   const { data: keyExpressionsData } = useSWR<KyricsSWRResponse<IMyVocab[]>>(
     `/song/${songId}/vocab`,
-    client.get,
+    clientWithoutToken.get,
     defaultSWROptions,
   );
   const keyExpressions = keyExpressionsData?.data.data;
