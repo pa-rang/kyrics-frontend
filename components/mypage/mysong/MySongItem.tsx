@@ -13,16 +13,13 @@ interface mySongItemProps {
 function MySongItem({ mySongData, id }: mySongItemProps) {
   const router = useRouter();
   const handleDelete = async () => {
-    console.log('handleDelete');
     await client.delete(`user/song/${id}`);
 
     mutate('/user/song');
   };
   const handleRoute = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    console.log('handleRoute');
     const target = e.target as HTMLDivElement;
 
-    console.log(target.tagName);
     if (target.tagName === 'BUTTON') {
       client.delete(`user/song/${id}`);
 

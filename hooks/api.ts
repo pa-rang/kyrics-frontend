@@ -10,7 +10,5 @@ export const defaultSWROptions: SWRConfiguration = {
 export const useGetUser = () => {
   const { data } = useSWR<KyricsSWRResponse<User>>('/user', client.get, defaultSWROptions);
 
-  console.log('data', data);
-
   return data?.data?.data;
 };

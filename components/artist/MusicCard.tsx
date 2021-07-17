@@ -21,7 +21,6 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
     // if (isEllipsisActive(songTitle)) {
     //   const title = songTitle.current as any;
 
-    //   console.log(title.style.display);
     //   title && (title.style.visibility = 'visible');
     // }
   }

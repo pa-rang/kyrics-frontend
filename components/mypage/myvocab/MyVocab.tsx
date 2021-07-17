@@ -9,8 +9,6 @@ function MyVocab() {
   const { data } = useSWR<{ data: { data: IMyVocab[] } }>('/user/vocab', client.get);
   const [keyExpressions, setKeyExpressions] = useState<IMyVocab[]>();
 
-  console.log(data?.data?.data);
-
   useEffect(() => {
     const keys = data?.data?.data as any;
 

@@ -1,16 +1,12 @@
 import styled from '@emotion/styled';
 import { client } from 'lib/api';
-import React, { useEffect } from 'react';
+import React from 'react';
 import useSWR from 'swr';
 import { IMySongItem } from 'types';
 
 import MySongItem from './MySongItem';
 function Mysong() {
   const { data } = useSWR<{ data: { data: IMySongItem[] } }>('/user/song', client.get);
-
-  useEffect(() => {
-    console.log(data?.data?.data);
-  }, [data]);
 
   return (
     <Styled.Card>

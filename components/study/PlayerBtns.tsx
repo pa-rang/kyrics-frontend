@@ -53,7 +53,6 @@ function PlayerBtns() {
   };
 
   const handleCopy = () => {
-    console.log(router);
     setIsCopyMsgOpen(true);
     setTimeout(() => {
       setIsCopyMsgOpen(false);

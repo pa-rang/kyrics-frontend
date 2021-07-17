@@ -21,8 +21,6 @@ function Artist(): ReactElement {
   const { data } = useSWR<{ data: Songs }>(`/artist/${id}`, client.get);
   const songs = data?.data.data;
 
-  console.log('songs', songs);
-
   return (
     <div>
       <Header />

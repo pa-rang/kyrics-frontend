@@ -64,7 +64,6 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {
-    console.log(window.outerWidth);
     setWidth(window.outerWidth);
   }, []);
 

@@ -14,10 +14,6 @@ function Header() {
   const router = useRouter();
   const user = useGetUser();
 
-  console.log('user', user);
-
-  console.log('localStorage.getItem("userToken")', isServer || localStorage.getItem('userToken'));
-
   function handleLogoClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     router.push('/');
