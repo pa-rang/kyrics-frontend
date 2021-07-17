@@ -46,12 +46,6 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
     router.push(`/study/${songId}`);
   }
 
-  function isEllipsisActive(e: any) {
-    // setTextWidth({ offset: e.current.offsetWidth, scroll: e.current.scrollWidth });
-
-    return e.current.offsetWidth < e.current.scrollWidth;
-  }
-
   return (
     <Styled.Root
       isHovered={isHover}
