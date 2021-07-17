@@ -7,7 +7,7 @@ import { mutate } from 'swr';
 function Main() {
   const [isEditModalOpened, setIsEditModalOpened] = useState(false);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
-  const [isCompleteModalOpened, setIsCompleteModalOpened] = useState(false);
+  // const [isCompleteModalOpened, setIsCompleteModalOpened] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const user = useGetUser();
 
@@ -28,17 +28,11 @@ function Main() {
   };
 
   const DeleteAccount = async () => {
-    setIsDeleteModalOpened(false);
-    setIsCompleteModalOpened(true);
-    await client
-      .delete('/user')
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    await client.delete('/user');
     mutate('/user');
+    setIsDeleteModalOpened(false);
+    // setIsCompleteModalOpened(true);
+
     localStorage.removeItem('userToken');
   };
 
@@ -109,7 +103,7 @@ function Main() {
           </Styled.EditModal>
         </Styled.EditModalWrapper>
       )}
-      {isCompleteModalOpened && (
+      {/* {isCompleteModalOpened && (
         <Styled.EditModalWrapper>
           <Styled.EditModal>
             <Styled.EditModalHeader></Styled.EditModalHeader>
@@ -123,7 +117,7 @@ function Main() {
             </Styled.EditModalMain>
           </Styled.EditModal>
         </Styled.EditModalWrapper>
-      )}
+      )} */}
     </Styled.Root>
   );
 }
