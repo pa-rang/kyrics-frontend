@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { client } from 'lib/api';
+import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -27,7 +27,7 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   const {
     query: { id },
   } = router;
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
 
   useEffect(() => {
     setTimedtext(data?.data?.data?.lyrics);

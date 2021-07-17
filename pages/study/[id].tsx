@@ -43,6 +43,8 @@ function Study(): ReactElement {
     query: { id },
   } = router;
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
+
+  console.log('clientWithoutToken', data);
   const url = data?.data?.data?.youtubeUrl;
   const user = useGetUser();
 
