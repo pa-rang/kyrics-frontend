@@ -51,7 +51,8 @@ function Login() {
     }
   };
 
-  const handleGoogleLoginFailure = () => {
+  const handleGoogleLoginFailure = (error: any) => {
+    console.error('Google Login Failure', error);
     alert('로그인에 실패햐였습니다. 다시 시도해주세요.');
   };
 
