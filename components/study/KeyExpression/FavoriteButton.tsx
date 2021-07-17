@@ -31,13 +31,14 @@ function FavoriteButton({ id, isSaved, type, songId }: Props) {
   };
 
   return (
-    <Styled.Root
-      type={type}
-      src={isSaved ? FavoriteYellowIcon.src : FavoriteIcon2.src}
-      onClick={() => handleClick(id)}
-    >
+    <>
+      <Styled.Root
+        type={type}
+        src={isSaved ? FavoriteYellowIcon.src : FavoriteIcon2.src}
+        onClick={() => handleClick(id)}
+      />
       {isLoginModalOpened && <LoginModal setIsLoginModalOpened={setIsLoginModalOpened} />}
-    </Styled.Root>
+    </>
   );
 }
 
