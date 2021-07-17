@@ -1,7 +1,14 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import React from 'react';
 
-function LoginModal() {
+interface Props {
+  setIsLoginModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function LoginModal({ setIsLoginModalOpened }: Props) {
+  const router = useRouter();
+
   return (
     <Styled.ModalWrapper>
       <Styled.Modal>
@@ -9,10 +16,16 @@ function LoginModal() {
         <Styled.ModalMain>
           <Styled.ModalText>Login Needed</Styled.ModalText>
           <Styled.ModalButton>
-            <button onClick={() => setIsLoginModalOpened(false)} aria-hidden="true">
+            <button
+              onClick={() => setIsLoginModalOpened(false)}
+              aria-hidden="true"
+              className="cancel"
+            >
               Cancel
             </button>
-            <button className="deleteBtn">Delete</button>
+            <button className="goToLogin" onClick={() => router.push('/login')}>
+              Go to Login
+            </button>
           </Styled.ModalButton>
         </Styled.ModalMain>
       </Styled.Modal>
@@ -30,6 +43,7 @@ const Styled = {
     left: 0;
     align-items: center;
     justify-content: center;
+    z-index: 10000;
     background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
     height: 100%;
@@ -94,7 +108,7 @@ const Styled = {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
-    width: 170px;
+    width: 200px;
     button {
       outline: 0;
       border: 0;
@@ -106,14 +120,9 @@ const Styled = {
       color: #ffffff;
       font-size: 12px;
     }
-    .EditCancel:hover {
+    .goToLogin {
       background-color: #6465f4;
-    }
-    .EditSave:hover {
-      background-color: #6465f4;
-    }
-    .deleteBtn {
-      background-color: red;
+      width: 100px;
     }
   `,
 };
