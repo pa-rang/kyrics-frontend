@@ -21,11 +21,9 @@ function Artist(): ReactElement {
   const { data } = useSWR<{ data: Songs }>(`/artist/${id}`, client.get);
   const songs = data?.data.data;
 
-  console.log('songs', songs);
-
   return (
     <div>
-      <Header isLoggedIn={true} />
+      <Header />
       {songs && <ArtistBanner name={songs.artist} bgImg={songs?.backgroundImageUrl} />}
       {songs && <NewlyAdded songs={songs?.songs} />}
       <Footer />

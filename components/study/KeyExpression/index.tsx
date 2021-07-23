@@ -1,30 +1,33 @@
 import styled from '@emotion/styled';
-import { client, KyricsSWRResponse } from 'lib/api';
+import { defaultSWROptions } from 'hooks/api';
+import { client, clientWithoutToken, KyricsSWRResponse } from 'lib/api';
 import { useRouter } from 'next/router';
 import React from 'react';
 import useSWR from 'swr';
 import { IMyVocab } from 'types';
 
 import KeyExpressionItem from './KeyExpressionItem';
+import LookingMore from './LookingMore';
 
 function KeyExpression() {
   const router = useRouter();
   const {
-    query: { id },
+    query: { id: songId },
   } = router;
 
-  const { data } = useSWR<KyricsSWRResponse<IMyVocab[]>>(`/song/${id}/vocab`, client.get, {
-    revalidateOnFocus: false,
-    errorRetryCount: 3,
-  });
-
-  const keyExpressions = data?.data.data;
+  const { data: keyExpressionsData } = useSWR<KyricsSWRResponse<IMyVocab[]>>(
+    `/song/${songId}/vocab`,
+    clientWithoutToken.get,
+    defaultSWROptions,
+  );
+  const keyExpressions = keyExpressionsData?.data.data;
 
   return (
     <Styled.Root>
       <Styled.Title>Key Expression</Styled.Title>
+      <LookingMore />
       <Styled.KeyExpressionWrapper>
-        {keyExpressions?.map(({ id, eng, engExample, kor, korExample }) => (
+        {keyExpressions?.map(({ id, eng, engExample, kor, korExample, isSaved }) => (
           <KeyExpressionItem
             key={kor}
             type="line-left"
@@ -34,8 +37,9 @@ function KeyExpression() {
             kor={kor}
             korExample={korExample}
             style={{ marginBottom: '12px' }}
-            myvocab={false}
+            isSaved={isSaved}
             id={id}
+            songId={Number(songId)}
           />
         ))}
       </Styled.KeyExpressionWrapper>

@@ -2,10 +2,12 @@ import LinedTitle from '@components/login/LinedTitle';
 import LoginLayout from '@components/login/LoginLayout';
 import styled from '@emotion/styled';
 import { client, KyricsResponse } from 'lib/api';
+import { isProduction } from 'lib/constants/env';
 import { clickable } from 'lib/mixin';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { mutate } from 'swr';
 import { LoginResponse } from 'types';
 
 function Login() {
@@ -36,15 +38,21 @@ function Login() {
     const { token, isNewUser } = data?.data;
 
     localStorage.setItem('userToken', token);
+    mutate('/user');
 
     if (isNewUser) {
-      router.replace('/login/email');
+      isProduction
+        ? window.open('https://kyrics.vercel.app/login/email', '_self')
+        : window.open('http://localhost:3000/login/email', '_self');
     } else {
-      router.replace('/');
+      isProduction
+        ? window.open('https://kyrics.vercel.app', '_self')
+        : window.open('http://localhost:3000', '_self');
     }
   };
 
-  const handleGoogleLoginFailure = () => {
+  const handleGoogleLoginFailure = (error: any) => {
+    console.error('Google Login Failure', error);
     alert('로그인에 실패햐였습니다. 다시 시도해주세요.');
   };
 

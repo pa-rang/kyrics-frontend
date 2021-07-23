@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { getPageLogger } from 'lib/utils/amplitude';
 import router from 'next/router';
 import React, { ReactElement, useRef, useState } from 'react';
 
@@ -11,6 +12,8 @@ interface Props {
 
 type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
 
+const musicCardLogger = getPageLogger('music_card');
+
 function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   const [isHover, setIsHover] = useState<HoverState>('idle');
   const songTitle = useRef<HTMLParagraphElement>(null);
@@ -21,7 +24,6 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
     // if (isEllipsisActive(songTitle)) {
     //   const title = songTitle.current as any;
 
-    //   console.log(title.style.display);
     //   title && (title.style.visibility = 'visible');
     // }
   }
@@ -36,13 +38,12 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   }
 
   function handleOnClick() {
+    musicCardLogger.click('song', {
+      artist,
+      songTitle: title,
+    });
+
     router.push(`/study/${songId}`);
-  }
-
-  function isEllipsisActive(e: any) {
-    // setTextWidth({ offset: e.current.offsetWidth, scroll: e.current.scrollWidth });
-
-    return e.current.offsetWidth < e.current.scrollWidth;
   }
 
   return (

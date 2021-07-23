@@ -1,68 +1,54 @@
 import styled from '@emotion/styled';
-import { client, mockClient } from 'lib/api';
+import { useGetUser } from 'hooks/api';
+import { client } from 'lib/api';
 import React, { useRef, useState } from 'react';
-import useSWR from 'swr';
-
-interface IUserData {
-  id: number;
-  name: string;
-  email: string;
-  profileImageUrl: string;
-}
+import { mutate } from 'swr';
 
 function Main() {
   const [isEditModalOpened, setIsEditModalOpened] = useState(false);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
-  const [isCompleteModalOpened, setIsCompleteModalOpened] = useState(false);
-  const { data } = useSWR<{ data: IUserData }>('/userdata', mockClient.get);
-  const userData = data?.data;
+  // const [isCompleteModalOpened, setIsCompleteModalOpened] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const user = useGetUser();
 
-  const editEmail = () => {
+  if (user == undefined) {
+    return <div>Loading...</div>;
+  }
+
+  const editEmail = async () => {
     setIsEditModalOpened(false);
 
     const inputTag = inputRef.current as HTMLInputElement;
     const edited = inputTag.value;
 
-    client
-      .patch('/user/email', {
-        email: edited,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    await client.patch('/user/email', {
+      email: edited,
+    });
+    mutate('/user');
   };
 
-  const DeleteAccount = () => {
+  const DeleteAccount = async () => {
+    await client.delete('/user');
+    mutate('/user');
     setIsDeleteModalOpened(false);
-    setIsCompleteModalOpened(true);
-    client
-      .delete('/user')
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // setIsCompleteModalOpened(true);
+
+    localStorage.removeItem('userToken');
   };
 
   return (
     <Styled.Root>
       <Styled.Blank></Styled.Blank>
       <Styled.Container>
-        <img src={userData?.profileImageUrl} alt="profile" />
-        {/* <img src="/assets/images/profileExample.svg" alt="profile" /> */}
-        <Styled.Name>{userData?.name}</Styled.Name>
-        <Styled.Email>{userData?.email}</Styled.Email>
+        <img src={user.profileImageUrl} alt="profile" />
+        <Styled.Name>{user.name}</Styled.Name>
+        <Styled.Email>{user.email}</Styled.Email>
         <Styled.Desc>
-          <img src="/assets/icons/emailIcon.svg" alt="email" />
+          <img src="/assets/icons/emailIcon.svg" alt="email" width={18} />
           <span>Email Address</span>
         </Styled.Desc>
         <Styled.Edit onClick={() => setIsEditModalOpened(true)} aria-hidden="true">
-          {userData?.email}
+          {user.email}
           <img src="/assets/icons/editIcon.svg" alt="edit" />
         </Styled.Edit>
         <Styled.Delete onClick={() => setIsDeleteModalOpened(true)} aria-hidden="true">
@@ -78,7 +64,7 @@ function Main() {
               <Styled.EditModalText>
                 Insert new email address to get latest from Kyrics
               </Styled.EditModalText>
-              <input type="text" defaultValue={userData?.email} ref={inputRef} />
+              <input type="text" defaultValue={user.email} ref={inputRef} />
               <Styled.EditModalButton>
                 <button
                   className="EditCancel"
@@ -117,7 +103,7 @@ function Main() {
           </Styled.EditModal>
         </Styled.EditModalWrapper>
       )}
-      {isCompleteModalOpened && (
+      {/* {isCompleteModalOpened && (
         <Styled.EditModalWrapper>
           <Styled.EditModal>
             <Styled.EditModalHeader></Styled.EditModalHeader>
@@ -131,7 +117,7 @@ function Main() {
             </Styled.EditModalMain>
           </Styled.EditModal>
         </Styled.EditModalWrapper>
-      )}
+      )} */}
     </Styled.Root>
   );
 }
@@ -194,7 +180,7 @@ const Styled = {
   Email: styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     color: #9d9d9d;
     font-size: 16px;
     font-weight: 500;

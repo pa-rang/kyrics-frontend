@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useMobile } from 'hooks/useMobile';
 import React, { ReactElement } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
@@ -44,6 +45,7 @@ function PlayController({
   const data = useRecoilValue(songDataState);
   const title = data?.title;
   const artist = data?.artist;
+  const isMobile = useMobile();
 
   const currentTimeForm =
     currentTime % 60 <= 9
@@ -109,29 +111,33 @@ function PlayController({
         isLooped={loop}
         volume={volumeBar}
       >
-        <div
-          className="volume"
-          onMouseEnter={mouseEnterController}
-          onMouseLeave={mouseLeaveController}
-        >
-          <button className="volume__btn"></button>
-          <input
-            className="volume__bar"
-            type="range"
-            min={0}
-            max={100}
-            value={volumeBar}
-            onInput={handleVolumeChange}
-          />
-        </div>
-        <div className="replay">
-          <button className="replay__btn" onClick={handleLoop}></button>
-          {loop ? (
-            <button className="replay__onoff">on</button>
-          ) : (
-            <button className="replay__onoff">off</button>
-          )}
-        </div>
+        {isMobile || (
+          <div
+            className="volume"
+            onMouseEnter={mouseEnterController}
+            onMouseLeave={mouseLeaveController}
+          >
+            <button className="volume__btn"></button>
+            <input
+              className="volume__bar"
+              type="range"
+              min={0}
+              max={100}
+              value={volumeBar}
+              onInput={handleVolumeChange}
+            />
+          </div>
+        )}
+        {isMobile || (
+          <div className="replay">
+            <button className="replay__btn" onClick={handleLoop}></button>
+            {loop ? (
+              <button className="replay__onoff">on</button>
+            ) : (
+              <button className="replay__onoff">off</button>
+            )}
+          </div>
+        )}
       </Styled.EnvironmentControl>
     </Styled.Root>
   );

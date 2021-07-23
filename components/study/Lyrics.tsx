@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { client } from 'lib/api';
+import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -27,8 +27,7 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   const {
     query: { id },
   } = router;
-  // const { data } = useSWR('song-1', (url) => mockClient.get(url));
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
 
   useEffect(() => {
     setTimedtext(data?.data?.data?.lyrics);
@@ -65,7 +64,6 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {
-    console.log(window.outerWidth);
     setWidth(window.outerWidth);
   }, []);
 
@@ -199,7 +197,7 @@ const Styled = {
   Root: styled.div<StyledProps>`
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     width: 100%;
     max-width: 780px;
     .textSizeController {
@@ -332,7 +330,7 @@ const Styled = {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    /* justify-content: center; */
     width: 100%;
     height: 100%;
   `,

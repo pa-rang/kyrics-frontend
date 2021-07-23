@@ -4,7 +4,6 @@ import Mysong from '@components/mypage/mysong/Mysong';
 import MyVocab from '@components/mypage/myvocab/MyVocab';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { client, mockClient } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
 
@@ -18,7 +17,7 @@ function Collection(): ReactElement {
   const pid = router.query;
   const [mySongs, setMySongs] = useState<boolean | undefined>();
   const [myVocab, setMyVocab] = useState<boolean | undefined>();
-
+  // const [isSongHere, setIsSongHere] = useState<boolean | undefined>(false);
   const setFirstState = () => {
     if (pid.type === 'mysongs') {
       setMySongs(true);
@@ -44,7 +43,7 @@ function Collection(): ReactElement {
 
   return (
     <>
-      <Header isLoggedIn={true} />
+      <Header />
       <Styled.MyCollection mySongs={mySongs} myVocab={myVocab}>
         <div className="my-collection">
           <button className="my-collection__song" onClick={clickSongs}>

@@ -3,8 +3,9 @@ import Lyrics from '@components/study/Lyrics';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useGetUser } from 'hooks/api';
 import useWindowSize from 'hooks/useWindowSize';
-import { client } from 'lib/api';
+import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
@@ -41,9 +42,10 @@ function Study(): ReactElement {
   const {
     query: { id },
   } = router;
-  // const { data } = useSWR('song-1', (url) => mockClient.get(url));
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
+
   const url = data?.data?.data?.youtubeUrl;
+  const user = useGetUser();
 
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?
@@ -141,7 +143,7 @@ function Study(): ReactElement {
 
   return (
     <Styled.Root isModalOpened={isModalOpened}>
-      <Header isLoggedIn={true} />
+      <Header />
       <Styled.ModalWrapper isModalOpened={isModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
