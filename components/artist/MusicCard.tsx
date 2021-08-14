@@ -1,28 +1,48 @@
 import styled from '@emotion/styled';
+import { getPageLogger } from 'lib/utils/amplitude';
 import router from 'next/router';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useRef, useState } from 'react';
 
 interface Props {
   title: string;
-  artist: string[];
+  artist: string;
   albumImg: string;
   songId: number;
 }
 
 type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
 
+const musicCardLogger = getPageLogger('music_card');
+
 function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   const [isHover, setIsHover] = useState<HoverState>('idle');
+  const songTitle = useRef<HTMLParagraphElement>(null);
+  const [textWidth, setTextWidth] = useState({ offset: 0, scroll: 0 });
 
   function handleMouseEnter() {
     setIsHover('MouseEnter');
+    // if (isEllipsisActive(songTitle)) {
+    //   const title = songTitle.current as any;
+
+    //   title && (title.style.visibility = 'visible');
+    // }
   }
 
   function handleMouseLeave() {
     setIsHover('MouseLeave');
+    // if (isEllipsisActive(songTitle)) {
+    //   const title = songTitle.current as any;
+
+    //   title && (title.style.visibility = 'hidden');
+    // }
   }
 
   function handleOnClick() {
+    musicCardLogger.click('song', {
+      artist,
+      songTitle: title,
+    });
+
     router.push(`/study/${songId}`);
   }
 
@@ -34,13 +54,22 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
       onClick={handleOnClick}
     >
       <img className="img" src={albumImg} alt=""></img>
-
       <div className="hover">
         <p className="hover__label">Explore &gt;</p>
         <img className="hover__play" src="/assets/icons/playBtn.svg" alt=""></img>
       </div>
+      {/* {isHover === 'MouseEnter' && isEllipsisActive ? (
+        <p className="songTitle__hover" ref={songTitle}>
+          {title}
+        </p>
+      ) : (
+        <p className="songTitle">{title}</p>
+      )} */}
+      {/* <p className="songTitle__hover" ref={songTitle}>
+        {title}
+      </p> */}
       <p className="songTitle">{title}</p>
-      <p className="artists">{artist.map((artist) => artist)}</p>
+      <p className="artists">{artist}</p>
     </Styled.Root>
   );
 }
@@ -53,12 +82,18 @@ const Styled = {
     padding: 0;
     width: 200px;
     height: 275px;
+    overflow: hidden;
 
     .img {
       border-radius: 10px;
       width: 200px;
       height: 200px;
       object-fit: cover;
+
+      @media (max-width: 547px) {
+        width: 98px;
+        height: 98px;
+      }
     }
 
     .hover {
@@ -87,16 +122,56 @@ const Styled = {
         font-size: 24px;
         font-weight: bold;
         font-style: normal;
+
+        @media (max-width: 547px) {
+          padding-top: 20px;
+          font-size: 15px;
+        }
       }
 
       &__play {
-        padding-top: 20px;
+        margin-top: 20px;
+        width: 30px;
+        height: 30px;
+
+        @media (max-width: 547px) {
+          margin-top: 5px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      @media (max-width: 547px) {
+        width: 98px;
+        height: 98px;
       }
     }
 
     .songTitle {
       margin-top: 17px;
+      padding: 0 5px;
+      overflow: hidden;
       text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #464646;
+      font-size: 24px;
+      font-weight: bold;
+      font-style: normal;
+
+      @media (max-width: 547px) {
+        margin-top: 6px;
+        font-size: 16px;
+      }
+    }
+
+    .songTitle__hover {
+      visibility: hidden;
+      margin-top: 17px;
+      padding: 0 5px;
+      animation: scroll-left 5s linear infinite;
+      text-align: left;
+      white-space: nowrap;
       color: #464646;
       font-size: 24px;
       font-weight: bold;
@@ -110,8 +185,19 @@ const Styled = {
       font-size: 16px;
       font-weight: 500;
       font-style: normal;
+
+      @media (max-width: 547px) {
+        margin-top: 0px;
+        font-size: 12px;
+      }
     }
 
+    @media (max-width: 547px) {
+      width: 98px;
+      height: 142px;
+    }
+
+    /* 페이드인 애니메이션 */
     @keyframes fadeIn {
       0% {
         visibility: hidden;
@@ -122,6 +208,8 @@ const Styled = {
         opacity: 1;
       }
     }
+
+    /* 페이드아웃 애니메이션 */
     @keyframes fadeOut {
       0% {
         visibility: visible;
@@ -130,6 +218,22 @@ const Styled = {
       100% {
         visibility: hidden;
         opacity: 0;
+      }
+    }
+
+    /* 글자 흐르는 애니메이션 */
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0%);
+      }
+      10% {
+        transform: translateX(0%);
+      }
+      60% {
+        transform: translateX(-120%);
+      }
+      60.0001% {
+        transform: translateX(120%);
       }
     }
   `,

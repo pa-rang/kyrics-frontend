@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
-import axios from 'axios';
-import useWindowSize from 'hooks/useWindowSize';
-import { client } from 'lib/api';
+import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -10,7 +8,6 @@ import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
 
 import { Alphabet, dropDownIcon, sizeDown, sizeUp } from '../../public/assets';
-import KeyExpression from './KeyExpression';
 import Quiz from './Quiz';
 
 interface Props {
@@ -30,10 +27,7 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   const {
     query: { id },
   } = router;
-  // const { data } = useSWR('song-1', (url) => mockClient.get(url));
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
-
-  const size = useWindowSize();
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
 
   useEffect(() => {
     setTimedtext(data?.data?.data?.lyrics);
@@ -70,7 +64,6 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {
-    console.log(window.outerWidth);
     setWidth(window.outerWidth);
   }, []);
 
@@ -87,7 +80,7 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   }, []);
 
   return (
-    <Styled.Root fontSize={fontSize} engTranslated={engTranslated} width={width}>
+    <Styled.Root fontSize={fontSize} engTranslated={engTranslated}>
       <Styled.Lyrics>
         <Styled.Title>Lyrics</Styled.Title>
         <Styled.Main>
@@ -189,7 +182,6 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
           )}
         </Styled.Main>
       </Styled.Lyrics>
-      {size && size.width > 1080 && <KeyExpression />}
     </Styled.Root>
   );
 }
@@ -199,15 +191,15 @@ export default Lyrics;
 interface StyledProps {
   fontSize: string;
   engTranslated: boolean;
-  width: number;
 }
 
 const Styled = {
   Root: styled.div<StyledProps>`
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 0px ${({ width }) => (141 * width) / 1440}px;
+    /* justify-content: center; */
+    width: 100%;
+    max-width: 780px;
     .textSizeController {
       position: absolute;
       top: 136px;
@@ -338,7 +330,7 @@ const Styled = {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    /* justify-content: center; */
     width: 100%;
     height: 100%;
   `,

@@ -1,5 +1,6 @@
 import PlayerBtns from '@components/study/PlayerBtns';
 import styled from '@emotion/styled';
+import { useMobile } from 'hooks/useMobile';
 import React, { ReactElement } from 'react';
 import { useRecoilValue } from 'recoil';
 import { songDataState } from 'states';
@@ -8,12 +9,13 @@ import { PlayerProps } from 'types';
 import PlayController from './PlayController';
 
 function Player({ handleSeekTime, handleBackTime, handleForwardTime }: PlayerProps): ReactElement {
+  const isMobile = useMobile();
   const data = useRecoilValue(songDataState);
   const albumImageUrl = data?.albumImageUrl;
 
   return (
     <PlayerWrapper>
-      <img className="player-album" src={albumImageUrl} alt="albumImage" />
+      {isMobile || <img className="player-album" src={albumImageUrl} alt="albumImage" />}
       <PlayController
         handleSeekTime={handleSeekTime}
         handleBackTime={handleBackTime}

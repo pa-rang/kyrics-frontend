@@ -1,10 +1,36 @@
-export type Example = string;
+export interface LoginResponse {
+  token: string;
+  isNewUser: boolean;
+}
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  profileImageUrl: string;
+}
+
+export interface IMyVocab {
+  id: number;
+  kor: string;
+  eng: string;
+  korExample: string;
+  engExample: string;
+  isSaved: boolean;
+}
 
 export interface Artist {
   id: number;
   name: string;
   profileImageUrl: string;
-  logo: string;
+  logoImageUrl: string;
+}
+
+export interface ArtistSongs {
+  id: number;
+  artist: string;
+  backgroundImageUrl: string;
+  songs: Song[];
 }
 
 export interface ISongData {
@@ -18,10 +44,10 @@ export interface ISongData {
 }
 
 export interface Song {
+  id: number;
   title: string;
-  artist: string[];
-  albumImg: string;
-  songId: number;
+  artist: string;
+  albumImageUrl: string;
 }
 
 export interface ITimedText {
@@ -30,6 +56,7 @@ export interface ITimedText {
   kor: string;
   eng: string;
 }
+
 export interface IMySongItem {
   id: number;
   title: string;

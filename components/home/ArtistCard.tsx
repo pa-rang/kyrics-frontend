@@ -1,14 +1,19 @@
 import styled from '@emotion/styled';
+import { getPageLogger } from 'lib/utils/amplitude';
+import router from 'next/router';
 import React, { useState } from 'react';
 
 type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
 interface Props {
-  name: string;
+  id: number;
   profileImage: string;
   logo: string;
+  name: string;
 }
 
-function ArtistCard({ name, profileImage, logo }: Props) {
+const artistCardLogger = getPageLogger('artist_card');
+
+function ArtistCard({ id, profileImage, logo, name }: Props) {
   const [isHover, setIsHover] = useState<HoverState>('idle');
 
   function handleMouseEnter() {
@@ -19,9 +24,20 @@ function ArtistCard({ name, profileImage, logo }: Props) {
     setIsHover('MouseLeave');
   }
 
+  function handleOnClick() {
+    artistCardLogger.click('artist', { name });
+
+    router.push(`artist/${id}`);
+  }
+
   return (
     <Wrap profileImage={profileImage} isHovered={isHover}>
-      <button className="bgImg" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <button
+        className="bgImg"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleOnClick}
+      >
         <div className="hover">
           <img className="hover__logo" src={logo} alt=""></img>
           <p className="hover__label">Explore &gt;</p>
@@ -75,12 +91,24 @@ const Wrap = styled.div<StyledProps>`
         ? 'animation: fadeIn 0.5s; visibility: visible;'
         : isHovered === 'MouseLeave' && 'animation: fadeOut 0.5s;'}
 
+    @media (max-width: 767px) {
+      visibility: visible;
+      visibility: visible;
+      background: linear-gradient(rgba(199, 199, 199, 0.5) 5.46%, rgba(0, 0, 0, 0.5) 100%);
+    }
+
     &__logo {
       margin-top: 55px;
       width: 190px;
       height: 100px;
       object-fit: contain;
       filter: brightness(0) invert(1);
+
+      @media (max-width: 767px) {
+        margin-top: 42px;
+        width: 121px;
+        height: 64px;
+      }
     }
 
     &__label {
@@ -91,10 +119,15 @@ const Wrap = styled.div<StyledProps>`
       font-size: 24px;
       font-weight: bold;
       font-style: normal;
+
+      @media (max-width: 767px) {
+        margin-top: 10px;
+        font-size: 20px;
+      }
     }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 767px) {
     width: 240px;
     height: 180px;
   }

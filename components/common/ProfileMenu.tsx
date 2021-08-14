@@ -22,7 +22,7 @@ function ProfileMenu(): ReactElement {
         }
       >
         <img className="option__icon" src="/assets/icons/IcMySong.svg" alt=""></img>
-        <p className="option__label">My songs</p>
+        <p className="option__label">My Songs</p>
         <div className="option__border"></div>
       </button>
       <button
@@ -35,7 +35,7 @@ function ProfileMenu(): ReactElement {
         }
       >
         <img className="option__icon" src="/assets/icons/IcMyVoca.svg" alt=""></img>
-        <p className="option__label">My vocab</p>
+        <p className="option__label">My Vocab</p>
       </button>
     </Wrap>
   );
@@ -48,6 +48,7 @@ const Wrap = styled.div`
   right: 0px;
   flex-direction: column;
   align-items: center;
+  z-index: 1000;
   border-radius: 16px;
   box-shadow: 3px 3px 7px 4px rgba(98, 98, 98, 0.12);
   background: #f8fafc;

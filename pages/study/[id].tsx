@@ -2,8 +2,11 @@ import Header from '@components/common/Header';
 import Lyrics from '@components/study/Lyrics';
 import MiniPlayer from '@components/study/MiniPlayer';
 import Player from '@components/study/Player';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { client } from 'lib/api';
+import { useGetUser } from 'hooks/api';
+import useWindowSize from 'hooks/useWindowSize';
+import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
@@ -21,6 +24,9 @@ import {
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
 
+// import { KeyExpression } from '@components/study/KeyExpression/index';
+import KeyExpression from '../../components/study/KeyExpression';
+
 function Study(): ReactElement {
   const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
   const [currentTime, setCurrentTime] = useRecoilState<number>(currentTimeAtom);
@@ -37,17 +43,17 @@ function Study(): ReactElement {
   const {
     query: { id },
   } = router;
-  // const { data } = useSWR('song-1', (url) => mockClient.get(url));
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
+
   const url = data?.data?.data?.youtubeUrl;
+  const user = useGetUser();
 
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?
   useEffect(() => {
-    const data2 = data?.data?.data as any;
-
-    // setSongData 인수에 넣으면 에러가 난다.
-    setSongData(data2);
+    if (!data) return;
+    // setSongData 인수에 넣으면 에러가 난다.`
+    setSongData(data?.data?.data);
   }, [data]);
 
   useEffect(() => {
@@ -128,9 +134,29 @@ function Study(): ReactElement {
     };
   }, []);
 
+  const size = useWindowSize();
+
+  const [width, setWidth] = useState<number>(0);
+
+  useEffect(() => {
+    setWidth(window.outerWidth);
+  }, []);
+
+  const measureWidth = () => {
+    setWidth(window.outerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', measureWidth);
+
+    return () => {
+      window.removeEventListener('resize', measureWidth);
+    };
+  }, []);
+
   return (
-    <Styled.Root>
-      <Header isLoggedIn={true} />
+    <Styled.Root isModalOpened={isModalOpened}>
+      <Header />
       <Styled.ModalWrapper isModalOpened={isModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
@@ -169,6 +195,10 @@ function Study(): ReactElement {
         handleBackTime={handleBackTime}
         handleForwardTime={handleForwardTime}
       />
+      <Styled.Main width={width}>
+        <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
+        {size && size.width > 1080 && <KeyExpression />}
+      </Styled.Main>
       <Styled.MiniPlayerWrapper>
         <MiniPlayer
           handleSeekTime={handleSeekTime}
@@ -185,7 +215,14 @@ function Study(): ReactElement {
 export default Study;
 
 const Styled = {
-  Root: styled.div``,
+  Root: styled.div<{ isModalOpened: boolean }>`
+    ${({ isModalOpened }) =>
+      isModalOpened &&
+      css`
+        height: 100vh;
+        overflow-y: hidden;
+      `}
+  `,
   ModalWrapper: styled.div<{ isModalOpened: boolean }>`
     display: ${({ isModalOpened }) => (isModalOpened ? 'flex' : 'none')};
     position: fixed;
@@ -196,6 +233,7 @@ const Styled = {
     background: rgba(0, 0, 0, 0.8);
     width: 100vw;
     height: 100vh;
+    overflow-y: hidden;
   `,
   Modal: styled.div<{ modalHeight: number }>`
     position: fixed;
@@ -209,6 +247,12 @@ const Styled = {
       transform: translateX(100%);
       cursor: pointer;
     }
+  `,
+  Main: styled.div<{ width: number }>`
+    display: flex;
+    justify-content: center;
+    padding: 0px ${({ width }) => (141 * width) / 1440}px;
+    /* padding-right: 100px; */
   `,
   MiniPlayerWrapper: styled.div`
     display: flex;

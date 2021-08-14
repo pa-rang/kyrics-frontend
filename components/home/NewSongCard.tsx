@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import React, { ReactElement } from 'react';
+import React from 'react';
 
-function NewSongCard(): ReactElement {
+function NewSongCard() {
+  const requestNewSongUrl = 'https://forms.gle/NF4iTYvfesPZwgGt9';
+
   return (
     <Wrap>
       <p className="title">
@@ -9,7 +11,12 @@ function NewSongCard(): ReactElement {
         <br />
         you’re looking for?
       </p>
-      <button className="button">
+      <button
+        className="button"
+        onClick={() => {
+          window.open(requestNewSongUrl, '_blank');
+        }}
+      >
         <p className="button__label">Request new songs!</p>
         <img className="button__arrow" src="/assets/icons/icArrow.svg" alt=""></img>
       </button>
@@ -34,10 +41,16 @@ const Wrap = styled.div`
     font-size: 24px;
     font-weight: bold;
     font-style: normal;
+
+    @media (max-width: 767px) {
+      margin-top: 42px;
+      font-size: 16px;
+    }
   }
 
   .button {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     margin-top: 28px;
     border: none;
@@ -57,10 +70,30 @@ const Wrap = styled.div`
       font-size: 16px;
       font-weight: bold;
       font-style: normal;
+
+      @media (max-width: 767px) {
+        font-size: 10px;
+      }
     }
 
     &__arrow {
+      @media (max-width: 767px) {
+        width: 15px;
+        height: 15px;
+      }
     }
+
+    @media (max-width: 767px) {
+      margin-top: 30px;
+      padding: 0px 16px;
+      width: 151px;
+      height: 27px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    width: 240px;
+    height: 180px;
   }
 `;
 

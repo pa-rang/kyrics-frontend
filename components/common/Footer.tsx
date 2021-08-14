@@ -5,7 +5,7 @@ function Footer() {
   return (
     <Styled.Root>
       <Styled.Left>
-        <img src="/assets/icons/kyricsGrayName.svg" alt="" />
+        <button />
         <div>
           <Styled.Email>
             <img src="/assets/icons/emailIcon.svg" alt="" />
@@ -73,9 +73,21 @@ const Styled = {
     flex-basis: 40%;
     margin-left: 140px;
     font-size: 14px;
-    & > img {
+    & > button {
       margin-top: 32px;
-      margin-bottom: 105px;
+      margin-bottom: 80px;
+      border: none;
+      background: url(/assets/icons/kyricsGrayName.svg) no-repeat;
+      cursor: pointer;
+      padding: 0;
+      width: 150px;
+      height: 30px;
+      @media (max-width: 768px) {
+        margin-bottom: 46px;
+        background-image: url(/assets/icons/kyricsSmallGrayName.svg);
+        width: 91px;
+        height: 14px;
+      }
     }
     @media (max-width: 768px) {
       margin-left: 20px;

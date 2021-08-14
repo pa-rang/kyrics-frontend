@@ -1,5 +1,9 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
+import LoginModal from '@components/common/LoginModal';
 import styled from '@emotion/styled';
+import { useGetUser } from 'hooks/api';
+import { client } from 'lib/api';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -17,6 +21,11 @@ function PlayerBtns() {
   const [isCopyMsgOpen, setIsCopyMsgOpen] = useState(false);
   const songData = useRecoilValue(songDataState);
   const [onFavorite, setOnFavorite] = useState<'on' | ''>('');
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+  const user = useGetUser();
 
   useEffect(() => {
     const isSaved = songData?.isSaved;
@@ -49,13 +58,37 @@ function PlayerBtns() {
       setIsCopyMsgOpen(false);
     }, 2000);
   };
+  const [isLoginModalOpened, setIsLoginModalOpened] = useState(false);
   const handleFavorite = () => {
+    if (!user) {
+      setIsLoginModalOpened(true);
+
+      return;
+    }
+
     isFavorite ? setOnFavorite('') : setOnFavorite('on');
     if (!isFavorite) {
       setIsFavoriteMsgOpen(true);
       setTimeout(() => {
         setIsFavoriteMsgOpen(false);
       }, 2000);
+      client
+        .post(`user/song/${id}`)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      client
+        .delete(`user/song/${id}`)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
 
     setIsFavorite((isFavorite) => !isFavorite);
@@ -77,7 +110,7 @@ function PlayerBtns() {
         <div className="favoriteAdd--msg msg">Added</div>
       </div>
       <div className="icon--container">
-        <CopyToClipboard text="https://kyrics.vercel.app/" onCopy={handleCopy}>
+        <CopyToClipboard text={`https://kyrics.vercel.app/${router.asPath}`} onCopy={handleCopy}>
           <img
             className="CopyIcon"
             src="/assets/icons/CopyIcon.svg"
@@ -98,6 +131,7 @@ function PlayerBtns() {
         onClick={() => setIsModalOpened(true)}
         aria-hidden="true"
       />
+      {isLoginModalOpened && <LoginModal setIsLoginModalOpened={setIsLoginModalOpened} />}
     </PlayerBtnsWrapper>
   );
 }

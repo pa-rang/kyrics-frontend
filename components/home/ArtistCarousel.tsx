@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import styled from '@emotion/styled';
-import { mockClient } from 'lib/api';
+import { client } from 'lib/api';
 import React from 'react';
 import Slider, { Settings } from 'react-slick';
 import useSWR from 'swr';
@@ -11,12 +11,14 @@ import { Artist } from 'types';
 import ArtistCard from './ArtistCard';
 import NewSongCard from './NewSongCard';
 
+interface ArtistData {
+  data: Artist[];
+}
+
 function ArtistCarousel() {
-  const { data } = useSWR<{ data: Artist[] }>('/artists', mockClient.get);
+  const { data } = useSWR<{ data: ArtistData }>('/artists', client.get);
 
-  console.log(data?.data);
-
-  const artists = data?.data;
+  const artists = data?.data.data;
 
   return (
     <>
@@ -26,9 +28,10 @@ function ArtistCarousel() {
             {artists?.map((artist: Artist) => (
               <ArtistCard
                 key={artist.id}
+                id={artist.id}
                 name={artist.name}
                 profileImage={artist.profileImageUrl}
-                logo={artist.logo}
+                logo={artist.logoImageUrl}
               />
             ))}
             <NewSongCard />
@@ -61,6 +64,11 @@ const Styled = {
     margin-top: -114px;
     margin-bottom: 200px;
     height: 270px;
+
+    @media (max-width: 767px) {
+      margin-top: -25px;
+      margin-bottom: 70px;
+    }
   `,
 
   InnerWrap: styled.div`
@@ -75,6 +83,10 @@ const Styled = {
         width: 21px;
         height: 50px;
       }
+      @media (max-width: 767px) {
+        width: 13px;
+        height: 32px;
+      }
     }
 
     .arrowImg {
@@ -82,6 +94,13 @@ const Styled = {
       z-index: 1;
       margin-top: -20px;
       margin-left: -10px;
+
+      @media (max-width: 767px) {
+        margin-top: -20px;
+        width: 13px;
+        height: 32px;
+        object-fit: contain;
+      }
     }
 
     @media (max-width: 1200px) {
@@ -92,7 +111,14 @@ const Styled = {
     }
     @media (max-width: 900px) {
       width: 400px;
+      .slick-list {
+        padding: 0 20px !important;
+      }
+    }
 
+    @media (max-width: 767px) {
+      width: 280px;
+      height: 180px;
       .slick-list {
         padding: 0 20px !important;
       }

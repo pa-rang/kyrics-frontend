@@ -1,15 +1,18 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import styled from '@emotion/styled';
-import router from 'next/router';
-import React, { ReactElement, useState } from 'react';
+import { useGetUser } from 'hooks/api';
+import { isServer } from 'lib/constants/env';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { mutate } from 'swr';
 
 import ProfileMenu from './ProfileMenu';
 
-interface HeaderProps {
-  isLoggedIn: boolean;
-}
-
-function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
+function Header() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
+  const router = useRouter();
+  const user = useGetUser();
 
   function handleLogoClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
@@ -21,28 +24,37 @@ function Header({ isLoggedIn = false }: HeaderProps): ReactElement {
     setIsProfileClicked((isProfileClicked) => !isProfileClicked);
   }
 
+  function handleLogout() {
+    localStorage.removeItem('userToken');
+    mutate('/user');
+    window.location.reload();
+  }
+
   return (
     <HeaderWrap>
       <div className="header">
         <button className="logo" onClick={handleLogoClick}></button>
         <div className="user">
-          {isLoggedIn ? (
+          {user ? (
             <div className="user__profile">
-              <p className="user__profile--logout">Log out</p>
+              <p className="user__profile--logout" onClick={handleLogout}>
+                Log out
+              </p>
               <button className="user__profile--button" onClick={handleProfileClick}>
                 <img
                   className="user__profile--button--picture"
-                  src="/assets/icons/IcDefaultProfile.svg"
+                  src={user.profileImageUrl}
                   alt=""
                 ></img>
-                <p className="user__profile--button--name">Name</p>
+                <p className="user__profile--button--name">{user.name}</p>
                 {isProfileClicked && <ProfileMenu />}
               </button>
             </div>
           ) : (
             <div className="user__anonymous">
-              <p className="user__anonymous--login">Log in</p>
-              <p className="user__anonymous--signUp">Sign up</p>
+              <p className="user__anonymous--login" onClick={() => router.push('/login')}>
+                Log In
+              </p>
             </div>
           )}
         </div>
@@ -83,7 +95,7 @@ const HeaderWrap = styled.div`
   .user {
     &__profile {
       display: flex;
-      margin-right: 55px;
+      margin-right: 140px;
 
       &--logout {
         margin-right: 40px;
@@ -95,12 +107,14 @@ const HeaderWrap = styled.div`
         font-style: normal;
         @media (max-width: 768px) {
           margin-right: 24px;
+          font-size: 12px;
         }
       }
 
       &--button {
         display: flex;
         position: relative;
+        align-items: center;
         border: none;
         background: transparent;
         cursor: pointer;
@@ -111,21 +125,27 @@ const HeaderWrap = styled.div`
           width: 28px;
           height: 28px;
           overflow: hidden;
+          @media (max-width: 768px) {
+            width: 20px;
+            height: 20px;
+          }
         }
 
         &--name {
-          margin-left: 9px;
+          margin-left: 6px;
           line-height: 27px;
+          line-height: 1.2;
           white-space: nowrap;
-          color: #6465f4;
-          font-size: 20px;
+          color: #9d9d9d;
+          font-size: 18px;
           font-weight: bold;
-          font-style: normal;
           @media (max-width: 768px) {
-            font-size: 16px;
+            margin-left: 4px;
+            font-size: 12px;
           }
         }
       }
+
       @media (max-width: 768px) {
         margin-right: 19px;
       }
@@ -142,6 +162,13 @@ const HeaderWrap = styled.div`
         color: #9d9d9d;
         font-weight: bold;
         font-style: normal;
+
+        &:hover {
+          color: #6465f4;
+        }
+        @media (max-width: 768px) {
+          font-size: 12px;
+        }
       }
 
       &--signUp {
@@ -153,8 +180,13 @@ const HeaderWrap = styled.div`
         font-weight: bold;
         font-style: normal;
         @media (max-width: 768px) {
-          margin-right: 24px;
+          margin-left: 24px;
+          font-size: 12px;
         }
+      }
+
+      @media (max-width: 768px) {
+        margin-right: 19px;
       }
     }
   }
