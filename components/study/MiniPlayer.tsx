@@ -178,6 +178,9 @@ const Styled = {
     input[type='range']:focus {
       outline: none;
     }
+    @media screen and (max-width: 415px) {
+      display: none;
+    }
     /* @media screen and (max-width: 900px) {
       width: 68%;
     } */
@@ -195,6 +198,9 @@ const Styled = {
     .artist {
       font-size: 16px;
     }
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
   `,
   MiniPlayer: styled.div`
     display: flex;
@@ -203,6 +209,9 @@ const Styled = {
     justify-content: center;
     width: 46.2931%;
     height: 55px;
+    @media screen and (max-width: 900px) {
+      width: 78.2931%;
+    }
   `,
   Progress: styled.div<ProgressStyledProps>`
     display: flex;
@@ -287,6 +296,9 @@ const Styled = {
     }
   `,
   Volume: styled.div<VolumeStyledProps>`
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
     @keyframes fadein {
       0% {
         visibility: hidden;
@@ -343,6 +355,9 @@ const Styled = {
     }
   `,
   Replay: styled.div<ReplayStyledProps>`
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
     @keyframes fadeinout {
       0% {
         visibility: hidden;
@@ -391,5 +406,5 @@ const Styled = {
         ${({ isMessageOpened }) => isMessageOpened && 'animation: fadeinout 1.5s'};
       }
     }
-  `,
+  }`,
 };
