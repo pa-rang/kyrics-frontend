@@ -68,17 +68,15 @@ function Study(): ReactElement {
 
   const [miniPlayerOpened, setMiniPlayerOpened] = useState(false);
 
-  // // 여기서 미니플레이어 Y값이 312가 넘으면 set함
-  // useEffect(() => {
-  //   console.log(window.scrollY);
-  //   console.log(miniPlayerOpened);
-  //   if (window.scrollY > 312) {
-  //     setMiniPlayerOpened(true);
-  //   } else {
-  //     setMiniPlayerOpened(false);
-  //   }
-  // });
-  setInterval(() => {
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [miniPlayerOpened]);
+
+  const handleScroll = () => {
     console.log(window.scrollY);
     console.log(miniPlayerOpened);
     if (window.scrollY > 312) {
@@ -86,7 +84,7 @@ function Study(): ReactElement {
     } else {
       setMiniPlayerOpened(false);
     }
-  }, 200);
+  };
 
   const handleOnProgress = (e: { playedSeconds: number }) => {
     setCurrentTime(e.playedSeconds);
