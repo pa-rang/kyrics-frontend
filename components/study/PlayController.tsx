@@ -48,7 +48,7 @@ function PlayController({
   const isMobile = useMobile();
 
   const currentTimeForm =
-    currentTime % 60 <= 9
+    currentTime % 60 <= 10
       ? `0${Math.floor(currentTime / 60)}:0${Math.floor(currentTime) % 60} `
       : `0${Math.floor(currentTime / 60)}:${Math.floor(currentTime) % 60} `;
 

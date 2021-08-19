@@ -17,7 +17,7 @@ function MobilePlayerTop({ handleSeekTime }: PlayerProps): ReactElement {
   const title = data?.title;
   const artist = data?.artist;
   const currentTimeForm =
-    currentTime % 60 <= 9
+    currentTime % 60 <= 10
       ? `0${Math.floor(currentTime / 60)}:0${Math.floor(currentTime) % 60} `
       : `0${Math.floor(currentTime / 60)}:${Math.floor(currentTime) % 60} `;
 
@@ -131,7 +131,7 @@ const Styled = {
       margin-left: 10px;
       border-radius: 10px;
       background-color: #9d9d9d;
-      width: 72%;
+      width: 176px;
       height: 3px;
       ${({ percentage }) => css`
         background: linear-gradient(
