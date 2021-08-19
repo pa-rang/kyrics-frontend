@@ -57,7 +57,12 @@ export default MobilePlayController;
 
 const Styled = {
   Root: styled.div``,
-  ModalWrapper: styled.div``,
+  ModalWrapper: styled.div`
+    position: fixed;
+    bottom: 65px;
+    left: 54%;
+    z-index: 2;
+  `,
   PlayerWrapper: styled.div`
     display: flex;
     position: fixed;

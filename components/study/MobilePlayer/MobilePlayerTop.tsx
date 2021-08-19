@@ -8,11 +8,7 @@ interface ProgressStyledProps {
   percentage: number;
 }
 
-function MobilePlayerTop({
-  handleSeekTime,
-  handleBackTime,
-  handleForwardTime,
-}: PlayerProps): ReactElement {
+function MobilePlayerTop({ handleSeekTime }: PlayerProps): ReactElement {
   const data = useRecoilValue(songDataState);
   const albumImageUrl = data?.albumImageUrl;
   const currentTime = useRecoilValue<number>(currentTimeAtom);
