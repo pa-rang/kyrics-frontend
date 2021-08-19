@@ -1,16 +1,11 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { ReactElement } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  isMessageOpenedAtom,
-  isPlayAtom,
-  isVolumeOpenedAtom,
-  loopAtom,
-  songDataState,
-  volumeBarAtom,
-} from 'states';
+import React, { ReactElement, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { isPlayAtom, loopAtom } from 'states';
 import { PlayerProps } from 'types';
+
+import MobileModal from './MobileModal';
 
 interface PlayControlStyledProps {
   isPlay: boolean;
@@ -19,57 +14,41 @@ interface PlayControlStyledProps {
 interface ReplayStyledProps {
   isLooped: boolean;
 }
-function MobilePlayController({
-  handleSeekTime,
-  handleBackTime,
-  handleForwardTime,
-}: PlayerProps): ReactElement {
+function MobilePlayController({ handleBackTime, handleForwardTime }: PlayerProps): ReactElement {
   const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
-  const [volumeBar, setVolumeBar] = useRecoilState<number>(volumeBarAtom);
   const [loop, setLoop] = useRecoilState<boolean>(loopAtom);
-  const [isMessageOpened, setIsMessageOpened] = useRecoilState<boolean>(isMessageOpenedAtom);
-  const [isVolumeOpened, setIsVolumeOpened] = useRecoilState<boolean>(isVolumeOpenedAtom);
-  const data = useRecoilValue(songDataState);
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   const handlePlay = () => {
     setIsPlay((isPlay) => !isPlay);
   };
 
   const handleLoop = () => {
-    setIsMessageOpened(true);
-    setTimeout(setIsMessageOpened, 2000, false);
     setLoop((loop) => !loop);
   };
 
-  const mouseEnterController = () => {
-    setIsVolumeOpened(true);
-  };
-  const mouseLeaveController = () => {
-    setIsVolumeOpened(false);
-  };
-
-  const handleVolumeChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-
-    setIsVolumeOpened(true);
-    setVolumeBar(parseInt(target.value));
+  const handleModal = () => {
+    setIsModalOpened((isModalOpened) => !isModalOpened);
   };
 
   return (
     <Styled.Root>
-      <Styled.PlayControl>
-        <Styled.Replay isLooped={loop}>
-          <button className="replay__btn" onClick={handleLoop}></button>
-        </Styled.Replay>
-        <Styled.Playbtn isPlay={isPlay}>
-          <button className="back-btn" onClick={handleBackTime}></button>
-          <button className="play-btn" onClick={handlePlay}></button>
-          <button className="forward-btn" onClick={handleForwardTime}></button>
-        </Styled.Playbtn>
-        <Styled.Morebtn>
-          <img className="more-btn" src="/assets/icons/viewMore.svg" alt="" />
-        </Styled.Morebtn>
-      </Styled.PlayControl>
+      <Styled.ModalWrapper>{isModalOpened && <MobileModal />}</Styled.ModalWrapper>
+      <Styled.PlayerWrapper>
+        <Styled.PlayControl>
+          <Styled.Replay isLooped={loop}>
+            <button className="replay__btn" onClick={handleLoop}></button>
+          </Styled.Replay>
+          <Styled.Playbtn isPlay={isPlay}>
+            <button className="back-btn" onClick={handleBackTime}></button>
+            <button className="play-btn" onClick={handlePlay}></button>
+            <button className="forward-btn" onClick={handleForwardTime}></button>
+          </Styled.Playbtn>
+          <Styled.Morebtn>
+            <button className="more-btn" onClick={handleModal} />
+          </Styled.Morebtn>
+        </Styled.PlayControl>
+      </Styled.PlayerWrapper>
     </Styled.Root>
   );
 }
@@ -77,7 +56,9 @@ function MobilePlayController({
 export default MobilePlayController;
 
 const Styled = {
-  Root: styled.div`
+  Root: styled.div``,
+  ModalWrapper: styled.div``,
+  PlayerWrapper: styled.div`
     display: flex;
     position: fixed;
     bottom: 0;
@@ -160,5 +141,11 @@ const Styled = {
       }
     }
   `,
-  Morebtn: styled.div``,
+  Morebtn: styled.div`
+    .more-btn {
+      background: url('/assets/icons/viewMore.svg') no-repeat 0 0;
+      width: 20px;
+      height: 5px;
+    }
+  `,
 };
