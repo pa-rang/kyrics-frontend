@@ -3,7 +3,7 @@
 [사이트링크](https://kyrics.vercel.app/)
 
 
-## 💫 `kyrics`는 이런 서비스입니다!
+## 💫 `Kyrics`는 이런 서비스입니다!
 
 🎶 Learn Korean through your favorite K-Pop artists and songs!
 
@@ -117,7 +117,7 @@
     └── index.ts
 ```
 
-## 🖥 Contributer
+## 🖥 Contributor
 - [김의진](https://github.com/euijinkk)
 - [박나희](https://github.com/Nahee-Park)
 - [이다은](https://github.com/Daeun-Danna-Lee)
