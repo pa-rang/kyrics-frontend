@@ -109,10 +109,10 @@ const Styled = {
       background: url('/assets/icons/backIcon.svg') no-repeat 0 0;
       width: 19px;
       height: 23px;
-      &:hover {
+      /* &:hover {
         filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%) hue-rotate(49deg)
           brightness(95%) contrast(85%);
-      }
+      } */
     }
     .play-btn {
       ${({ isPlay }) =>
@@ -125,19 +125,19 @@ const Styled = {
             `}
       width: 31px;
       height: 31px;
-      &:hover {
+      /* &:hover {
         filter: brightness(0) saturate(100%) invert(93%) sepia(0%) saturate(43%) hue-rotate(297deg)
           brightness(116%) contrast(76%);
-      }
+      } */
     }
     .forward-btn {
       background: url('/assets/icons/forwardIcon.svg') no-repeat 0 0;
       width: 19px;
       height: 23px;
-      &:hover {
+      /* &:hover {
         filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%) hue-rotate(49deg)
           brightness(95%) contrast(85%);
-      }
+      } */
     }
   `,
   Replay: styled.div<ReplayStyledProps>`
