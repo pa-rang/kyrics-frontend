@@ -16,13 +16,7 @@ interface PlayControlStyledProps {
   isPlay: boolean;
 }
 
-interface VolumeStyledProps {
-  isVolumeOpened: boolean;
-  volume: number;
-}
-
 interface ReplayStyledProps {
-  isMessageOpened: boolean;
   isLooped: boolean;
 }
 function MobilePlayController({
@@ -63,36 +57,15 @@ function MobilePlayController({
 
   return (
     <Styled.Root>
-      <Styled.PlayControl isPlay={isPlay}>
-        <Styled.Volume
-          onMouseEnter={mouseEnterController}
-          onMouseLeave={mouseLeaveController}
-          isVolumeOpened={isVolumeOpened}
-          volume={volumeBar}
-        >
-          <button className="volume__btn"></button>
-          <input
-            className="volume__bar"
-            type="range"
-            min={0}
-            max={100}
-            value={volumeBar}
-            onInput={handleVolumeChange}
-          />
-        </Styled.Volume>
-        <Styled.Playbtn>
+      <Styled.PlayControl>
+        <Styled.Replay isLooped={loop}>
+          <button className="replay__btn" onClick={handleLoop}></button>
+        </Styled.Replay>
+        <Styled.Playbtn isPlay={isPlay}>
           <button className="back-btn" onClick={handleBackTime}></button>
           <button className="play-btn" onClick={handlePlay}></button>
           <button className="forward-btn" onClick={handleForwardTime}></button>
         </Styled.Playbtn>
-        <Styled.Replay isMessageOpened={isMessageOpened} isLooped={loop}>
-          <button className="replay__btn" onClick={handleLoop}></button>
-          {loop ? (
-            <button className="replay__onoff">on</button>
-          ) : (
-            <button className="replay__onoff">off</button>
-          )}
-        </Styled.Replay>
         <Styled.Morebtn>
           <img className="more-btn" src="/assets/icons/viewMore.svg" alt="" />
         </Styled.Morebtn>
@@ -115,10 +88,77 @@ const Styled = {
     background-size: cover;
     width: 100%;
     height: 60px;
+    button {
+      outline: 0;
+      border: 0;
+      cursor: pointer;
+    }
   `,
-  PlayControl: styled.div``,
-  Volume: styled.div``,
-  Playbtn: styled.div``,
-  Replay: styled.div``,
+  PlayControl: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 66%;
+  `,
+  Playbtn: styled.div<PlayControlStyledProps>`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 58%;
+    .back-btn {
+      background: url('/assets/icons/backIcon.svg') no-repeat 0 0;
+      width: 19px;
+      height: 23px;
+      &:hover {
+        filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%) hue-rotate(49deg)
+          brightness(95%) contrast(85%);
+      }
+    }
+    .play-btn {
+      ${({ isPlay }) =>
+        isPlay
+          ? css`
+              background: url('/assets/icons/pauseIcon.svg') no-repeat 0 0;
+            `
+          : css`
+              background: url('/assets/icons/playIcon.svg') no-repeat 0 0;
+            `}
+      width: 31px;
+      height: 31px;
+      &:hover {
+        filter: brightness(0) saturate(100%) invert(93%) sepia(0%) saturate(43%) hue-rotate(297deg)
+          brightness(116%) contrast(76%);
+      }
+    }
+    .forward-btn {
+      background: url('/assets/icons/forwardIcon.svg') no-repeat 0 0;
+      width: 19px;
+      height: 23px;
+      &:hover {
+        filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%) hue-rotate(49deg)
+          brightness(95%) contrast(85%);
+      }
+    }
+  `,
+  Replay: styled.div<ReplayStyledProps>`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    .replay {
+      &__btn {
+        background: url('/assets/icons/replayIcon.svg') no-repeat 0 0;
+        width: 20px;
+        height: 20px;
+        ${({ isLooped }) =>
+          !isLooped &&
+          css`
+            filter: brightness(0) saturate(100%) invert(67%) sepia(0%) saturate(0%)
+              hue-rotate(49deg) brightness(95%) contrast(85%);
+          `}
+      }
+    }
+  `,
   Morebtn: styled.div``,
 };
