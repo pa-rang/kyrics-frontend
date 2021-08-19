@@ -201,19 +201,21 @@ function Study(): ReactElement {
           />
         </Styled.Modal>
       </Styled.ModalWrapper>
-      {isPhone ? (
-        <MobilePlayer
-          handleSeekTime={handleSeekTime}
-          handleBackTime={handleBackTime}
-          handleForwardTime={handleForwardTime}
-        />
-      ) : (
-        <Player
-          handleSeekTime={handleSeekTime}
-          handleBackTime={handleBackTime}
-          handleForwardTime={handleForwardTime}
-        />
-      )}
+      <Styled.PlayerWrapper>
+        {isPhone ? (
+          <MobilePlayer
+            handleSeekTime={handleSeekTime}
+            handleBackTime={handleBackTime}
+            handleForwardTime={handleForwardTime}
+          />
+        ) : (
+          <Player
+            handleSeekTime={handleSeekTime}
+            handleBackTime={handleBackTime}
+            handleForwardTime={handleForwardTime}
+          />
+        )}
+      </Styled.PlayerWrapper>
       <Styled.Main width={width}>
         <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
         {size && size.width > 1080 && <KeyExpression />}
@@ -265,6 +267,9 @@ const Styled = {
       transform: translateX(100%);
       cursor: pointer;
     }
+  `,
+  PlayerWrapper: styled.div`
+    width: 100%;
   `,
   Main: styled.div<{ width: number }>`
     display: flex;
