@@ -15,14 +15,12 @@ export interface KyricsSWRResponse<T> {
 export const mockClient = axios.create({ baseURL: 'http://localhost:3005' });
 
 export const client = axios.create({
-  baseURL: 'http://kyrics-env.eba-kez2mzcm.ap-northeast-2.elasticbeanstalk.com/',
-  // baseURL: 'https://kyricserver.com',
+  baseURL: 'https://server.kyrics.org',
   headers: {
     'x-access-token': isServer || localStorage.getItem('userToken'),
   },
 });
 
 export const clientWithoutToken = axios.create({
-  baseURL: 'http://kyrics-env.eba-kez2mzcm.ap-northeast-2.elasticbeanstalk.com/',
-  // baseURL: 'https://kyricserver.com',
+  baseURL: 'https://server.kyrics.org',
 });
