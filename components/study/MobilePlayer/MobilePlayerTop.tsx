@@ -120,18 +120,15 @@ const Styled = {
   Progress: styled.div<ProgressStyledProps>`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     height: 14px;
     .bar {
       -webkit-appearance: none;
       align-self: center;
-      margin-right: 10px;
-      /* margin-bottom: 5px; */
-      margin-left: 10px;
       border-radius: 10px;
       background-color: #9d9d9d;
-      width: 176px;
+      width: 70%;
       height: 3px;
       ${({ percentage }) => css`
         background: linear-gradient(
@@ -144,12 +141,14 @@ const Styled = {
       `}
     }
     .time__current {
+      width: 30px;
       height: 14px;
       color: #e1e1e1;
       font-family: Roboto;
       font-size: 12px;
     }
     .time__end {
+      width: 30px;
       height: 14px;
       color: #e1e1e1;
       font-family: Roboto;
