@@ -79,8 +79,26 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
     };
   }, []);
 
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isFixed]);
+
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setIsFixed(true);
+    } else {
+      setIsFixed(false);
+    }
+  };
+
   return (
-    <Styled.Root fontSize={fontSize} engTranslated={engTranslated}>
+    <Styled.Root fontSize={fontSize} engTranslated={engTranslated} isFixed={isFixed}>
       <Styled.Lyrics>
         <Styled.Title>Lyrics</Styled.Title>
         <Styled.Main>
@@ -191,12 +209,14 @@ export default Lyrics;
 interface StyledProps {
   fontSize: string;
   engTranslated: boolean;
+  isFixed: boolean;
 }
 
 const Styled = {
   Root: styled.div<StyledProps>`
     display: flex;
     align-items: center;
+    margin-top: ${({ isFixed }) => isFixed && '100px'};
     /* justify-content: center; */
     width: 100%;
     max-width: 780px;
