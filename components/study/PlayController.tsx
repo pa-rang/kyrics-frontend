@@ -111,33 +111,29 @@ function PlayController({
         isLooped={loop}
         volume={volumeBar}
       >
-        {isMobile || (
-          <div
-            className="volume"
-            onMouseEnter={mouseEnterController}
-            onMouseLeave={mouseLeaveController}
-          >
-            <button className="volume__btn"></button>
-            <input
-              className="volume__bar"
-              type="range"
-              min={0}
-              max={100}
-              value={volumeBar}
-              onInput={handleVolumeChange}
-            />
-          </div>
-        )}
-        {isMobile || (
-          <div className="replay">
-            <button className="replay__btn" onClick={handleLoop}></button>
-            {loop ? (
-              <button className="replay__onoff">on</button>
-            ) : (
-              <button className="replay__onoff">off</button>
-            )}
-          </div>
-        )}
+        <div
+          className="volume"
+          onMouseEnter={mouseEnterController}
+          onMouseLeave={mouseLeaveController}
+        >
+          <button className="volume__btn"></button>
+          <input
+            className="volume__bar"
+            type="range"
+            min={0}
+            max={100}
+            value={volumeBar}
+            onInput={handleVolumeChange}
+          />
+        </div>
+        <div className="replay">
+          <button className="replay__btn" onClick={handleLoop}></button>
+          {loop ? (
+            <button className="replay__onoff">on</button>
+          ) : (
+            <button className="replay__onoff">off</button>
+          )}
+        </div>
       </Styled.EnvironmentControl>
     </Styled.Root>
   );
@@ -172,6 +168,9 @@ const Styled = {
     }
     @media screen and (max-width: 900px) {
       width: 68%;
+    }
+    @media screen and (max-width: 767px) {
+      width: 80%;
     }
   `,
   Title: styled.div`
