@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { currentTimeAtom, percentageAtom, songDataState, totalTimeAtom } from 'states';
 import { PlayerProps } from 'types';
@@ -29,9 +29,26 @@ function MobilePlayerTop({
     totalTime % 60 <= 9
       ? `0${Math.floor(totalTime / 60)}:0${totalTime % 60} `
       : `0${Math.floor(totalTime / 60)}:${totalTime % 60} `;
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isFixed]);
+
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setIsFixed(true);
+    } else {
+      setIsFixed(false);
+    }
+  };
 
   return (
-    <Styled.Root>
+    <Styled.Root isFixed={isFixed}>
       <img className="player-album" src={albumImageUrl} alt="albumImage" />
       <Styled.Player>
         <Styled.Title>
@@ -57,11 +74,14 @@ function MobilePlayerTop({
 export default MobilePlayerTop;
 
 const Styled = {
-  Root: styled.div`
+  Root: styled.div<{ isFixed: boolean }>`
     display: flex;
+    position: ${({ isFixed }) => isFixed && 'fixed'};
+    top: 0;
     align-items: center;
     align-items: center;
     justify-content: space-evenly;
+    z-index: 1;
     background: url('/assets/images/MobileTopPlayer.svg') no-repeat 0 0;
     background-size: cover;
     width: 100%;
