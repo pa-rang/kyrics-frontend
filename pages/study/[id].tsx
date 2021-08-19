@@ -1,10 +1,12 @@
 import Header from '@components/common/Header';
 import Lyrics from '@components/study/Lyrics';
 import MiniPlayer from '@components/study/MiniPlayer';
+import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
+import { usePhone } from 'hooks/useMobile';
 import useWindowSize from 'hooks/useWindowSize';
 import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
@@ -47,6 +49,7 @@ function Study(): ReactElement {
 
   const url = data?.data?.data?.youtubeUrl;
   const user = useGetUser();
+  const isPhone = usePhone();
 
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?
@@ -198,11 +201,19 @@ function Study(): ReactElement {
           />
         </Styled.Modal>
       </Styled.ModalWrapper>
-      <Player
-        handleSeekTime={handleSeekTime}
-        handleBackTime={handleBackTime}
-        handleForwardTime={handleForwardTime}
-      />
+      {isPhone ? (
+        <MobilePlayer
+          handleSeekTime={handleSeekTime}
+          handleBackTime={handleBackTime}
+          handleForwardTime={handleForwardTime}
+        />
+      ) : (
+        <Player
+          handleSeekTime={handleSeekTime}
+          handleBackTime={handleBackTime}
+          handleForwardTime={handleForwardTime}
+        />
+      )}
       <Styled.Main width={width}>
         <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
         {size && size.width > 1080 && <KeyExpression />}

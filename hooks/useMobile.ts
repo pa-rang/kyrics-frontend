@@ -6,3 +6,9 @@ export const useMobile = () => {
 
   return isMobile;
 };
+export const usePhone = () => {
+  const size = useWindowSize();
+  const isMobile = size && size.width < 415;
+
+  return isMobile;
+};
