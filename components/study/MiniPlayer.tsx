@@ -198,7 +198,7 @@ const Styled = {
     .artist {
       font-size: 16px;
     }
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 768px) {
       display: none;
     }
   `,
@@ -209,7 +209,7 @@ const Styled = {
     justify-content: center;
     width: 46.2931%;
     height: 55px;
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 768px) {
       width: 78.2931%;
     }
   `,
@@ -355,7 +355,7 @@ const Styled = {
     }
   `,
   Replay: styled.div<ReplayStyledProps>`
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 768px) {
       display: none;
     }
     @keyframes fadeinout {
