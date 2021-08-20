@@ -8,7 +8,7 @@ export const useMobile = () => {
 };
 export const usePhone = () => {
   const size = useWindowSize();
-  const isMobile = size && size.width < 415;
+  const isPhone = size && size.width < 415;
 
-  return isMobile;
+  return isPhone;
 };

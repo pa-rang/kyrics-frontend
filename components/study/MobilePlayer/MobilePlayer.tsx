@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import React, { ReactElement } from 'react';
 import { PlayerProps } from 'types';
 
@@ -10,7 +11,7 @@ function MobilePlayer({
   handleForwardTime,
 }: PlayerProps): ReactElement {
   return (
-    <div>
+    <Styled.Root>
       <MobilePlayerTop
         handleSeekTime={handleSeekTime}
         handleBackTime={handleBackTime}
@@ -21,8 +22,16 @@ function MobilePlayer({
         handleBackTime={handleBackTime}
         handleForwardTime={handleForwardTime}
       />
-    </div>
+    </Styled.Root>
   );
 }
 
 export default MobilePlayer;
+
+const Styled = {
+  Root: styled.div`
+    @media (min-width: 415px) {
+      display: none;
+    }
+  `,
+};

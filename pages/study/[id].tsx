@@ -202,7 +202,7 @@ function Study(): ReactElement {
         </Styled.Modal>
       </Styled.ModalWrapper>
       <Styled.PlayerWrapper>
-        {isPhone ? (
+        {/* {isPhone ? (
           <MobilePlayer
             handleSeekTime={handleSeekTime}
             handleBackTime={handleBackTime}
@@ -214,7 +214,17 @@ function Study(): ReactElement {
             handleBackTime={handleBackTime}
             handleForwardTime={handleForwardTime}
           />
-        )}
+        )} */}
+        <MobilePlayer
+          handleSeekTime={handleSeekTime}
+          handleBackTime={handleBackTime}
+          handleForwardTime={handleForwardTime}
+        />
+        <Player
+          handleSeekTime={handleSeekTime}
+          handleBackTime={handleBackTime}
+          handleForwardTime={handleForwardTime}
+        />
       </Styled.PlayerWrapper>
       <Styled.Main width={width}>
         <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
@@ -270,6 +280,9 @@ const Styled = {
   `,
   PlayerWrapper: styled.div`
     width: 100%;
+  `,
+  MobilePlayerWrapper: styled.div<{ isPhone: boolean }>`
+    display: ${({ isPhone }) => !isPhone && 'none'};
   `,
   Main: styled.div<{ width: number }>`
     display: flex;
