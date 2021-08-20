@@ -32,9 +32,6 @@ function KeyExpressionItem({
   isSaved,
   small = false,
 }: Props) {
-  console.log(width);
-  console.log(styled);
-
   return (
     <Styled.Root width={width} style={{ ...styled }}>
       <Styled.KeywordWrapper type={type} small={small}>

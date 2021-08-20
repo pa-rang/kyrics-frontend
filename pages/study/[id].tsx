@@ -21,6 +21,7 @@ import {
   songDataState,
   totalTimeAtom,
   volumeBarAtom,
+  widthAtom,
 } from 'states';
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
@@ -143,7 +144,7 @@ function Study(): ReactElement {
 
   const size = useWindowSize();
 
-  const [width, setWidth] = useState<number>(0);
+  const [width, setWidth] = useRecoilState<number>(widthAtom);
 
   useEffect(() => {
     setWidth(window.outerWidth);

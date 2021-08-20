@@ -39,7 +39,7 @@ const sliderProps: Settings = {
 };
 
 function MobileKeyExpression() {
-  // const width = useRecoilValue(widthAtom);
+  const width = useRecoilValue(widthAtom);
   const router = useRouter();
   const {
     query: { id: songId },
@@ -52,13 +52,13 @@ function MobileKeyExpression() {
   const keyExpressions = keyExpressionsData?.data.data;
 
   return (
-    <Styled.Root>
+    <Styled.Root width={width}>
       <Slider {...sliderProps}>
         {keyExpressions?.map(({ id, eng, engExample, kor, korExample, isSaved }) => (
           <KeyExpressionItem
             key={kor}
             type="line-left"
-            width="289px"
+            width="100%"
             small={true}
             eng={eng}
             engExample={engExample}
@@ -78,7 +78,11 @@ function MobileKeyExpression() {
 export default MobileKeyExpression;
 
 const Styled = {
-  Root: styled.div`
+  Root: styled.div<{ width: number }>`
+    .slick-slide {
+      padding: 0px ${({ width }) => (141 * width) / 1440}px;
+    }
+
     .slick-arrow {
       position: absolute;
       width: 13px;
