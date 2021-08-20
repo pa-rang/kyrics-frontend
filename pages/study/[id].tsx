@@ -6,7 +6,6 @@ import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
-import { usePhone } from 'hooks/useMobile';
 import useWindowSize from 'hooks/useWindowSize';
 import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
