@@ -215,6 +215,7 @@ interface StyledProps {
 const Styled = {
   Root: styled.div<StyledProps>`
     display: flex;
+    position: relative;
     align-items: center;
     margin-bottom: 150px;
     /* justify-content: center; */

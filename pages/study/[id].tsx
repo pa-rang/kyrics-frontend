@@ -222,6 +222,7 @@ export default Study;
 
 const Styled = {
   Root: styled.div<{ isModalOpened: boolean }>`
+    position: relative;
     ${({ isModalOpened }) =>
       isModalOpened &&
       css`
