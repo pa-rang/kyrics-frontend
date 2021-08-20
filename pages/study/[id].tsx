@@ -49,7 +49,6 @@ function Study(): ReactElement {
 
   const url = data?.data?.data?.youtubeUrl;
   const user = useGetUser();
-  const isPhone = usePhone();
 
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?
@@ -80,12 +79,10 @@ function Study(): ReactElement {
   }, [miniPlayerOpened]);
 
   const handleScroll = () => {
-    console.log(window.scrollY);
-    console.log(miniPlayerOpened);
     if (window.scrollY > 312) {
-      setMiniPlayerOpened(true);
+      !miniPlayerOpened && setMiniPlayerOpened(true);
     } else {
-      setMiniPlayerOpened(false);
+      miniPlayerOpened && setMiniPlayerOpened(false);
     }
   };
 
@@ -202,19 +199,6 @@ function Study(): ReactElement {
         </Styled.Modal>
       </Styled.ModalWrapper>
       <Styled.PlayerWrapper>
-        {/* {isPhone ? (
-          <MobilePlayer
-            handleSeekTime={handleSeekTime}
-            handleBackTime={handleBackTime}
-            handleForwardTime={handleForwardTime}
-          />
-        ) : (
-          <Player
-            handleSeekTime={handleSeekTime}
-            handleBackTime={handleBackTime}
-            handleForwardTime={handleForwardTime}
-          />
-        )} */}
         <MobilePlayer
           handleSeekTime={handleSeekTime}
           handleBackTime={handleBackTime}
