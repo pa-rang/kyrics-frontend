@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useMobile } from 'hooks/useMobile';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   currentTimeAtom,
@@ -23,12 +23,15 @@ interface PlayControlStyledProps {
   isPlay: boolean;
 }
 
+type HoverState = 'idle' | 'MouseEnter' | 'MouseLeave';
 interface EnvironmentControlStyledProps {
   isMessageOpened: boolean;
   isVolumeOpened: boolean;
   isLooped: boolean;
   volume: number;
+  isHover: HoverState;
 }
+
 function PlayController({
   handleSeekTime,
   handleBackTime,
@@ -57,6 +60,8 @@ function PlayController({
       ? `0${Math.floor(totalTime / 60)}:0${totalTime % 60} `
       : `0${Math.floor(totalTime / 60)}:${totalTime % 60} `;
 
+  const [isHover, setIsHover] = useState<HoverState>('idle');
+
   const handlePlay = () => {
     setIsPlay((isPlay) => !isPlay);
   };
@@ -69,9 +74,11 @@ function PlayController({
 
   const mouseEnterController = () => {
     setIsVolumeOpened(true);
+    setIsHover('MouseEnter');
   };
   const mouseLeaveController = () => {
     setIsVolumeOpened(false);
+    setIsHover('MouseLeave');
   };
 
   const handleVolumeChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -110,6 +117,7 @@ function PlayController({
         isVolumeOpened={isVolumeOpened}
         isLooped={loop}
         volume={volumeBar}
+        isHover={isHover}
       >
         <div
           className="volume"
@@ -334,8 +342,10 @@ const Styled = {
             #9d9d9d 100%
           );
         `}
-        ${({ isVolumeOpened }) =>
-          isVolumeOpened ? 'animation: fadein 1s; visibility: visible;' : 'animation: fadeout 1s;'}
+        ${({ isHover }) =>
+          isHover === 'MouseEnter'
+            ? 'animation: fadeIn 0.5s; visibility: visible;'
+            : isHover === 'MouseLeave' && 'animation: fadeOut 0.5s;'}
       }
     }
     .replay {
