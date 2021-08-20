@@ -6,7 +6,6 @@ import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
-import { usePhone } from 'hooks/useMobile';
 import useWindowSize from 'hooks/useWindowSize';
 import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
@@ -198,11 +197,18 @@ function Study(): ReactElement {
           />
         </Styled.Modal>
       </Styled.ModalWrapper>
-      <Player
-        handleSeekTime={handleSeekTime}
-        handleBackTime={handleBackTime}
-        handleForwardTime={handleForwardTime}
-      />
+      <Styled.PlayerWrapper>
+        <MobilePlayer
+          handleSeekTime={handleSeekTime}
+          handleBackTime={handleBackTime}
+          handleForwardTime={handleForwardTime}
+        />
+        <Player
+          handleSeekTime={handleSeekTime}
+          handleBackTime={handleBackTime}
+          handleForwardTime={handleForwardTime}
+        />
+      </Styled.PlayerWrapper>
       <Styled.Main width={width}>
         <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
         {size && size.width > 1080 && <KeyExpression />}
@@ -253,4 +259,5 @@ const Styled = {
     padding: 0px ${({ width }) => (141 * width) / 1440}px;
     /* padding-right: 100px; */
   `,
+  PlayerWrapper: styled.div``,
 };

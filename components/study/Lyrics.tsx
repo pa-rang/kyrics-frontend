@@ -216,6 +216,7 @@ const Styled = {
   Root: styled.div<StyledProps>`
     display: flex;
     align-items: center;
+    margin-bottom: 150px;
     /* justify-content: center; */
     width: 100%;
     max-width: 780px;
@@ -346,6 +347,7 @@ const Styled = {
     }
     @media screen and (max-width: 415px) {
       margin-top: ${({ isFixed }) => isFixed && '100px'};
+      margin-bottom: 60px;
     }
   `,
   Lyrics: styled.div`
@@ -425,6 +427,7 @@ const Styled = {
   `,
   Main: styled.div`
     position: relative;
+    border-radius: 10px;
     background-color: #f6f6f6;
     width: 100%;
     max-width: 780px;
