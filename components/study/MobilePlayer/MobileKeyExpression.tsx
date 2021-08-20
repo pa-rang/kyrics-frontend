@@ -7,6 +7,8 @@ import { client, clientWithoutToken, KyricsSWRResponse } from 'lib/api';
 import { useRouter } from 'next/router';
 import React from 'react';
 import Slider, { Settings } from 'react-slick';
+import { useRecoilValue } from 'recoil';
+import { widthAtom } from 'states';
 import useSWR from 'swr';
 import { IMyVocab } from 'types';
 
@@ -37,6 +39,7 @@ const sliderProps: Settings = {
 };
 
 function MobileKeyExpression() {
+  // const width = useRecoilValue(widthAtom);
   const router = useRouter();
   const {
     query: { id: songId },
@@ -55,13 +58,14 @@ function MobileKeyExpression() {
           <KeyExpressionItem
             key={kor}
             type="line-left"
-            width="80%"
+            width="289px"
+            small={true}
             eng={eng}
             engExample={engExample}
             kor={kor}
             korExample={korExample}
             isSaved={isSaved}
-            styled={{ margin: 'auto' }}
+            styled={{ margin: 'auto', height: '108px' }}
             id={id}
             songId={Number(songId)}
           />
@@ -75,9 +79,6 @@ export default MobileKeyExpression;
 
 const Styled = {
   Root: styled.div`
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
     .slick-arrow {
       position: absolute;
       width: 13px;
@@ -88,23 +89,18 @@ const Styled = {
     }
     .slick-next {
       position: absolute;
-      /* top: 50%; */
       right: 8px;
       z-index: 100;
     }
 
     .slick-prev {
       position: absolute;
-      /* top: 50%; */
       left: 10px;
       z-index: 100;
     }
     .arrowImg {
-      z-index: 1;
       width: 13px;
       height: 32px;
-      /* margin-top: -20px; */
-      /* margin-left: -10px; */
     }
   `,
 };

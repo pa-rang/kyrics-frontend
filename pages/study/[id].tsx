@@ -49,7 +49,6 @@ function Study(): ReactElement {
 
   const url = data?.data?.data?.youtubeUrl;
   const user = useGetUser();
-  const isPhone = usePhone();
 
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?
@@ -68,26 +67,6 @@ function Study(): ReactElement {
       setTotalTime(Math.floor(host.getDuration()));
     }
   }, [isPlay]);
-
-  const [miniPlayerOpened, setMiniPlayerOpened] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [miniPlayerOpened]);
-
-  const handleScroll = () => {
-    console.log(window.scrollY);
-    console.log(miniPlayerOpened);
-    if (window.scrollY > 312) {
-      setMiniPlayerOpened(true);
-    } else {
-      setMiniPlayerOpened(false);
-    }
-  };
 
   const handleOnProgress = (e: { playedSeconds: number }) => {
     setCurrentTime(e.playedSeconds);
@@ -201,43 +180,15 @@ function Study(): ReactElement {
           />
         </Styled.Modal>
       </Styled.ModalWrapper>
-      <Styled.PlayerWrapper>
-        {/* {isPhone ? (
-          <MobilePlayer
-            handleSeekTime={handleSeekTime}
-            handleBackTime={handleBackTime}
-            handleForwardTime={handleForwardTime}
-          />
-        ) : (
-          <Player
-            handleSeekTime={handleSeekTime}
-            handleBackTime={handleBackTime}
-            handleForwardTime={handleForwardTime}
-          />
-        )} */}
-        <MobilePlayer
-          handleSeekTime={handleSeekTime}
-          handleBackTime={handleBackTime}
-          handleForwardTime={handleForwardTime}
-        />
-        <Player
-          handleSeekTime={handleSeekTime}
-          handleBackTime={handleBackTime}
-          handleForwardTime={handleForwardTime}
-        />
-      </Styled.PlayerWrapper>
+      <Player
+        handleSeekTime={handleSeekTime}
+        handleBackTime={handleBackTime}
+        handleForwardTime={handleForwardTime}
+      />
       <Styled.Main width={width}>
         <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
         {size && size.width > 1080 && <KeyExpression />}
       </Styled.Main>
-      <Styled.MiniPlayerWrapper>
-        <MiniPlayer
-          handleSeekTime={handleSeekTime}
-          handleBackTime={handleBackTime}
-          handleForwardTime={handleForwardTime}
-          miniPlayerOpened={miniPlayerOpened}
-        />
-      </Styled.MiniPlayerWrapper>
     </Styled.Root>
   );
 }
@@ -278,22 +229,10 @@ const Styled = {
       cursor: pointer;
     }
   `,
-  PlayerWrapper: styled.div`
-    width: 100%;
-  `,
-  MobilePlayerWrapper: styled.div<{ isPhone: boolean }>`
-    display: ${({ isPhone }) => !isPhone && 'none'};
-  `,
   Main: styled.div<{ width: number }>`
     display: flex;
     justify-content: center;
     padding: 0px ${({ width }) => (141 * width) / 1440}px;
     /* padding-right: 100px; */
-  `,
-  MiniPlayerWrapper: styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
   `,
 };

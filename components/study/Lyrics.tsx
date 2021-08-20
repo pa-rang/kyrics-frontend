@@ -368,7 +368,7 @@ const Styled = {
       max-width: 390px;
       height: 100px;
       color: #ffffff;
-      div:nth-child(1) {
+      div:nth-of-type(1) {
         height: 27px;
         font-size: 24px;
         font-weight: 700;
@@ -377,7 +377,7 @@ const Styled = {
           font-size: 14px;
         }
       }
-      div:nth-child(2) {
+      div:nth-of-type(2) {
         font-size: 16px;
         font-weight: 500;
         @media (max-width: 768px) {

@@ -50,3 +50,8 @@ export const isVolumeOpenedAtom = atom({
   key: 'isVolumeOpenedAtom',
   default: false,
 });
+
+export const widthAtom = atom({
+  key: 'widthAtom',
+  default: 0,
+});
