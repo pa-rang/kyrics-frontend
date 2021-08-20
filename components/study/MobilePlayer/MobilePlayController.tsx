@@ -56,12 +56,14 @@ function MobilePlayController({ handleBackTime, handleForwardTime }: PlayerProps
 export default MobilePlayController;
 
 const Styled = {
-  Root: styled.div``,
+  Root: styled.div`
+    position: relative;
+  `,
   ModalWrapper: styled.div`
     position: fixed;
     bottom: 65px;
     left: 54%;
-    z-index: 2;
+    z-index: 100002;
   `,
   PlayerWrapper: styled.div`
     display: flex;

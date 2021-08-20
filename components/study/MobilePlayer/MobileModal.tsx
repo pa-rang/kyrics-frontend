@@ -25,6 +25,7 @@ const Styled = {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 10002;
     border-radius: 10px;
     background: #f8fafc;
     width: 132px;
