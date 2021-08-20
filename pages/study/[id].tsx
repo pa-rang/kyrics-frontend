@@ -78,9 +78,9 @@ function Study(): ReactElement {
 
   const handleScroll = () => {
     if (window.scrollY > 312) {
-      setMiniPlayerOpened(true);
+      !miniPlayerOpened && setMiniPlayerOpened(true);
     } else {
-      setMiniPlayerOpened(false);
+      miniPlayerOpened && setMiniPlayerOpened(false);
     }
   };
 
