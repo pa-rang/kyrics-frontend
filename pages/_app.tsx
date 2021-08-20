@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Kyrics" />
-        <meta property="og:url" content="https://kyrics.vercel.app/" />
+        <meta property="og:url" content="https://www.kyrics.org" />
         <meta property="og:site_name" content="Kyrics" />
         <meta property="og:description" content="케이팝 가사로 배우는 우리말, 키릭스" />
         <meta

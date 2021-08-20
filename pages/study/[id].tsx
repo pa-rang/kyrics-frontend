@@ -68,6 +68,24 @@ function Study(): ReactElement {
     }
   }, [isPlay]);
 
+  const [miniPlayerOpened, setMiniPlayerOpened] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [miniPlayerOpened]);
+
+  const handleScroll = () => {
+    if (window.scrollY > 312) {
+      !miniPlayerOpened && setMiniPlayerOpened(true);
+    } else {
+      miniPlayerOpened && setMiniPlayerOpened(false);
+    }
+  };
+
   const handleOnProgress = (e: { playedSeconds: number }) => {
     setCurrentTime(e.playedSeconds);
   };
@@ -162,14 +180,14 @@ function Study(): ReactElement {
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
-            config={{
-              youtube: {
-                playerVars: {
-                  autoplay: 1,
-                  enablejsapi: 1,
-                },
-              },
-            }}
+            // config={{
+            //   youtube: {
+            //     playerVars: {
+            //       autoplay: 0,
+            //       enablejsapi: 1,
+            //     },
+            //   },
+            // }}
           />
           <img
             className="modalClose--btn"

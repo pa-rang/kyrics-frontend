@@ -42,11 +42,11 @@ function Login() {
 
     if (isNewUser) {
       isProduction
-        ? window.open('https://kyrics.vercel.app/login/email', '_self')
+        ? window.open('https://www.kyrics.org/login/email', '_self')
         : window.open('http://localhost:3000/login/email', '_self');
     } else {
       isProduction
-        ? window.open('https://kyrics.vercel.app', '_self')
+        ? window.open('https://www.kyrics.org', '_self')
         : window.open('http://localhost:3000', '_self');
     }
   };
