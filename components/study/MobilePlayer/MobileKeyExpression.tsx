@@ -29,14 +29,9 @@ function Arrow({ className, style, onClick, img }: ArrowProps) {
 
 const sliderProps: Settings = {
   arrows: true,
-  // infinite: true,
-  // autoplay: true,
-  // pauseOnHover: true,
-  // speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
   initialSlide: 0,
-  // dots: true,
   prevArrow: <Arrow img={'/assets/icons/icPrevArrow.svg'} />,
   nextArrow: <Arrow img={'/assets/icons/icNextArrow.svg'} />,
 };
@@ -54,25 +49,62 @@ function MobileKeyExpression() {
   const keyExpressions = keyExpressionsData?.data.data;
 
   return (
-    <div>
+    <Styled.Root>
       <Slider {...sliderProps}>
         {keyExpressions?.map(({ id, eng, engExample, kor, korExample, isSaved }) => (
           <KeyExpressionItem
             key={kor}
             type="line-left"
-            width="50%"
+            width="80%"
             eng={eng}
             engExample={engExample}
             kor={kor}
             korExample={korExample}
             isSaved={isSaved}
+            styled={{ margin: 'auto' }}
             id={id}
             songId={Number(songId)}
           />
         ))}
       </Slider>
-    </div>
+    </Styled.Root>
   );
 }
 
 export default MobileKeyExpression;
+
+const Styled = {
+  Root: styled.div`
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    .slick-arrow {
+      position: absolute;
+      width: 13px;
+      height: 32px;
+      ::before {
+        content: '';
+      }
+    }
+    .slick-next {
+      position: absolute;
+      /* top: 50%; */
+      right: 8px;
+      z-index: 100;
+    }
+
+    .slick-prev {
+      position: absolute;
+      /* top: 50%; */
+      left: 10px;
+      z-index: 100;
+    }
+    .arrowImg {
+      z-index: 1;
+      width: 13px;
+      height: 32px;
+      /* margin-top: -20px; */
+      /* margin-left: -10px; */
+    }
+  `,
+};
