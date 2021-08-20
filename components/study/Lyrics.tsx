@@ -27,6 +27,7 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   const {
     query: { id },
   } = router;
+
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
 
   useEffect(() => {

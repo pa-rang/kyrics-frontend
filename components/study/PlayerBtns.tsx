@@ -10,7 +10,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { isLoginModalOpenedState, isYoutubeModalOpenedState, songDataState } from 'states';
 
 interface Props {
-  setIsMobileModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsMobileModalOpened?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function PlayerBtns({ setIsMobileModalOpened }: Props) {
@@ -63,7 +63,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const handleFavorite = () => {
     if (!user) {
       setIsLoginModalOpened(true);
-      setIsMobileModalOpened(false);
+      setIsMobileModalOpened && setIsMobileModalOpened(false);
       return;
     }
 
@@ -96,7 +96,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
     // favorite를 수정하는 put code 추가 예정
   };
   const handleYoutubeClick = () => {
-    setIsMobileModalOpened(false);
+    setIsMobileModalOpened && setIsMobileModalOpened(false);
     setIsYoutubeModalOpened(true);
   };
 
@@ -105,7 +105,12 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
       <div className="icon--container">
         <img
           className="FavoriteIcon"
-          src={`/assets/icons/${onFavorite}FavoriteIcon.svg`}
+          // src={`/assets/icons/${onFavorite}FavoriteIcon.svg`}
+          src={
+            onFavorite === 'on'
+              ? `/assets/icons/${onFavorite}FavoriteIcon.svg`
+              : `/assets/icons/FavoriteIcon.svg`
+          }
           alt="favorite"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
