@@ -10,10 +10,10 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { isYoutubeModalOpenedState, songDataState } from 'states';
 
 interface Props {
-  videoId?: string;
+  setIsMobileModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function PlayerBtns() {
+function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const setIsYoutubeModalOpened = useSetRecoilState(isYoutubeModalOpenedState);
   const [isFavorite, setIsFavorite] = useState(false);
   // data를 받아와서, favorite 초기값을 설정해줄 예정.
@@ -54,12 +54,14 @@ function PlayerBtns() {
 
   const handleCopy = () => {
     setIsCopyMsgOpen(true);
+    // setIsMobileModalOpened(false);
     setTimeout(() => {
       setIsCopyMsgOpen(false);
     }, 2000);
   };
   const [isLoginModalOpened, setIsLoginModalOpened] = useState(false);
   const handleFavorite = () => {
+    // setIsMobileModalOpened(false);
     if (!user) {
       setIsLoginModalOpened(true);
 
@@ -93,6 +95,10 @@ function PlayerBtns() {
 
     setIsFavorite((isFavorite) => !isFavorite);
     // favorite를 수정하는 put code 추가 예정
+  };
+  const handleYoutubeClick = () => {
+    // setIsMobileModalOpened(false);
+    setIsYoutubeModalOpened(true);
   };
 
   return (
@@ -128,7 +134,7 @@ function PlayerBtns() {
         alt="youtube"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={() => setIsYoutubeModalOpened(true)}
+        onClick={handleYoutubeClick}
         aria-hidden="true"
       />
       {isLoginModalOpened && <LoginModal setIsLoginModalOpened={setIsLoginModalOpened} />}
@@ -178,5 +184,8 @@ const PlayerBtnsWrapper = styled.div<{ isFavoriteMsgOpen: boolean; isCopyMsgOpen
   }
   @media (max-width: 900px) {
     display: none;
+  }
+  @media (max-width: 415px) {
+    display: flex;
   }
 `;

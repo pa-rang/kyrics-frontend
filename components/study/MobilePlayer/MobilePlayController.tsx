@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { isPlayAtom, loopAtom } from 'states';
 import { PlayerProps } from 'types';
 
-import MobileModal from './MobileModal';
+import MobileModal2 from './MobileModal2';
 
 interface PlayControlStyledProps {
   isPlay: boolean;
@@ -34,7 +34,7 @@ function MobilePlayController({ handleBackTime, handleForwardTime }: PlayerProps
   return (
     <Styled.Root>
       <Styled.ModalWrapper>
-        {isMobileModalOpened && <MobileModal setIsMobileModalOpened={setIsMobileModalOpened} />}
+        {isMobileModalOpened && <MobileModal2 setIsMobileModalOpened={setIsMobileModalOpened} />}
       </Styled.ModalWrapper>
       <Styled.PlayerWrapper>
         <Styled.PlayControl>
