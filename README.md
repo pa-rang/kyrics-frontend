@@ -1,7 +1,6 @@
 ![키릭 로고-01](https://user-images.githubusercontent.com/81923229/124728683-c0ca7600-df4a-11eb-98aa-d80d92e90df1.jpg)
 
-[사이트링크](https://kyrics.vercel.app/)
-
+[사이트링크](https://www.kyrics.org)
 
 ## 💫 `Kyrics`는 이런 서비스입니다!
 
@@ -15,34 +14,34 @@
 ## 기능 소개
 
 1. Home View
-![image](https://user-images.githubusercontent.com/24906022/125967698-4f128db9-3430-477e-b39b-3265e082b402.png)
+   ![image](https://user-images.githubusercontent.com/24906022/125967698-4f128db9-3430-477e-b39b-3265e082b402.png)
 
 - 아티스트를 선택하는 화면입니다.
 
 2. Artist View
-![image](https://user-images.githubusercontent.com/24906022/125967749-9f6a3f96-a83d-4d71-956f-9b3774589479.png)
+   ![image](https://user-images.githubusercontent.com/24906022/125967749-9f6a3f96-a83d-4d71-956f-9b3774589479.png)
 
-- 아티스트의 노래를 선택하는 화면입니다. 
+- 아티스트의 노래를 선택하는 화면입니다.
 
 3. Study View
-![image](https://user-images.githubusercontent.com/24906022/125967825-8ea8848f-9ecf-4159-8126-156df3f3062a.png)
+   ![image](https://user-images.githubusercontent.com/24906022/125967825-8ea8848f-9ecf-4159-8126-156df3f3062a.png)
 
 - 학습이 가능하도록 player를 만들고, Key Expressions 제공합니다.
 - 음악이 흘러감에 따라 가사가 하이라이팅 됩니다.
 - 가사를 클릭하면, 해당 가사가 흘러나오는 시간으로 이동합니다.
 
 4. Login View
-![image](https://user-images.githubusercontent.com/24906022/125967851-c8c4252c-825d-48e5-b332-b9efc46c8bac.png)
+   ![image](https://user-images.githubusercontent.com/24906022/125967851-c8c4252c-825d-48e5-b332-b9efc46c8bac.png)
 
 - Google, Facebook Social Login을 제공합니다.
 
 5. My Songs View
-![image](https://user-images.githubusercontent.com/24906022/125967884-d0668dbc-7e0d-4f38-8cd1-975e79489ff2.png)
+   ![image](https://user-images.githubusercontent.com/24906022/125967884-d0668dbc-7e0d-4f38-8cd1-975e79489ff2.png)
 
 - 즐겨찾기 추가한 노래를 모아둡니다
 
 6. My Vocab View
-![image](https://user-images.githubusercontent.com/24906022/125967911-6efbf948-c6f9-4643-97c2-32198bc4c267.png)
+   ![image](https://user-images.githubusercontent.com/24906022/125967911-6efbf948-c6f9-4643-97c2-32198bc4c267.png)
 
 - 즐겨찾기 추가한 단어를 모아둡니다
 
@@ -118,6 +117,7 @@
 ```
 
 ## 🖥 Contributor
+
 - [김의진](https://github.com/euijinkk)
 - [박나희](https://github.com/Nahee-Park)
 - [이다은](https://github.com/Daeun-Danna-Lee)
