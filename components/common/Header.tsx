@@ -70,10 +70,11 @@ const HeaderWrap = styled.div`
     justify-content: space-between;
     height: 90px;
     font-size: 20px;
-    @media (max-width: 768px) {
-      height: 50px;
+    @media (max-width: 900px) {
+      height: 70px;
     }
     @media (max-width: 768px) {
+      height: 50px;
       font-size: 16px;
     }
   }
@@ -85,6 +86,9 @@ const HeaderWrap = styled.div`
     cursor: pointer;
     width: 176px;
     height: 31px;
+    @media (max-width: 900px) {
+      margin-left: 50px;
+    }
     @media (max-width: 768px) {
       margin-left: 20px;
       background-image: url(/assets/icons/SmallHeaderLogo.svg);
@@ -105,6 +109,9 @@ const HeaderWrap = styled.div`
         color: #9d9d9d;
         font-weight: bold;
         font-style: normal;
+        @media (max-width: 900px) {
+          margin-right: 50px;
+        }
         @media (max-width: 768px) {
           margin-right: 24px;
           font-size: 12px;
@@ -145,7 +152,9 @@ const HeaderWrap = styled.div`
           }
         }
       }
-
+      @media (max-width: 900px) {
+        margin-right: 50px;
+      }
       @media (max-width: 768px) {
         margin-right: 19px;
       }
@@ -185,6 +194,9 @@ const HeaderWrap = styled.div`
         }
       }
 
+      @media (max-width: 900px) {
+        margin-right: 50px;
+      }
       @media (max-width: 768px) {
         margin-right: 19px;
       }

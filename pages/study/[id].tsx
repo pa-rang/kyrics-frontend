@@ -178,14 +178,14 @@ function Study(): ReactElement {
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
-            config={{
-              youtube: {
-                playerVars: {
-                  autoplay: 1,
-                  enablejsapi: 1,
-                },
-              },
-            }}
+            // config={{
+            //   youtube: {
+            //     playerVars: {
+            //       autoplay: 0,
+            //       enablejsapi: 1,
+            //     },
+            //   },
+            // }}
           />
           <img
             className="modalClose--btn"

@@ -110,7 +110,7 @@ function PlayerBtns() {
         <div className="favoriteAdd--msg msg">Added</div>
       </div>
       <div className="icon--container">
-        <CopyToClipboard text={`https://kyrics.vercel.app/${router.asPath}`} onCopy={handleCopy}>
+        <CopyToClipboard text={`https://www.kyrics.org/${router.asPath}`} onCopy={handleCopy}>
           <img
             className="CopyIcon"
             src="/assets/icons/CopyIcon.svg"
