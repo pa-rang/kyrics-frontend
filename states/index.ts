@@ -11,6 +11,11 @@ export const isYoutubeModalOpenedState = atom({
   default: false,
 });
 
+export const isLoginModalOpenedState = atom({
+  key: 'isLoginModalOpenedState',
+  default: false,
+});
+
 export const isPlayAtom = atom({
   key: 'isPlayAtom',
   default: false,

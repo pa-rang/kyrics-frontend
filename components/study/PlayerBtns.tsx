@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { isYoutubeModalOpenedState, songDataState } from 'states';
+import { isLoginModalOpenedState, isYoutubeModalOpenedState, songDataState } from 'states';
 
 interface Props {
   setIsMobileModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
@@ -59,7 +59,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
       setIsCopyMsgOpen(false);
     }, 2000);
   };
-  const [isLoginModalOpened, setIsLoginModalOpened] = useState(false);
+  const setIsLoginModalOpened = useSetRecoilState(isLoginModalOpenedState);
   const handleFavorite = () => {
     // setIsMobileModalOpened(false);
     if (!user) {
@@ -137,7 +137,6 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
         onClick={handleYoutubeClick}
         aria-hidden="true"
       />
-      {isLoginModalOpened && <LoginModal setIsLoginModalOpened={setIsLoginModalOpened} />}
     </PlayerBtnsWrapper>
   );
 }

@@ -1,4 +1,5 @@
 import Header from '@components/common/Header';
+import LoginModal from '@components/common/LoginModal';
 import Lyrics from '@components/study/Lyrics';
 import MiniPlayer from '@components/study/MiniPlayer';
 import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
@@ -22,6 +23,7 @@ import {
   totalTimeAtom,
   volumeBarAtom,
   widthAtom,
+  isLoginModalOpenedState,
 } from 'states';
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
@@ -162,9 +164,12 @@ function Study(): ReactElement {
     };
   }, []);
 
+  const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
+
   return (
     <Styled.Root isYoutubeModalOpened={isYoutubeModalOpened}>
       <Header />
+      {isLoginModalOpened && <LoginModal />}
       <Styled.ModalWrapper isYoutubeModalOpened={isYoutubeModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
