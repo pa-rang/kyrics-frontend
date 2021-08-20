@@ -14,7 +14,7 @@ import ReactPlayer from 'react-player';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   currentTimeAtom,
-  isModalOpenedState,
+  isYoutubeModalOpenedState,
   isPlayAtom,
   loopAtom,
   percentageAtom,
@@ -39,7 +39,7 @@ function Study(): ReactElement {
   const host = hostVideo.current as ReactPlayer;
   const setPercentage = useSetRecoilState<number>(percentageAtom);
   const [modalHeight, setModalHeight] = useState<number>(0);
-  const [isModalOpened, setIsModalOpened] = useRecoilState(isModalOpenedState);
+  const [isYoutubeModalOpened, seYoutubetIsModalOpened] = useRecoilState(isYoutubeModalOpenedState);
   const setSongData = useSetRecoilState(songDataState);
   const router = useRouter();
   const {
@@ -126,7 +126,7 @@ function Study(): ReactElement {
     const modalWidth: number = window.outerWidth * 0.7;
 
     setModalHeight(modalWidth * 0.628);
-  }, [isModalOpened]);
+  }, [isYoutubeModalOpened]);
 
   const adjustModalHeight = () => {
     const modalWidth: number = window.outerWidth * 0.7;
@@ -163,9 +163,9 @@ function Study(): ReactElement {
   }, []);
 
   return (
-    <Styled.Root isModalOpened={isModalOpened}>
+    <Styled.Root isYoutubeModalOpened={isYoutubeModalOpened}>
       <Header />
-      <Styled.ModalWrapper isModalOpened={isModalOpened}>
+      <Styled.ModalWrapper isYoutubeModalOpened={isYoutubeModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
             playing={isPlay}
@@ -193,7 +193,7 @@ function Study(): ReactElement {
             className="modalClose--btn"
             src="/assets/icons/modalCloseIcon.svg"
             alt=""
-            onClick={() => setIsModalOpened(false)}
+            onClick={() => seYoutubetIsModalOpened(false)}
             aria-hidden="true"
           />
         </Styled.Modal>
@@ -221,17 +221,17 @@ function Study(): ReactElement {
 export default Study;
 
 const Styled = {
-  Root: styled.div<{ isModalOpened: boolean }>`
+  Root: styled.div<{ isYoutubeModalOpened: boolean }>`
     position: relative;
-    ${({ isModalOpened }) =>
-      isModalOpened &&
+    ${({ isYoutubeModalOpened }) =>
+      isYoutubeModalOpened &&
       css`
         height: 100vh;
         overflow-y: hidden;
       `}
   `,
-  ModalWrapper: styled.div<{ isModalOpened: boolean }>`
-    display: ${({ isModalOpened }) => (isModalOpened ? 'flex' : 'none')};
+  ModalWrapper: styled.div<{ isYoutubeModalOpened: boolean }>`
+    display: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'flex' : 'none')};
     position: fixed;
     top: 0;
     left: 0;

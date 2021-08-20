@@ -17,7 +17,7 @@ interface ReplayStyledProps {
 function MobilePlayController({ handleBackTime, handleForwardTime }: PlayerProps): ReactElement {
   const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
   const [loop, setLoop] = useRecoilState<boolean>(loopAtom);
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isMobileModalOpened, setIsMobileModalOpened] = useState(false);
 
   const handlePlay = () => {
     setIsPlay((isPlay) => !isPlay);
@@ -28,12 +28,14 @@ function MobilePlayController({ handleBackTime, handleForwardTime }: PlayerProps
   };
 
   const handleModal = () => {
-    setIsModalOpened((isModalOpened) => !isModalOpened);
+    setIsMobileModalOpened((isMobileModalOpened) => !isMobileModalOpened);
   };
 
   return (
     <Styled.Root>
-      <Styled.ModalWrapper>{isModalOpened && <MobileModal />}</Styled.ModalWrapper>
+      <Styled.ModalWrapper>
+        {isMobileModalOpened && <MobileModal setIsMobileModalOpened={setIsMobileModalOpened} />}
+      </Styled.ModalWrapper>
       <Styled.PlayerWrapper>
         <Styled.PlayControl>
           <Styled.Replay isLooped={loop}>

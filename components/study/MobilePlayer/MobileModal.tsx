@@ -1,7 +1,21 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import styled from '@emotion/styled';
 import React from 'react';
+import { useSetRecoilState } from 'recoil';
+import { isYoutubeModalOpenedState } from 'states';
 
-function MobileModal() {
+interface Props {
+  setIsMobileModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function MobileModal({ setIsMobileModalOpened }: Props) {
+  const setIsYoutubeModalOpened = useSetRecoilState(isYoutubeModalOpenedState);
+
+  const handleYoutubeClick = () => {
+    setIsMobileModalOpened(false);
+    setIsYoutubeModalOpened(true);
+  };
+
   return (
     <Styled.Root>
       <Styled.Favorite>
@@ -11,7 +25,9 @@ function MobileModal() {
         <div className="share">Share</div>
       </Styled.Share>
       <Styled.Youtube>
-        <div className="youtube">Youtube</div>
+        <div className="youtube" onClick={handleYoutubeClick}>
+          Youtube
+        </div>
       </Styled.Youtube>
     </Styled.Root>
   );
@@ -25,7 +41,6 @@ const Styled = {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 10002;
     border-radius: 10px;
     background: #f8fafc;
     width: 132px;

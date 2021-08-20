@@ -43,7 +43,7 @@ const Styled = {
     left: 0;
     align-items: center;
     justify-content: center;
-    z-index: 10000;
+    z-index: 1000000;
     background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
     height: 100%;

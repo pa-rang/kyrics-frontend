@@ -6,8 +6,8 @@ export const songDataState = atom({
   default: {} as ISongData,
 });
 
-export const isModalOpenedState = atom({
-  key: 'isModalOpenedState',
+export const isYoutubeModalOpenedState = atom({
+  key: 'isYoutubeModalOpenedState',
   default: false,
 });
 

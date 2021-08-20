@@ -7,14 +7,14 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { isModalOpenedState, songDataState } from 'states';
+import { isYoutubeModalOpenedState, songDataState } from 'states';
 
 interface Props {
   videoId?: string;
 }
 
 function PlayerBtns() {
-  const setIsModalOpened = useSetRecoilState(isModalOpenedState);
+  const setIsYoutubeModalOpened = useSetRecoilState(isYoutubeModalOpenedState);
   const [isFavorite, setIsFavorite] = useState(false);
   // data를 받아와서, favorite 초기값을 설정해줄 예정.
   const [isFavoriteMsgOpen, setIsFavoriteMsgOpen] = useState(false);
@@ -128,7 +128,7 @@ function PlayerBtns() {
         alt="youtube"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={() => setIsModalOpened(true)}
+        onClick={() => setIsYoutubeModalOpened(true)}
         aria-hidden="true"
       />
       {isLoginModalOpened && <LoginModal setIsLoginModalOpened={setIsLoginModalOpened} />}
