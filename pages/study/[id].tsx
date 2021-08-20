@@ -1,5 +1,6 @@
 import Header from '@components/common/Header';
 import Lyrics from '@components/study/Lyrics';
+import MiniPlayer from '@components/study/MiniPlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -64,6 +65,24 @@ function Study(): ReactElement {
       setTotalTime(Math.floor(host.getDuration()));
     }
   }, [isPlay]);
+
+  const [miniPlayerOpened, setMiniPlayerOpened] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [miniPlayerOpened]);
+
+  const handleScroll = () => {
+    if (window.scrollY > 312) {
+      !miniPlayerOpened && setMiniPlayerOpened(true);
+    } else {
+      miniPlayerOpened && setMiniPlayerOpened(false);
+    }
+  };
 
   const handleOnProgress = (e: { playedSeconds: number }) => {
     setCurrentTime(e.playedSeconds);
@@ -186,6 +205,14 @@ function Study(): ReactElement {
         <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
         {size && size.width > 1080 && <KeyExpression />}
       </Styled.Main>
+      <Styled.MiniPlayerWrapper>
+        <MiniPlayer
+          handleSeekTime={handleSeekTime}
+          handleBackTime={handleBackTime}
+          handleForwardTime={handleForwardTime}
+          miniPlayerOpened={miniPlayerOpened}
+        />
+      </Styled.MiniPlayerWrapper>
     </Styled.Root>
   );
 }
@@ -231,5 +258,11 @@ const Styled = {
     justify-content: center;
     padding: 0px ${({ width }) => (141 * width) / 1440}px;
     /* padding-right: 100px; */
+  `,
+  MiniPlayerWrapper: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
   `,
 };
