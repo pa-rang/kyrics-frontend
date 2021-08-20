@@ -14,7 +14,7 @@ interface Props {
   engExample: string;
   kor: string;
   korExample: string;
-  style?: { [key: string]: string };
+  styled?: { [key: string]: string };
   isSaved: boolean;
 }
 
@@ -27,11 +27,14 @@ function KeyExpressionItem({
   engExample,
   kor,
   korExample,
-  style,
+  styled,
   isSaved,
 }: Props) {
+  console.log(width);
+  console.log(styled);
+
   return (
-    <Styled.Root width={width} style={{ ...style }}>
+    <Styled.Root width={width} style={{ ...styled }}>
       <Styled.KeywordWrapper type={type}>
         <Styled.KorKeyword>{kor}</Styled.KorKeyword>
         <Styled.EngKeyword>{eng}</Styled.EngKeyword>
