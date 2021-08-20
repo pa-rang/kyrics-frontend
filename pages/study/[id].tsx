@@ -241,7 +241,7 @@ const Styled = {
     top: 0;
     left: 0;
     justify-content: center;
-    z-index: 11;
+    z-index: 1100000;
     background: rgba(0, 0, 0, 0.8);
     width: 100vw;
     height: 100vh;

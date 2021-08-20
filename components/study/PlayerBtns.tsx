@@ -61,10 +61,9 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   };
   const setIsLoginModalOpened = useSetRecoilState(isLoginModalOpenedState);
   const handleFavorite = () => {
-    // setIsMobileModalOpened(false);
     if (!user) {
       setIsLoginModalOpened(true);
-
+      setIsMobileModalOpened(false);
       return;
     }
 
@@ -97,7 +96,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
     // favorite를 수정하는 put code 추가 예정
   };
   const handleYoutubeClick = () => {
-    // setIsMobileModalOpened(false);
+    setIsMobileModalOpened(false);
     setIsYoutubeModalOpened(true);
   };
 
