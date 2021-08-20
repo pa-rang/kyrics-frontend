@@ -155,7 +155,7 @@ const Styled = {
     justify-content: space-around;
     z-index: 1;
     border-radius: 10px;
-    background: url('/assets/images/miniPlayerImage.svg') no-repeat 0 0;
+    background: url('/assets/images/miniBack.svg') no-repeat 0 0;
     background-color: #ffffff;
     width: 80.55%;
     height: 100px;
@@ -406,5 +406,5 @@ const Styled = {
         ${({ isMessageOpened }) => isMessageOpened && 'animation: fadeinout 1.5s'};
       }
     }
-  }`,
+  `,
 };
