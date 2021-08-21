@@ -2,12 +2,14 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
-import { isServer } from 'lib/constants/env';
+import { getPageLogger } from 'lib/utils/amplitude';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { mutate } from 'swr';
 
 import ProfileMenu from './ProfileMenu';
+
+const headerLogger = getPageLogger('header');
 
 function Header() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
@@ -28,6 +30,11 @@ function Header() {
     localStorage.removeItem('userToken');
     mutate('/user');
     window.location.reload();
+  }
+
+  function handleLoginClick() {
+    router.push('/login');
+    headerLogger.click('로그인_버튼_클릭수');
   }
 
   return (
@@ -52,7 +59,7 @@ function Header() {
             </div>
           ) : (
             <div className="user__anonymous">
-              <p className="user__anonymous--login" onClick={() => router.push('/login')}>
+              <p className="user__anonymous--login" onClick={handleLoginClick}>
                 Log In
               </p>
             </div>
