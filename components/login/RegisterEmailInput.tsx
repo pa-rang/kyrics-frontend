@@ -1,17 +1,18 @@
 import styled from '@emotion/styled';
 import { Button, Snackbar } from '@material-ui/core';
-import { client, KyricsResponse, KyricsSWRResponse } from 'lib/api';
+import { client, KyricsSWRResponse } from 'lib/api';
 import { colors } from 'lib/constants/colors';
 import { clickable } from 'lib/mixin';
-import { useRouter } from 'next/router';
+import { getPageLogger } from 'lib/utils/amplitude';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { User } from 'types';
 
 import SubscribeModal from './SubscribeModal';
 
+const loginPageLogger = getPageLogger('login_page');
+
 function RegisterEmailInput() {
-  const router = useRouter();
   const [inputValue, setInputValue] = useState('');
   const { data } = useSWR<KyricsSWRResponse<User>>('/user', client.get);
   const email = data?.data?.data?.email;
@@ -32,6 +33,7 @@ function RegisterEmailInput() {
 
     setIsSubscribeModalOpened(true);
     setInputValue('');
+    loginPageLogger.click('이메일_구독_버튼_클릭수');
   };
 
   return (

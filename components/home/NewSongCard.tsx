@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
+import { getPageLogger } from 'lib/utils/amplitude';
 import React from 'react';
+
+const newSongCardLogger = getPageLogger('new_song_card');
 
 function NewSongCard() {
   const requestNewSongUrl = 'https://forms.gle/NF4iTYvfesPZwgGt9';
@@ -15,6 +18,7 @@ function NewSongCard() {
         className="button"
         onClick={() => {
           window.open(requestNewSongUrl, '_blank');
+          newSongCardLogger.click('REQUEST_SONG_클릭수');
         }}
       >
         <p className="button__label">Request new songs!</p>

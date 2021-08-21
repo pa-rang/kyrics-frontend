@@ -3,6 +3,7 @@ import LoginModal from '@components/common/LoginModal';
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
 import { client } from 'lib/api';
+import { getPageLogger } from 'lib/utils/amplitude';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -12,6 +13,8 @@ import { isModalOpenedState, songDataState } from 'states';
 interface Props {
   videoId?: string;
 }
+
+const playerBtnsLogger = getPageLogger('player_btns');
 
 function PlayerBtns() {
   const setIsModalOpened = useSetRecoilState(isModalOpenedState);
@@ -54,10 +57,16 @@ function PlayerBtns() {
 
   const handleCopy = () => {
     setIsCopyMsgOpen(true);
+    playerBtnsLogger.click('SHARE_버튼_클릭수', {
+      아티스트_이름: songData.artist,
+      노래_제목: songData.title,
+    });
+
     setTimeout(() => {
       setIsCopyMsgOpen(false);
     }, 2000);
   };
+
   const [isLoginModalOpened, setIsLoginModalOpened] = useState(false);
   const handleFavorite = () => {
     if (!user) {
@@ -128,7 +137,13 @@ function PlayerBtns() {
         alt="youtube"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={() => setIsModalOpened(true)}
+        onClick={() => {
+          playerBtnsLogger.click('유튜브_버튼_클릭수', {
+            아티스트_이름: songData.artist,
+            노래_제목: songData.title,
+          });
+          setIsModalOpened(true);
+        }}
         aria-hidden="true"
       />
       {isLoginModalOpened && <LoginModal setIsLoginModalOpened={setIsLoginModalOpened} />}

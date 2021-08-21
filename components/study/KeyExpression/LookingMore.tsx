@@ -1,6 +1,9 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { getPageLogger } from 'lib/utils/amplitude';
 import React from 'react';
+
+const keyExpressionLogger = getPageLogger('key_expression');
+
 function LookingMore() {
   return (
     <Styled.Root>
@@ -8,11 +11,12 @@ function LookingMore() {
       <Styled.Box>
         <button
           className="box"
-          onClick={() =>
+          onClick={() => {
+            keyExpressionLogger.click('KEY_EXPRESSION_구글폼_클릭수');
             window.open(
               'https://docs.google.com/forms/d/e/1FAIpQLSfkmJjcBl2mQEYeszqCpCaJOEan52SXi54Azml0dbsTshq3ow/viewform',
-            )
-          }
+            );
+          }}
         >
           <div className="box-message">
             Help us improve our service
