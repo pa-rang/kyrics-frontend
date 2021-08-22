@@ -406,5 +406,5 @@ const Styled = {
         ${({ isMessageOpened }) => isMessageOpened && 'animation: fadeinout 1.5s'};
       }
     }
-  }`,
+  `,
 };
