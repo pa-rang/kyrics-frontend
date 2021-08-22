@@ -8,8 +8,6 @@ interface Props {
 }
 
 function MobileModal2({ setIsMobileModalOpened }: Props) {
-  console.log('mobilemodal2');
-
   return (
     <Styled.Root>
       <PlayerBtns setIsMobileModalOpened={setIsMobileModalOpened} />
