@@ -71,7 +71,6 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
     } else {
       await client.delete(`user/song/${id}`);
     }
-    // mutate(`user/song/${id}`);
     mutate(`/song/${id}`);
   };
   const handleYoutubeClick = () => {

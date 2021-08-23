@@ -14,20 +14,17 @@ import Quiz from './Quiz';
 interface Props {
   handleLyrics: (line: ITimedText) => void;
   currentTime: number;
+  id: number;
 }
 
-function Lyrics({ handleLyrics, currentTime }: Props) {
-  const songData = useRecoilValue(songDataState);
+function Lyrics({ handleLyrics, currentTime, id }: Props) {
   const [timedtext, setTimedtext] = useState<ITimedText[] | undefined>();
   const [startTime, setStartTime] = useState<number>();
   const [isDropDown, setIsDropDown] = useState(false);
   const [engTranslated, setEngTranslated] = useState(false);
   const [isQuizStep, setIsQuizStep] = useState(false);
   const [fontSize, setFontSize] = useState('Medium');
-  const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+
   const user = useGetUser();
   const isToken = user ? client : clientWithoutToken;
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
@@ -99,6 +96,10 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
       setIsFixed(false);
     }
   };
+
+  if (!id) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Styled.Root fontSize={fontSize} engTranslated={engTranslated} isFixed={isFixed}>

@@ -165,6 +165,10 @@ function Study(): ReactElement {
 
   const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
 
+  if (!id) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Styled.Root isYoutubeModalOpened={isYoutubeModalOpened}>
       <Header />
@@ -215,7 +219,7 @@ function Study(): ReactElement {
         />
       </Styled.PlayerWrapper>
       <Styled.Main width={width}>
-        <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
+        <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} id={Number(id)} />
         {size && size.width > 1080 && <KeyExpression />}
       </Styled.Main>
     </Styled.Root>
