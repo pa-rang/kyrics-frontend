@@ -16,12 +16,9 @@ interface Props {
 
 function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const setIsYoutubeModalOpened = useSetRecoilState(isYoutubeModalOpenedState);
-  const [isFavorite, setIsFavorite] = useState(false);
-  // data를 받아와서, favorite 초기값을 설정해줄 예정.
   const [isFavoriteMsgOpen, setIsFavoriteMsgOpen] = useState(false);
   const [isCopyMsgOpen, setIsCopyMsgOpen] = useState(false);
   const songData = useRecoilValue(songDataState);
-  const [onFavorite, setOnFavorite] = useState<'on' | ''>('');
   const router = useRouter();
   const {
     query: { id },
@@ -29,17 +26,6 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const user = useGetUser();
 
   const isSaved = songData?.isSaved;
-
-  console.log('isSaved', isSaved);
-
-  // useEffect(() => {
-  //   const isSaved = songData?.isSaved;
-
-  //   console.log('songData', songData);
-
-  //   setIsFavorite(isSaved);
-  //   isSaved ? setOnFavorite('on') : setOnFavorite('');
-  // }, [songData?.isSaved]);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
@@ -61,7 +47,6 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
 
   const handleCopy = () => {
     setIsCopyMsgOpen(true);
-    // setIsMobileModalOpened(false);
     setTimeout(() => {
       setIsCopyMsgOpen(false);
     }, 2000);
@@ -75,33 +60,16 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
       return;
     }
 
-    // isFavorite ? setOnFavorite('') : setOnFavorite('on');
     if (!isSaved) {
       setIsFavoriteMsgOpen(true);
       setTimeout(() => {
         setIsFavoriteMsgOpen(false);
       }, 2000);
-      client
-        .post(`user/song/${id}`)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      client.post(`user/song/${id}`);
     } else {
-      client
-        .delete(`user/song/${id}`)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      client.delete(`user/song/${id}`);
     }
     mutate(`/song/${id}`);
-    // setIsFavorite((isFavorite) => !isFavorite);
-    // favorite를 수정하는 put code 추가 예정
   };
   const handleYoutubeClick = () => {
     setIsMobileModalOpened && setIsMobileModalOpened(false);
@@ -113,9 +81,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
       <div className="icon--container">
         <img
           className="FavoriteIcon"
-          // src={`/assets/icons/${onFavorite}FavoriteIcon.svg`}
-          // src={`/assets/icons/${onFavorite}FavoriteIcon.svg`}
-          src={isSaved ? '/assets/icons/onFavoriteIcon.svg' : '/assets/icons/FavoriteIcon.svg'}
+          src={`/assets/icons/${isSaved ? 'on' : ''}FavoriteIcon.svg`}
           alt="favorite"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}

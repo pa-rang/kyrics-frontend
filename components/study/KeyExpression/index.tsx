@@ -22,8 +22,6 @@ function KeyExpression() {
   );
   const keyExpressions = keyExpressionsData?.data.data;
 
-  console.log('keyExpressions', keyExpressions);
-
   return (
     <Styled.Root>
       <Styled.Title>Key Expression</Styled.Title>

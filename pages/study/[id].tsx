@@ -49,10 +49,7 @@ function Study(): ReactElement {
   } = router;
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
 
-  console.log('data', data);
-
   const url = data?.data?.data?.youtubeUrl;
-  const user = useGetUser();
 
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?
