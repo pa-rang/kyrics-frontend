@@ -75,26 +75,20 @@ const Wrap = styled.div`
 
     &__icon {
       margin-left: 10px;
-      /* width: 19px;
-      height: 19px; */
       @media (max-width: 415px) {
-        transform: translateY(1px);
+        transform: translateY(0.5px);
         margin: 0;
-        /* width: 10px;
-        height: 10px; */
       }
     }
 
     &__label {
       margin-left: 12px;
-      /* line-height: 22px; */
       color: #9d9d9d;
       font-size: 16px;
       font-weight: 500;
       font-style: normal;
       @media (max-width: 415px) {
         margin-left: 4px;
-        /* line-height: 10px; */
         font-size: 7px;
       }
     }
@@ -106,7 +100,6 @@ const Wrap = styled.div`
       width: 204px;
       height: 1px;
       @media (max-width: 415px) {
-        margin-top: 2;
         width: 106px;
       }
     }
