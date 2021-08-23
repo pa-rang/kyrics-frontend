@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useGetUser } from 'hooks/api';
 import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -27,8 +28,9 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
   const {
     query: { id },
   } = router;
-
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
+  const user = useGetUser();
+  const isToken = user ? client : clientWithoutToken;
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
 
   useEffect(() => {
     setTimedtext(data?.data?.data?.lyrics);

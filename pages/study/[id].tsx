@@ -49,6 +49,8 @@ function Study(): ReactElement {
   } = router;
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
 
+  console.log('data', data);
+
   const url = data?.data?.data?.youtubeUrl;
   const user = useGetUser();
 

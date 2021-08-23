@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import styled from '@emotion/styled';
-import { defaultSWROptions } from 'hooks/api';
+import { defaultSWROptions, useGetUser } from 'hooks/api';
 import { client, clientWithoutToken, KyricsSWRResponse } from 'lib/api';
 import { colors } from 'lib/constants/colors';
 import { useRouter } from 'next/router';
@@ -45,9 +45,11 @@ function MobileKeyExpression() {
   const {
     query: { id: songId },
   } = router;
+  const user = useGetUser();
+  const isToken = user ? client : clientWithoutToken;
   const { data: keyExpressionsData } = useSWR<KyricsSWRResponse<IMyVocab[]>>(
     `/song/${songId}/vocab`,
-    client.get,
+    isToken.get,
   );
   const keyExpressions = keyExpressionsData?.data.data;
 
