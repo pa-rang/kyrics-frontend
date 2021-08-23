@@ -16,6 +16,8 @@ interface Props {
   setIsMobileModalOpened?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const playerBtnsLogger = getPageLogger('player_btns');
+
 function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const setIsYoutubeModalOpened = useSetRecoilState(isYoutubeModalOpenedState);
 
@@ -28,8 +30,9 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const user = useGetUser();
   const isToken = user ? client : clientWithoutToken;
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
+  const songData = data?.data?.data;
 
-  const isSaved = data?.data?.data?.isSaved;
+  const isSaved = songData?.isSaved;
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
@@ -52,8 +55,8 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const handleCopy = () => {
     setIsCopyMsgOpen(true);
     playerBtnsLogger.click('SHARE_버튼_클릭수', {
-      아티스트_이름: songData.artist,
-      노래_제목: songData.title,
+      아티스트_이름: songData?.artist,
+      노래_제목: songData?.title,
     });
 
     setTimeout(() => {
@@ -84,8 +87,8 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
     setIsMobileModalOpened && setIsMobileModalOpened(false);
     setIsYoutubeModalOpened(true);
     playerBtnsLogger.click('유튜브_버튼_클릭수', {
-            아티스트_이름: songData.artist,
-            노래_제목: songData.title,
+      아티스트_이름: songData?.artist,
+      노래_제목: songData?.title,
     });
   };
 

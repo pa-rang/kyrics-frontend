@@ -270,5 +270,4 @@ const Styled = {
     padding: 0px ${({ width }) => (141 * width) / 1440}px;
     /* padding-right: 100px; */
   `,
-  PlayerWrapper: styled.div``,
 };
