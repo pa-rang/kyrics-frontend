@@ -40,4 +40,7 @@ const PlayerWrapper = styled.div`
     width: 160px;
     height: 160px;
   }
+  @media screen and (max-width: 415px) {
+    display: none;
+  }
 `;

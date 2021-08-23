@@ -1,6 +1,7 @@
 import Header from '@components/common/Header';
 import Lyrics from '@components/study/Lyrics';
 import MiniPlayer from '@components/study/MiniPlayer';
+import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -196,11 +197,18 @@ function Study(): ReactElement {
           />
         </Styled.Modal>
       </Styled.ModalWrapper>
-      <Player
-        handleSeekTime={handleSeekTime}
-        handleBackTime={handleBackTime}
-        handleForwardTime={handleForwardTime}
-      />
+      <Styled.PlayerWrapper>
+        <MobilePlayer
+          handleSeekTime={handleSeekTime}
+          handleBackTime={handleBackTime}
+          handleForwardTime={handleForwardTime}
+        />
+        <Player
+          handleSeekTime={handleSeekTime}
+          handleBackTime={handleBackTime}
+          handleForwardTime={handleForwardTime}
+        />
+      </Styled.PlayerWrapper>
       <Styled.Main width={width}>
         <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
         {size && size.width > 1080 && <KeyExpression />}
@@ -252,6 +260,9 @@ const Styled = {
       transform: translateX(100%);
       cursor: pointer;
     }
+  `,
+  PlayerWrapper: styled.div`
+    width: 100%;
   `,
   Main: styled.div<{ width: number }>`
     display: flex;
