@@ -25,7 +25,7 @@ function ArtistCard({ id, profileImage, logo, name }: Props) {
   }
 
   function handleOnClick() {
-    artistCardLogger.click('artist', { name });
+    artistCardLogger.click('아티스트_카드_클릭수', { 이티스트_이름: name });
 
     router.push(`artist/${id}`);
   }

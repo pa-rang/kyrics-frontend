@@ -38,9 +38,9 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   }
 
   function handleOnClick() {
-    musicCardLogger.click('song', {
-      artist,
-      songTitle: title,
+    musicCardLogger.click('음악카드_클릭수', {
+      아티스트_이름: artist,
+      노래_제목: title,
     });
 
     router.push(`/study/${songId}`);

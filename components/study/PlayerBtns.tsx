@@ -3,6 +3,7 @@ import LoginModal from '@components/common/LoginModal';
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
 import { client, clientWithoutToken } from 'lib/api';
+import { getPageLogger } from 'lib/utils/amplitude';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -17,6 +18,7 @@ interface Props {
 
 function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const setIsYoutubeModalOpened = useSetRecoilState(isYoutubeModalOpenedState);
+
   const [isFavoriteMsgOpen, setIsFavoriteMsgOpen] = useState(false);
   const [isCopyMsgOpen, setIsCopyMsgOpen] = useState(false);
   const router = useRouter();
@@ -49,6 +51,11 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
 
   const handleCopy = () => {
     setIsCopyMsgOpen(true);
+    playerBtnsLogger.click('SHARE_버튼_클릭수', {
+      아티스트_이름: songData.artist,
+      노래_제목: songData.title,
+    });
+
     setTimeout(() => {
       setIsCopyMsgOpen(false);
     }, 2000);
@@ -76,6 +83,10 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const handleYoutubeClick = () => {
     setIsMobileModalOpened && setIsMobileModalOpened(false);
     setIsYoutubeModalOpened(true);
+    playerBtnsLogger.click('유튜브_버튼_클릭수', {
+            아티스트_이름: songData.artist,
+            노래_제목: songData.title,
+    });
   };
 
   return (

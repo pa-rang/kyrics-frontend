@@ -4,14 +4,13 @@ import styled from '@emotion/styled';
 import { client, KyricsResponse } from 'lib/api';
 import { isProduction } from 'lib/constants/env';
 import { clickable } from 'lib/mixin';
-import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { mutate } from 'swr';
 import { LoginResponse } from 'types';
 
 function Login() {
-  const router = useRouter();
+  const [mount, setMount] = useState(false);
 
   const handleGoogleLoginSuccess = async (
     response: GoogleLoginResponse | GoogleLoginResponseOffline,
@@ -51,26 +50,35 @@ function Login() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleGoogleLoginFailure = (error: any) => {
     console.error('Google Login Failure', error);
     alert('로그인에 실패햐였습니다. 다시 시도해주세요.');
   };
 
+  useEffect(() => {
+    setMount(true);
+
+    return () => setMount(false);
+  }, []);
+
   return (
     <LoginLayout>
       <LinedTitle>Log In</LinedTitle>
-      <GoogleLogin
-        clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
-        onSuccess={handleGoogleLoginSuccess}
-        onFailure={handleGoogleLoginFailure}
-        cookiePolicy={'single_host_origin'}
-        render={(renderProps) => (
-          <Styled.GoogleLoginButton onClick={renderProps.onClick}>
-            <img src="/assets/icons/googleLogo.svg" alt="google-login" />
-            <div>Log in with Google</div>
-          </Styled.GoogleLoginButton>
-        )}
-      />
+      {mount && (
+        <GoogleLogin
+          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
+          onSuccess={handleGoogleLoginSuccess}
+          onFailure={handleGoogleLoginFailure}
+          cookiePolicy={'single_host_origin'}
+          render={(renderProps) => (
+            <Styled.GoogleLoginButton onClick={renderProps.onClick}>
+              <img src="/assets/icons/googleLogo.svg" alt="google-login" />
+              <div>Log in with Google</div>
+            </Styled.GoogleLoginButton>
+          )}
+        />
+      )}
     </LoginLayout>
   );
 }

@@ -3,10 +3,20 @@ import RegisterEmailInput from '@components/login/RegisterEmailInput';
 import styled from '@emotion/styled';
 import { colors } from 'lib/constants/colors';
 import { clickable } from 'lib/mixin';
-import Link from 'next/link';
+import { getPageLogger } from 'lib/utils/amplitude';
+import { useRouter } from 'next/router';
 import React from 'react';
 
+const loginPageLogger = getPageLogger('login_page');
+
 function LoginEmailPage() {
+  const router = useRouter();
+
+  const handleSkipButtonClick = () => {
+    router.push('/');
+    loginPageLogger.click('이메일_스킵_버튼_클릭수');
+  };
+
   return (
     <LoginLayout>
       <Styled.Copy>
@@ -14,9 +24,7 @@ function LoginEmailPage() {
         <br /> by adding your email address!
       </Styled.Copy>
       <RegisterEmailInput />
-      <Link href="/" passHref>
-        <Styled.SkipButton>Skip and continue</Styled.SkipButton>
-      </Link>
+      <Styled.SkipButton onClick={handleSkipButtonClick}>Skip and continue</Styled.SkipButton>
     </LoginLayout>
   );
 }

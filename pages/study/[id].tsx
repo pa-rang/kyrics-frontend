@@ -261,6 +261,9 @@ const Styled = {
       cursor: pointer;
     }
   `,
+  PlayerWrapper: styled.div`
+    width: 100%;
+  `,
   Main: styled.div<{ width: number }>`
     display: flex;
     justify-content: center;
