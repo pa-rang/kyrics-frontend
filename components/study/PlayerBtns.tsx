@@ -2,13 +2,14 @@
 import LoginModal from '@components/common/LoginModal';
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
-import { client } from 'lib/api';
+import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { isLoginModalOpenedState, isYoutubeModalOpenedState, songDataState } from 'states';
-import { mutate } from 'swr';
+import useSWR, { mutate } from 'swr';
+import { ISongData } from 'types';
 
 interface Props {
   setIsMobileModalOpened?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,14 +19,15 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const setIsYoutubeModalOpened = useSetRecoilState(isYoutubeModalOpenedState);
   const [isFavoriteMsgOpen, setIsFavoriteMsgOpen] = useState(false);
   const [isCopyMsgOpen, setIsCopyMsgOpen] = useState(false);
-  const songData = useRecoilValue(songDataState);
   const router = useRouter();
   const {
     query: { id },
   } = router;
   const user = useGetUser();
+  const isToken = user ? client : clientWithoutToken;
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
 
-  const isSaved = songData?.isSaved;
+  const isSaved = data?.data?.data?.isSaved;
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
@@ -52,7 +54,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
     }, 2000);
   };
   const setIsLoginModalOpened = useSetRecoilState(isLoginModalOpenedState);
-  const handleFavorite = () => {
+  const handleFavorite = async () => {
     if (!user) {
       setIsLoginModalOpened(true);
       setIsMobileModalOpened && setIsMobileModalOpened(false);
@@ -65,10 +67,11 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
       setTimeout(() => {
         setIsFavoriteMsgOpen(false);
       }, 2000);
-      client.post(`user/song/${id}`);
+      await client.post(`user/song/${id}`);
     } else {
-      client.delete(`user/song/${id}`);
+      await client.delete(`user/song/${id}`);
     }
+    // mutate(`user/song/${id}`);
     mutate(`/song/${id}`);
   };
   const handleYoutubeClick = () => {
