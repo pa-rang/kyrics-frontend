@@ -264,9 +264,6 @@ const Styled = {
   PlayerWrapper: styled.div`
     width: 100%;
   `,
-  MobilePlayerWrapper: styled.div<{ isPhone: boolean }>`
-    display: ${({ isPhone }) => !isPhone && 'none'};
-  `,
   Main: styled.div<{ width: number }>`
     display: flex;
     justify-content: center;
