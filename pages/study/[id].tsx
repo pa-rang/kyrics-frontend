@@ -1,26 +1,27 @@
 import Header from '@components/common/Header';
+import LoginModal from '@components/common/LoginModal';
 import Lyrics from '@components/study/Lyrics';
-import MiniPlayer from '@components/study/MiniPlayer';
 import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useGetUser } from 'hooks/api';
 import useWindowSize from 'hooks/useWindowSize';
-import { client, clientWithoutToken } from 'lib/api';
+import { client } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   currentTimeAtom,
-  isModalOpenedState,
+  isLoginModalOpenedState,
   isPlayAtom,
+  isYoutubeModalOpenedState,
   loopAtom,
   percentageAtom,
   songDataState,
   totalTimeAtom,
   volumeBarAtom,
+  widthAtom,
 } from 'states';
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
@@ -38,16 +39,15 @@ function Study(): ReactElement {
   const host = hostVideo.current as ReactPlayer;
   const setPercentage = useSetRecoilState<number>(percentageAtom);
   const [modalHeight, setModalHeight] = useState<number>(0);
-  const [isModalOpened, setIsModalOpened] = useRecoilState(isModalOpenedState);
+  const [isYoutubeModalOpened, seYoutubetIsModalOpened] = useRecoilState(isYoutubeModalOpenedState);
   const setSongData = useSetRecoilState(songDataState);
   const router = useRouter();
   const {
     query: { id },
   } = router;
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
 
   const url = data?.data?.data?.youtubeUrl;
-  const user = useGetUser();
 
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?
@@ -125,7 +125,7 @@ function Study(): ReactElement {
     const modalWidth: number = window.outerWidth * 0.7;
 
     setModalHeight(modalWidth * 0.628);
-  }, [isModalOpened]);
+  }, [isYoutubeModalOpened]);
 
   const adjustModalHeight = () => {
     const modalWidth: number = window.outerWidth * 0.7;
@@ -143,7 +143,7 @@ function Study(): ReactElement {
 
   const size = useWindowSize();
 
-  const [width, setWidth] = useState<number>(0);
+  const [width, setWidth] = useRecoilState<number>(widthAtom);
 
   useEffect(() => {
     setWidth(window.outerWidth);
@@ -161,10 +161,17 @@ function Study(): ReactElement {
     };
   }, []);
 
+  const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
+
+  if (!id) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <Styled.Root isModalOpened={isModalOpened}>
+    <Styled.Root isYoutubeModalOpened={isYoutubeModalOpened}>
       <Header />
-      <Styled.ModalWrapper isModalOpened={isModalOpened}>
+      {isLoginModalOpened && <LoginModal />}
+      <Styled.ModalWrapper isYoutubeModalOpened={isYoutubeModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
             playing={isPlay}
@@ -192,7 +199,7 @@ function Study(): ReactElement {
             className="modalClose--btn"
             src="/assets/icons/modalCloseIcon.svg"
             alt=""
-            onClick={() => setIsModalOpened(false)}
+            onClick={() => seYoutubetIsModalOpened(false)}
             aria-hidden="true"
           />
         </Styled.Modal>
@@ -210,17 +217,9 @@ function Study(): ReactElement {
         />
       </Styled.PlayerWrapper>
       <Styled.Main width={width}>
-        <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} />
+        <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} id={Number(id)} />
         {size && size.width > 1080 && <KeyExpression />}
       </Styled.Main>
-      <Styled.MiniPlayerWrapper>
-        <MiniPlayer
-          handleSeekTime={handleSeekTime}
-          handleBackTime={handleBackTime}
-          handleForwardTime={handleForwardTime}
-          miniPlayerOpened={miniPlayerOpened}
-        />
-      </Styled.MiniPlayerWrapper>
     </Styled.Root>
   );
 }
@@ -228,21 +227,22 @@ function Study(): ReactElement {
 export default Study;
 
 const Styled = {
-  Root: styled.div<{ isModalOpened: boolean }>`
-    ${({ isModalOpened }) =>
-      isModalOpened &&
+  Root: styled.div<{ isYoutubeModalOpened: boolean }>`
+    position: relative;
+    ${({ isYoutubeModalOpened }) =>
+      isYoutubeModalOpened &&
       css`
         height: 100vh;
         overflow-y: hidden;
       `}
   `,
-  ModalWrapper: styled.div<{ isModalOpened: boolean }>`
-    display: ${({ isModalOpened }) => (isModalOpened ? 'flex' : 'none')};
+  ModalWrapper: styled.div<{ isYoutubeModalOpened: boolean }>`
+    display: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'flex' : 'none')};
     position: fixed;
     top: 0;
     left: 0;
     justify-content: center;
-    z-index: 11;
+    z-index: 1100000;
     background: rgba(0, 0, 0, 0.8);
     width: 100vw;
     height: 100vh;
@@ -269,11 +269,5 @@ const Styled = {
     justify-content: center;
     padding: 0px ${({ width }) => (141 * width) / 1440}px;
     /* padding-right: 100px; */
-  `,
-  MiniPlayerWrapper: styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
   `,
 };

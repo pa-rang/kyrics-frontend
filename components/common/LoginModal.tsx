@@ -1,13 +1,11 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import React from 'react';
-
-interface Props {
-  setIsLoginModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function LoginModal({ setIsLoginModalOpened }: Props) {
+import { useSetRecoilState } from 'recoil';
+import { isLoginModalOpenedState } from 'states';
+function LoginModal() {
   const router = useRouter();
+  const setIsLoginModalOpened = useSetRecoilState(isLoginModalOpenedState);
 
   return (
     <Styled.ModalWrapper>
@@ -43,10 +41,10 @@ const Styled = {
     left: 0;
     align-items: center;
     justify-content: center;
-    z-index: 10000;
+    z-index: 10000000;
     background-color: rgba(0, 0, 0, 0.8);
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
   `,
   Modal: styled.div`
     display: flex;

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { defaultSWROptions } from 'hooks/api';
+import { useGetUser } from 'hooks/api';
 import { client, clientWithoutToken, KyricsSWRResponse } from 'lib/api';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -14,11 +14,11 @@ function KeyExpression() {
   const {
     query: { id: songId },
   } = router;
-
+  const user = useGetUser();
+  const isToken = user ? client : clientWithoutToken;
   const { data: keyExpressionsData } = useSWR<KyricsSWRResponse<IMyVocab[]>>(
     `/song/${songId}/vocab`,
-    clientWithoutToken.get,
-    defaultSWROptions,
+    isToken.get,
   );
   const keyExpressions = keyExpressionsData?.data.data;
 
@@ -36,7 +36,7 @@ function KeyExpression() {
             engExample={engExample}
             kor={kor}
             korExample={korExample}
-            style={{ marginBottom: '12px' }}
+            styled={{ marginBottom: '12px' }}
             isSaved={isSaved}
             id={id}
             songId={Number(songId)}

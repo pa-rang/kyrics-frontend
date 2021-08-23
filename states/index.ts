@@ -6,8 +6,13 @@ export const songDataState = atom({
   default: {} as ISongData,
 });
 
-export const isModalOpenedState = atom({
-  key: 'isModalOpenedState',
+export const isYoutubeModalOpenedState = atom({
+  key: 'isYoutubeModalOpenedState',
+  default: false,
+});
+
+export const isLoginModalOpenedState = atom({
+  key: 'isLoginModalOpenedState',
   default: false,
 });
 
@@ -49,4 +54,9 @@ export const isMessageOpenedAtom = atom({
 export const isVolumeOpenedAtom = atom({
   key: 'isVolumeOpenedAtom',
   default: false,
+});
+
+export const widthAtom = atom({
+  key: 'widthAtom',
+  default: 0,
 });

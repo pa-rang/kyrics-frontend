@@ -1,9 +1,10 @@
-import LoginModal from '@components/common/LoginModal';
 import styled from '@emotion/styled';
 import { FavoriteIcon2, FavoriteYellowIcon } from '@public/assets';
 import { useGetUser } from 'hooks/api';
 import { client } from 'lib/api';
-import React, { useState } from 'react';
+import React from 'react';
+import { useSetRecoilState } from 'recoil';
+import { isLoginModalOpenedState } from 'states';
 import { mutate } from 'swr';
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
 
 function FavoriteButton({ id, isSaved, type, songId }: Props) {
   const user = useGetUser();
-  const [isLoginModalOpened, setIsLoginModalOpened] = useState(false);
+  const setIsLoginModalOpened = useSetRecoilState(isLoginModalOpenedState);
 
   const handleClick = async (id: number) => {
     if (!user) {
@@ -40,7 +41,6 @@ function FavoriteButton({ id, isSaved, type, songId }: Props) {
         src={isSaved ? FavoriteYellowIcon.src : FavoriteIcon2.src}
         onClick={() => handleClick(id)}
       />
-      {isLoginModalOpened && <LoginModal setIsLoginModalOpened={setIsLoginModalOpened} />}
     </>
   );
 }

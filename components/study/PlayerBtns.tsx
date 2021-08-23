@@ -2,45 +2,42 @@
 import LoginModal from '@components/common/LoginModal';
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
-import { client } from 'lib/api';
+import { client, clientWithoutToken } from 'lib/api';
 import { getPageLogger } from 'lib/utils/amplitude';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { isModalOpenedState, songDataState } from 'states';
+import { useSetRecoilState } from 'recoil';
+import { isLoginModalOpenedState, isYoutubeModalOpenedState, songDataState } from 'states';
+import useSWR, { mutate } from 'swr';
+import { ISongData } from 'types';
 
 interface Props {
-  videoId?: string;
+  setIsMobileModalOpened?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const playerBtnsLogger = getPageLogger('player_btns');
 
-function PlayerBtns() {
-  const setIsModalOpened = useSetRecoilState(isModalOpenedState);
-  const [isFavorite, setIsFavorite] = useState(false);
-  // data를 받아와서, favorite 초기값을 설정해줄 예정.
+function PlayerBtns({ setIsMobileModalOpened }: Props) {
+  const setIsYoutubeModalOpened = useSetRecoilState(isYoutubeModalOpenedState);
+
   const [isFavoriteMsgOpen, setIsFavoriteMsgOpen] = useState(false);
   const [isCopyMsgOpen, setIsCopyMsgOpen] = useState(false);
-  const songData = useRecoilValue(songDataState);
-  const [onFavorite, setOnFavorite] = useState<'on' | ''>('');
   const router = useRouter();
   const {
     query: { id },
   } = router;
   const user = useGetUser();
+  const isToken = user ? client : clientWithoutToken;
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
+  const songData = data?.data?.data;
 
-  useEffect(() => {
-    const isSaved = songData?.isSaved;
-
-    setIsFavorite(isSaved);
-    isSaved ? setOnFavorite('on') : setOnFavorite('');
-  }, [songData]);
+  const isSaved = songData?.isSaved;
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
 
-    if (target.src.includes('Favorite') && isFavorite) return;
+    if (target.src.includes('Favorite') && isSaved) return;
     const hoverIcon = `hover${target.className}`;
 
     target.src = `/assets/icons/${hoverIcon}.svg`;
@@ -49,7 +46,7 @@ function PlayerBtns() {
   const handleMouseLeave = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
 
-    if (target.src.includes('Favorite') && isFavorite) return;
+    if (target.src.includes('Favorite') && isSaved) return;
     const Icon = target.className;
 
     target.src = `/assets/icons/${Icon}.svg`;
@@ -58,50 +55,41 @@ function PlayerBtns() {
   const handleCopy = () => {
     setIsCopyMsgOpen(true);
     playerBtnsLogger.click('SHARE_버튼_클릭수', {
-      아티스트_이름: songData.artist,
-      노래_제목: songData.title,
+      아티스트_이름: songData?.artist,
+      노래_제목: songData?.title,
     });
 
     setTimeout(() => {
       setIsCopyMsgOpen(false);
     }, 2000);
   };
-
-  const [isLoginModalOpened, setIsLoginModalOpened] = useState(false);
-  const handleFavorite = () => {
+  const setIsLoginModalOpened = useSetRecoilState(isLoginModalOpenedState);
+  const handleFavorite = async () => {
     if (!user) {
       setIsLoginModalOpened(true);
+      setIsMobileModalOpened && setIsMobileModalOpened(false);
 
       return;
     }
 
-    isFavorite ? setOnFavorite('') : setOnFavorite('on');
-    if (!isFavorite) {
+    if (!isSaved) {
       setIsFavoriteMsgOpen(true);
       setTimeout(() => {
         setIsFavoriteMsgOpen(false);
       }, 2000);
-      client
-        .post(`user/song/${id}`)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      await client.post(`user/song/${id}`);
     } else {
-      client
-        .delete(`user/song/${id}`)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      await client.delete(`user/song/${id}`);
     }
-
-    setIsFavorite((isFavorite) => !isFavorite);
-    // favorite를 수정하는 put code 추가 예정
+    mutate(`/song/${id}`);
+  };
+  const handleYoutubeClick = () => {
+    setIsMobileModalOpened && setIsMobileModalOpened(false);
+    setIsYoutubeModalOpened(true);
+    playerBtnsLogger.click('유튜브_버튼_클릭수', {
+      아티스트_이름: songData?.artist,
+      노래_제목: songData?.title,
+    });
   };
 
   return (
@@ -109,7 +97,7 @@ function PlayerBtns() {
       <div className="icon--container">
         <img
           className="FavoriteIcon"
-          src={`/assets/icons/${onFavorite}FavoriteIcon.svg`}
+          src={`/assets/icons/${isSaved ? 'on' : ''}FavoriteIcon.svg`}
           alt="favorite"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -137,16 +125,9 @@ function PlayerBtns() {
         alt="youtube"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={() => {
-          playerBtnsLogger.click('유튜브_버튼_클릭수', {
-            아티스트_이름: songData.artist,
-            노래_제목: songData.title,
-          });
-          setIsModalOpened(true);
-        }}
+        onClick={handleYoutubeClick}
         aria-hidden="true"
       />
-      {isLoginModalOpened && <LoginModal setIsLoginModalOpened={setIsLoginModalOpened} />}
     </PlayerBtnsWrapper>
   );
 }
@@ -193,5 +174,8 @@ const PlayerBtnsWrapper = styled.div<{ isFavoriteMsgOpen: boolean; isCopyMsgOpen
   }
   @media (max-width: 900px) {
     display: none;
+  }
+  @media (max-width: 415px) {
+    display: flex;
   }
 `;

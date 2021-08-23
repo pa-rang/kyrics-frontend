@@ -1,9 +1,7 @@
 import styled from '@emotion/styled';
+import { useGetUser } from 'hooks/api';
 import { client, clientWithoutToken } from 'lib/api';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { songDataState } from 'states';
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
 
@@ -13,21 +11,20 @@ import Quiz from './Quiz';
 interface Props {
   handleLyrics: (line: ITimedText) => void;
   currentTime: number;
+  id: number;
 }
 
-function Lyrics({ handleLyrics, currentTime }: Props) {
-  const songData = useRecoilValue(songDataState);
+function Lyrics({ handleLyrics, currentTime, id }: Props) {
   const [timedtext, setTimedtext] = useState<ITimedText[] | undefined>();
   const [startTime, setStartTime] = useState<number>();
   const [isDropDown, setIsDropDown] = useState(false);
   const [engTranslated, setEngTranslated] = useState(false);
   const [isQuizStep, setIsQuizStep] = useState(false);
   const [fontSize, setFontSize] = useState('Medium');
-  const router = useRouter();
-  const {
-    query: { id },
-  } = router;
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
+
+  const user = useGetUser();
+  const isToken = user ? client : clientWithoutToken;
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
 
   useEffect(() => {
     setTimedtext(data?.data?.data?.lyrics);
@@ -96,6 +93,10 @@ function Lyrics({ handleLyrics, currentTime }: Props) {
       setIsFixed(false);
     }
   };
+
+  if (!id) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Styled.Root fontSize={fontSize} engTranslated={engTranslated} isFixed={isFixed}>
@@ -215,6 +216,7 @@ interface StyledProps {
 const Styled = {
   Root: styled.div<StyledProps>`
     display: flex;
+    position: relative;
     align-items: center;
     margin-bottom: 150px;
     /* justify-content: center; */
@@ -370,7 +372,7 @@ const Styled = {
       max-width: 390px;
       height: 100px;
       color: #ffffff;
-      div:nth-child(1) {
+      div:nth-of-type(1) {
         height: 27px;
         font-size: 24px;
         font-weight: 700;
@@ -379,7 +381,7 @@ const Styled = {
           font-size: 14px;
         }
       }
-      div:nth-child(2) {
+      div:nth-of-type(2) {
         font-size: 16px;
         font-weight: 500;
         @media (max-width: 768px) {
