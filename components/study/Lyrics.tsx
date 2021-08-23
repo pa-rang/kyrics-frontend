@@ -1,10 +1,7 @@
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
 import { client, clientWithoutToken } from 'lib/api';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { songDataState } from 'states';
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
 

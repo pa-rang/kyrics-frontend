@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import styled from '@emotion/styled';
-import { defaultSWROptions, useGetUser } from 'hooks/api';
+import { useGetUser } from 'hooks/api';
 import { client, clientWithoutToken, KyricsSWRResponse } from 'lib/api';
 import { colors } from 'lib/constants/colors';
 import { useRouter } from 'next/router';

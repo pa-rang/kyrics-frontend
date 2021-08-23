@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { defaultSWROptions, useGetUser } from 'hooks/api';
+import { useGetUser } from 'hooks/api';
 import { client, clientWithoutToken, KyricsSWRResponse } from 'lib/api';
 import { useRouter } from 'next/router';
 import React from 'react';

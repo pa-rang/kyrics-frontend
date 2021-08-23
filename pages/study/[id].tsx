@@ -1,14 +1,12 @@
 import Header from '@components/common/Header';
 import LoginModal from '@components/common/LoginModal';
 import Lyrics from '@components/study/Lyrics';
-import MiniPlayer from '@components/study/MiniPlayer';
 import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useGetUser } from 'hooks/api';
 import useWindowSize from 'hooks/useWindowSize';
-import { client, clientWithoutToken } from 'lib/api';
+import { client } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
