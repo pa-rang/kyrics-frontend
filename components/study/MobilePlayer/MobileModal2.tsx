@@ -26,7 +26,7 @@ const Styled = {
     border-radius: 10px;
     background: #f8fafc;
     width: 170px;
-    height: 75px;
+    height: 50px;
 
     filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
   `,
