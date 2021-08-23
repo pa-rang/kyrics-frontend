@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { isLoginModalOpenedState, isYoutubeModalOpenedState, songDataState } from 'states';
+import { mutate } from 'swr';
 
 interface Props {
   setIsMobileModalOpened?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,17 +28,23 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   } = router;
   const user = useGetUser();
 
-  useEffect(() => {
-    const isSaved = songData?.isSaved;
+  const isSaved = songData?.isSaved;
 
-    setIsFavorite(isSaved);
-    isSaved ? setOnFavorite('on') : setOnFavorite('');
-  }, [songData]);
+  console.log('isSaved', isSaved);
+
+  // useEffect(() => {
+  //   const isSaved = songData?.isSaved;
+
+  //   console.log('songData', songData);
+
+  //   setIsFavorite(isSaved);
+  //   isSaved ? setOnFavorite('on') : setOnFavorite('');
+  // }, [songData?.isSaved]);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
 
-    if (target.src.includes('Favorite') && isFavorite) return;
+    if (target.src.includes('Favorite') && isSaved) return;
     const hoverIcon = `hover${target.className}`;
 
     target.src = `/assets/icons/${hoverIcon}.svg`;
@@ -46,7 +53,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const handleMouseLeave = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
 
-    if (target.src.includes('Favorite') && isFavorite) return;
+    if (target.src.includes('Favorite') && isSaved) return;
     const Icon = target.className;
 
     target.src = `/assets/icons/${Icon}.svg`;
@@ -64,11 +71,12 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
     if (!user) {
       setIsLoginModalOpened(true);
       setIsMobileModalOpened && setIsMobileModalOpened(false);
+
       return;
     }
 
-    isFavorite ? setOnFavorite('') : setOnFavorite('on');
-    if (!isFavorite) {
+    // isFavorite ? setOnFavorite('') : setOnFavorite('on');
+    if (!isSaved) {
       setIsFavoriteMsgOpen(true);
       setTimeout(() => {
         setIsFavoriteMsgOpen(false);
@@ -91,8 +99,8 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
           console.log(error);
         });
     }
-
-    setIsFavorite((isFavorite) => !isFavorite);
+    mutate(`/song/${id}`);
+    // setIsFavorite((isFavorite) => !isFavorite);
     // favorite를 수정하는 put code 추가 예정
   };
   const handleYoutubeClick = () => {
@@ -106,11 +114,8 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
         <img
           className="FavoriteIcon"
           // src={`/assets/icons/${onFavorite}FavoriteIcon.svg`}
-          src={
-            onFavorite === 'on'
-              ? `/assets/icons/${onFavorite}FavoriteIcon.svg`
-              : `/assets/icons/FavoriteIcon.svg`
-          }
+          // src={`/assets/icons/${onFavorite}FavoriteIcon.svg`}
+          src={isSaved ? '/assets/icons/onFavoriteIcon.svg' : '/assets/icons/FavoriteIcon.svg'}
           alt="favorite"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}

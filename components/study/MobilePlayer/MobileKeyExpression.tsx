@@ -47,8 +47,7 @@ function MobileKeyExpression() {
   } = router;
   const { data: keyExpressionsData } = useSWR<KyricsSWRResponse<IMyVocab[]>>(
     `/song/${songId}/vocab`,
-    clientWithoutToken.get,
-    defaultSWROptions,
+    client.get,
   );
   const keyExpressions = keyExpressionsData?.data.data;
 

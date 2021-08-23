@@ -17,10 +17,11 @@ function KeyExpression() {
 
   const { data: keyExpressionsData } = useSWR<KyricsSWRResponse<IMyVocab[]>>(
     `/song/${songId}/vocab`,
-    clientWithoutToken.get,
-    defaultSWROptions,
+    client.get,
   );
   const keyExpressions = keyExpressionsData?.data.data;
+
+  console.log('keyExpressions', keyExpressions);
 
   return (
     <Styled.Root>

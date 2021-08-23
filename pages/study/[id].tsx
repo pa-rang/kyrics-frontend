@@ -15,15 +15,15 @@ import ReactPlayer from 'react-player';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   currentTimeAtom,
-  isYoutubeModalOpenedState,
+  isLoginModalOpenedState,
   isPlayAtom,
+  isYoutubeModalOpenedState,
   loopAtom,
   percentageAtom,
   songDataState,
   totalTimeAtom,
   volumeBarAtom,
   widthAtom,
-  isLoginModalOpenedState,
 } from 'states';
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
@@ -47,7 +47,7 @@ function Study(): ReactElement {
   const {
     query: { id },
   } = router;
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, clientWithoutToken.get);
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
 
   const url = data?.data?.data?.youtubeUrl;
   const user = useGetUser();
