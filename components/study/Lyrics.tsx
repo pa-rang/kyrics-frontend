@@ -293,6 +293,7 @@ const Styled = {
       }
       @media (max-width: 768px) {
         top: 71px;
+        right: 20px;
         width: 84px;
         height: 25px;
         font-size: 10px;
