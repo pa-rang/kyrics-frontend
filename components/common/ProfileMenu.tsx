@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
+import { useMobile } from 'hooks/useMobile';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 function ProfileMenu(): ReactElement {
   const router = useRouter();
+  const isMobile = useMobile();
 
   return (
     <Wrap>
@@ -62,8 +64,8 @@ const Wrap = styled.div`
     border: none;
     background: transparent;
     cursor: pointer;
-    width: 204px;
-    height: 30px;
+    /* width: 204px; */
+    /* height: 30px; */
 
     &:hover {
       filter: brightness(0) saturate(100%) invert(33%) sepia(48%) saturate(2268%) hue-rotate(222deg)
@@ -74,6 +76,9 @@ const Wrap = styled.div`
       margin-left: 10px;
       width: 19px;
       height: 19px;
+      @media (max-width: 415px) {
+        margin: 0;
+      }
     }
 
     &__label {
@@ -83,15 +88,27 @@ const Wrap = styled.div`
       font-size: 16px;
       font-weight: 500;
       font-style: normal;
+      @media (max-width: 415px) {
+        margin: 0;
+        font-size: 7px;
+      }
     }
 
     &__border {
       opacity: 0.53;
       margin-top: 7px;
       background: #6465f4;
-      width: 204px;
+      width: 50px;
       height: 1px;
+      @media (max-width: 415px) {
+        margin: 0;
+      }
     }
+  }
+
+  @media (max-width: 415px) {
+    width: 110px;
+    height: 80px;
   }
 `;
 
