@@ -166,12 +166,6 @@ function Study(): ReactElement {
     };
   }, []);
 
-  const handlePlay = () => {
-    setTimeout(() => {
-      setIsPlay(true);
-    }, 2000);
-  };
-
   if (!id) {
     return <div>Loading...</div>;
   }
@@ -216,6 +210,7 @@ function Study(): ReactElement {
         onClick={() => setYoutubeIsModalOpened(false)}
         aria-hidden="true"
       />
+      <button onClick={() => setIsPlay((prev) => !prev)}>play/pause</button>
       <button onClick={() => router.push('/test')}>123</button>
       <Styled.PlayerWrapper>
         <MobilePlayer
@@ -284,6 +279,6 @@ const Styled = {
     /* padding-right: 100px; */
   `,
   Opacity: styled.div`
-    opacity: 0;
+    /* opacity: 0; */
   `,
 };
