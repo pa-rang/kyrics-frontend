@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useMobile } from 'hooks/useMobile';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   currentTimeAtom,
@@ -88,6 +88,32 @@ function PlayController({
     setIsVolumeOpened(true);
     setVolumeBar(parseInt(target.value));
   };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    console.log('e.key', e.key);
+    console.log('object', e.key === ' ');
+    switch (e.key) {
+      case ' ':
+        handlePlay();
+        break;
+      case 'ArrowRight':
+        handleForwardTime();
+        break;
+      case 'ArrowLeft':
+        handleBackTime();
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return (
     <Styled.Root>

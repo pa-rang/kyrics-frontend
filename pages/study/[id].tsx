@@ -37,7 +37,6 @@ function Study(): ReactElement {
   const loop = useRecoilValue<boolean>(loopAtom);
   const [totalTime, setTotalTime] = useRecoilState<number>(totalTimeAtom);
   const hostVideo = useRef(null) as any;
-  const host = hostVideo.current as ReactPlayer;
   const setPercentage = useSetRecoilState<number>(percentageAtom);
   const [modalHeight, setModalHeight] = useState<number>(0);
   const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
@@ -52,8 +51,6 @@ function Study(): ReactElement {
 
   const url = data?.data?.data?.youtubeUrl;
 
-  // setSongData(data?.data);
-  // 왜 바로 setSongData를 해주면 error 가 날까?
   useEffect(() => {
     if (!data) return;
     // setSongData 인수에 넣으면 에러가 난다.`
@@ -70,8 +67,8 @@ function Study(): ReactElement {
   }, []);
 
   useEffect(() => {
-    if (host !== null) {
-      setTotalTime(Math.floor(host.getDuration()));
+    if (hostVideo.current !== null) {
+      setTotalTime(Math.floor(hostVideo.current.getDuration()));
     }
   }, [isPlay]);
 
@@ -101,20 +98,22 @@ function Study(): ReactElement {
     const target = e.target as HTMLInputElement;
 
     setCurrentTime(parseInt(target.value));
-    host.seekTo(parseFloat(target.value));
+    hostVideo.current.seekTo(parseFloat(target.value));
   };
 
   const handleLyrics = (line: ITimedText) => {
-    host.seekTo(line.startTime);
+    hostVideo.current.seekTo(line.startTime);
     setIsPlay(true);
   };
 
   const handleBackTime = () => {
+    console.log('hostVideo.current', hostVideo.current);
+    console.log('hostVideo.current', hostVideo.current);
     if (currentTime >= 10) {
-      host.seekTo(currentTime - 10);
+      hostVideo.current.seekTo(currentTime - 10);
       setCurrentTime(currentTime - 10);
     } else {
-      host.seekTo(0);
+      hostVideo.current.seekTo(0);
       setCurrentTime(0);
     }
   };
@@ -122,10 +121,10 @@ function Study(): ReactElement {
   const handleForwardTime = () => {
     if (currentTime <= totalTime - 10) {
       setCurrentTime(currentTime + 10);
-      host.seekTo(currentTime + 10);
+      hostVideo.current.seekTo(currentTime + 10);
     } else {
       setCurrentTime(totalTime);
-      host.seekTo(totalTime);
+      hostVideo.current.seekTo(totalTime);
     }
   };
 
@@ -188,7 +187,7 @@ function Study(): ReactElement {
             ref={hostVideo}
             width="100%"
             height="100%"
-            onProgress={(e) => handleOnProgress(e)}
+            onProgress={handleOnProgress}
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
