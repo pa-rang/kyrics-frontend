@@ -192,7 +192,8 @@ function Study(): ReactElement {
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
-            muted={mute}
+            // muted={mute}
+            playsinline={true}
             // config={{
             //   youtube: {
             //     playerVars: {
