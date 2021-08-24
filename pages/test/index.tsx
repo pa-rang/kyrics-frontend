@@ -52,6 +52,6 @@ const Styled = {
     } */
   `,
   Wrap: styled.div`
-    display: none;
+    opacity: 0;
   `,
 };
