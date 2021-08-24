@@ -185,6 +185,7 @@ function Study(): ReactElement {
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
+            muted={true}
             config={{
               youtube: {
                 playerVars: {
@@ -236,8 +237,7 @@ const Styled = {
       `}
   `,
   ModalWrapper: styled.div<{ isYoutubeModalOpened: boolean }>`
-    /* display: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'flex' : 'none')}; */
-    display: flex;
+    display: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'flex' : 'none')};
     position: fixed;
     top: 0;
     left: 0;
