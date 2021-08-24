@@ -214,6 +214,7 @@ function Study(): ReactElement {
         onClick={() => setYoutubeIsModalOpened(false)}
         aria-hidden="true"
       />
+      <button onClick={() => router.push('/test')}>123</button>
       <Styled.PlayerWrapper>
         <MobilePlayer
           handleSeekTime={handleSeekTime}
