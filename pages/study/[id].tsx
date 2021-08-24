@@ -183,30 +183,32 @@ function Study(): ReactElement {
       <Styled.ModalWrapper isYoutubeModalOpened={isYoutubeModalOpened}>
         <Styled.Modal modalHeight={modalHeight}></Styled.Modal>
       </Styled.ModalWrapper>
-      <ReactPlayer
-        playing={isPlay}
-        url={url}
-        loop={loop}
-        controls={true}
-        volume={volumeBar / 100}
-        ref={hostVideo}
-        width="100%"
-        height="100%"
-        onProgress={(e) => handleOnProgress(e)}
-        // onPlay={handlePlay}
-        // onPause={() => setIsPlay(false)}
-        progressInterval={100}
-        // muted={mute}
-        playsinline={true}
-        // config={{
-        //   youtube: {
-        //     playerVars: {
-        //       autoplay: 1,
-        //       enablejsapi: 1,
-        //     },
-        //   },
-        // }}
-      />
+      <Styled.Opacity>
+        <ReactPlayer
+          playing={isPlay}
+          url={url}
+          loop={loop}
+          controls={true}
+          volume={volumeBar / 100}
+          ref={hostVideo}
+          width="100%"
+          height="100%"
+          onProgress={(e) => handleOnProgress(e)}
+          // onPlay={handlePlay}
+          // onPause={() => setIsPlay(false)}
+          progressInterval={100}
+          // muted={mute}
+          playsinline={true}
+          // config={{
+          //   youtube: {
+          //     playerVars: {
+          //       autoplay: 1,
+          //       enablejsapi: 1,
+          //     },
+          //   },
+          // }}
+        />
+      </Styled.Opacity>
       <img
         className="modalClose--btn"
         src="/assets/icons/modalCloseIcon.svg"
@@ -280,5 +282,8 @@ const Styled = {
     justify-content: center;
     padding: 0px ${({ width }) => (141 * width) / 1440}px;
     /* padding-right: 100px; */
+  `,
+  Opacity: styled.div`
+    opacity: 0;
   `,
 };
