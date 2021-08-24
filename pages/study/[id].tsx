@@ -175,10 +175,8 @@ function Study(): ReactElement {
       <Header />
       {isLoginModalOpened && <LoginModal />}
       <Styled.ModalWrapper isYoutubeModalOpened={isYoutubeModalOpened}>
-        <Styled.Modal modalHeight={modalHeight}></Styled.Modal>
-      </Styled.ModalWrapper>
-      <Styled.Opacity>
-        <ReactPlayer
+        <Styled.Modal modalHeight={modalHeight}>
+          {/* <ReactPlayer
           playing={isPlay}
           url={url}
           loop={loop}
@@ -191,6 +189,33 @@ function Study(): ReactElement {
           // onPlay={handlePlay}
           // onPause={() => setIsPlay(false)}
           progressInterval={100}
+          // muted={mute}
+          playsinline={true}
+          // config={{
+          //   youtube: {
+          //     playerVars: {
+          //       autoplay: 1,
+          //       enablejsapi: 1,
+          //     },
+          //   },
+          // }}
+        /> */}
+        </Styled.Modal>
+      </Styled.ModalWrapper>
+      <Styled.Opacity>
+        <ReactPlayer
+          playing={isPlay}
+          url={url}
+          loop={loop}
+          controls={true}
+          volume={volumeBar / 100}
+          ref={hostVideo}
+          width="100%"
+          height="100%"
+          // onProgress={(e) => handleOnProgress(e)}
+          // onPlay={handlePlay}
+          // onPause={() => setIsPlay(false)}
+          // progressInterval={100}
           // muted={mute}
           playsinline={true}
           // config={{
