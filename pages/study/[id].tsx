@@ -67,7 +67,6 @@ function Study(): ReactElement {
   }, []);
 
   useEffect(() => {
-    setMute(false);
     if (host !== null) {
       setTotalTime(Math.floor(host.getDuration()));
     }
@@ -167,8 +166,6 @@ function Study(): ReactElement {
     };
   }, []);
 
-  const [mute, setMute] = useState(true);
-
   if (!id) {
     return <div>Loading...</div>;
   }
@@ -181,6 +178,30 @@ function Study(): ReactElement {
         <Styled.Modal modalHeight={modalHeight}></Styled.Modal>
       </Styled.ModalWrapper>
       <ReactPlayer
+        playing={isPlay}
+        url="https://www.youtube.com/watch?v=CuklIb9d3fI"
+        loop={true}
+        controls={true}
+        volume={volumeBar / 100}
+        ref={hostVideo}
+        width="100%"
+        height="100%"
+        onProgress={(e) => handleOnProgress(e)}
+        onPlay={() => setIsPlay(true)}
+        onPause={() => setIsPlay(false)}
+        progressInterval={100}
+        // muted={mute}
+        playsinline={true}
+        // config={{
+        //   youtube: {
+        //     playerVars: {
+        //       autoplay: 1,
+        //       enablejsapi: 1,
+        //     },
+        //   },
+        // }}
+      />
+      {/* <ReactPlayer
         playing={isPlay}
         url={url}
         loop={loop}
@@ -203,7 +224,7 @@ function Study(): ReactElement {
         //     },
         //   },
         // }}
-      />
+      /> */}
       <img
         className="modalClose--btn"
         src="/assets/icons/modalCloseIcon.svg"
