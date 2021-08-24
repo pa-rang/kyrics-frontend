@@ -166,6 +166,8 @@ function Study(): ReactElement {
     };
   }, []);
 
+  const [isPlay2, setIsPlay2] = useState(false);
+
   if (!id) {
     return <div>Loading...</div>;
   }
@@ -204,7 +206,7 @@ function Study(): ReactElement {
       </Styled.ModalWrapper>
       <Styled.Opacity>
         <ReactPlayer
-          playing={isPlay}
+          playing={isPlay2}
           url={url}
           loop={loop}
           controls={true}
@@ -235,7 +237,7 @@ function Study(): ReactElement {
         onClick={() => setYoutubeIsModalOpened(false)}
         aria-hidden="true"
       />
-      <button onClick={() => setIsPlay((prev) => !prev)}>play/pause</button>
+      <button onClick={() => setIsPlay2((prev) => !prev)}>play/pause</button>
       <button onClick={() => router.push('/test')}>123</button>
       <Styled.PlayerWrapper>
         <MobilePlayer
