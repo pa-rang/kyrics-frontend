@@ -179,7 +179,41 @@ function Study(): ReactElement {
       {isLoginModalOpened && <LoginModal />}
       <Styled.ModalWrapper isYoutubeModalOpened={isYoutubeModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
-          {/* <ReactPlayer
+          <ReactPlayer
+            playing={isPlay}
+            url={url}
+            loop={loop}
+            controls={true}
+            volume={volumeBar / 100}
+            ref={hostVideo}
+            width="100%"
+            height="100%"
+            onProgress={(e) => handleOnProgress(e)}
+            // onPlay={handlePlay}
+            // onPause={() => setIsPlay(false)}
+            progressInterval={100}
+            // muted={mute}
+            playsinline={true}
+            // config={{
+            //   youtube: {
+            //     playerVars: {
+            //       autoplay: 1,
+            //       enablejsapi: 1,
+            //     },
+            //   },
+            // }}
+          />
+          <img
+            className="modalClose--btn"
+            src="/assets/icons/modalCloseIcon.svg"
+            alt=""
+            onClick={() => setYoutubeIsModalOpened(false)}
+            aria-hidden="true"
+          />
+        </Styled.Modal>
+      </Styled.ModalWrapper>
+      {/* <Styled.Opacity>
+        <ReactPlayer
           playing={isPlay}
           url={url}
           loop={loop}
@@ -202,44 +236,11 @@ function Study(): ReactElement {
           //     },
           //   },
           // }}
-        /> */}
-        </Styled.Modal>
-      </Styled.ModalWrapper>
-      <Styled.Opacity>
-        <ReactPlayer
-          playing={isPlay}
-          url={url}
-          loop={loop}
-          controls={true}
-          volume={volumeBar / 100}
-          ref={hostVideo}
-          width="100%"
-          height="100%"
-          // onProgress={(e) => handleOnProgress(e)}
-          // onPlay={handlePlay}
-          // onPause={() => setIsPlay(false)}
-          // progressInterval={100}
-          // muted={mute}
-          playsinline={true}
-          // config={{
-          //   youtube: {
-          //     playerVars: {
-          //       autoplay: 1,
-          //       enablejsapi: 1,
-          //     },
-          //   },
-          // }}
         />
-      </Styled.Opacity>
-      <img
-        className="modalClose--btn"
-        src="/assets/icons/modalCloseIcon.svg"
-        alt=""
-        onClick={() => setYoutubeIsModalOpened(false)}
-        aria-hidden="true"
-      />
-      <button onClick={() => setIsPlay((prev) => !prev)}>play/pause</button>
-      <button onClick={() => router.push('/test')}>123</button>
+      </Styled.Opacity> */}
+
+      {/* <button onClick={() => setIsPlay((prev) => !prev)}>play/pause</button> */}
+      {/* <button onClick={() => router.push('/test')}>123</button> */}
       <Styled.PlayerWrapper>
         <MobilePlayer
           isPlay={isPlay}
@@ -277,11 +278,13 @@ const Styled = {
       `}
   `,
   ModalWrapper: styled.div<{ isYoutubeModalOpened: boolean }>`
-    display: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'flex' : 'none')};
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
     justify-content: center;
+    /* display: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'flex' : 'none')}; */
+    visibility: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'visible' : 'hidden')};
     z-index: 1100000;
     background: rgba(0, 0, 0, 0.8);
     width: 100vw;
