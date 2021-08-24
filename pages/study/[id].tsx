@@ -178,40 +178,39 @@ function Study(): ReactElement {
       <Header />
       {isLoginModalOpened && <LoginModal />}
       <Styled.ModalWrapper isYoutubeModalOpened={isYoutubeModalOpened}>
-        <Styled.Modal modalHeight={modalHeight}>
-          <ReactPlayer
-            playing={isPlay}
-            url={url}
-            loop={loop}
-            controls={true}
-            volume={volumeBar / 100}
-            ref={hostVideo}
-            width="100%"
-            height="100%"
-            onProgress={(e) => handleOnProgress(e)}
-            onPlay={() => setIsPlay(true)}
-            onPause={() => setIsPlay(false)}
-            progressInterval={100}
-            // muted={mute}
-            playsinline={true}
-            // config={{
-            //   youtube: {
-            //     playerVars: {
-            //       autoplay: 1,
-            //       enablejsapi: 1,
-            //     },
-            //   },
-            // }}
-          />
-          <img
-            className="modalClose--btn"
-            src="/assets/icons/modalCloseIcon.svg"
-            alt=""
-            onClick={() => seYoutubetIsModalOpened(false)}
-            aria-hidden="true"
-          />
-        </Styled.Modal>
+        <Styled.Modal modalHeight={modalHeight}></Styled.Modal>
       </Styled.ModalWrapper>
+      <ReactPlayer
+        playing={isPlay}
+        url={url}
+        loop={loop}
+        controls={true}
+        volume={volumeBar / 100}
+        ref={hostVideo}
+        width="100%"
+        height="100%"
+        onProgress={(e) => handleOnProgress(e)}
+        onPlay={() => setIsPlay(true)}
+        onPause={() => setIsPlay(false)}
+        progressInterval={100}
+        // muted={mute}
+        playsinline={true}
+        // config={{
+        //   youtube: {
+        //     playerVars: {
+        //       autoplay: 1,
+        //       enablejsapi: 1,
+        //     },
+        //   },
+        // }}
+      />
+      <img
+        className="modalClose--btn"
+        src="/assets/icons/modalCloseIcon.svg"
+        alt=""
+        onClick={() => seYoutubetIsModalOpened(false)}
+        aria-hidden="true"
+      />
       <Styled.PlayerWrapper>
         <MobilePlayer
           handleSeekTime={handleSeekTime}
