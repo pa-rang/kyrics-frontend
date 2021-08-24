@@ -5,11 +5,12 @@ import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { usePhone } from 'hooks/useMobile';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   currentTimeAtom,
@@ -26,7 +27,6 @@ import {
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
 
-// import { KeyExpression } from '@components/study/KeyExpression/index';
 import KeyExpression from '../../components/study/KeyExpression';
 
 function Study(): ReactElement {
@@ -48,6 +48,7 @@ function Study(): ReactElement {
     query: { id },
   } = router;
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  const isPhone = usePhone();
 
   const url = data?.data?.data?.youtubeUrl;
 
@@ -64,7 +65,8 @@ function Study(): ReactElement {
   }, [currentTime]);
 
   useEffect(() => {
-    setIsPlay(false);
+    setIsPlay(isPhone ? false : true);
+    console.log('isPlay', isPlay);
   }, []);
 
   useEffect(() => {
@@ -167,8 +169,6 @@ function Study(): ReactElement {
     };
   }, []);
 
-  // const [isPlay2, setIsPlay2] = useState(false);
-
   if (!id) {
     return <div>Loading...</div>;
   }
@@ -189,19 +189,28 @@ function Study(): ReactElement {
             width="100%"
             height="100%"
             onProgress={(e) => handleOnProgress(e)}
-            // onPlay={handlePlay}
-            // onPause={() => setIsPlay(false)}
+            onPlay={() => setIsPlay(true)}
+            onPause={() => setIsPlay(false)}
             progressInterval={100}
             // muted={mute}
             playsinline={true}
             // config={{
             //   youtube: {
             //     playerVars: {
-            //       autoplay: 1,
+            //       autoplay: isPhone ? 0 : 1,
+            //       // autoplay: 1,
             //       enablejsapi: 1,
             //     },
             //   },
             // }}
+            // {
+            //   youtube: {
+            //     playerVars: {
+            //       autoplay: 1,
+            //       enablejsapi: 1,
+            //     },
+            //   },
+            // }
           />
           <img
             className="modalClose--btn"
