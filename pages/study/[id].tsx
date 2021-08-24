@@ -311,6 +311,7 @@ const Styled = {
     /* padding-right: 100px; */
   `,
   Opacity: styled.div`
-    display: none;
+    /* display: none; */
+    opacity: 0;
   `,
 };
