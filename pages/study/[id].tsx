@@ -62,9 +62,9 @@ function Study(): ReactElement {
     setPercentage(currentTime / (totalTime / 100));
   }, [currentTime]);
 
-  useEffect(() => {
-    setIsPlay(false);
-  }, []);
+  // useEffect(() => {
+  //   setIsPlay(false);
+  // }, []);
 
   useEffect(() => {
     setMute(false);
