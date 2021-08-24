@@ -63,6 +63,7 @@ function Study(): ReactElement {
   }, [currentTime]);
 
   useEffect(() => {
+    setMute(false);
     if (host !== null) {
       setTotalTime(Math.floor(host.getDuration()));
     }
@@ -162,6 +163,8 @@ function Study(): ReactElement {
     };
   }, []);
 
+  const [mute, setMute] = useState(true);
+
   if (!id) {
     return <div>Loading...</div>;
   }
@@ -185,7 +188,7 @@ function Study(): ReactElement {
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
-            muted={true}
+            muted={mute}
             config={{
               youtube: {
                 playerVars: {
