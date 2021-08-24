@@ -40,7 +40,7 @@ function Study(): ReactElement {
   const setPercentage = useSetRecoilState<number>(percentageAtom);
   const [modalHeight, setModalHeight] = useState<number>(0);
   const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
-  const [isYoutubeModalOpened, seYoutubetIsModalOpened] = useRecoilState(isYoutubeModalOpenedState);
+  const [isYoutubeModalOpened, setYoutubeIsModalOpened] = useRecoilState(isYoutubeModalOpenedState);
   const setSongData = useSetRecoilState(songDataState);
   const router = useRouter();
   const {
@@ -166,6 +166,12 @@ function Study(): ReactElement {
     };
   }, []);
 
+  const handlePlay = () => {
+    setTimeout(() => {
+      setIsPlay(true);
+    }, 2000);
+  };
+
   if (!id) {
     return <div>Loading...</div>;
   }
@@ -179,16 +185,16 @@ function Study(): ReactElement {
       </Styled.ModalWrapper>
       <ReactPlayer
         playing={isPlay}
-        url="https://www.youtube.com/watch?v=CuklIb9d3fI"
-        loop={true}
+        url={url}
+        loop={loop}
         controls={true}
         volume={volumeBar / 100}
         ref={hostVideo}
         width="100%"
         height="100%"
         onProgress={(e) => handleOnProgress(e)}
-        onPlay={() => setIsPlay(true)}
-        onPause={() => setIsPlay(false)}
+        // onPlay={handlePlay}
+        // onPause={() => setIsPlay(false)}
         progressInterval={100}
         // muted={mute}
         playsinline={true}
@@ -201,35 +207,11 @@ function Study(): ReactElement {
         //   },
         // }}
       />
-      {/* <ReactPlayer
-        playing={isPlay}
-        url={url}
-        loop={loop}
-        controls={true}
-        volume={volumeBar / 100}
-        ref={hostVideo}
-        width="100%"
-        height="100%"
-        onProgress={(e) => handleOnProgress(e)}
-        onPlay={() => setIsPlay(true)}
-        onPause={() => setIsPlay(false)}
-        progressInterval={100}
-        // muted={mute}
-        playsinline={true}
-        // config={{
-        //   youtube: {
-        //     playerVars: {
-        //       autoplay: 1,
-        //       enablejsapi: 1,
-        //     },
-        //   },
-        // }}
-      /> */}
       <img
         className="modalClose--btn"
         src="/assets/icons/modalCloseIcon.svg"
         alt=""
-        onClick={() => seYoutubetIsModalOpened(false)}
+        onClick={() => setYoutubeIsModalOpened(false)}
         aria-hidden="true"
       />
       <Styled.PlayerWrapper>
