@@ -312,6 +312,7 @@ const Styled = {
   `,
   Opacity: styled.div`
     /* display: none; */
-    opacity: 0;
+    /* opacity: 0; */
+    visibility: hidden;
   `,
 };
