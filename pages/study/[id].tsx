@@ -5,6 +5,7 @@ import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { usePhone } from 'hooks/useMobile';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
@@ -26,11 +27,11 @@ import {
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
 
-// import { KeyExpression } from '@components/study/KeyExpression/index';
 import KeyExpression from '../../components/study/KeyExpression';
 
 function Study(): ReactElement {
-  const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
+  // const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
+  const [isPlay, setIsPlay] = useState(false);
   const [currentTime, setCurrentTime] = useRecoilState<number>(currentTimeAtom);
   const volumeBar = useRecoilValue<number>(volumeBarAtom);
   const loop = useRecoilValue<boolean>(loopAtom);
@@ -40,13 +41,14 @@ function Study(): ReactElement {
   const setPercentage = useSetRecoilState<number>(percentageAtom);
   const [modalHeight, setModalHeight] = useState<number>(0);
   const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
-  const [isYoutubeModalOpened, seYoutubetIsModalOpened] = useRecoilState(isYoutubeModalOpenedState);
+  const [isYoutubeModalOpened, setYoutubeIsModalOpened] = useRecoilState(isYoutubeModalOpenedState);
   const setSongData = useSetRecoilState(songDataState);
   const router = useRouter();
   const {
     query: { id },
   } = router;
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  const isPhone = usePhone();
 
   const url = data?.data?.data?.youtubeUrl;
 
@@ -61,6 +63,11 @@ function Study(): ReactElement {
   useEffect(() => {
     setPercentage(currentTime / (totalTime / 100));
   }, [currentTime]);
+
+  useEffect(() => {
+    setIsPlay(isPhone ? false : true);
+    console.log('isPlay', isPlay);
+  }, []);
 
   useEffect(() => {
     if (host !== null) {
@@ -185,31 +192,37 @@ function Study(): ReactElement {
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
-            config={{
-              youtube: {
-                playerVars: {
-                  autoplay: 1,
-                  enablejsapi: 1,
-                },
-              },
-            }}
+            playsinline={true}
+            // config={{
+            //   youtube: {
+            //     playerVars: {
+            //       autoplay: isPhone ? 0 : 1,
+            //       // autoplay: 1,
+            //       enablejsapi: 1,
+            //     },
+            //   },
+            // }}
           />
           <img
             className="modalClose--btn"
             src="/assets/icons/modalCloseIcon.svg"
             alt=""
-            onClick={() => seYoutubetIsModalOpened(false)}
+            onClick={() => setYoutubeIsModalOpened(false)}
             aria-hidden="true"
           />
         </Styled.Modal>
       </Styled.ModalWrapper>
       <Styled.PlayerWrapper>
         <MobilePlayer
+          isPlay={isPlay}
+          setIsPlay={setIsPlay}
           handleSeekTime={handleSeekTime}
           handleBackTime={handleBackTime}
           handleForwardTime={handleForwardTime}
         />
         <Player
+          isPlay={isPlay}
+          setIsPlay={setIsPlay}
           handleSeekTime={handleSeekTime}
           handleBackTime={handleBackTime}
           handleForwardTime={handleForwardTime}
@@ -236,11 +249,12 @@ const Styled = {
       `}
   `,
   ModalWrapper: styled.div<{ isYoutubeModalOpened: boolean }>`
-    display: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'flex' : 'none')};
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
     justify-content: center;
+    visibility: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'visible' : 'hidden')};
     z-index: 1100000;
     background: rgba(0, 0, 0, 0.8);
     width: 100vw;
@@ -267,6 +281,5 @@ const Styled = {
     display: flex;
     justify-content: center;
     padding: 0px ${({ width }) => (141 * width) / 1440}px;
-    /* padding-right: 100px; */
   `,
 };

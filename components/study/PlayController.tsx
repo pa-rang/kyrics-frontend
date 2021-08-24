@@ -14,7 +14,7 @@ import {
   totalTimeAtom,
   volumeBarAtom,
 } from 'states';
-import { PlayerProps } from 'types';
+import { PlayerBottomProps } from 'types';
 interface ProgressStyledProps {
   percentage: number;
 }
@@ -33,11 +33,13 @@ interface EnvironmentControlStyledProps {
 }
 
 function PlayController({
+  isPlay,
+  setIsPlay,
   handleSeekTime,
   handleBackTime,
   handleForwardTime,
-}: PlayerProps): ReactElement {
-  const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
+}: PlayerBottomProps): ReactElement {
+  // const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
   const currentTime = useRecoilValue<number>(currentTimeAtom);
   const [volumeBar, setVolumeBar] = useRecoilState<number>(volumeBarAtom);
   const [loop, setLoop] = useRecoilState<boolean>(loopAtom);

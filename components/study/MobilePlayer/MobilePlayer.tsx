@@ -1,15 +1,17 @@
 import styled from '@emotion/styled';
 import React, { ReactElement } from 'react';
-import { PlayerProps } from 'types';
+import { PlayerBottomProps } from 'types';
 
 import MobilePlayerBottom from './MobilePlayerBottom';
 import MobilePlayerTop from './MobilePlayerTop';
 
 function MobilePlayer({
+  isPlay,
+  setIsPlay,
   handleSeekTime,
   handleBackTime,
   handleForwardTime,
-}: PlayerProps): ReactElement {
+}: PlayerBottomProps): ReactElement {
   return (
     <Styled.Root>
       <MobilePlayerTop
@@ -18,6 +20,8 @@ function MobilePlayer({
         handleForwardTime={handleForwardTime}
       />
       <MobilePlayerBottom
+        isPlay={isPlay}
+        setIsPlay={setIsPlay}
         handleSeekTime={handleSeekTime}
         handleBackTime={handleBackTime}
         handleForwardTime={handleForwardTime}
