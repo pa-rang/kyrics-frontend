@@ -30,7 +30,8 @@ import { ISongData, ITimedText } from 'types';
 import KeyExpression from '../../components/study/KeyExpression';
 
 function Study(): ReactElement {
-  const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
+  // const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
+  const [isPlay, setIsPlay] = useState(false);
   const [currentTime, setCurrentTime] = useRecoilState<number>(currentTimeAtom);
   const volumeBar = useRecoilValue<number>(volumeBarAtom);
   const loop = useRecoilValue<boolean>(loopAtom);
@@ -166,7 +167,7 @@ function Study(): ReactElement {
     };
   }, []);
 
-  const [isPlay2, setIsPlay2] = useState(false);
+  // const [isPlay2, setIsPlay2] = useState(false);
 
   if (!id) {
     return <div>Loading...</div>;
@@ -206,7 +207,7 @@ function Study(): ReactElement {
       </Styled.ModalWrapper>
       <Styled.Opacity>
         <ReactPlayer
-          playing={isPlay2}
+          playing={isPlay}
           url={url}
           loop={loop}
           controls={true}
@@ -237,15 +238,19 @@ function Study(): ReactElement {
         onClick={() => setYoutubeIsModalOpened(false)}
         aria-hidden="true"
       />
-      <button onClick={() => setIsPlay2((prev) => !prev)}>play/pause</button>
+      <button onClick={() => setIsPlay((prev) => !prev)}>play/pause</button>
       <button onClick={() => router.push('/test')}>123</button>
       <Styled.PlayerWrapper>
         <MobilePlayer
+          isPlay={isPlay}
+          setIsPlay={setIsPlay}
           handleSeekTime={handleSeekTime}
           handleBackTime={handleBackTime}
           handleForwardTime={handleForwardTime}
         />
         <Player
+          isPlay={isPlay}
+          setIsPlay={setIsPlay}
           handleSeekTime={handleSeekTime}
           handleBackTime={handleBackTime}
           handleForwardTime={handleForwardTime}

@@ -3,12 +3,12 @@ import styled from '@emotion/styled';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { currentTimeAtom, percentageAtom, songDataState, totalTimeAtom } from 'states';
-import { PlayerProps } from 'types';
+import { PlayerTopProps } from 'types';
 interface ProgressStyledProps {
   percentage: number;
 }
 
-function MobilePlayerTop({ handleSeekTime }: PlayerProps): ReactElement {
+function MobilePlayerTop({ handleSeekTime }: PlayerTopProps): ReactElement {
   const data = useRecoilValue(songDataState);
   const albumImageUrl = data?.albumImageUrl;
   const currentTime = useRecoilValue<number>(currentTimeAtom);

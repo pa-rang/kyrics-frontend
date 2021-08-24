@@ -1,19 +1,23 @@
 import styled from '@emotion/styled';
 import React, { ReactElement } from 'react';
-import { PlayerProps } from 'types';
+import { PlayerBottomProps } from 'types';
 
 import MobileKeyExpression from './MobileKeyExpression';
 import MobilePlayController from './MobilePlayController';
 
 function MobilePlayerBottom({
+  isPlay,
+  setIsPlay,
   handleSeekTime,
   handleBackTime,
   handleForwardTime,
-}: PlayerProps): ReactElement {
+}: PlayerBottomProps): ReactElement {
   return (
     <Styled.Root>
       <MobileKeyExpression />
       <MobilePlayController
+        isPlay={isPlay}
+        setIsPlay={setIsPlay}
         handleSeekTime={handleSeekTime}
         handleBackTime={handleBackTime}
         handleForwardTime={handleForwardTime}

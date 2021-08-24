@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import React, { ReactElement, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { isPlayAtom, loopAtom } from 'states';
-import { PlayerProps } from 'types';
+import { PlayerBottomProps } from 'types';
 
 import MobileModal2 from './MobileModal2';
 
@@ -14,13 +14,18 @@ interface PlayControlStyledProps {
 interface ReplayStyledProps {
   isLooped: boolean;
 }
-function MobilePlayController({ handleBackTime, handleForwardTime }: PlayerProps): ReactElement {
-  const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
+function MobilePlayController({
+  isPlay,
+  setIsPlay,
+  handleBackTime,
+  handleForwardTime,
+}: PlayerBottomProps): ReactElement {
+  // const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
   const [loop, setLoop] = useRecoilState<boolean>(loopAtom);
   const [isMobileModalOpened, setIsMobileModalOpened] = useState(false);
 
   const handlePlay = () => {
-    setIsPlay((isPlay) => !isPlay);
+    setIsPlay((prev) => !prev);
   };
 
   const handleLoop = () => {

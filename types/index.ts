@@ -64,11 +64,20 @@ export interface IMySongItem {
   albumImageUrl: string;
 }
 
-export interface PlayerProps {
+export interface PlayerTopProps {
   handleSeekTime: (e: React.FormEvent<HTMLInputElement>) => void;
   handleBackTime: () => void;
   handleForwardTime: () => void;
 }
+
+export interface PlayerBottomProps {
+  isPlay: boolean;
+  setIsPlay: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSeekTime: (e: React.FormEvent<HTMLInputElement>) => void;
+  handleBackTime: () => void;
+  handleForwardTime: () => void;
+}
+
 export interface PlayControllerProps {
   handlePlay: () => void;
   handleSeekTime: (e: React.FormEvent<HTMLInputElement>) => void;
