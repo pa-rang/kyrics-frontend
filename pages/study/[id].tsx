@@ -236,7 +236,8 @@ const Styled = {
       `}
   `,
   ModalWrapper: styled.div<{ isYoutubeModalOpened: boolean }>`
-    display: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'flex' : 'none')};
+    /* display: ${({ isYoutubeModalOpened }) => (isYoutubeModalOpened ? 'flex' : 'none')}; */
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
