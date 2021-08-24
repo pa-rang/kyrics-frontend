@@ -39,6 +39,7 @@ function Study(): ReactElement {
   const host = hostVideo.current as ReactPlayer;
   const setPercentage = useSetRecoilState<number>(percentageAtom);
   const [modalHeight, setModalHeight] = useState<number>(0);
+  const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
   const [isYoutubeModalOpened, seYoutubetIsModalOpened] = useRecoilState(isYoutubeModalOpenedState);
   const setSongData = useSetRecoilState(songDataState);
   const router = useRouter();
@@ -161,8 +162,6 @@ function Study(): ReactElement {
     };
   }, []);
 
-  const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
-
   if (!id) {
     return <div>Loading...</div>;
   }
@@ -186,14 +185,14 @@ function Study(): ReactElement {
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
-            // config={{
-            //   youtube: {
-            //     playerVars: {
-            //       autoplay: 0,
-            //       enablejsapi: 1,
-            //     },
-            //   },
-            // }}
+            config={{
+              youtube: {
+                playerVars: {
+                  autoplay: 1,
+                  enablejsapi: 1,
+                },
+              },
+            }}
           />
           <img
             className="modalClose--btn"

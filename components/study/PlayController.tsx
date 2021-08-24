@@ -48,7 +48,6 @@ function PlayController({
   const data = useRecoilValue(songDataState);
   const title = data?.title;
   const artist = data?.artist;
-  const isMobile = useMobile();
 
   const currentTimeForm =
     currentTime % 60 <= 10
