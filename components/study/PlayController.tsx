@@ -50,7 +50,6 @@ function PlayController({
   const data = useRecoilValue(songDataState);
   const title = data?.title;
   const artist = data?.artist;
-
   const currentTimeForm =
     currentTime % 60 <= 10
       ? `0${Math.floor(currentTime / 60)}:0${Math.floor(currentTime) % 60} `
@@ -91,17 +90,17 @@ function PlayController({
 
   const handleKeyDown = (e: KeyboardEvent) => {
     console.log('e.key', e.key);
-    console.log('object', e.key === ' ');
     switch (e.key) {
       case ' ':
+        e.preventDefault();
         handlePlay();
         break;
-      case 'ArrowRight':
-        handleForwardTime();
-        break;
-      case 'ArrowLeft':
-        handleBackTime();
-        break;
+      // case 'ArrowRight':
+      //   handleForwardTime();
+      //   break;
+      // case 'ArrowLeft':
+      //   handleBackTime();
+      //   break;
       default:
         break;
     }

@@ -107,8 +107,6 @@ function Study(): ReactElement {
   };
 
   const handleBackTime = () => {
-    console.log('hostVideo.current', hostVideo.current);
-    console.log('hostVideo.current', hostVideo.current);
     if (currentTime >= 10) {
       hostVideo.current.seekTo(currentTime - 10);
       setCurrentTime(currentTime - 10);
