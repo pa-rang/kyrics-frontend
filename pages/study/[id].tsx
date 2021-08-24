@@ -249,7 +249,6 @@ const Styled = {
     top: 0;
     left: 0;
     justify-content: center;
-    visibility: hidden;
     z-index: 1100000;
     background: rgba(0, 0, 0, 0.8);
     width: 100vw;
