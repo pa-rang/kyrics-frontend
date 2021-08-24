@@ -63,6 +63,10 @@ function Study(): ReactElement {
   }, [currentTime]);
 
   useEffect(() => {
+    setIsPlay(false);
+  }, []);
+
+  useEffect(() => {
     setMute(false);
     if (host !== null) {
       setTotalTime(Math.floor(host.getDuration()));
