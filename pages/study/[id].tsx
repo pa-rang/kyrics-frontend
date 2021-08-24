@@ -63,7 +63,7 @@ function Study(): ReactElement {
   }, [currentTime]);
 
   useEffect(() => {
-    // setMute(false);
+    setMute(false);
     if (host !== null) {
       setTotalTime(Math.floor(host.getDuration()));
     }
@@ -163,7 +163,7 @@ function Study(): ReactElement {
     };
   }, []);
 
-  // const [mute, setMute] = useState(true);
+  const [mute, setMute] = useState(true);
 
   if (!id) {
     return <div>Loading...</div>;
@@ -188,15 +188,15 @@ function Study(): ReactElement {
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
-            // muted={mute}
-            config={{
-              youtube: {
-                playerVars: {
-                  autoplay: 1,
-                  enablejsapi: 1,
-                },
-              },
-            }}
+            muted={mute}
+            // config={{
+            //   youtube: {
+            //     playerVars: {
+            //       autoplay: 1,
+            //       enablejsapi: 1,
+            //     },
+            //   },
+            // }}
           />
           <img
             className="modalClose--btn"
