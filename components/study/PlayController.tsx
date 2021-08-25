@@ -1,12 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useMobile } from 'hooks/useMobile';
-import React, { ReactElement, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   currentTimeAtom,
   isMessageOpenedAtom,
-  isPlayAtom,
   isVolumeOpenedAtom,
   loopAtom,
   percentageAtom,
@@ -39,8 +37,8 @@ function PlayController({
   handleBackTime,
   handleForwardTime,
 }: PlayerBottomProps): ReactElement {
-  // const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
-  const currentTime = useRecoilValue<number>(currentTimeAtom);
+  // const currentTime = useRecoilValue<number>(currentTimeAtom);
+  const [currentTime, setCurrentTime] = useRecoilState(currentTimeAtom);
   const [volumeBar, setVolumeBar] = useRecoilState<number>(volumeBarAtom);
   const [loop, setLoop] = useRecoilState<boolean>(loopAtom);
   const totalTime = useRecoilValue<number>(totalTimeAtom);
@@ -50,7 +48,6 @@ function PlayController({
   const data = useRecoilValue(songDataState);
   const title = data?.title;
   const artist = data?.artist;
-
   const currentTimeForm =
     currentTime % 60 <= 10
       ? `0${Math.floor(currentTime / 60)}:0${Math.floor(currentTime) % 60} `
@@ -88,6 +85,32 @@ function PlayController({
     setIsVolumeOpened(true);
     setVolumeBar(parseInt(target.value));
   };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    console.log('e.key', e.key);
+    switch (e.key) {
+      case ' ':
+        e.preventDefault();
+        handlePlay();
+        break;
+      // case 'ArrowRight':
+      //   handleForwardTime();
+      //   break;
+      // case 'ArrowLeft':
+      //   handleBackTime();
+      //   break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return (
     <Styled.Root>

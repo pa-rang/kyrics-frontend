@@ -9,13 +9,12 @@ import { usePhone } from 'hooks/useMobile';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   currentTimeAtom,
   isLoginModalOpenedState,
-  isPlayAtom,
   isYoutubeModalOpenedState,
   loopAtom,
   percentageAtom,
@@ -30,14 +29,12 @@ import { ISongData, ITimedText } from 'types';
 import KeyExpression from '../../components/study/KeyExpression';
 
 function Study(): ReactElement {
-  // const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
   const [isPlay, setIsPlay] = useState(false);
   const [currentTime, setCurrentTime] = useRecoilState<number>(currentTimeAtom);
   const volumeBar = useRecoilValue<number>(volumeBarAtom);
   const loop = useRecoilValue<boolean>(loopAtom);
   const [totalTime, setTotalTime] = useRecoilState<number>(totalTimeAtom);
   const hostVideo = useRef(null) as any;
-  const host = hostVideo.current as ReactPlayer;
   const setPercentage = useSetRecoilState<number>(percentageAtom);
   const [modalHeight, setModalHeight] = useState<number>(0);
   const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
@@ -52,8 +49,6 @@ function Study(): ReactElement {
 
   const url = data?.data?.data?.youtubeUrl;
 
-  // setSongData(data?.data);
-  // 왜 바로 setSongData를 해주면 error 가 날까?
   useEffect(() => {
     if (!data) return;
     // setSongData 인수에 넣으면 에러가 난다.`
@@ -98,20 +93,20 @@ function Study(): ReactElement {
     const target = e.target as HTMLInputElement;
 
     setCurrentTime(parseInt(target.value));
-    host.seekTo(parseFloat(target.value));
+    hostVideo.current.seekTo(parseFloat(target.value));
   };
 
   const handleLyrics = (line: ITimedText) => {
-    host.seekTo(line.startTime);
+    hostVideo.current.seekTo(line.startTime);
     setIsPlay(true);
   };
 
   const handleBackTime = () => {
     if (currentTime >= 10) {
-      host.seekTo(currentTime - 10);
+      hostVideo.current.seekTo(currentTime - 10);
       setCurrentTime(currentTime - 10);
     } else {
-      host.seekTo(0);
+      hostVideo.current.seekTo(0);
       setCurrentTime(0);
     }
   };
@@ -119,10 +114,10 @@ function Study(): ReactElement {
   const handleForwardTime = () => {
     if (currentTime <= totalTime - 10) {
       setCurrentTime(currentTime + 10);
-      host.seekTo(currentTime + 10);
+      hostVideo.current.seekTo(currentTime + 10);
     } else {
       setCurrentTime(totalTime);
-      host.seekTo(totalTime);
+      hostVideo.current.seekTo(totalTime);
     }
   };
 
@@ -185,20 +180,11 @@ function Study(): ReactElement {
             ref={hostVideo}
             width="100%"
             height="100%"
-            onProgress={(e) => handleOnProgress(e)}
+            onProgress={handleOnProgress}
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
             playsinline={true}
-            // config={{
-            //   youtube: {
-            //     playerVars: {
-            //       autoplay: isPhone ? 0 : 1,
-            //       // autoplay: 1,
-            //       enablejsapi: 1,
-            //     },
-            //   },
-            // }}
           />
           <img
             className="modalClose--btn"
