@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { usePhone } from 'hooks/useMobile';
 import { useModalOutSideClick } from 'hooks/useModalOutSideClick';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useEffect, useRef } from 'react';
+import React, { ReactElement, useRef } from 'react';
 
 interface Props {
   isProfileClicked: boolean;

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React, { ReactElement } from 'react';
-import { ArtistSongs, Song } from 'types';
+import { Song } from 'types';
 
 import MusicCard from './MusicCard';
 

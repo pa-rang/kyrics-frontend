@@ -1,11 +1,10 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
-import LoginModal from '@components/common/LoginModal';
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
 import { client, clientWithoutToken } from 'lib/api';
 import { getPageLogger } from 'lib/utils/amplitude';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSetRecoilState } from 'recoil';
 import { isLoginModalOpenedState, isYoutubeModalOpenedState, songDataState } from 'states';

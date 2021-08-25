@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { ReactElement, useRef, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { loopAtom } from 'states';
 import { PlayerBottomProps } from 'types';
