@@ -86,15 +86,6 @@ const Wrap = styled.div<StyledProps>`
     background-size: fill;
     width: 100%;
     height: 100%;
-    ${({ isHovered }) =>
-      isHovered === 'MouseEnter'
-        ? 'animation: fadeIn 0.5s; visibility: visible;'
-        : isHovered === 'MouseLeave' && 'animation: fadeOut 0.5s;'}
-
-    @media (max-width: 767px) {
-      visibility: visible;
-      background: linear-gradient(rgba(199, 199, 199, 0.5) 5.46%, rgba(0, 0, 0, 0.5) 100%);
-    }
 
     &__logo {
       margin-top: 55px;
@@ -123,6 +114,17 @@ const Wrap = styled.div<StyledProps>`
         margin-top: 10px;
         font-size: 20px;
       }
+    }
+    @media (min-width: 768px) {
+      ${({ isHovered }) =>
+        isHovered === 'MouseEnter'
+          ? 'animation: fadeIn 0.5s; visibility: visible;'
+          : isHovered === 'MouseLeave' && 'animation: fadeOut 0.5s;'}
+    }
+
+    @media (max-width: 767px) {
+      visibility: visible;
+      background: linear-gradient(rgba(199, 199, 199, 0.5) 5.46%, rgba(0, 0, 0, 0.5) 100%);
     }
   }
 
