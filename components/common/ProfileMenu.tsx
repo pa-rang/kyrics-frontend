@@ -14,10 +14,6 @@ function ProfileMenu({ isProfileClicked, setIsProfileClicked }: Props): ReactEle
   const modalEl = useRef<HTMLDivElement | null>(null);
 
   const handleClickOutside = (e: any) => {
-    console.log('modalEl.current', modalEl.current);
-    console.log('e.target', e.target);
-    console.log('modalEL?.current?.contains(e.target)', modalEl?.current?.contains(e.target));
-    if (modalEl.current === null) return;
     if (isProfileClicked && !modalEl?.current?.contains(e.target)) {
       setIsProfileClicked(false);
     }
