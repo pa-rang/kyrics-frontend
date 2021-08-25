@@ -1,20 +1,29 @@
 import styled from '@emotion/styled';
 import { usePhone } from 'hooks/useMobile';
+import { useModalOutSideClick } from 'hooks/useModalOutSideClick';
 import { useRouter } from 'next/router';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useRef } from 'react';
 
-function ProfileMenu(): ReactElement {
+interface Props {
+  isProfileClicked: boolean;
+  setIsProfileClicked: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ProfileMenu({ isProfileClicked, setIsProfileClicked }: Props): ReactElement {
   const router = useRouter();
   const isMobile = usePhone() ? 'Mobile' : '';
+  const modalEl = useRef<HTMLDivElement | null>(null);
+
+  useModalOutSideClick(modalEl, isProfileClicked, setIsProfileClicked);
 
   return (
-    <Wrap>
-      <button className="option" onClick={() => router.push('/mypage/settings')}>
+    <Wrap ref={modalEl}>
+      <div className="option" onClick={() => router.push('/mypage/settings')}>
         <img className="option__icon" src={`/assets/icons/Ic${isMobile}Setting.svg`} alt=""></img>
         <p className="option__label">Account Settings</p>
         <div className="option__border"></div>
-      </button>
-      <button
+      </div>
+      <div
         className="option"
         onClick={() =>
           router.push({
@@ -26,8 +35,8 @@ function ProfileMenu(): ReactElement {
         <img className="option__icon" src={`/assets/icons/Ic${isMobile}MySong.svg`} alt=""></img>
         <p className="option__label">My Songs</p>
         <div className="option__border"></div>
-      </button>
-      <button
+      </div>
+      <div
         className="option"
         onClick={() =>
           router.push({
@@ -38,7 +47,7 @@ function ProfileMenu(): ReactElement {
       >
         <img className="option__icon" src={`/assets/icons/Ic${isMobile}MyVoca.svg`} alt=""></img>
         <p className="option__label">My Vocab</p>
-      </button>
+      </div>
     </Wrap>
   );
 }
@@ -46,8 +55,8 @@ function ProfileMenu(): ReactElement {
 const Wrap = styled.div`
   display: flex;
   position: absolute;
-  top: 50px;
-  right: 0px;
+  top: 76px;
+  right: 55px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -74,11 +83,10 @@ const Wrap = styled.div`
     }
 
     &__icon {
+      transform: translateY(-1px);
       margin-left: 10px;
-      @media (max-width: 415px) {
-        transform: translateY(0.5px);
-        margin: 0;
-      }
+      width: 19px;
+      height: 19px;
     }
 
     &__label {
@@ -87,10 +95,6 @@ const Wrap = styled.div`
       font-size: 16px;
       font-weight: 500;
       font-style: normal;
-      @media (max-width: 415px) {
-        margin-left: 4px;
-        font-size: 7px;
-      }
     }
 
     &__border {
@@ -99,22 +103,38 @@ const Wrap = styled.div`
       background: #e1e1e1;
       width: 204px;
       height: 1px;
-      @media (max-width: 415px) {
-        width: 106px;
-      }
-    }
-    @media (max-width: 415px) {
-      margin-top: 4px;
-      width: 104px;
-      height: 20px;
     }
   }
 
   @media (max-width: 415px) {
-    top: 30px;
-    padding-top: 4px;
-    width: 122px;
-    height: 81px;
+    top: 42px;
+    right: 20px;
+    width: 162px;
+    height: 114px;
+    .option {
+      margin-top: 12px;
+      width: 140px;
+      height: 20px;
+      &__icon {
+        transform: translateY(1px);
+        margin: 0;
+        width: 13px;
+        height: 13px;
+      }
+
+      &__label {
+        margin-left: 8px;
+        font-size: 13px;
+      }
+
+      &__border {
+        width: 138px;
+      }
+    }
+
+    .option:nth-of-type(1) {
+      margin-top: 2px;
+    }
   }
 `;
 

@@ -43,7 +43,7 @@ function KeyExpressionItem({
         <Styled.EngExample small={small}>{engExample}</Styled.EngExample>
       </Styled.ExampleWrapper>
       <Styled.Line type={type} />
-      <FavoriteButton type={type} isSaved={isSaved} id={id} songId={songId} />
+      <FavoriteButton small={small} type={type} isSaved={isSaved} id={id} songId={songId} />
     </Styled.Root>
   );
 }
@@ -82,46 +82,83 @@ const Styled = {
   KeywordWrapper: styled.div<{ type: 'line-top' | 'line-left'; small: boolean }>`
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     justify-content: center;
-    margin: ${({ small }) => (small ? '4px 12px 12px 16px' : '16px 16px 16px 24px')};
     border-bottom: 1px solid #e1e1e1;
     height: 72px;
     ${({ type }) => (type === 'line-top' ? 'height: 72px;' : 'height: 64px;')}
-    height: ${({ small }) => small && '50px'};
+    ${({ small }) =>
+      small
+        ? css`
+            margin: 4px 12px 6px 16px;
+            height: 50px;
+          `
+        : css`
+            margin: 16px 16px 16px 24px;
+          `}
   `,
 
   KorKeyword: styled.h4<{ small: boolean }>`
     margin-right: 10%;
-    margin-bottom: ${({ small }) => (small ? '4px' : '6px')};
     min-width: 72px;
     color: #202020;
-    font-size: ${({ small }) => (small ? '14px' : '20px')};
     font-weight: 500;
     ${ellipsisText}
+    ${({ small }) =>
+      small
+        ? css`
+            margin-bottom: 4px;
+            font-size: 14px;
+          `
+        : css`
+            margin-bottom: 6px;
+            font-size: 20px;
+          `}
   `,
 
   EngKeyword: styled.h5<{ small: boolean }>`
-    margin-bottom: ${({ small }) => (small ? '2px' : '6px')};
     line-height: 1.2;
     color: #9d9d9d;
-    font-size: ${({ small }) => (small ? '12px' : '14x')};
     font-weight: 500;
     ${ellipsisText}
+    ${({ small }) =>
+      small
+        ? css`
+            margin-bottom: 2px;
+            font-size: 12px;
+          `
+        : css`
+            margin-bottom: 6px;
+            font-size: 14px;
+          `}
   `,
 
   ExampleWrapper: styled.div<{ small: boolean }>`
-    margin: ${({ small }) => (small ? '4px 12px 12px 16px' : '16px 16px 16px 24px')};
-    font-size: ${({ small }) => (small ? '10px' : '14px')};
+    ${({ small }) =>
+      small
+        ? css`
+            margin: 4px 12px 12px 16px;
+            font-size: 10px;
+          `
+        : css`
+            margin: 16px 16px 16px 24px;
+            font-size: 14px;
+          `}
   `,
 
   KorExample: styled.h5<{ small: boolean }>`
     margin-bottom: ${({ small }) => (small ? '2px' : '6px')};
     line-height: 1.4;
     color: #202020;
-    /* font-size: ${({ small }) => (small ? '14px' : '12px')}; */
     font-size: 12px;
     font-weight: 500;
+    ${({ small }) =>
+      small
+        ? css`
+            margin-bottom: 2px;
+          `
+        : css`
+            margin-bottom: 6px;
+          `}
   `,
 
   EngExample: styled.h5<{ small: boolean }>`
@@ -129,5 +166,13 @@ const Styled = {
     color: #9d9d9d;
     font-size: 12px;
     font-weight: 500;
+    ${({ small }) =>
+      small
+        ? css`
+            font-size: 10px;
+          `
+        : css`
+            font-size: 12px;
+          `}
   `,
 };

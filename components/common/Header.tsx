@@ -21,7 +21,7 @@ function Header() {
     router.push('/');
   }
 
-  function handleProfileClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  function handleProfileClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     e.preventDefault();
     setIsProfileClicked((isProfileClicked) => !isProfileClicked);
   }
@@ -47,15 +47,20 @@ function Header() {
               <p className="user__profile--logout" onClick={handleLogout}>
                 Log out
               </p>
-              <button className="user__profile--button" onClick={handleProfileClick}>
+              <div className="user__profile--button" onClick={handleProfileClick}>
                 <img
                   className="user__profile--button--picture"
                   src={user.profileImageUrl}
                   alt=""
                 ></img>
                 <p className="user__profile--button--name">{user.name}</p>
-                {isProfileClicked && <ProfileMenu />}
-              </button>
+              </div>
+              {isProfileClicked && (
+                <ProfileMenu
+                  isProfileClicked={isProfileClicked}
+                  setIsProfileClicked={setIsProfileClicked}
+                />
+              )}
             </div>
           ) : (
             <div className="user__anonymous">

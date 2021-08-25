@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { isPlayAtom, loopAtom } from 'states';
+import { loopAtom } from 'states';
 import { PlayerBottomProps } from 'types';
 
 import MobileModal2 from './MobileModal2';
@@ -20,7 +20,6 @@ function MobilePlayController({
   handleBackTime,
   handleForwardTime,
 }: PlayerBottomProps): ReactElement {
-  // const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
   const [loop, setLoop] = useRecoilState<boolean>(loopAtom);
   const [isMobileModalOpened, setIsMobileModalOpened] = useState(false);
 
@@ -39,7 +38,12 @@ function MobilePlayController({
   return (
     <Styled.Root>
       <Styled.ModalWrapper>
-        {isMobileModalOpened && <MobileModal2 setIsMobileModalOpened={setIsMobileModalOpened} />}
+        {isMobileModalOpened && (
+          <MobileModal2
+            isMobileModalOpened={isMobileModalOpened}
+            setIsMobileModalOpened={setIsMobileModalOpened}
+          />
+        )}
       </Styled.ModalWrapper>
       <Styled.PlayerWrapper>
         <Styled.PlayControl>

@@ -74,7 +74,7 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   );
 }
 const Styled = {
-  Root: styled.button<{ isHovered: HoverState }>`
+  Root: styled.div<{ isHovered: HoverState }>`
     position: relative;
     border: none;
     background: white;
@@ -97,8 +97,12 @@ const Styled = {
     }
 
     .hover {
+      display: flex;
       position: absolute;
       top: 1px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       visibility: hidden;
       border-radius: 10px;
       background: linear-gradient(
@@ -114,7 +118,6 @@ const Styled = {
           : isHovered === 'MouseLeave' && 'animation: fadeOut 0.5s;'}
 
       &__label {
-        padding-top: 65px;
         text-align: center;
         text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
         line-height: 30px;

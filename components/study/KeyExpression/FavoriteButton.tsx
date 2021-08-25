@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { FavoriteIcon2, FavoriteYellowIcon } from '@public/assets';
 import { useGetUser } from 'hooks/api';
@@ -12,9 +13,10 @@ interface Props {
   isSaved: boolean;
   type: 'line-top' | 'line-left';
   songId: number | undefined;
+  small: boolean;
 }
 
-function FavoriteButton({ id, isSaved, type, songId }: Props) {
+function FavoriteButton({ small = false, id, isSaved, type, songId }: Props) {
   const user = useGetUser();
   const setIsLoginModalOpened = useSetRecoilState(isLoginModalOpenedState);
 
@@ -38,6 +40,7 @@ function FavoriteButton({ id, isSaved, type, songId }: Props) {
     <>
       <Styled.Root
         type={type}
+        small={small}
         src={isSaved ? FavoriteYellowIcon.src : FavoriteIcon2.src}
         onClick={() => handleClick(id)}
       />
@@ -48,10 +51,16 @@ function FavoriteButton({ id, isSaved, type, songId }: Props) {
 export default FavoriteButton;
 
 const Styled = {
-  Root: styled.img<{ type: 'line-top' | 'line-left' }>`
+  Root: styled.img<{ type: 'line-top' | 'line-left'; small: boolean }>`
     position: absolute;
     top: ${({ type }) => (type === 'line-top' ? '24px' : '16px')};
     right: 16px;
     cursor: pointer;
+    ${({ small }) =>
+      small &&
+      css`
+        top: 8px;
+        right: 10px;
+      `}
   `,
 };

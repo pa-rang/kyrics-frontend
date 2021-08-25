@@ -9,7 +9,7 @@ import { usePhone } from 'hooks/useMobile';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
@@ -63,14 +63,11 @@ function Study(): ReactElement {
 
   useEffect(() => {
     setIsPlay(isPhone ? false : true);
-    console.log('isPlay', isPlay);
   }, []);
 
   useEffect(() => {
-    if (hostVideo.current !== null) {
-      setTotalTime(Math.floor(hostVideo.current.getDuration()));
-    }
-  }, [isPlay]);
+    setTotalTime(Math.floor(hostVideo.current?.getDuration()));
+  }, [hostVideo.current?.player?.player?.player?.getDuration]);
 
   const [miniPlayerOpened, setMiniPlayerOpened] = useState(false);
 
