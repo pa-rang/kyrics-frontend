@@ -16,35 +16,32 @@ function ProfileMenu({ isProfileClicked, setIsProfileClicked }: Props): ReactEle
 
   useModalOutSideClick(modalEl, isProfileClicked, setIsProfileClicked);
 
+  const handleRoute = (type: string) => {
+    setIsProfileClicked(false);
+    if (type === 'settings') {
+      router.push('/mypage/settings');
+
+      return;
+    }
+    router.push({
+      pathname: '/mypage/collection',
+      query: { type },
+    });
+  };
+
   return (
     <Wrap ref={modalEl}>
-      <div className="option" onClick={() => router.push('/mypage/settings')}>
+      <div className="option" onClick={() => handleRoute('settings')}>
         <img className="option__icon" src={`/assets/icons/Ic${isMobile}Setting.svg`} alt=""></img>
         <p className="option__label">Account Settings</p>
         <div className="option__border"></div>
       </div>
-      <div
-        className="option"
-        onClick={() =>
-          router.push({
-            pathname: '/mypage/collection',
-            query: { type: 'mysongs' },
-          })
-        }
-      >
+      <div className="option" onClick={() => handleRoute('mysongs')}>
         <img className="option__icon" src={`/assets/icons/Ic${isMobile}MySong.svg`} alt=""></img>
         <p className="option__label">My Songs</p>
         <div className="option__border"></div>
       </div>
-      <div
-        className="option"
-        onClick={() =>
-          router.push({
-            pathname: '/mypage/collection',
-            query: { type: 'myvocab' },
-          })
-        }
-      >
+      <div className="option" onClick={() => handleRoute('myvocab')}>
         <img className="option__icon" src={`/assets/icons/Ic${isMobile}MyVoca.svg`} alt=""></img>
         <p className="option__label">My Vocab</p>
       </div>
