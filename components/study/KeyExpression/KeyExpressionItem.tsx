@@ -89,7 +89,7 @@ const Styled = {
     ${({ small }) =>
       small
         ? css`
-            margin: 4px 12px 12px 16px;
+            margin: 4px 12px 6px 16px;
             height: 50px;
           `
         : css`
@@ -166,5 +166,13 @@ const Styled = {
     color: #9d9d9d;
     font-size: 12px;
     font-weight: 500;
+    ${({ small }) =>
+      small
+        ? css`
+            font-size: 10px;
+          `
+        : css`
+            font-size: 12px;
+          `}
   `,
 };
