@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { usePhone } from 'hooks/useMobile';
+import { useModalOutSideClick } from 'hooks/useModalOutSideClick';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useRef } from 'react';
 
@@ -13,19 +14,7 @@ function ProfileMenu({ isProfileClicked, setIsProfileClicked }: Props): ReactEle
   const isMobile = usePhone() ? 'Mobile' : '';
   const modalEl = useRef<HTMLDivElement | null>(null);
 
-  const handleClickOutside = (e: MouseEvent) => {
-    if (isProfileClicked && !modalEl?.current?.contains(e.target as Node)) {
-      setIsProfileClicked(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('click', handleClickOutside);
-
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
+  useModalOutSideClick(modalEl, isProfileClicked, setIsProfileClicked);
 
   return (
     <Wrap ref={modalEl}>

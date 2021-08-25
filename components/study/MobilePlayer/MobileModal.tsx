@@ -11,8 +11,6 @@ interface Props {
 function MobileModal({ setIsMobileModalOpened }: Props) {
   const setIsYoutubeModalOpened = useSetRecoilState(isYoutubeModalOpenedState);
 
-  console.log('mobilemodal2');
-
   const handleYoutubeClick = () => {
     setIsMobileModalOpened(false);
     setIsYoutubeModalOpened(true);
