@@ -13,8 +13,8 @@ function ProfileMenu({ isProfileClicked, setIsProfileClicked }: Props): ReactEle
   const isMobile = usePhone() ? 'Mobile' : '';
   const modalEl = useRef<HTMLDivElement | null>(null);
 
-  const handleClickOutside = (e: any) => {
-    if (isProfileClicked && !modalEl?.current?.contains(e.target)) {
+  const handleClickOutside = (e: MouseEvent) => {
+    if (isProfileClicked && !modalEl?.current?.contains(e.target as Node)) {
       setIsProfileClicked(false);
     }
   };
@@ -64,7 +64,6 @@ function ProfileMenu({ isProfileClicked, setIsProfileClicked }: Props): ReactEle
 }
 
 const Wrap = styled.div`
-  /* box-sizing: border-box; */
   display: flex;
   position: absolute;
   top: 76px;
