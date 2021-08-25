@@ -1,14 +1,34 @@
 import styled from '@emotion/styled';
 import { usePhone } from 'hooks/useMobile';
 import { useRouter } from 'next/router';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useRef } from 'react';
 
-function ProfileMenu(): ReactElement {
+interface Props {
+  isProfileClicked: boolean;
+  setIsProfileClicked: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ProfileMenu({ isProfileClicked, setIsProfileClicked }: Props): ReactElement {
   const router = useRouter();
   const isMobile = usePhone() ? 'Mobile' : '';
+  const modalEl = useRef<HTMLDivElement | null>(null);
+
+  const handleClickOutside = (e: any) => {
+    if (isProfileClicked && !modalEl.current?.contains(e.target)) {
+      setIsProfileClicked(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
-    <Wrap>
+    <Wrap ref={modalEl}>
       <button className="option" onClick={() => router.push('/mypage/settings')}>
         <img className="option__icon" src={`/assets/icons/Ic${isMobile}Setting.svg`} alt=""></img>
         <p className="option__label">Account Settings</p>

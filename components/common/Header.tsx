@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
 import { getPageLogger } from 'lib/utils/amplitude';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
 import ProfileMenu from './ProfileMenu';
@@ -54,7 +54,12 @@ function Header() {
                   alt=""
                 ></img>
                 <p className="user__profile--button--name">{user.name}</p>
-                {isProfileClicked && <ProfileMenu />}
+                {isProfileClicked && (
+                  <ProfileMenu
+                    isProfileClicked={isProfileClicked}
+                    setIsProfileClicked={setIsProfileClicked}
+                  />
+                )}
               </button>
             </div>
           ) : (
