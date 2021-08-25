@@ -13,10 +13,10 @@ interface Props {
   isSaved: boolean;
   type: 'line-top' | 'line-left';
   songId: number | undefined;
-  small?: boolean;
+  small: boolean;
 }
 
-function FavoriteButton({ small, id, isSaved, type, songId }: Props) {
+function FavoriteButton({ small = false, id, isSaved, type, songId }: Props) {
   const user = useGetUser();
   const setIsLoginModalOpened = useSetRecoilState(isLoginModalOpenedState);
 
@@ -51,7 +51,7 @@ function FavoriteButton({ small, id, isSaved, type, songId }: Props) {
 export default FavoriteButton;
 
 const Styled = {
-  Root: styled.img<{ type: 'line-top' | 'line-left'; small: boolean | undefined }>`
+  Root: styled.img<{ type: 'line-top' | 'line-left'; small: boolean }>`
     position: absolute;
     top: ${({ type }) => (type === 'line-top' ? '24px' : '16px')};
     right: 16px;
