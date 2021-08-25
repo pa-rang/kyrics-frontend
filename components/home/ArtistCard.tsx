@@ -31,13 +31,8 @@ function ArtistCard({ id, profileImage, logo, name }: Props) {
   }
 
   return (
-    <Wrap profileImage={profileImage} isHovered={isHover}>
-      <button
-        className="bgImg"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleOnClick}
-      >
+    <Wrap profileImage={profileImage} isHovered={isHover} onClick={handleOnClick}>
+      <button className="bgImg" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <div className="hover">
           <img className="hover__logo" src={logo} alt=""></img>
           <p className="hover__label">Explore &gt;</p>
@@ -92,7 +87,6 @@ const Wrap = styled.div<StyledProps>`
         : isHovered === 'MouseLeave' && 'animation: fadeOut 0.5s;'}
 
     @media (max-width: 767px) {
-      visibility: visible;
       visibility: visible;
       background: linear-gradient(rgba(199, 199, 199, 0.5) 5.46%, rgba(0, 0, 0, 0.5) 100%);
     }
