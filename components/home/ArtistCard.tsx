@@ -17,11 +17,11 @@ function ArtistCard({ id, profileImage, logo, name }: Props) {
   const [isHover, setIsHover] = useState<HoverState>('idle');
 
   function handleMouseEnter() {
-    setIsHover('MouseEnter');
+    // setIsHover('MouseEnter');
   }
 
   function handleMouseLeave() {
-    setIsHover('MouseLeave');
+    // setIsHover('MouseLeave');
   }
 
   function handleOnClick() {
