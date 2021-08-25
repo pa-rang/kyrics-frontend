@@ -8,19 +8,18 @@ function NewSongCard() {
   const requestNewSongUrl = 'https://forms.gle/NF4iTYvfesPZwgGt9';
 
   return (
-    <Wrap>
+    <Wrap
+      onClick={() => {
+        window.open(requestNewSongUrl, '_blank');
+        newSongCardLogger.click('REQUEST_SONG_클릭수');
+      }}
+    >
       <p className="title">
         Missing any song
         <br />
         you’re looking for?
       </p>
-      <button
-        className="button"
-        onClick={() => {
-          window.open(requestNewSongUrl, '_blank');
-          newSongCardLogger.click('REQUEST_SONG_클릭수');
-        }}
-      >
+      <button className="button">
         <p className="button__label">Request new songs!</p>
         <img className="button__arrow" src="/assets/icons/icArrow.svg" alt=""></img>
       </button>
@@ -34,6 +33,7 @@ const Wrap = styled.div`
   align-items: center;
   border-radius: 10px;
   background: linear-gradient(158.98deg, #e74e97 3.15%, #6465f4 94.3%);
+  cursor: pointer;
   width: 360px;
   height: 270px;
 
