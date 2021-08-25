@@ -74,7 +74,7 @@ function MusicCard({ title, artist, albumImg, songId }: Props): ReactElement {
   );
 }
 const Styled = {
-  Root: styled.button<{ isHovered: HoverState }>`
+  Root: styled.div<{ isHovered: HoverState }>`
     position: relative;
     border: none;
     background: white;
