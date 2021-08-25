@@ -1,15 +1,21 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import { useModalOutSideClick } from 'hooks/useModalOutSideClick';
+import React, { useRef } from 'react';
 
 import PlayerBtns from '../PlayerBtns';
 
 interface Props {
+  isMobileModalOpened: boolean;
   setIsMobileModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function MobileModal2({ setIsMobileModalOpened }: Props) {
+function MobileModal2({ isMobileModalOpened, setIsMobileModalOpened }: Props) {
+  const modalEl = useRef<HTMLDivElement | null>(null);
+
+  useModalOutSideClick(modalEl, isMobileModalOpened, setIsMobileModalOpened);
+
   return (
-    <Styled.Root>
+    <Styled.Root ref={modalEl}>
       <PlayerBtns setIsMobileModalOpened={setIsMobileModalOpened} />
     </Styled.Root>
   );
