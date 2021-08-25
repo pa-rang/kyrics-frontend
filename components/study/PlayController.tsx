@@ -1,12 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useMobile } from 'hooks/useMobile';
 import React, { ReactElement, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   currentTimeAtom,
   isMessageOpenedAtom,
-  isPlayAtom,
   isVolumeOpenedAtom,
   loopAtom,
   percentageAtom,
@@ -39,8 +37,8 @@ function PlayController({
   handleBackTime,
   handleForwardTime,
 }: PlayerBottomProps): ReactElement {
-  // const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
-  const currentTime = useRecoilValue<number>(currentTimeAtom);
+  // const currentTime = useRecoilValue<number>(currentTimeAtom);
+  const [currentTime, setCurrentTime] = useRecoilState(currentTimeAtom);
   const [volumeBar, setVolumeBar] = useRecoilState<number>(volumeBarAtom);
   const [loop, setLoop] = useRecoilState<boolean>(loopAtom);
   const totalTime = useRecoilValue<number>(totalTimeAtom);
