@@ -20,6 +20,45 @@ function ArtistCarousel() {
 
   const artists = data?.data.data;
 
+  const getSlideNumber = (minus?: number) => {
+    const length = artists?.length;
+
+    if (!length) return 1;
+    if (!minus) return length + 1;
+
+    return length + 1 - minus;
+  };
+
+  const sliderProps: Settings = {
+    arrows: true,
+    infinite: true,
+    autoplay: true,
+    pauseOnHover: true,
+    speed: 500,
+    slidesToShow: getSlideNumber(),
+    slidesToScroll: getSlideNumber(),
+    initialSlide: 0,
+    dots: true,
+    prevArrow: <Arrow img={'/assets/icons/icPrevArrow.svg'} />,
+    nextArrow: <Arrow img={'/assets/icons/icNextArrow.svg'} />,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: getSlideNumber(1),
+          slidesToScroll: getSlideNumber(1),
+        },
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: getSlideNumber(2),
+          slidesToScroll: getSlideNumber(2),
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <Styled.Root>
@@ -56,6 +95,7 @@ function Arrow({ className, style, onClick, img }: ArrowProps) {
     </button>
   );
 }
+export default ArtistCarousel;
 
 const Styled = {
   Root: styled.div`
@@ -125,35 +165,3 @@ const Styled = {
     }
   `,
 };
-
-const sliderProps: Settings = {
-  arrows: true,
-  infinite: true,
-  autoplay: true,
-  pauseOnHover: true,
-  speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 3,
-  initialSlide: 0,
-  dots: true,
-  prevArrow: <Arrow img={'/assets/icons/icPrevArrow.svg'} />,
-  nextArrow: <Arrow img={'/assets/icons/icNextArrow.svg'} />,
-  responsive: [
-    {
-      breakpoint: 1200,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-      },
-    },
-    {
-      breakpoint: 900,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-};
-
-export default ArtistCarousel;
