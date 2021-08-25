@@ -36,6 +36,12 @@ const Wrap = styled.div`
   cursor: pointer;
   width: 360px;
   height: 270px;
+  &:hover {
+    .button {
+      transition: ease-in 300ms;
+      box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
+    }
+  }
 
   .title {
     margin-top: 62px;
@@ -66,7 +72,6 @@ const Wrap = styled.div`
     height: 40px;
 
     &:hover {
-      box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
     }
 
     &__label {
