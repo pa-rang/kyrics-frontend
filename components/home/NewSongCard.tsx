@@ -19,10 +19,10 @@ function NewSongCard() {
         <br />
         you’re looking for?
       </p>
-      <button className="button">
+      <div className="button">
         <p className="button__label">Request new songs!</p>
         <img className="button__arrow" src="/assets/icons/icArrow.svg" alt=""></img>
-      </button>
+      </div>
     </Wrap>
   );
 }

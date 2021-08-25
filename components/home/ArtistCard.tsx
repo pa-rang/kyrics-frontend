@@ -32,12 +32,12 @@ function ArtistCard({ id, profileImage, logo, name }: Props) {
 
   return (
     <Wrap profileImage={profileImage} isHovered={isHover} onClick={handleOnClick}>
-      <button className="bgImg" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div className="bgImg" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <div className="hover">
           <img className="hover__logo" src={logo} alt=""></img>
           <p className="hover__label">Explore &gt;</p>
         </div>
-      </button>
+      </div>
     </Wrap>
   );
 }
