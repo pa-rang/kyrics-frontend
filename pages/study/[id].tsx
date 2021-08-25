@@ -66,18 +66,9 @@ function Study(): ReactElement {
 
   useEffect(() => {
     setIsPlay(isPhone ? false : true);
-    // setTimeout(() => {
-    //   setTotalTime(Math.floor(hostVideo.current.getDuration()));
-    // }, 1000);
   }, []);
 
   useEffect(() => {
-    console.log('hostVideo.current.getDuration()', hostVideo.current?.getDuration());
-    console.log('hostVideo.current?.player', hostVideo.current?.player);
-    console.log(
-      'hostVideo.current.player.player.player',
-      hostVideo.current?.player?.player?.player?.getDuration(),
-    );
     setTotalTime(Math.floor(hostVideo.current?.getDuration()));
   }, [hostVideo.current?.player?.player?.player?.getDuration]);
 
