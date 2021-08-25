@@ -14,7 +14,11 @@ function ProfileMenu({ isProfileClicked, setIsProfileClicked }: Props): ReactEle
   const modalEl = useRef<HTMLDivElement | null>(null);
 
   const handleClickOutside = (e: any) => {
-    if (isProfileClicked && !modalEl.current?.contains(e.target)) {
+    console.log('modalEl.current', modalEl.current);
+    console.log('e.target', e.target);
+    console.log('modalEL?.current?.contains(e.target)', modalEl?.current?.contains(e.target));
+    if (modalEl.current === null) return;
+    if (isProfileClicked && !modalEl?.current?.contains(e.target)) {
       setIsProfileClicked(false);
     }
   };
@@ -66,8 +70,8 @@ function ProfileMenu({ isProfileClicked, setIsProfileClicked }: Props): ReactEle
 const Wrap = styled.div`
   display: flex;
   position: absolute;
-  top: 50px;
-  right: 0px;
+  top: 76px;
+  right: 55px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
