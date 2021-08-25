@@ -43,7 +43,7 @@ function KeyExpressionItem({
         <Styled.EngExample small={small}>{engExample}</Styled.EngExample>
       </Styled.ExampleWrapper>
       <Styled.Line type={type} />
-      <FavoriteButton type={type} isSaved={isSaved} id={id} songId={songId} />
+      <FavoriteButton small={small} type={type} isSaved={isSaved} id={id} songId={songId} />
     </Styled.Root>
   );
 }
