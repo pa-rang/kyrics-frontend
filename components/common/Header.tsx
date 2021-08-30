@@ -75,7 +75,7 @@ function Header() {
   );
 }
 
-const HeaderWrap = styled.div`
+const HeaderWrap = styled.header`
   .header {
     display: flex;
     align-items: center;

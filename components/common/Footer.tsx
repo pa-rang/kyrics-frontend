@@ -60,7 +60,7 @@ function Footer() {
 export default Footer;
 
 const Styled = {
-  Root: styled.div`
+  Root: styled.footer`
     display: flex;
     background-color: #f6f6f6;
     padding-bottom: 70px;
