@@ -47,7 +47,7 @@ interface StyledProps {
   isHovered: HoverState;
 }
 
-const Wrap = styled.div<StyledProps>`
+const Wrap = styled.article<StyledProps>`
   border-radius: 10px;
   width: 360px;
   height: 270px;

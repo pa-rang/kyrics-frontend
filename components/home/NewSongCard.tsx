@@ -27,7 +27,7 @@ function NewSongCard() {
   );
 }
 
-const Wrap = styled.div`
+const Wrap = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -60,24 +60,22 @@ function ArtistCarousel() {
   };
 
   return (
-    <>
-      <Styled.Root>
-        <Styled.InnerWrap>
-          <Slider {...sliderProps}>
-            {artists?.map((artist: Artist) => (
-              <ArtistCard
-                key={artist.id}
-                id={artist.id}
-                name={artist.name}
-                profileImage={artist.profileImageUrl}
-                logo={artist.logoImageUrl}
-              />
-            ))}
-            <NewSongCard />
-          </Slider>
-        </Styled.InnerWrap>
-      </Styled.Root>
-    </>
+    <Styled.Root>
+      <Styled.InnerWrap>
+        <Slider {...sliderProps}>
+          {artists?.map((artist: Artist) => (
+            <ArtistCard
+              key={artist.id}
+              id={artist.id}
+              name={artist.name}
+              profileImage={artist.profileImageUrl}
+              logo={artist.logoImageUrl}
+            />
+          ))}
+          <NewSongCard />
+        </Slider>
+      </Styled.InnerWrap>
+    </Styled.Root>
   );
 }
 
@@ -98,7 +96,7 @@ function Arrow({ className, style, onClick, img }: ArrowProps) {
 export default ArtistCarousel;
 
 const Styled = {
-  Root: styled.div`
+  Root: styled.section`
     display: flex;
     justify-content: center;
     margin-top: -114px;
