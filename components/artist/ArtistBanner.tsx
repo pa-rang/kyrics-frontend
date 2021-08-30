@@ -14,8 +14,8 @@ function ArtistBanner({ name, bgImg }: Props): ReactElement {
   return (
     <BannerWrap bgImg={bgImg}>
       <div className="bgImg">
-        <p className="title">{name}</p>
-        <p className="subTitle">Learn Korean with {name}!</p>
+        <h2 className="title">{name}</h2>
+        <h3 className="subTitle">Learn Korean with {name}!</h3>
       </div>
     </BannerWrap>
   );

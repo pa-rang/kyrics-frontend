@@ -5,11 +5,11 @@ function Title() {
   return (
     <TitleWrap>
       <div className="bgImage">
-        <p className="title">
+        <h2 className="title">
           Learn Korean through your
           <br />
           favorite K-Pop artists and songs!
-        </p>
+        </h2>
       </div>
     </TitleWrap>
   );
