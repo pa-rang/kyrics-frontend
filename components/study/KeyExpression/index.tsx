@@ -50,7 +50,7 @@ function KeyExpression() {
 export default KeyExpression;
 
 const Styled = {
-  Root: styled.div`
+  Root: styled.section`
     margin-left: 36px;
     width: 343px;
     height: 100%;
@@ -66,5 +66,5 @@ const Styled = {
     }
   `,
 
-  KeyExpressionWrapper: styled.div``,
+  KeyExpressionWrapper: styled.section``,
 };

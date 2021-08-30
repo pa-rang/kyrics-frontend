@@ -214,7 +214,7 @@ interface StyledProps {
 }
 
 const Styled = {
-  Root: styled.div<StyledProps>`
+  Root: styled.section<StyledProps>`
     display: flex;
     position: relative;
     align-items: center;
@@ -418,7 +418,7 @@ const Styled = {
     border-top-right-radius: 10px;
     background-color: ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
   `,
-  Title: styled.div`
+  Title: styled.h3`
     margin-top: 36px;
     margin-bottom: 23px;
     color: #7d7d7d;
@@ -428,7 +428,7 @@ const Styled = {
       display: none;
     }
   `,
-  Main: styled.div`
+  Main: styled.section`
     position: relative;
     border-radius: 10px;
     background-color: #f6f6f6;

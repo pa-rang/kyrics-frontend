@@ -36,7 +36,7 @@ function Player({
 
 export default Player;
 
-const PlayerWrapper = styled.div`
+const PlayerWrapper = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-around;

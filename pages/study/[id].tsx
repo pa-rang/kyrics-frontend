@@ -265,7 +265,7 @@ const Styled = {
   PlayerWrapper: styled.div`
     width: 100%;
   `,
-  Main: styled.div<{ width: number }>`
+  Main: styled.main<{ width: number }>`
     display: flex;
     justify-content: center;
     padding: 0px ${({ width }) => (141 * width) / 1440}px;

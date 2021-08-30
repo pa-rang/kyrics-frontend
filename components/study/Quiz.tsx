@@ -13,7 +13,7 @@ function Quiz() {
 
 export default Quiz;
 
-const Root = styled.div`
+const Root = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
