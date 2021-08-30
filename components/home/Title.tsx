@@ -3,31 +3,22 @@ import React from 'react';
 
 function Title() {
   return (
-    <TitleWrap>
-      <div className="bgImage">
-        <h2 className="title">
-          Learn Korean through your
-          <br />
-          favorite K-Pop artists and songs!
-        </h2>
-      </div>
+    <TitleWrap className="bgImage">
+      <h2 className="title">
+        Learn Korean through your
+        <br />
+        favorite K-Pop artists and songs!
+      </h2>
     </TitleWrap>
   );
 }
 
-const TitleWrap = styled.div`
-  .bgImage {
-    background: url(/assets/images/homeBackground.svg) no-repeat;
-    background-position: center bottom;
-    background-size: cover;
-    width: 100%;
-    height: 435px;
-
-    @media (max-width: 767px) {
-      height: 163px;
-      font-size: 16px;
-    }
-  }
+const TitleWrap = styled.section`
+  background: url(/assets/images/homeBackground.svg) no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  width: 100%;
+  height: 435px;
 
   .title {
     padding-top: 132px;
@@ -44,6 +35,11 @@ const TitleWrap = styled.div`
       padding-top: 48px;
       font-size: 16px;
     }
+  }
+
+  @media (max-width: 767px) {
+    height: 163px;
+    font-size: 16px;
   }
 `;
 
