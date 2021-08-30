@@ -173,7 +173,6 @@ function Study(): ReactElement {
   return (
     <Styled.Root isYoutubeModalOpened={isYoutubeModalOpened}>
       <Header />
-      {isLoginModalOpened && <LoginModal />}
       <Styled.ModalWrapper isYoutubeModalOpened={isYoutubeModalOpened}>
         <Styled.Modal modalHeight={modalHeight}>
           <ReactPlayer
@@ -185,14 +184,13 @@ function Study(): ReactElement {
             ref={hostVideo}
             width="100%"
             height="100%"
-            onProgress={(e) => handleOnProgress(e)}
+            onProgress={handleOnProgress}
             onPlay={() => setIsPlay(true)}
             onPause={() => setIsPlay(false)}
             progressInterval={100}
             playsinline={true}
           />
           <img
-            className="modalClose--btn"
             src="/assets/icons/modalCloseIcon.svg"
             alt=""
             onClick={() => setYoutubeIsModalOpened(false)}
@@ -200,26 +198,25 @@ function Study(): ReactElement {
           />
         </Styled.Modal>
       </Styled.ModalWrapper>
-      <Styled.PlayerWrapper>
-        <MobilePlayer
-          isPlay={isPlay}
-          setIsPlay={setIsPlay}
-          handleSeekTime={handleSeekTime}
-          handleBackTime={handleBackTime}
-          handleForwardTime={handleForwardTime}
-        />
-        <Player
-          isPlay={isPlay}
-          setIsPlay={setIsPlay}
-          handleSeekTime={handleSeekTime}
-          handleBackTime={handleBackTime}
-          handleForwardTime={handleForwardTime}
-        />
-      </Styled.PlayerWrapper>
+      <MobilePlayer
+        isPlay={isPlay}
+        setIsPlay={setIsPlay}
+        handleSeekTime={handleSeekTime}
+        handleBackTime={handleBackTime}
+        handleForwardTime={handleForwardTime}
+      />
+      <Player
+        isPlay={isPlay}
+        setIsPlay={setIsPlay}
+        handleSeekTime={handleSeekTime}
+        handleBackTime={handleBackTime}
+        handleForwardTime={handleForwardTime}
+      />
       <Styled.Main width={width}>
         <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} id={Number(id)} />
         {size && size.width > 1080 && <KeyExpression />}
       </Styled.Main>
+      {isLoginModalOpened && <LoginModal />}
     </Styled.Root>
   );
 }
@@ -260,10 +257,12 @@ const Styled = {
       right: -28.33px;
       transform: translateX(100%);
       cursor: pointer;
+
+      @media (max-width: 415px) {
+        top: 10px;
+        right: -10px;
+      }
     }
-  `,
-  PlayerWrapper: styled.div`
-    width: 100%;
   `,
   Main: styled.main<{ width: number }>`
     display: flex;
