@@ -9,8 +9,10 @@ function Home() {
   return (
     <>
       <Header />
-      <Title />
-      <ArtistCarousel />
+      <main>
+        <Title />
+        <ArtistCarousel />
+      </main>
       <Footer />
     </>
   );

@@ -30,7 +30,7 @@ function NewlyAdded({ songs }: Props): ReactElement {
 }
 
 const Styled = {
-  Root: styled.div`
+  Root: styled.main`
     margin-bottom: 80px;
     width: 100%;
 

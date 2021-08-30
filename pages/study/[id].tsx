@@ -190,15 +190,6 @@ function Study(): ReactElement {
             onPause={() => setIsPlay(false)}
             progressInterval={100}
             playsinline={true}
-            // config={{
-            //   youtube: {
-            //     playerVars: {
-            //       autoplay: isPhone ? 0 : 1,
-            //       // autoplay: 1,
-            //       enablejsapi: 1,
-            //     },
-            //   },
-            // }}
           />
           <img
             className="modalClose--btn"

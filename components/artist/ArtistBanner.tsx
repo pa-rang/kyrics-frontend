@@ -21,7 +21,7 @@ function ArtistBanner({ name, bgImg }: Props): ReactElement {
   );
 }
 
-const BannerWrap = styled.div<StyledProps>`
+const BannerWrap = styled.section<StyledProps>`
   .bgImg {
     background: linear-gradient(
         158.98deg,
