@@ -1,6 +1,8 @@
 import PlayerBtns from '@components/study/PlayerBtns';
 import styled from '@emotion/styled';
+import { useGetSongData } from 'hooks/api';
 import { useMobile } from 'hooks/useMobile';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 import { useRecoilValue } from 'recoil';
 import { songDataState } from 'states';
@@ -16,8 +18,12 @@ function Player({
   handleForwardTime,
 }: PlayerBottomProps): ReactElement {
   const isMobile = useMobile();
-  const data = useRecoilValue(songDataState);
-  const albumImageUrl = data?.albumImageUrl;
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+  const songData = useGetSongData(id);
+  const albumImageUrl = songData?.albumImageUrl;
 
   return (
     <PlayerWrapper>

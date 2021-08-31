@@ -1,6 +1,6 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
 import styled from '@emotion/styled';
-import { useGetUser } from 'hooks/api';
+import { useGetSongData, useGetUser } from 'hooks/api';
 import { client, clientWithoutToken } from 'lib/api';
 import { getPageLogger } from 'lib/utils/amplitude';
 import { useRouter } from 'next/router';
@@ -31,7 +31,11 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
   const songData = data?.data?.data;
 
+  // const songData = useGetSongData(id, user);
+
   const isSaved = songData?.isSaved;
+
+  console.log('isSaved', isSaved);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
@@ -76,10 +80,17 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
       setTimeout(() => {
         setIsFavoriteMsgOpen(false);
       }, 2000);
-      await client.post(`user/song/${id}`);
+      await client
+        .post(`user/song/${id}`)
+        .then((response) => console.log('response', response))
+        .catch((error) => console.log('error', error));
     } else {
-      await client.delete(`user/song/${id}`);
+      await client
+        .delete(`user/song/${id}`)
+        .then((response) => console.log('response', response))
+        .catch((error) => console.log('error', error));
     }
+
     mutate(`/song/${id}`);
   };
   const handleYoutubeClick = () => {
@@ -117,7 +128,6 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
         </CopyToClipboard>
         <div className="copy--msg msg">Link Copied</div>
       </div>
-
       <img
         className="YoutubeIcon"
         src="/assets/icons/YoutubeIcon.svg"

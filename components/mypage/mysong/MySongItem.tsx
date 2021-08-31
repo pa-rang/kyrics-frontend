@@ -13,7 +13,10 @@ interface mySongItemProps {
 function MySongItem({ mySongData, id }: mySongItemProps) {
   const router = useRouter();
   const handleDelete = async () => {
-    await client.delete(`user/song/${id}`);
+    await client
+      .delete(`user/song/${id}`)
+      .then((response) => console.log('response', response))
+      .catch((error) => console.log('error', error));
 
     mutate('/user/song');
   };
@@ -21,10 +24,6 @@ function MySongItem({ mySongData, id }: mySongItemProps) {
     const target = e.target as HTMLDivElement;
 
     if (target.tagName === 'BUTTON') {
-      client.delete(`user/song/${id}`);
-
-      mutate('/user/song');
-
       return;
     }
     router.push(`/study/${id}`);

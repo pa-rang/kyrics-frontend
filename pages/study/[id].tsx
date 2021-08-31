@@ -1,21 +1,23 @@
 import Header from '@components/common/Header';
 import LoginModal from '@components/common/LoginModal';
-import Lyrics from '@components/study/Lyrics';
+import LyricsContainer from '@components/study/LyricsContainer';
 import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useGetSongData } from 'hooks/api';
+import { useMeasureWidth } from 'hooks/useMeasureWidth';
 import { usePhone } from 'hooks/useMobile';
+import { useDynamicModalSize } from 'hooks/useModalSize';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   currentTimeAtom,
   isLoginModalOpenedState,
-  isPlayAtom,
   isYoutubeModalOpenedState,
   loopAtom,
   percentageAtom,
@@ -30,7 +32,7 @@ import { ISongData, ITimedText } from 'types';
 import KeyExpression from '../../components/study/KeyExpression';
 
 function Study(): ReactElement {
-  // const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
+  const size = useWindowSize();
   const [isPlay, setIsPlay] = useState(false);
   const [currentTime, setCurrentTime] = useRecoilState<number>(currentTimeAtom);
   const volumeBar = useRecoilValue<number>(volumeBarAtom);
@@ -42,23 +44,23 @@ function Study(): ReactElement {
   const [modalHeight, setModalHeight] = useState<number>(0);
   const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
   const [isYoutubeModalOpened, setYoutubeIsModalOpened] = useRecoilState(isYoutubeModalOpenedState);
-  const setSongData = useSetRecoilState(songDataState);
+  // const setSongData = useSetRecoilState(songDataState);
   const router = useRouter();
   const {
     query: { id },
   } = router;
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  // const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
   const isPhone = usePhone();
-
-  const url = data?.data?.data?.youtubeUrl;
+  const songData = useGetSongData(id);
+  const url = songData?.youtubeUrl;
 
   // setSongData(data?.data);
   // 왜 바로 setSongData를 해주면 error 가 날까?
-  useEffect(() => {
-    if (!data) return;
-    // setSongData 인수에 넣으면 에러가 난다.`
-    setSongData(data?.data?.data);
-  }, [data]);
+  // useEffect(() => {
+  //   if (!data) return;
+  //   // setSongData 인수에 넣으면 에러가 난다.`
+  //   setSongData(data?.data?.data);
+  // }, [data]);
 
   useEffect(() => {
     setPercentage(currentTime / (totalTime / 100));
@@ -126,49 +128,14 @@ function Study(): ReactElement {
     }
   };
 
-  useEffect(() => {
-    const modalWidth: number = window.outerWidth * 0.7;
+  useDynamicModalSize(setModalHeight, isYoutubeModalOpened);
 
-    setModalHeight(modalWidth * 0.628);
-  }, [isYoutubeModalOpened]);
+  useMeasureWidth();
+  const width = useRecoilValue(widthAtom);
 
-  const adjustModalHeight = () => {
-    const modalWidth: number = window.outerWidth * 0.7;
-
-    setModalHeight(modalWidth * 0.628);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', adjustModalHeight);
-
-    return () => {
-      window.removeEventListener('resize', adjustModalHeight);
-    };
-  }, []);
-
-  const size = useWindowSize();
-
-  const [width, setWidth] = useRecoilState<number>(widthAtom);
-
-  useEffect(() => {
-    setWidth(window.outerWidth);
-  }, []);
-
-  const measureWidth = () => {
-    setWidth(window.outerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', measureWidth);
-
-    return () => {
-      window.removeEventListener('resize', measureWidth);
-    };
-  }, []);
-
-  if (!id) {
-    return <div>Loading...</div>;
-  }
+  // if (!id) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <Styled.Root isYoutubeModalOpened={isYoutubeModalOpened}>
@@ -213,7 +180,7 @@ function Study(): ReactElement {
         handleForwardTime={handleForwardTime}
       />
       <Styled.Main width={width}>
-        <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} id={Number(id)} />
+        <LyricsContainer handleLyrics={handleLyrics} currentTime={currentTime} />
         {size && size.width > 1080 && <KeyExpression />}
       </Styled.Main>
       {isLoginModalOpened && <LoginModal />}

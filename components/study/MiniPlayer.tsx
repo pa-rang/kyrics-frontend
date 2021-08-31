@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { client } from 'lib/api';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
@@ -13,6 +15,8 @@ import {
   totalTimeAtom,
   volumeBarAtom,
 } from 'states';
+import useSWR from 'swr';
+import { ISongData } from 'types';
 interface ProgressStyledProps {
   percentage: number;
 }
@@ -50,9 +54,15 @@ function MiniPlayer({
   const [isMessageOpened, setIsMessageOpened] = useRecoilState<boolean>(isMessageOpenedAtom);
   const percentage = useRecoilValue<number>(percentageAtom);
   const [isVolumeOpened, setIsVolumeOpened] = useRecoilState<boolean>(isVolumeOpenedAtom);
-  const data = useRecoilValue(songDataState);
-  const title = data?.title;
-  const artist = data?.artist;
+  // const data = useRecoilValue(songDataState);
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  const songData = data?.data?.data;
+  const title = songData?.title;
+  const artist = songData?.artist;
 
   const currentTimeForm =
     currentTime % 60 <= 10
