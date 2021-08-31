@@ -13,7 +13,10 @@ interface mySongItemProps {
 function MySongItem({ mySongData, id }: mySongItemProps) {
   const router = useRouter();
   const handleDelete = async () => {
-    await client.delete(`user/song/${id}`);
+    await client
+      .delete(`user/song/${id}`)
+      .then((response) => console.log('response', response))
+      .catch((error) => console.log('error', error));
 
     mutate('/user/song');
   };

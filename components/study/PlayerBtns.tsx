@@ -33,7 +33,11 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
 
   const songData = useGetSongData(id, user);
 
+  // const songData = useGetSongData(id, user);
+
   const isSaved = songData?.isSaved;
+
+  console.log('isSaved', isSaved);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLImageElement;
@@ -78,9 +82,15 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
       setTimeout(() => {
         setIsFavoriteMsgOpen(false);
       }, 2000);
-      await client.post(`user/song/${id}`);
+      await client
+        .post(`user/song/${id}`)
+        .then((response) => console.log('response', response))
+        .catch((error) => console.log('error', error));
     } else {
-      await client.delete(`user/song/${id}`);
+      await client
+        .delete(`user/song/${id}`)
+        .then((response) => console.log('response', response))
+        .catch((error) => console.log('error', error));
     }
 
     mutate(`/song/${id}`);
