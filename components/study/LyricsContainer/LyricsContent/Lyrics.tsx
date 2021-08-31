@@ -14,12 +14,13 @@ interface Props {
 }
 
 function Lyrics({ id, currentTime, handleLyrics, fontSize, engTranslated }: Props) {
-  const [timedtext, setTimedtext] = useState<ITimedText[] | undefined>();
+  //   const [timedtext, setTimedtext] = useState<ITimedText[] | undefined>();
   const [startTime, setStartTime] = useState<number>();
   const user = useGetUser();
   const isToken = user ? client : clientWithoutToken;
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
   const [isFixed, setIsFixed] = useState(false);
+  const timedtext: ITimedText[] | undefined = data?.data?.data?.lyrics;
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -38,10 +39,6 @@ function Lyrics({ id, currentTime, handleLyrics, fontSize, engTranslated }: Prop
   };
 
   useEffect(() => {
-    setTimedtext(data?.data?.data?.lyrics);
-  }, [data]);
-
-  useEffect(() => {
     timedtext &&
       timedtext.forEach((line: ITimedText) => {
         if (line.startTime <= currentTime && currentTime < line.startTime + line.duration) {
@@ -54,7 +51,7 @@ function Lyrics({ id, currentTime, handleLyrics, fontSize, engTranslated }: Prop
     <Styled.Root isFixed={isFixed}>
       {timedtext &&
         timedtext.map((line, index) => (
-          <Styled.Line engTranslated={engTranslated} key={index} onClick={() => handleLyrics(line)}>
+          <Styled.Line key={index} engTranslated={engTranslated} onClick={() => handleLyrics(line)}>
             <Styled.Kor
               fontSize={fontSize}
               engTranslated={engTranslated}
