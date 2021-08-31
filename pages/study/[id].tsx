@@ -1,6 +1,7 @@
 import Header from '@components/common/Header';
 import LoginModal from '@components/common/LoginModal';
-import Lyrics from '@components/study/Lyrics';
+import LyricsContainer from '@components/study/LyricsContainer';
+import Lyrics from '@components/study/LyricsContainer';
 import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
@@ -213,7 +214,7 @@ function Study(): ReactElement {
         handleForwardTime={handleForwardTime}
       />
       <Styled.Main width={width}>
-        <Lyrics handleLyrics={handleLyrics} currentTime={currentTime} id={Number(id)} />
+        <LyricsContainer handleLyrics={handleLyrics} currentTime={currentTime} id={Number(id)} />
         {size && size.width > 1080 && <KeyExpression />}
       </Styled.Main>
       {isLoginModalOpened && <LoginModal />}

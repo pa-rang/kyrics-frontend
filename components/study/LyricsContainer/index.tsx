@@ -12,7 +12,7 @@ interface Props {
   id: number;
 }
 
-function Lyrics({ handleLyrics, currentTime, id }: Props) {
+function LyricsContainer({ handleLyrics, currentTime, id }: Props) {
   const [isQuizStep, setIsQuizStep] = useState(false);
 
   const [width, setWidth] = useState<number>(0);
@@ -50,7 +50,8 @@ function Lyrics({ handleLyrics, currentTime, id }: Props) {
   );
 }
 
-export default Lyrics;
+export default LyricsContainer;
+
 const Styled = {
   Root: styled.section`
     display: flex;
