@@ -2,15 +2,15 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 interface Props {
-  handleSize: (type: string) => void;
+  handleFontSize: (type: string) => void;
 }
 
-function TextSizeController({ handleSize }: Props) {
+function TextSizeController({ handleFontSize }: Props) {
   return (
     <Root>
       <div className="alphabet" />
-      <button className="sizeUp" onClick={() => handleSize('Up')} />
-      <button className="sizeDown" onClick={() => handleSize('Down')} />
+      <button className="sizeUp" onClick={() => handleFontSize('Up')} />
+      <button className="sizeDown" onClick={() => handleFontSize('Down')} />
     </Root>
   );
 }
