@@ -25,6 +25,7 @@ const Root = styled.div`
   button {
     outline: 0;
     border: 0;
+    padding: 0;
   }
   .alphabet {
     margin-right: 7px;
@@ -40,8 +41,8 @@ const Root = styled.div`
   }
   .sizeUp,
   .sizeDown {
-    width: 36px;
-    height: 27px;
+    width: 37px;
+    height: 26px;
   }
   @media (max-width: 768px) {
     display: none;
