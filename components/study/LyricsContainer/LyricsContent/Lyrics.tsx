@@ -14,7 +14,6 @@ interface Props {
 }
 
 function Lyrics({ currentTime, handleLyrics, fontSize, engTranslated }: Props) {
-  //   const [timedtext, setTimedtext] = useState<ITimedText[] | undefined>();
   const [startTime, setStartTime] = useState<number>();
   const router = useRouter();
   const {

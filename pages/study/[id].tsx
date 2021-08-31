@@ -5,6 +5,7 @@ import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useMeasureWidth } from 'hooks/useMeasureWidth';
 import { usePhone } from 'hooks/useMobile';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
@@ -29,6 +30,7 @@ import { ISongData, ITimedText } from 'types';
 import KeyExpression from '../../components/study/KeyExpression';
 
 function Study(): ReactElement {
+  const size = useWindowSize();
   const [isPlay, setIsPlay] = useState(false);
   const [currentTime, setCurrentTime] = useRecoilState<number>(currentTimeAtom);
   const volumeBar = useRecoilValue<number>(volumeBarAtom);
@@ -143,26 +145,9 @@ function Study(): ReactElement {
       window.removeEventListener('resize', adjustModalHeight);
     };
   }, []);
+  const width = useRecoilValue(widthAtom);
 
-  const size = useWindowSize();
-
-  const [width, setWidth] = useRecoilState<number>(widthAtom);
-
-  useEffect(() => {
-    setWidth(window.outerWidth);
-  }, []);
-
-  const measureWidth = () => {
-    setWidth(window.outerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', measureWidth);
-
-    return () => {
-      window.removeEventListener('resize', measureWidth);
-    };
-  }, []);
+  useMeasureWidth();
 
   if (!id) {
     return <div>Loading...</div>;
