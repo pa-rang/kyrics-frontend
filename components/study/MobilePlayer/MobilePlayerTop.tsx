@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useGetSongData } from 'hooks/api';
+import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { currentTimeAtom, percentageAtom, songDataState, totalTimeAtom } from 'states';
@@ -10,12 +12,19 @@ interface ProgressStyledProps {
 
 function MobilePlayerTop({ handleSeekTime }: PlayerTopProps): ReactElement {
   const data = useRecoilValue(songDataState);
-  const albumImageUrl = data?.albumImageUrl;
   const currentTime = useRecoilValue<number>(currentTimeAtom);
   const totalTime = useRecoilValue<number>(totalTimeAtom);
   const percentage = useRecoilValue<number>(percentageAtom);
+  // const router = useRouter();
+  // const {
+  //   query: { id },
+  // } = router;
+  // const data = useGetSongData(id);
+
+  const albumImageUrl = data?.albumImageUrl;
   const title = data?.title;
   const artist = data?.artist;
+
   const currentTimeForm =
     currentTime % 60 <= 10
       ? `0${Math.floor(currentTime / 60)}:0${Math.floor(currentTime) % 60} `

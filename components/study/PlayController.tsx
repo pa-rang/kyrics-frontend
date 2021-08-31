@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useGetSongData, useGetUser } from 'hooks/api';
+import { useRouter } from 'next/router';
 import React, { ReactElement, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
@@ -44,7 +46,12 @@ function PlayController({
   const [isMessageOpened, setIsMessageOpened] = useRecoilState<boolean>(isMessageOpenedAtom);
   const percentage = useRecoilValue<number>(percentageAtom);
   const [isVolumeOpened, setIsVolumeOpened] = useRecoilState<boolean>(isVolumeOpenedAtom);
-  const data = useRecoilValue(songDataState);
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+  const user = useGetUser();
+  const data = useGetSongData(id, user);
   const title = data?.title;
   const artist = data?.artist;
 

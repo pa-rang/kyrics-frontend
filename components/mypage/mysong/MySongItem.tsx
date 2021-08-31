@@ -21,10 +21,6 @@ function MySongItem({ mySongData, id }: mySongItemProps) {
     const target = e.target as HTMLDivElement;
 
     if (target.tagName === 'BUTTON') {
-      client.delete(`user/song/${id}`);
-
-      mutate('/user/song');
-
       return;
     }
     router.push(`/study/${id}`);

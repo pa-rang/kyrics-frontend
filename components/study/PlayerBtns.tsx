@@ -1,6 +1,6 @@
 // import CopyIcon from '@assets/icons/CopyIcon';
 import styled from '@emotion/styled';
-import { useGetUser } from 'hooks/api';
+import { useGetSongData, useGetUser } from 'hooks/api';
 import { client, clientWithoutToken } from 'lib/api';
 import { getPageLogger } from 'lib/utils/amplitude';
 import { useRouter } from 'next/router';
@@ -27,9 +27,11 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
     query: { id },
   } = router;
   const user = useGetUser();
-  const isToken = user ? client : clientWithoutToken;
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
-  const songData = data?.data?.data;
+  // const isToken = user ? client : clientWithoutToken;
+  // const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
+  // const songData = data?.data?.data;
+
+  const songData = useGetSongData(id, user);
 
   const isSaved = songData?.isSaved;
 
@@ -80,6 +82,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
     } else {
       await client.delete(`user/song/${id}`);
     }
+
     mutate(`/song/${id}`);
   };
   const handleYoutubeClick = () => {
@@ -117,7 +120,6 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
         </CopyToClipboard>
         <div className="copy--msg msg">Link Copied</div>
       </div>
-
       <img
         className="YoutubeIcon"
         src="/assets/icons/YoutubeIcon.svg"
