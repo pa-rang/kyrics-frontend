@@ -75,7 +75,7 @@ function Lyrics({ id, currentTime, handleLyrics, fontSize, engTranslated }: Prop
 export default Lyrics;
 
 const Styled = {
-  Root: styled.div<{ isFixed: boolean }>`
+  Root: styled.section<{ isFixed: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;

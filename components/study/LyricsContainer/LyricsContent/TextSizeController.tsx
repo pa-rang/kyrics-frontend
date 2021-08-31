@@ -41,6 +41,7 @@ const Root = styled.div`
   }
   .sizeUp,
   .sizeDown {
+    cursor: pointer;
     width: 37px;
     height: 26px;
   }
