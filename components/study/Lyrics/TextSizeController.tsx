@@ -8,21 +8,9 @@ interface Props {
 function TextSizeController({ handleSize }: Props) {
   return (
     <Root>
-      <img className="alphabet" src="/assets/icons/Alphabet.svg" alt="" />
-      <img
-        className="sizeUp"
-        src="/assets/icons/sizeUp.svg"
-        alt=""
-        onClick={() => handleSize('Up')}
-        aria-hidden="true"
-      />
-      <img
-        className="sizeDown"
-        src="/assets/icons/sizeDown.svg"
-        alt=""
-        onClick={() => handleSize('Down')}
-        aria-hidden="true"
-      />
+      <div className="alphabet" />
+      <button className="sizeUp" onClick={() => handleSize('Up')} />
+      <button className="sizeDown" onClick={() => handleSize('Down')} />
     </Root>
   );
 }
@@ -30,15 +18,30 @@ function TextSizeController({ handleSize }: Props) {
 export default TextSizeController;
 
 const Root = styled.div`
+  display: flex;
   position: absolute;
   top: 136px;
   left: 41px;
+  button {
+    outline: 0;
+    border: 0;
+  }
   .alphabet {
     margin-right: 7px;
+    background-image: url(/assets/icons/Alphabet.svg);
+    width: 26px;
+    height: 26px;
+  }
+  .sizeUp {
+    background-image: url(/assets/icons/sizeUp.svg);
+  }
+  .sizeDown {
+    background-image: url(/assets/icons/sizeDown.svg);
   }
   .sizeUp,
   .sizeDown {
-    cursor: pointer;
+    width: 36px;
+    height: 27px;
   }
   @media (max-width: 768px) {
     display: none;
