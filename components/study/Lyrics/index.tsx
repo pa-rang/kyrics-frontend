@@ -5,8 +5,9 @@ import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
 
-import { Alphabet, dropDownIcon, sizeDown, sizeUp } from '../../public/assets';
-import Quiz from './Quiz';
+import { Alphabet, dropDownIcon, sizeDown, sizeUp } from '../../../public/assets';
+import Quiz from '../Quiz';
+import Steps from './Steps';
 
 interface Props {
   handleLyrics: (line: ITimedText) => void;
@@ -103,27 +104,7 @@ function Lyrics({ handleLyrics, currentTime, id }: Props) {
       <Styled.Lyrics>
         <Styled.Title>Lyrics</Styled.Title>
         <Styled.Main>
-          <Styled.Steps>
-            <Styled.LeftStep
-              onClick={() => setIsQuizStep(false)}
-              aria-hidden="true"
-              isQuizStep={isQuizStep}
-              className="step"
-            >
-              <div>STEP 1</div>
-              <div>Lyrics</div>
-            </Styled.LeftStep>
-            <Styled.CenterStep isQuizStep={isQuizStep}></Styled.CenterStep>
-            <Styled.RightStep
-              onClick={() => setIsQuizStep(true)}
-              aria-hidden="true"
-              isQuizStep={isQuizStep}
-              className="step"
-            >
-              <div>STEP 2</div>
-              <div>Quiz</div>
-            </Styled.RightStep>
-          </Styled.Steps>
+          <Steps setIsQuizStep={setIsQuizStep} isQuizStep={isQuizStep} />
           {isQuizStep ? (
             <Quiz />
           ) : (
@@ -361,63 +342,7 @@ const Styled = {
     width: 100%;
     height: 100%;
   `,
-  Steps: styled.div`
-    display: flex;
-    cursor: pointer;
-    .step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      max-width: 390px;
-      height: 100px;
-      color: #ffffff;
-      div:nth-of-type(1) {
-        height: 27px;
-        font-size: 24px;
-        font-weight: 700;
-        @media (max-width: 768px) {
-          height: 16px;
-          font-size: 14px;
-        }
-      }
-      div:nth-of-type(2) {
-        font-size: 16px;
-        font-weight: 500;
-        @media (max-width: 768px) {
-          font-size: 10px;
-        }
-      }
-      @media (max-width: 768px) {
-        height: 50px;
-      }
-    }
-    .step2 {
-      transform: translateX(-34px);
-    }
-  `,
-  LeftStep: styled.div<{ isQuizStep: boolean }>`
-    border-top-left-radius: 10px;
-    background-color: ${({ isQuizStep }) => (isQuizStep ? '#c8c8ee' : '#6465f4')};
-  `,
-  CenterStep: styled.div<{ isQuizStep: boolean }>`
-    border-top: 50px solid ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
-    border-bottom: 50px solid ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
-    border-left: 24px solid ${({ isQuizStep }) => (isQuizStep ? '#c8c8ee' : '#6465f4')};
 
-    width: 0px;
-    height: 0px;
-    @media (max-width: 768px) {
-      border-top: 25px solid ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
-      border-bottom: 25px solid ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
-      border-left: 10px solid ${({ isQuizStep }) => (isQuizStep ? '#c8c8ee' : '#6465f4')};
-    }
-  `,
-  RightStep: styled.div<{ isQuizStep: boolean }>`
-    border-top-right-radius: 10px;
-    background-color: ${({ isQuizStep }) => (isQuizStep ? '#6465f4' : '#c8c8ee')};
-  `,
   Title: styled.h3`
     margin-top: 36px;
     margin-bottom: 23px;
