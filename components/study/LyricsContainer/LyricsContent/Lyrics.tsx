@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useGetUser } from 'hooks/api';
+import { useGetSongData, useGetUser } from 'hooks/api';
 import { client, clientWithoutToken } from 'lib/api';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -19,11 +19,12 @@ function Lyrics({ currentTime, handleLyrics, fontSize, engTranslated }: Props) {
   const {
     query: { id },
   } = router;
-  const user = useGetUser();
-  const isToken = user ? client : clientWithoutToken;
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
+  //   const user = useGetUser();
+  //   const isToken = user ? client : clientWithoutToken;
+  //   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
+  const data = useGetSongData(id);
   const [isFixed, setIsFixed] = useState(false);
-  const timedtext: ITimedText[] | undefined = data?.data?.data?.lyrics;
+  const timedtext: ITimedText[] | undefined = data?.lyrics;
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);

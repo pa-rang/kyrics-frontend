@@ -5,6 +5,7 @@ import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useGetSongData } from 'hooks/api';
 import { useMeasureWidth } from 'hooks/useMeasureWidth';
 import { usePhone } from 'hooks/useMobile';
 import { useDynamicModalSize } from 'hooks/useModalSize';
@@ -48,9 +49,9 @@ function Study(): ReactElement {
   const {
     query: { id },
   } = router;
-  const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
+  // const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
   const isPhone = usePhone();
-  const songData = data?.data?.data;
+  const songData = useGetSongData(id);
   const url = songData?.youtubeUrl;
 
   // setSongData(data?.data);
@@ -132,9 +133,9 @@ function Study(): ReactElement {
   useMeasureWidth();
   const width = useRecoilValue(widthAtom);
 
-  if (!id) {
-    return <div>Loading...</div>;
-  }
+  // if (!id) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <Styled.Root isYoutubeModalOpened={isYoutubeModalOpened}>
@@ -165,7 +166,6 @@ function Study(): ReactElement {
         </Styled.Modal>
       </Styled.ModalWrapper>
       <MobilePlayer
-        // songData={songData}
         isPlay={isPlay}
         setIsPlay={setIsPlay}
         handleSeekTime={handleSeekTime}
