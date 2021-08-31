@@ -30,6 +30,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const isToken = user ? client : clientWithoutToken;
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
   const songData = data?.data?.data;
+
   // const songData = useGetSongData(id, user);
 
   const isSaved = songData?.isSaved;
@@ -89,6 +90,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
         .then((response) => console.log('response', response))
         .catch((error) => console.log('error', error));
     }
+
     mutate(`/song/${id}`);
   };
   const handleYoutubeClick = () => {
