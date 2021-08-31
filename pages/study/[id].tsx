@@ -1,7 +1,6 @@
 import Header from '@components/common/Header';
 import LoginModal from '@components/common/LoginModal';
 import LyricsContainer from '@components/study/LyricsContainer';
-import Lyrics from '@components/study/LyricsContainer';
 import MobilePlayer from '@components/study/MobilePlayer/MobilePlayer';
 import Player from '@components/study/Player';
 import { css } from '@emotion/react';
@@ -10,13 +9,12 @@ import { usePhone } from 'hooks/useMobile';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   currentTimeAtom,
   isLoginModalOpenedState,
-  isPlayAtom,
   isYoutubeModalOpenedState,
   loopAtom,
   percentageAtom,
@@ -31,7 +29,6 @@ import { ISongData, ITimedText } from 'types';
 import KeyExpression from '../../components/study/KeyExpression';
 
 function Study(): ReactElement {
-  // const [isPlay, setIsPlay] = useRecoilState<boolean>(isPlayAtom);
   const [isPlay, setIsPlay] = useState(false);
   const [currentTime, setCurrentTime] = useRecoilState<number>(currentTimeAtom);
   const volumeBar = useRecoilValue<number>(volumeBarAtom);
@@ -214,7 +211,7 @@ function Study(): ReactElement {
         handleForwardTime={handleForwardTime}
       />
       <Styled.Main width={width}>
-        <LyricsContainer handleLyrics={handleLyrics} currentTime={currentTime} id={Number(id)} />
+        <LyricsContainer handleLyrics={handleLyrics} currentTime={currentTime} />
         {size && size.width > 1080 && <KeyExpression />}
       </Styled.Main>
       {isLoginModalOpened && <LoginModal />}

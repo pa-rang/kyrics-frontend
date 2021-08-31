@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useGetUser } from 'hooks/api';
 import { client, clientWithoutToken } from 'lib/api';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
@@ -8,14 +9,17 @@ import { ISongData, ITimedText } from 'types';
 interface Props {
   handleLyrics: (line: ITimedText) => void;
   currentTime: number;
-  id: number;
   fontSize: string;
   engTranslated: boolean;
 }
 
-function Lyrics({ id, currentTime, handleLyrics, fontSize, engTranslated }: Props) {
+function Lyrics({ currentTime, handleLyrics, fontSize, engTranslated }: Props) {
   //   const [timedtext, setTimedtext] = useState<ITimedText[] | undefined>();
   const [startTime, setStartTime] = useState<number>();
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
   const user = useGetUser();
   const isToken = user ? client : clientWithoutToken;
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
@@ -46,6 +50,10 @@ function Lyrics({ id, currentTime, handleLyrics, fontSize, engTranslated }: Prop
         }
       });
   }, [currentTime]);
+
+  if (!id) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Styled.Root isFixed={isFixed}>

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ITimedText } from 'types';
 
 import Quiz from '../Quiz';
@@ -9,40 +9,21 @@ import Steps from './Steps';
 interface Props {
   handleLyrics: (line: ITimedText) => void;
   currentTime: number;
-  id: number;
 }
 
-function LyricsContainer({ handleLyrics, currentTime, id }: Props) {
+function LyricsContainer({ handleLyrics, currentTime }: Props) {
   const [isQuizStep, setIsQuizStep] = useState(false);
-
-  const [width, setWidth] = useState<number>(0);
-
-  useEffect(() => {
-    setWidth(window.outerWidth);
-  }, []);
-
-  const measureWidth = () => {
-    setWidth(window.outerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', measureWidth);
-
-    return () => {
-      window.removeEventListener('resize', measureWidth);
-    };
-  }, []);
 
   return (
     <Styled.Root>
       <Styled.Lyrics>
         <Styled.Title>Lyrics</Styled.Title>
         <Styled.Main>
-          <Steps setIsQuizStep={setIsQuizStep} isQuizStep={isQuizStep} />
+          <Steps isQuizStep={isQuizStep} setIsQuizStep={setIsQuizStep} />
           {isQuizStep ? (
             <Quiz />
           ) : (
-            <LyricsContent id={id} currentTime={currentTime} handleLyrics={handleLyrics} />
+            <LyricsContent currentTime={currentTime} handleLyrics={handleLyrics} />
           )}
         </Styled.Main>
       </Styled.Lyrics>

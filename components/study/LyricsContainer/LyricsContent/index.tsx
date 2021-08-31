@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ITimedText } from 'types';
 
 import Lyrics from './Lyrics';
@@ -9,10 +8,9 @@ import Translate from './Translate';
 interface Props {
   handleLyrics: (line: ITimedText) => void;
   currentTime: number;
-  id: number;
 }
 
-function LyricsContent({ id, currentTime, handleLyrics }: Props) {
+function LyricsContent({ currentTime, handleLyrics }: Props) {
   const [fontSize, setFontSize] = useState('Medium');
   const [isDropDown, setIsDropDown] = useState(false);
   const [engTranslated, setEngTranslated] = useState(false);
@@ -37,10 +35,6 @@ function LyricsContent({ id, currentTime, handleLyrics }: Props) {
     }
   };
 
-  if (!id) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <>
       <TextSizeController handleFontSize={handleFontSize} />
@@ -51,7 +45,6 @@ function LyricsContent({ id, currentTime, handleLyrics }: Props) {
         setIsDropDown={setIsDropDown}
       />
       <Lyrics
-        id={id}
         currentTime={currentTime}
         handleLyrics={handleLyrics}
         fontSize={fontSize}
