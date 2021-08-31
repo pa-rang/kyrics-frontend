@@ -1,10 +1,7 @@
 import styled from '@emotion/styled';
-import { useGetUser } from 'hooks/api';
-import { client, clientWithoutToken, KyricsSWRResponse } from 'lib/api';
+import { useGetUser, useGetVocabData } from 'hooks/api';
 import { useRouter } from 'next/router';
 import React from 'react';
-import useSWR from 'swr';
-import { IMyVocab } from 'types';
 
 import KeyExpressionItem from './KeyExpressionItem';
 import LookingMore from './LookingMore';
@@ -15,12 +12,7 @@ function KeyExpression() {
     query: { id: songId },
   } = router;
   const user = useGetUser();
-  const isToken = user ? client : clientWithoutToken;
-  const { data: keyExpressionsData } = useSWR<KyricsSWRResponse<IMyVocab[]>>(
-    `/song/${songId}/vocab`,
-    isToken.get,
-  );
-  const keyExpressions = keyExpressionsData?.data.data;
+  const keyExpressions = useGetVocabData(songId, user);
 
   return (
     <Styled.Root>

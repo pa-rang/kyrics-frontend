@@ -10,7 +10,6 @@ import {
   isVolumeOpenedAtom,
   loopAtom,
   percentageAtom,
-  songDataState,
   totalTimeAtom,
   volumeBarAtom,
 } from 'states';

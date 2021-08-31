@@ -3,15 +3,12 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import styled from '@emotion/styled';
 import { useGetUser, useGetVocabData } from 'hooks/api';
-import { client, clientWithoutToken, KyricsSWRResponse } from 'lib/api';
 import { colors } from 'lib/constants/colors';
 import { useRouter } from 'next/router';
 import React from 'react';
 import Slider, { Settings } from 'react-slick';
 import { useRecoilValue } from 'recoil';
 import { widthAtom } from 'states';
-import useSWR from 'swr';
-import { IMyVocab } from 'types';
 
 import KeyExpressionItem from '../KeyExpression/KeyExpressionItem';
 
@@ -46,13 +43,7 @@ function MobileKeyExpression() {
     query: { id: songId },
   } = router;
   const user = useGetUser();
-  const isToken = user ? client : clientWithoutToken;
-  const { data: keyExpressionsData } = useSWR<KyricsSWRResponse<IMyVocab[]>>(
-    `/song/${songId}/vocab`,
-    isToken.get,
-  );
-  const keyExpressions = keyExpressionsData?.data.data;
-  // const keyExpressions = useGetVocabData(songId, user);
+  const keyExpressions = useGetVocabData(songId, user);
 
   return (
     <Styled.Root width={width}>

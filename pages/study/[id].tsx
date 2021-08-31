@@ -45,6 +45,13 @@ function Study(): ReactElement {
   const isLoginModalOpened = useRecoilValue(isLoginModalOpenedState);
   const [isYoutubeModalOpened, setYoutubeIsModalOpened] = useRecoilState(isYoutubeModalOpenedState);
   const setSongData = useSetRecoilState(songDataState);
+  // recoil 값을 유지하고 있는 이유는, 모두 swr로 대체하려고 했으나, 에러 발생.
+  // MobilePlayer 이쪽 때문에 에러가 발생하는 듯함.
+  // 이것이 상태에 따라 UI를 보여주는 것이 아니라, display:none으로 선언되어 있기 때문에 계속 컴포넌트가 실행되고 있는 상황임.
+  // 이런 상황에서 동시에 몇개의 컴포넌트에서 swr을 불러와서 그런지, 작동이 안됨.
+  // MobilePlayerTop을 recoil로 유지하면 동작하지만, swr로 바꾸면 동작하지 않음.
+  // 특히 즐겨찾기 post가 동작하지 않았는데, 대체 이유는 모르겠지만 MobilePlayerTop에서 recoil을 유지해야 작동했음.
+  // MobilePlayer을 상태에 따라 분기처리 해주고 난 후, 전체적으로 swr 다시 적용해보겠음.
   const router = useRouter();
   const {
     query: { id },
@@ -54,11 +61,8 @@ function Study(): ReactElement {
   const songData = useGetSongData(id);
   const url = songData?.youtubeUrl;
 
-  // setSongData(data?.data);
-  // 왜 바로 setSongData를 해주면 error 가 날까?
   useEffect(() => {
     if (!data) return;
-    // setSongData 인수에 넣으면 에러가 난다.`
     setSongData(data?.data?.data);
   }, [data]);
 
@@ -132,10 +136,6 @@ function Study(): ReactElement {
 
   useMeasureWidth();
   const width = useRecoilValue(widthAtom);
-
-  // if (!id) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <Styled.Root isYoutubeModalOpened={isYoutubeModalOpened}>

@@ -1,10 +1,8 @@
 import styled from '@emotion/styled';
-import { useGetSongData, useGetUser } from 'hooks/api';
-import { client, clientWithoutToken } from 'lib/api';
+import { useGetSongData } from 'hooks/api';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import useSWR from 'swr';
-import { ISongData, ITimedText } from 'types';
+import { ITimedText } from 'types';
 
 interface Props {
   handleLyrics: (line: ITimedText) => void;
@@ -19,9 +17,6 @@ function Lyrics({ currentTime, handleLyrics, fontSize, engTranslated }: Props) {
   const {
     query: { id },
   } = router;
-  //   const user = useGetUser();
-  //   const isToken = user ? client : clientWithoutToken;
-  //   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
   const data = useGetSongData(id);
   const [isFixed, setIsFixed] = useState(false);
   const timedtext: ITimedText[] | undefined = data?.lyrics;

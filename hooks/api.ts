@@ -21,6 +21,9 @@ export const useGetSongData = (id: string | string[] | undefined, user?: User | 
 
   return data?.data?.data;
 };
+// useGetSongData, useGetVocabData을 하나의 함수로 통일하고 싶다.
+// Generic 사용법이 아직 익숙하지 않아 어렵다.
+// Generic을 조금 더 공부하고 수정하겠다.
 
 export const useGetVocabData = (id: string | string[] | undefined, user?: User | undefined) => {
   const isToken = user ? client : clientWithoutToken;

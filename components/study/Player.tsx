@@ -4,8 +4,6 @@ import { useGetSongData } from 'hooks/api';
 import { useMobile } from 'hooks/useMobile';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
-import { useRecoilValue } from 'recoil';
-import { songDataState } from 'states';
 import { PlayerBottomProps } from 'types';
 
 import PlayController from './PlayController';
