@@ -51,27 +51,25 @@ function Lyrics({ id, currentTime, handleLyrics, fontSize, engTranslated }: Prop
   }, [currentTime]);
 
   return (
-    <Styled.Root fontSize={fontSize} engTranslated={engTranslated} isFixed={isFixed}>
+    <Styled.Root isFixed={isFixed}>
       {timedtext &&
         timedtext.map((line, index) => (
-          <span
-            className="lyrics__line"
-            key={index}
-            onClick={() => handleLyrics(line)}
-            aria-hidden="true"
-          >
-            <span
-              key={index}
-              onClick={() => handleLyrics(line)}
-              aria-hidden="true"
-              className={'lyrics kor ' + (startTime === line.startTime && 'highlight')}
+          <Styled.Line engTranslated={engTranslated} key={index} onClick={() => handleLyrics(line)}>
+            <Styled.Kor
+              fontSize={fontSize}
+              engTranslated={engTranslated}
+              className={'lyrics ' + (startTime === line.startTime && 'highlight')}
             >
               {line.kor}
-            </span>
-            <span className={'lyrics eng ' + (startTime === line.startTime && 'highlight')}>
+            </Styled.Kor>
+            <Styled.Eng
+              fontSize={fontSize}
+              engTranslated={engTranslated}
+              className={'lyrics ' + (startTime === line.startTime && 'highlight')}
+            >
               {line.eng}
-            </span>
-          </span>
+            </Styled.Eng>
+          </Styled.Line>
         ))}
     </Styled.Root>
   );
@@ -79,64 +77,59 @@ function Lyrics({ id, currentTime, handleLyrics, fontSize, engTranslated }: Prop
 
 export default Lyrics;
 
-interface StyledProps {
-  fontSize: string;
-  engTranslated: boolean;
-  isFixed: boolean;
-}
-
 const Styled = {
-  Root: styled.div<StyledProps>`
+  Root: styled.div<{ isFixed: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: auto;
     padding-top: 100px;
     width: 100%;
-    .lyrics__line {
-      display: flex;
-      flex: 0 1 auto;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: ${({ engTranslated }) => (engTranslated ? '35px' : '30px')};
-      cursor: pointer;
-      .lyrics {
-        text-align: center;
-        line-height: 1.5;
-        color: #464646;
-      }
-      .kor {
-        margin-bottom: ${({ engTranslated }) => (engTranslated ? '10px' : '0')};
-        font-size: ${({ fontSize }) =>
-          fontSize === 'Medium' ? '20px' : fontSize === 'Big' ? '24px' : '12px'};
 
-        @media (max-width: 768px) {
-          font-size: 14px;
-        }
-      }
-      .eng {
-        display: ${({ engTranslated }) => (engTranslated ? 'visible' : 'none')};
-        color: #9d9d9d;
-        font-size: ${({ fontSize }) =>
-          fontSize === 'Medium' ? '16px' : fontSize === 'Big' ? '20px' : '12px'};
-        @media (max-width: 768px) {
-          font-size: 12px;
-        }
-      }
-      .highlight {
-        color: #6465f4;
-      }
-      @media (max-width: 768px) {
-        margin-bottom: 20px;
-      }
-    }
     @media (max-width: 768px) {
       padding-top: 66px;
     }
     @media screen and (max-width: 415px) {
       margin-top: ${({ isFixed }) => isFixed && '100px'};
       margin-bottom: 60px;
+    }
+  `,
+  Line: styled.span<{ engTranslated: boolean }>`
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: ${({ engTranslated }) => (engTranslated ? '35px' : '30px')};
+    cursor: pointer;
+    .lyrics {
+      text-align: center;
+      line-height: 1.5;
+      color: #464646;
+    }
+    .highlight {
+      color: #6465f4;
+    }
+    @media (max-width: 768px) {
+      margin-bottom: 20px;
+    }
+  `,
+  Kor: styled.span<{ engTranslated: boolean; fontSize: string }>`
+    margin-bottom: ${({ engTranslated }) => (engTranslated ? '10px' : '0')};
+    font-size: ${({ fontSize }) =>
+      fontSize === 'Medium' ? '20px' : fontSize === 'Big' ? '24px' : '12px'};
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
+  `,
+  Eng: styled.span<{ engTranslated: boolean; fontSize: string }>`
+    display: ${({ engTranslated }) => (engTranslated ? 'visible' : 'none')};
+    color: #9d9d9d;
+    font-size: ${({ fontSize }) =>
+      fontSize === 'Medium' ? '16px' : fontSize === 'Big' ? '20px' : '12px'};
+    @media (max-width: 768px) {
+      font-size: 12px;
     }
   `,
 };
