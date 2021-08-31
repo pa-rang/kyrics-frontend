@@ -7,6 +7,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useMeasureWidth } from 'hooks/useMeasureWidth';
 import { usePhone } from 'hooks/useMobile';
+import { useDynamicModalSize } from 'hooks/useModalSize';
 import useWindowSize from 'hooks/useWindowSize';
 import { client } from 'lib/api';
 import { useRouter } from 'next/router';
@@ -126,28 +127,10 @@ function Study(): ReactElement {
     }
   };
 
-  useEffect(() => {
-    const modalWidth: number = window.outerWidth * 0.7;
-
-    setModalHeight(modalWidth * 0.628);
-  }, [isYoutubeModalOpened]);
-
-  const adjustModalHeight = () => {
-    const modalWidth: number = window.outerWidth * 0.7;
-
-    setModalHeight(modalWidth * 0.628);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', adjustModalHeight);
-
-    return () => {
-      window.removeEventListener('resize', adjustModalHeight);
-    };
-  }, []);
-  const width = useRecoilValue(widthAtom);
+  useDynamicModalSize(setModalHeight, isYoutubeModalOpened);
 
   useMeasureWidth();
+  const width = useRecoilValue(widthAtom);
 
   if (!id) {
     return <div>Loading...</div>;
