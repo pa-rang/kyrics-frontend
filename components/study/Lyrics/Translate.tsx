@@ -40,6 +40,7 @@ const Styled = {
     height: 43px;
     color: #ffffff;
     font-size: 16px;
+
     @media (max-width: 768px) {
       top: 71px;
       right: 20px;
@@ -63,10 +64,12 @@ const Styled = {
     justify-content: center;
     z-index: 10;
     border-radius: 10px;
+    box-shadow: 3px 3px 7px 4px #6262621f;
     background-color: #f8fafc;
     cursor: auto;
     padding: 20px 0;
     width: 132px;
+
     & > div {
       display: flex;
       align-items: center;
