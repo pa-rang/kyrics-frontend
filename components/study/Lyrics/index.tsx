@@ -8,6 +8,7 @@ import { ISongData, ITimedText } from 'types';
 import { Alphabet, dropDownIcon, sizeDown, sizeUp } from '../../../public/assets';
 import Quiz from '../Quiz';
 import Steps from './Steps';
+import TextSizeController from './TextSizeController';
 
 interface Props {
   handleLyrics: (line: ITimedText) => void;
@@ -109,23 +110,7 @@ function Lyrics({ handleLyrics, currentTime, id }: Props) {
             <Quiz />
           ) : (
             <div className="lyrics--box">
-              <div className="textSizeController">
-                <img className="alphabet" src={Alphabet.src} alt="" />
-                <img
-                  className="sizeUp"
-                  src={sizeUp.src}
-                  alt=""
-                  onClick={() => handleSize('Up')}
-                  aria-hidden="true"
-                />
-                <img
-                  className="sizeDown"
-                  src={sizeDown.src}
-                  alt=""
-                  onClick={() => handleSize('Down')}
-                  aria-hidden="true"
-                />
-              </div>
+              <TextSizeController handleSize={handleSize} />
               <div
                 className="language"
                 onClick={() => setIsDropDown((isDropDown) => !isDropDown)}
@@ -203,21 +188,6 @@ const Styled = {
     /* justify-content: center; */
     width: 100%;
     max-width: 780px;
-    .textSizeController {
-      position: absolute;
-      top: 136px;
-      left: 41px;
-      .alphabet {
-        margin-right: 7px;
-      }
-      .sizeUp,
-      .sizeDown {
-        cursor: pointer;
-      }
-      @media (max-width: 768px) {
-        display: none;
-      }
-    }
 
     .language {
       display: flex;
