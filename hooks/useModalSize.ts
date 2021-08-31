@@ -1,7 +1,7 @@
-import React, { SetStateAction, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 export function useDynamicModalSize(
-  setModalHeight: React.Dispatch<SetStateAction<number>>,
+  setModalHeight: React.Dispatch<React.SetStateAction<number>>,
   isYoutubeModalOpened: boolean,
 ) {
   const adjustModalHeight = () => {
