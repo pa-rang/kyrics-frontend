@@ -5,10 +5,10 @@ import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { ISongData, ITimedText } from 'types';
 
-import { Alphabet, dropDownIcon, sizeDown, sizeUp } from '../../../public/assets';
 import Quiz from '../Quiz';
 import Steps from './Steps';
 import TextSizeController from './TextSizeController';
+import Translate from './Translate';
 
 interface Props {
   handleLyrics: (line: ITimedText) => void;
@@ -111,33 +111,12 @@ function Lyrics({ handleLyrics, currentTime, id }: Props) {
           ) : (
             <div className="lyrics--box">
               <TextSizeController handleSize={handleSize} />
-              <div
-                className="language"
-                onClick={() => setIsDropDown((isDropDown) => !isDropDown)}
-                aria-hidden="true"
-              >
-                {engTranslated ? 'English' : 'Translate'}
-                <img src={dropDownIcon.src} alt="" />
-                {isDropDown && (
-                  <div className="language__dropdown">
-                    <div
-                      className="language__none lang"
-                      onClick={() => setEngTranslated(false)}
-                      aria-hidden="true"
-                    >
-                      None
-                    </div>
-                    <div
-                      className="language__english lang"
-                      onClick={() => setEngTranslated(true)}
-                      aria-hidden="true"
-                    >
-                      English
-                    </div>
-                    {/* <div>Japanese</div> */}
-                  </div>
-                )}
-              </div>
+              <Translate
+                engTranslated={engTranslated}
+                setEngTranslated={setEngTranslated}
+                isDropDown={isDropDown}
+                setIsDropDown={setIsDropDown}
+              />
               <div className="lyrics__lines">
                 {timedtext &&
                   timedtext.map((line, index) => (
@@ -185,71 +164,9 @@ const Styled = {
     position: relative;
     align-items: center;
     margin-bottom: 150px;
-    /* justify-content: center; */
     width: 100%;
     max-width: 780px;
 
-    .language {
-      display: flex;
-      position: absolute;
-      top: 136px;
-      right: 39px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      background-color: #6465f4;
-      cursor: pointer;
-      width: 132px;
-      height: 43px;
-      color: #ffffff;
-      font-size: 16px;
-      img {
-        margin-left: 8px;
-      }
-      .language__dropdown {
-        display: flex;
-        position: absolute;
-        top: 49px;
-        /* height: 125px; */
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
-        border-radius: 10px;
-        background-color: #f8fafc;
-        cursor: auto;
-        padding: 20px 0;
-        width: 132px;
-        .lang {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-bottom: 1px solid #e1e1e1;
-          cursor: pointer;
-          padding-bottom: 3px;
-          width: 83px;
-        }
-        .language__none {
-          margin-bottom: 13.5px;
-          color: ${({ engTranslated }) => (engTranslated ? '#9d9d9d' : '#464646')};
-          font-weight: ${({ engTranslated }) => (engTranslated ? 400 : 700)};
-        }
-        .language__english {
-          color: ${({ engTranslated }) => (engTranslated ? '#464646' : '#9d9d9d')};
-          font-weight: ${({ engTranslated }) => (engTranslated ? 700 : 400)};
-        }
-        @media (max-width: 768px) {
-          top: 30px;
-        }
-      }
-      @media (max-width: 768px) {
-        top: 71px;
-        right: 20px;
-        width: 84px;
-        height: 25px;
-        font-size: 10px;
-      }
-    }
     .lyrics__lines {
       display: flex;
       flex-direction: column;
