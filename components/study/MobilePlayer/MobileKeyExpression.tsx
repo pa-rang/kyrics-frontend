@@ -39,9 +39,7 @@ const sliderProps: Settings = {
 function MobileKeyExpression() {
   const width = useRecoilValue(widthAtom);
   const router = useRouter();
-  const {
-    query: { id: songId },
-  } = router;
+  const songId = Number(router.query.id);
   const user = useGetUser();
   const keyExpressions = useGetVocabData(songId, user);
 

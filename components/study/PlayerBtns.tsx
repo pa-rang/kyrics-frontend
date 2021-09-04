@@ -22,9 +22,7 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
   const [isFavoriteMsgOpen, setIsFavoriteMsgOpen] = useState(false);
   const [isCopyMsgOpen, setIsCopyMsgOpen] = useState(false);
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+  const id = Number(router.query.id);
   const user = useGetUser();
   const songData = useGetSongData(id, user);
   const isSaved = songData?.isSaved;
@@ -72,15 +70,9 @@ function PlayerBtns({ setIsMobileModalOpened }: Props) {
       setTimeout(() => {
         setIsFavoriteMsgOpen(false);
       }, 2000);
-      await client
-        .post(`user/song/${id}`)
-        .then((response) => console.log('response', response))
-        .catch((error) => console.log('error', error));
+      await client.post(`user/song/${id}`);
     } else {
-      await client
-        .delete(`user/song/${id}`)
-        .then((response) => console.log('response', response))
-        .catch((error) => console.log('error', error));
+      await client.delete(`user/song/${id}`);
     }
 
     mutate(`/song/${id}`);

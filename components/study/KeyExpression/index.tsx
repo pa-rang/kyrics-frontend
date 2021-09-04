@@ -8,9 +8,7 @@ import LookingMore from './LookingMore';
 
 function KeyExpression() {
   const router = useRouter();
-  const {
-    query: { id: songId },
-  } = router;
+  const songId = Number(router.query.id);
   const user = useGetUser();
   const keyExpressions = useGetVocabData(songId, user);
 
