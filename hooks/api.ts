@@ -14,7 +14,7 @@ export const useGetUser = () => {
   return data?.data?.data;
 };
 
-export const useGetSongData = (id: string | string[] | undefined, user?: User | undefined) => {
+export const useGetSongData = (id: number | undefined, user?: User | undefined) => {
   const isToken = user ? client : clientWithoutToken;
 
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, isToken.get);
@@ -25,7 +25,7 @@ export const useGetSongData = (id: string | string[] | undefined, user?: User | 
 // Generic 사용법이 아직 익숙하지 않아 어렵다.
 // Generic을 조금 더 공부하고 수정하겠다.
 
-export const useGetVocabData = (id: string | string[] | undefined, user?: User | undefined) => {
+export const useGetVocabData = (id: number | undefined, user?: User | undefined) => {
   const isToken = user ? client : clientWithoutToken;
 
   const { data } = useSWR<KyricsSWRResponse<IMyVocab[]>>(`/song/${id}/vocab`, isToken.get);

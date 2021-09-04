@@ -53,9 +53,7 @@ function Study(): ReactElement {
   // 특히 즐겨찾기 post가 동작하지 않았는데, 대체 이유는 모르겠지만 MobilePlayerTop에서 recoil을 유지해야 작동했음.
   // MobilePlayer을 상태에 따라 분기처리 해주고 난 후, 전체적으로 swr 다시 적용해보겠음.
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+  const id = Number(router.query.id);
   const { data } = useSWR<{ data: { data: ISongData } }>(`/song/${id}`, client.get);
   const isPhone = usePhone();
   const songData = useGetSongData(id);

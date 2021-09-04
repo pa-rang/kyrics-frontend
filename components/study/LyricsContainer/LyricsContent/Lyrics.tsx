@@ -14,9 +14,7 @@ interface Props {
 function Lyrics({ currentTime, handleLyrics, fontSize, engTranslated }: Props) {
   const [startTime, setStartTime] = useState<number>();
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+  const id = Number(router.query.id);
   const data = useGetSongData(id);
   const [isFixed, setIsFixed] = useState(false);
   const timedtext: ITimedText[] | undefined = data?.lyrics;

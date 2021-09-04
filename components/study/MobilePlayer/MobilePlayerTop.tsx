@@ -16,9 +16,7 @@ function MobilePlayerTop({ handleSeekTime }: PlayerTopProps): ReactElement {
   const totalTime = useRecoilValue<number>(totalTimeAtom);
   const percentage = useRecoilValue<number>(percentageAtom);
   // const router = useRouter();
-  // const {
-  //   query: { id },
-  // } = router;
+  // const id = Number(router.query.id);
   // const data = useGetSongData(id);
 
   const albumImageUrl = data?.albumImageUrl;

@@ -17,9 +17,7 @@ function Player({
 }: PlayerBottomProps): ReactElement {
   const isMobile = useMobile();
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+  const id = Number(router.query.id);
   const songData = useGetSongData(id);
   const albumImageUrl = songData?.albumImageUrl;
 

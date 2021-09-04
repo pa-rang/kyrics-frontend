@@ -46,9 +46,7 @@ function PlayController({
   const percentage = useRecoilValue<number>(percentageAtom);
   const [isVolumeOpened, setIsVolumeOpened] = useRecoilState<boolean>(isVolumeOpenedAtom);
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+  const id = Number(router.query.id);
   const user = useGetUser();
   const data = useGetSongData(id, user);
   const title = data?.title;
