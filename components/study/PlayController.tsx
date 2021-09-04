@@ -105,11 +105,13 @@ function PlayController({
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
+  }, [currentTime]);
 
+  useEffect(() => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentTime]);
+  }, []);
 
   return (
     <Styled.Root>
