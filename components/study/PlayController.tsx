@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { ReactElement, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   currentTimeAtom,
   isMessageOpenedAtom,
@@ -38,7 +38,7 @@ function PlayController({
   handleForwardTime,
 }: PlayerBottomProps): ReactElement {
   // const currentTime = useRecoilValue<number>(currentTimeAtom);
-  const [currentTime, setCurrentTime] = useRecoilState(currentTimeAtom);
+  const currentTime = useRecoilValue(currentTimeAtom);
   const [volumeBar, setVolumeBar] = useRecoilState<number>(volumeBarAtom);
   const [loop, setLoop] = useRecoilState<boolean>(loopAtom);
   const totalTime = useRecoilValue<number>(totalTimeAtom);
@@ -87,18 +87,17 @@ function PlayController({
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    console.log('e.key', e.key);
     switch (e.key) {
       case ' ':
         e.preventDefault();
         handlePlay();
         break;
-      // case 'ArrowRight':
-      //   handleForwardTime();
-      //   break;
-      // case 'ArrowLeft':
-      //   handleBackTime();
-      //   break;
+      case 'ArrowRight':
+        handleForwardTime();
+        break;
+      case 'ArrowLeft':
+        handleBackTime();
+        break;
       default:
         break;
     }
@@ -110,7 +109,7 @@ function PlayController({
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [currentTime]);
 
   return (
     <Styled.Root>
